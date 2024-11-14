@@ -1,0 +1,16 @@
+﻿[FDConnection1]
+Coordinates=82,1,104,36
+
+[FDPhysSQLiteDriverLink1]
+Coordinates=191,1,165,36
+
+[FDGUIxWaitCursor1]
+Coordinates=191,53,132,36
+
+[FDQuery1]
+Coordinates=10,10,73,58
+Visible=True
+
+[]
+Coordinates=92,87,91,36
+

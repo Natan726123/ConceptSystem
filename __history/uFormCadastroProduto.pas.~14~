@@ -1,0 +1,60 @@
+unit uFormCadastroProduto;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB, Vcl.DBCtrls, uMainModulo,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+
+type
+  TFormCadastrarProdutos = class(TForm)
+    Label1: TLabel;
+    Edit1: TEdit;
+    Label2: TLabel;
+    Edit2: TEdit;
+    Label3: TLabel;
+    Memo1: TMemo;
+    Label4: TLabel;
+    DSDadosCadastroProdutos: TDataSource;
+    FDQueryTecidos: TFDQuery;
+    ComboBoxTecidos: TComboBox;
+    Label5: TLabel;
+    Edit3: TEdit;
+    Label6: TLabel;
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormCadastrarProdutos: TFormCadastrarProdutos;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFormCadastrarProdutos.FormCreate(Sender: TObject);
+begin
+  FDQueryTecidos.Open; // Abre a consulta para carregar os tecidos
+  
+
+  ComboBoxTecidos.Items.Clear;
+
+  while not FDQueryTecidos.Eof do
+  begin
+    ComboBoxTecidos.Items.AddObject(
+      FDQueryTecidos.FieldByName('nomeTecido').AsString,
+      TObject(FDQueryTecidos.FieldByName('codTecido').AsInteger)
+    );
+    FDQueryTecidos.Next;
+  end;
+
+  FDQueryTecidos.Close; // Fecha a consulta após carregar os dados
+end;
+
+end.
