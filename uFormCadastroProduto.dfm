@@ -1,10 +1,10 @@
-object FormCadastrarProdutos: TFormCadastrarProdutos
+﻿object FormCadastrarProdutos: TFormCadastrarProdutos
   Left = 0
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Cadastrar Produtos'
   ClientHeight = 628
-  ClientWidth = 674
+  ClientWidth = 947
   Color = clSnow
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,8 +16,8 @@ object FormCadastrarProdutos: TFormCadastrarProdutos
   OnCreate = FormCreate
   TextHeight = 15
   object Label1: TLabel
-    Left = 192
-    Top = 8
+    Left = 344
+    Top = 16
     Width = 257
     Height = 37
     Caption = 'Cadastro de Produtos'
@@ -43,7 +43,7 @@ object FormCadastrarProdutos: TFormCadastrarProdutos
     Caption = 'Refer'#234'ncia:'
   end
   object Label4: TLabel
-    Left = 312
+    Left = 523
     Top = 112
     Width = 73
     Height = 15
@@ -64,34 +64,34 @@ object FormCadastrarProdutos: TFormCadastrarProdutos
     Caption = 'C'#243'digo:'
   end
   object Label7: TLabel
-    Left = 391
+    Left = 634
     Top = 205
     Width = 86
     Height = 15
     Caption = 'Rendimento/kg:'
   end
   object Label8: TLabel
-    Left = 495
+    Left = 755
     Top = 205
     Width = 64
     Height = 15
     Caption = 'Localiza'#231#227'o:'
   end
   object Tamanho: TLabel
-    Left = 312
-    Top = 205
+    Left = 595
+    Top = 199
     Width = 3
     Height = 15
   end
   object Label9: TLabel
-    Left = 312
+    Left = 523
     Top = 205
     Width = 52
     Height = 15
     Caption = 'Tamanho:'
   end
   object lblPrecoCusto: TLabel
-    Left = 575
+    Left = 858
     Top = 205
     Width = 81
     Height = 15
@@ -100,42 +100,42 @@ object FormCadastrarProdutos: TFormCadastrarProdutos
   object edtNome: TEdit
     Left = 16
     Top = 128
-    Width = 257
+    Width = 345
     Height = 23
     Enabled = False
     TabOrder = 0
-    Text = 'Suti'#227' Push-up'
+    Text = 'Calcinha Fio Dental'
     TextHint = 'Digite o nome do produto'
   end
   object edtReferencia: TEdit
     Left = 16
     Top = 176
-    Width = 257
+    Width = 345
     Height = 23
     Enabled = False
     TabOrder = 1
-    Text = 'REF105'
+    Text = 'REF104'
     TextHint = 'Digite uma refer'#234'ncia do produto'
   end
   object MemoFichaTecnica: TMemo
-    Left = 312
+    Left = 523
     Top = 128
-    Width = 345
+    Width = 416
     Height = 71
     Enabled = False
     Lines.Strings = (
-      'Ficha E')
+      'Ficha D')
     TabOrder = 2
   end
   object ComboBoxTecidos: TComboBox
     Left = 16
     Top = 220
-    Width = 193
+    Width = 281
     Height = 23
     Enabled = False
-    ItemIndex = 16
+    ItemIndex = 4
     TabOrder = 3
-    Text = 'Poliamida'
+    Text = 'Poli'#233'ster'
     TextHint = 'Selecione o tecido do produto'
     OnChange = ComboBoxTecidosChange
     Items.Strings = (
@@ -143,60 +143,62 @@ object FormCadastrarProdutos: TFormCadastrarProdutos
       'Algod'#227'o'
       'Algod'#227'o'
       'Algod'#227'o'
-      'Renda'
-      'Renda'
-      'Renda'
-      'Renda'
+      'Poli'#233'ster'
+      'Poli'#233'ster'
+      'Poli'#233'ster'
+      'Poli'#233'ster'
       'Algod'#227'o'
       'Algod'#227'o'
       'Algod'#227'o'
       'Algod'#227'o'
-      'Renda'
-      'Renda'
-      'Renda'
-      'Renda'
-      'Poliamida'
-      'Poliamida'
-      'Poliamida'
-      'Renda'
+      'Poli'#233'ster'
+      'Poli'#233'ster'
+      'Poli'#233'ster'
+      'Poli'#233'ster'
+      'Microfiber do ruim'
+      'Microfiber do ruim'
+      'Microfiber do ruim'
+      'Microfiber do ruim'
       'Algod'#227'o'
-      'Malha fina'
+      'Malha fina muito boa mesmo'
       'Algod'#227'o'
       'Natan Tecido'
       'Modal'
       'Microfiber do ruim'
-      'Malha fina'
-      'Rend'#227'o')
+      'Microfiber do ruim'
+      'Rend'#227'o'
+      'Rend'#227'o'
+      'Tecido do bombom')
   end
   object edtCodTecido: TEdit
-    Left = 215
+    Left = 303
     Top = 220
     Width = 58
     Height = 23
     Enabled = False
     ReadOnly = True
     TabOrder = 4
-    Text = 'Algod'#227'o'
+    Text = '2'
   end
   object edtRendimento: TEdit
-    Left = 391
+    Left = 634
     Top = 220
     Width = 98
     Height = 23
     Enabled = False
     NumbersOnly = True
     TabOrder = 5
-    Text = '110'
+    Text = '90'
     TextHint = 'Qtde Pe'#231'as'
   end
   object edtLocalizacao: TEdit
-    Left = 495
+    Left = 755
     Top = 220
-    Width = 74
+    Width = 81
     Height = 23
     Enabled = False
     TabOrder = 6
-    Text = 'B19'
+    Text = 'B13'
     TextHint = 'Endere'#231'amento'
   end
   object btnCadastrarProduto: TButton
@@ -227,7 +229,7 @@ object FormCadastrarProdutos: TFormCadastrarProdutos
     OnClick = btnDeleteClick
   end
   object btnSalvar: TButton
-    Left = 552
+    Left = 835
     Top = 264
     Width = 105
     Height = 33
@@ -237,7 +239,7 @@ object FormCadastrarProdutos: TFormCadastrarProdutos
     OnClick = btnSalvarClick
   end
   object btnCancelar: TButton
-    Left = 432
+    Left = 707
     Top = 264
     Width = 105
     Height = 33
@@ -249,14 +251,21 @@ object FormCadastrarProdutos: TFormCadastrarProdutos
   object DBGridProdutos: TDBGrid
     Left = 8
     Top = 323
-    Width = 658
+    Width = 931
     Height = 297
     Align = alCustom
     BorderStyle = bsNone
+    Color = clSnow
     DataSource = DSDadosProdutos
     DragCursor = crDefault
     DrawingStyle = gdsGradient
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    ParentFont = False
     ParentShowHint = False
     ReadOnly = True
     ShowHint = False
@@ -268,25 +277,25 @@ object FormCadastrarProdutos: TFormCadastrarProdutos
     TitleFont.Style = []
   end
   object ComboBoxTamanho: TComboBox
-    Left = 312
+    Left = 523
     Top = 220
-    Width = 73
+    Width = 89
     Height = 23
     Enabled = False
-    ItemIndex = 2
+    ItemIndex = 0
     TabOrder = 13
-    Text = 'G'
+    Text = 'P'
     Items.Strings = (
       'P'
-      'M'
-      'G'
-      'GG'
       'P'
-      'M'
-      'G'
-      'GG'
       'P'
-      'M'
+      'P'
+      'P'
+      'P'
+      'P'
+      'P'
+      'P'
+      'P'
       'G'
       'GG'
       'P'
@@ -304,10 +313,12 @@ object FormCadastrarProdutos: TFormCadastrarProdutos
       'P'
       '50'
       'P'
-      '50')
+      '50'
+      'M'
+      'GG')
   end
   object edtPrecoCusto: TEdit
-    Left = 575
+    Left = 858
     Top = 220
     Width = 82
     Height = 23
@@ -321,7 +332,7 @@ object FormCadastrarProdutos: TFormCadastrarProdutos
   object DSDadosCadastroTecidos: TDataSource
     AutoEdit = False
     DataSet = Form6.FDQuery1
-    Left = 480
+    Left = 720
     Top = 8
   end
   object FDQueryTecidos: TFDQuery
@@ -329,33 +340,96 @@ object FormCadastrarProdutos: TFormCadastrarProdutos
     Connection = Form6.FDConnection1
     SQL.Strings = (
       'SELECT codTecido, nomeTecido FROM TBtecidos')
-    Left = 600
+    Left = 840
     Top = 8
   end
   object FDQueryProdutos: TFDQuery
     Active = True
     Connection = Form6.FDConnection1
     SQL.Strings = (
-      'select codProduto as '#39'Id'#39','
-      'nomeProduto as '#39'Produto'#39','
-      'refProduto as '#39'Refer'#234'ncia'#39','
-      'tamanhoProduto as '#39'Tamanho'#39','
-      'rendimentoKg as '#39'Rendimento'#39','
-      'localizacaoProduto as '#39'Localiza'#231#227'o'#39','
-      'codTecido as '#39'Cod Tecido'#39','
-      'nomeTecido as '#39'Tecido'#39','
-      'fichaTecnica as '#39'Ficha T'#233'cnica'#39','
-      'precoCusto as '#39'Custo'#39
+      'select P.codProduto as '#39'Id'#39','
+      'P.nomeProduto as '#39'Produto'#39','
+      'P.refProduto as '#39'Refer'#234'ncia'#39','
+      'P.tamanhoProduto as '#39'Tamanho'#39','
+      'P.rendimentoKg as '#39'Rendimento'#39','
+      'P.localizacaoProduto as '#39'Localiza'#231#227'o'#39','
+      'P.codTecido as '#39'Cod Tecido'#39','
+      'T.nomeTecido as '#39'Tecido'#39','
+      'P.fichaTecnica as '#39'Ficha T'#233'cnica'#39','
+      'P.precoCusto as '#39'Custo'#39
       ''
       ''
-      'from TBprodutos;')
-    Left = 600
+      'from TBprodutos P, TBtecidos T'
+      #9'where P.codTecido = T.codTecido;')
+    Left = 840
     Top = 64
+    object FDQueryProdutosId: TFDAutoIncField
+      FieldName = 'Id'
+      Origin = 'codProduto'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = False
+    end
+    object FDQueryProdutosProduto: TStringField
+      FieldName = 'Produto'
+      Origin = 'nomeProduto'
+      Required = True
+      FixedChar = True
+      Size = 50
+    end
+    object FDQueryProdutosReferência: TStringField
+      FieldName = 'Refer'#234'ncia'
+      Origin = 'refProduto'
+      FixedChar = True
+      Size = 50
+    end
+    object FDQueryProdutosTamanho: TStringField
+      FieldName = 'Tamanho'
+      Origin = 'tamanhoProduto'
+      Required = True
+      FixedChar = True
+      Size = 10
+    end
+    object FDQueryProdutosRendimento: TIntegerField
+      FieldName = 'Rendimento'
+      Origin = 'rendimentoKg'
+      Required = True
+    end
+    object FDQueryProdutosLocalização: TStringField
+      FieldName = 'Localiza'#231#227'o'
+      Origin = 'localizacaoProduto'
+      Required = True
+      FixedChar = True
+    end
+    object FDQueryProdutosCodTecido: TIntegerField
+      FieldName = 'Cod Tecido'
+      Origin = 'codTecido'
+      Required = True
+    end
+    object FDQueryProdutosTecido: TStringField
+      FieldName = 'Tecido'
+      Origin = 'nomeTecido'
+      Required = True
+      FixedChar = True
+      Size = 50
+    end
+    object FDQueryProdutosFichaTécnica: TStringField
+      FieldName = 'Ficha T'#233'cnica'
+      Origin = 'fichaTecnica'
+      FixedChar = True
+      Size = 50
+    end
+    object FDQueryProdutosCusto: TBCDField
+      FieldName = 'Custo'
+      Origin = 'precoCusto'
+      currency = True
+      Precision = 10
+      Size = 2
+    end
   end
   object DSDadosProdutos: TDataSource
     AutoEdit = False
     DataSet = FDQueryProdutos
-    Left = 480
+    Left = 720
     Top = 64
   end
   object BindSourceDB1: TBindSourceDB
@@ -410,7 +484,6 @@ object FormCadastrarProdutos: TFormCadastrarProdutos
       Control = ComboBoxTecidos
       Track = True
       FillDataSource = BindSourceDB1
-      FillValueFieldName = 'Tecido'
       FillDisplayFieldName = 'Tecido'
       AutoFill = True
       FillExpressions = <>
@@ -440,8 +513,8 @@ object FormCadastrarProdutos: TFormCadastrarProdutos
     end
     object LinkControlToField2: TLinkControlToField
       Category = 'Quick Bindings'
-      DataSource = BindSourceDB2
-      FieldName = 'nomeTecido'
+      DataSource = BindSourceDB1
+      FieldName = 'Cod Tecido'
       Control = edtCodTecido
       Track = True
     end

@@ -17,6 +17,7 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
 
+  TStyleManager.TrySetStyle('Glossy');
   Application.CreateForm(TFormDashboard, FormDashboard);
   //Application.CreateForm(TForm1, Form1);
   //Application.CreateForm(TFormPathDB, FormPathDB);

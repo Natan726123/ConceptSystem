@@ -29,6 +29,7 @@ type
     procedure CadastrarTecido1Click(Sender: TObject);
     procedure Basededados1Click(Sender: TObject);
     procedure btnCadastrarProdutosClick(Sender: TObject);
+    procedure CadastrarProduto1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -95,6 +96,18 @@ begin
     formCadastrarTecido.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
   finally
     formCadastrarTecido.Free; // Libera o formulário da memória somente após ele ser fechado
+  end;
+end;
+
+procedure TFormDashboard.CadastrarProduto1Click(Sender: TObject);
+var
+  formCadastrarProduto: TFormCadastrarProdutos;
+begin
+  formCadastrarProduto := TFormCadastrarProdutos.Create(Self);
+  try
+    formCadastrarProduto.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
+  finally
+    formCadastrarProduto.Free; // Libera o formulário da memória somente após ele ser fechado
   end;
 end;
 

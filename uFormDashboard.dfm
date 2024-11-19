@@ -71,6 +71,7 @@ object FormDashboard: TFormDashboard
       Caption = 'Cadastrar'
       object CadastrarProduto1: TMenuItem
         Caption = 'Cadastrar Produto'
+        OnClick = CadastrarProduto1Click
       end
       object CadastrarTecido1: TMenuItem
         Caption = 'Cadastrar Tecido'

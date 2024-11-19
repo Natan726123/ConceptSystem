@@ -56,6 +56,16 @@ type
     LinkControlToField7: TLinkControlToField;
     BindSourceDB2: TBindSourceDB;
     LinkControlToField2: TLinkControlToField;
+    FDQueryProdutosId: TFDAutoIncField;
+    FDQueryProdutosProduto: TStringField;
+    FDQueryProdutosReferência: TStringField;
+    FDQueryProdutosTamanho: TStringField;
+    FDQueryProdutosRendimento: TIntegerField;
+    FDQueryProdutosLocalização: TStringField;
+    FDQueryProdutosCodTecido: TIntegerField;
+    FDQueryProdutosTecido: TStringField;
+    FDQueryProdutosFichaTécnica: TStringField;
+    FDQueryProdutosCusto: TBCDField;
     procedure FormCreate(Sender: TObject);
     procedure ComboBoxTecidosChange(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
