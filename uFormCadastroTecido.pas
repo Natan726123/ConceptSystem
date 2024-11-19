@@ -25,14 +25,14 @@ type
     btnAlterar: TButton;
     btnDelete: TButton;
     DSDados: TDataSource;
+    DBGridTecidos: TDBGrid;
+    Label4: TLabel;
+    FDQuery1: TFDQuery;
     BindSourceDB1: TBindSourceDB;
     BindingsList1: TBindingsList;
     LinkControlToField1: TLinkControlToField;
     LinkControlToField2: TLinkControlToField;
     LinkControlToField3: TLinkControlToField;
-    DBGrid1: TDBGrid;
-    Label4: TLabel;
-    FDQuery1: TFDQuery;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCadastrarNovoTecidoClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -116,7 +116,8 @@ begin
   btnDelete.Enabled := true;
   btnAlterar.Enabled := true;
   btnSalvar.Enabled := false;
-  btnCadastrarNovoTecido.Enabled := true;
+  DSDados.DataSet.Cancel;
+  DSDados.DataSet.Refresh;
 end;
 
 procedure TFormCadastroTecido.btnDeleteClick(Sender: TObject);
@@ -171,7 +172,7 @@ end;
 
 procedure TFormCadastroTecido.FormCreate(Sender: TObject);
 begin
-  AjustarLarguraColunas(DBGrid1)
+  AjustarLarguraColunas(DBGridTecidos)
 end;
 
 procedure TFormCadastroTecido.Habilitar;

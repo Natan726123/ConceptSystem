@@ -56,6 +56,7 @@ object FormCadastroTecido: TFormCadastroTecido
     Height = 23
     Enabled = False
     TabOrder = 0
+    Text = 'Algod'#227'o'
     TextHint = 'digite o nome do tecido'
   end
   object EdtReferencia: TEdit
@@ -65,6 +66,7 @@ object FormCadastroTecido: TFormCadastroTecido
     Height = 23
     Enabled = False
     TabOrder = 1
+    Text = 'ALG-456'
     TextHint = 'digite uma refer'#234'ncia'
   end
   object MemoObservacoes: TMemo
@@ -73,6 +75,9 @@ object FormCadastroTecido: TFormCadastroTecido
     Width = 277
     Height = 69
     Enabled = False
+    Lines.Strings = (
+      'Tecido macio e confort'#225'vel, ideal para qualquer '
+      'pe'#231'a.')
     ParentShowHint = False
     ShowHint = True
     TabOrder = 2
@@ -131,7 +136,7 @@ object FormCadastroTecido: TFormCadastroTecido
     TabOrder = 7
     OnClick = btnDeleteClick
   end
-  object DBGrid1: TDBGrid
+  object DBGridTecidos: TDBGrid
     Left = 3
     Top = 255
     Width = 570
@@ -141,6 +146,7 @@ object FormCadastroTecido: TFormCadastroTecido
     DataSource = DSDados
     DragCursor = crDefault
     DrawingStyle = gdsGradient
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     ParentShowHint = False
     ReadOnly = True
     ShowHint = False
@@ -152,26 +158,38 @@ object FormCadastroTecido: TFormCadastroTecido
     TitleFont.Style = []
   end
   object DSDados: TDataSource
+    AutoEdit = False
     DataSet = FDQuery1
     Left = 528
     Top = 66
   end
+  object FDQuery1: TFDQuery
+    Active = True
+    Connection = Form6.FDConnection1
+    SQL.Strings = (
+      
+        'SELECT codTecido as Id, nomeTecido, refTecido, obsTecido FROM TB' +
+        'tecidos;'
+      '')
+    Left = 528
+    Top = 8
+  end
   object BindSourceDB1: TBindSourceDB
-    DataSet = Form6.FDQuery1
+    DataSource = DSDados
     ScopeMappings = <>
-    Left = 448
-    Top = 10
+    Left = 88
+    Top = 8
   end
   object BindingsList1: TBindingsList
     Methods = <>
     OutputConverters = <>
-    Left = 444
-    Top = 63
+    Left = 20
+    Top = 5
     object LinkControlToField1: TLinkControlToField
       Category = 'Quick Bindings'
       DataSource = BindSourceDB1
-      FieldName = 'nomeTecido'
-      Control = EdtNome
+      FieldName = 'refTecido'
+      Control = EdtReferencia
       Track = True
     end
     object LinkControlToField2: TLinkControlToField
@@ -184,20 +202,9 @@ object FormCadastroTecido: TFormCadastroTecido
     object LinkControlToField3: TLinkControlToField
       Category = 'Quick Bindings'
       DataSource = BindSourceDB1
-      FieldName = 'refTecido'
-      Control = EdtReferencia
+      FieldName = 'nomeTecido'
+      Control = EdtNome
       Track = True
     end
-  end
-  object FDQuery1: TFDQuery
-    Active = True
-    Connection = Form6.FDConnection1
-    SQL.Strings = (
-      
-        'SELECT codTecido as Id, nomeTecido, refTecido, obsTecido FROM TB' +
-        'tecidos;'
-      '')
-    Left = 528
-    Top = 8
   end
 end

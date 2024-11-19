@@ -1,58 +1,62 @@
 ﻿[Label1]
-Coordinates=168,309,53,58
+Coordinates=168,309,46,51
 
 [Label2]
-Coordinates=319,309,53,58
+Coordinates=319,309,46,51
 
 [Label3]
-Coordinates=316,10,53,58
+Coordinates=316,10,46,51
 
 [DSDados]
-Coordinates=340,110,69,58
+Coordinates=600,40,60,33
 Visible=True
 
 [Form6.FDQuery1]
-Coordinates=150,40,114,36
-Visible=False
+Coordinates=257,50,97,51
 
 []
-Coordinates=470,309,56,33
+Coordinates=65,1,92,51
 Visible=True
 
 [EdtNome]
-Coordinates=207,121,68,58
+Coordinates=610,210,59,51
 
 [EdtReferencia]
-Coordinates=195,10,96,58
+Coordinates=730,210,83,51
 
 [MemoObservacoes]
-Coordinates=182,232,125,58
-
-[BindSourceDB1]
-Coordinates=0,70,119,146
-
-[BindingsList1]
-Coordinates=151,1,91,36
-
-[DBGrid1]
-Coordinates=350,190,64,36
-Visible=True
+Coordinates=430,220,108,51
 
 [btnCadastrarNovoTecido]
-Coordinates=240,309,157,58
+Coordinates=240,309,137,51
 
 [btnDelete]
-Coordinates=388,10,70,58
+Coordinates=388,10,61,51
 
 [btnCancelar]
-Coordinates=391,309,84,58
+Coordinates=391,309,73,51
 
 [btnAlterar]
-Coordinates=89,309,71,58
+Coordinates=89,309,63,51
 
 [btnSalvar]
-Coordinates=10,309,69,58
+Coordinates=10,309,61,51
+Visible=True
 
 [Label4]
-Coordinates=0,0,53,58
+Coordinates=0,0,46,51
+
+[DBGridTecidos]
+Coordinates=230,160,89,33
+Visible=True
+
+[FDQuery1]
+Coordinates=500,40,63,123
+Visible=True
+
+[BindSourceDB1]
+Coordinates=673,40,92,141
+
+[BindingsList1]
+Coordinates=65,1,82,33
 

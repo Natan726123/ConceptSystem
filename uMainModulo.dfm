@@ -23,6 +23,7 @@ object Form6: TForm6
     UpdateOptions.AssignedValues = [uvLockPoint, uvCheckReadOnly, uvUpdateNonBaseFields]
     UpdateOptions.UpdateNonBaseFields = True
     UpdateOptions.CheckReadOnly = False
+    Connected = True
     LoginPrompt = False
     Left = 136
     Top = 96
