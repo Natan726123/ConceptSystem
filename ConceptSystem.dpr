@@ -9,7 +9,8 @@ uses
   Vcl.Themes,
   Vcl.Styles,
   uFormDashboard in 'uFormDashboard.pas' {Form4},
-  uFormCadastroProduto in 'uFormCadastroProduto.pas' {FormCadastrarProdutos};
+  uFormCadastroProduto in 'uFormCadastroProduto.pas' {FormCadastrarProdutos},
+  uFormCortador in 'uFormCortador.pas' {FormCadastroCortador};
 
 {$R *.res}
 
@@ -19,6 +20,7 @@ begin
 
   TStyleManager.TrySetStyle('Glossy');
   Application.CreateForm(TFormDashboard, FormDashboard);
+  //Application.CreateForm(TFormCadastroCortador, FormCadastroCortador);
   //Application.CreateForm(TForm1, Form1);
   //Application.CreateForm(TFormPathDB, FormPathDB);
   //Application.CreateForm(TForm4, Form4);

@@ -4,3 +4,9 @@ Visible=False
 [FormCadastrarProdutos.FDQueryTecidos]
 Visible=False
 
+[FormCadastroTecido.DSDados]
+Visible=False
+
+[FormCadastroCortador.FDQueryCortadores]
+Visible=False
+

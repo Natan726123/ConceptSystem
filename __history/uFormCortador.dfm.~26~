@@ -1,0 +1,282 @@
+object FormCadastroCortador: TFormCadastroCortador
+  Left = 0
+  Top = 0
+  BorderStyle = bsDialog
+  Caption = 'Cadastrar Cortador'
+  ClientHeight = 642
+  ClientWidth = 667
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Position = poScreenCenter
+  OnCreate = FormCreate
+  OnShow = FormShow
+  TextHeight = 15
+  object Label1: TLabel
+    Left = 192
+    Top = 24
+    Width = 275
+    Height = 32
+    Caption = 'Cadastro de Cortador'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -29
+    Font.Name = 'Britannic Bold'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 8
+    Top = 128
+    Width = 36
+    Height = 15
+    Caption = 'Nome:'
+  end
+  object Label3: TLabel
+    Left = 8
+    Top = 176
+    Width = 47
+    Height = 15
+    Caption = 'Telefone:'
+  end
+  object Label4: TLabel
+    Left = 344
+    Top = 128
+    Width = 52
+    Height = 15
+    Caption = 'Endere'#231'o:'
+  end
+  object Label5: TLabel
+    Left = 344
+    Top = 176
+    Width = 34
+    Height = 15
+    Caption = 'Bairro:'
+  end
+  object Label6: TLabel
+    Left = 536
+    Top = 176
+    Width = 40
+    Height = 15
+    Caption = 'Cidade:'
+  end
+  object Label7: TLabel
+    Left = 192
+    Top = 176
+    Width = 78
+    Height = 15
+    Caption = 'C'#243'd. Cortador:'
+  end
+  object edtNome: TEdit
+    Left = 8
+    Top = 144
+    Width = 273
+    Height = 23
+    Enabled = False
+    TabOrder = 0
+    Text = 'Clara Vieira'
+    TextHint = 'Escreva o nome do cortador'
+  end
+  object edtTelefone: TEdit
+    Left = 8
+    Top = 192
+    Width = 169
+    Height = 23
+    Enabled = False
+    NumbersOnly = True
+    TabOrder = 1
+    Text = '11911009988'
+    TextHint = 'Ex.: (22) 99999-9999'
+  end
+  object edtEndereco: TEdit
+    Left = 344
+    Top = 144
+    Width = 321
+    Height = 23
+    Enabled = False
+    TabOrder = 2
+    Text = 'Rua das Palmeiras, 707'
+    TextHint = 'Ex.: Rua das Flores, n'#176' 13'
+  end
+  object edtBairro: TEdit
+    Left = 344
+    Top = 192
+    Width = 177
+    Height = 23
+    Enabled = False
+    TabOrder = 3
+    Text = 'Moema'
+    TextHint = 'Ex.: Cascatinha'
+  end
+  object edtCidade: TEdit
+    Left = 536
+    Top = 192
+    Width = 129
+    Height = 23
+    Enabled = False
+    TabOrder = 4
+    Text = 'S'#227'o Paulo'
+    TextHint = 'Ex.: Nova Friburgo'
+  end
+  object edtCodCortador: TEdit
+    Left = 192
+    Top = 192
+    Width = 89
+    Height = 23
+    Enabled = False
+    TabOrder = 5
+    Text = '10'
+  end
+  object btnAlterar: TButton
+    Left = 8
+    Top = 240
+    Width = 105
+    Height = 33
+    Caption = 'Alterar'
+    TabOrder = 6
+    OnClick = btnAlterarClick
+  end
+  object btnDelete: TButton
+    Left = 128
+    Top = 240
+    Width = 105
+    Height = 33
+    Caption = 'Deletar'
+    TabOrder = 7
+    OnClick = btnDeleteClick
+  end
+  object btnCancelar: TButton
+    Left = 440
+    Top = 240
+    Width = 105
+    Height = 33
+    Caption = 'Cancelar'
+    Enabled = False
+    TabOrder = 8
+    OnClick = btnCancelarClick
+  end
+  object btnSalvar: TButton
+    Left = 560
+    Top = 240
+    Width = 105
+    Height = 33
+    Caption = 'Salvar'
+    Enabled = False
+    TabOrder = 9
+    OnClick = btnSalvarClick
+  end
+  object DBGridCortador: TDBGrid
+    Left = -6
+    Top = 304
+    Width = 665
+    Height = 338
+    Align = alCustom
+    BorderStyle = bsNone
+    Color = clSnow
+    DataSource = DSDadosCortadores
+    DragCursor = crDefault
+    DrawingStyle = gdsGradient
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    ParentFont = False
+    ParentShowHint = False
+    ReadOnly = True
+    ShowHint = False
+    TabOrder = 10
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -12
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = []
+  end
+  object btnCadastrarCortador: TButton
+    Left = 8
+    Top = 88
+    Width = 169
+    Height = 25
+    Caption = 'Cadastrar novo cortador'
+    TabOrder = 11
+    OnClick = btnCadastrarCortadorClick
+  end
+  object DSDadosCortadores: TDataSource
+    DataSet = FDQueryCortadores
+    Left = 536
+    Top = 72
+  end
+  object FDQueryCortadores: TFDQuery
+    Active = True
+    Connection = Form6.FDConnection1
+    SQL.Strings = (
+      'select codCortador as '#39'Id'#39','
+      #9'nomeCortador as '#39'Nome'#39','
+      #9'telefoneCortador as '#39'Telefone'#39','
+      #9'enderecoCortador as '#39'Endere'#231'o'#39','
+      #9'bairroCortador as '#39'Bairro'#39','
+      #9'cidadeCortador as '#39'Cidade'#39
+      ''
+      ' from TBcortadores;')
+    Left = 536
+    Top = 16
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSet = FDQueryCortadores
+    ScopeMappings = <>
+    Left = 104
+    Top = 8
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 20
+    Top = 5
+    object LinkControlToField1: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Id'
+      Control = edtCodCortador
+      Track = True
+    end
+    object LinkControlToField2: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Nome'
+      Control = edtNome
+      Track = True
+    end
+    object LinkControlToField3: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Cidade'
+      Control = edtCidade
+      Track = True
+    end
+    object LinkControlToField4: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Endere'#231'o'
+      Control = edtEndereco
+      Track = True
+    end
+    object LinkControlToField5: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Telefone'
+      Control = edtTelefone
+      Track = True
+    end
+    object LinkControlToField6: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Bairro'
+      Control = edtBairro
+      Track = True
+    end
+  end
+end
