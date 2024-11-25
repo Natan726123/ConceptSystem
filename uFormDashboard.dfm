@@ -6090,13 +6090,14 @@ object FormDashboard: TFormDashboard
     TabOrder = 3
     OnClick = btnCadastrarProdutosClick
   end
-  object Button5: TButton
+  object btnCadastrarFaccao: TButton
     Left = 8
     Top = 256
     Width = 257
     Height = 25
     Caption = 'Cadastrar Faccionista'
     TabOrder = 4
+    OnClick = btnCadastrarFaccaoClick
   end
   object Button6: TButton
     Left = 8

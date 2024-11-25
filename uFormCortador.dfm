@@ -5415,7 +5415,7 @@ object FormCadastroCortador: TFormCadastroCortador
     Height = 23
     Enabled = False
     TabOrder = 0
-    Text = 'Clara Vieira'
+    Text = 'Carlos Almeida'
     TextHint = 'Escreva o nome do cortador'
   end
   object edtTelefone: TEdit
@@ -5426,7 +5426,7 @@ object FormCadastroCortador: TFormCadastroCortador
     Enabled = False
     NumbersOnly = True
     TabOrder = 1
-    Text = '11911009988'
+    Text = '11987654321'
     TextHint = 'Ex.: (22) 99999-9999'
   end
   object edtEndereco: TEdit
@@ -5436,7 +5436,7 @@ object FormCadastroCortador: TFormCadastroCortador
     Height = 23
     Enabled = False
     TabOrder = 2
-    Text = 'Rua das Palmeiras, 707'
+    Text = 'Rua das Flores, 123'
     TextHint = 'Ex.: Rua das Flores, n'#176' 13'
   end
   object edtBairro: TEdit
@@ -5446,7 +5446,7 @@ object FormCadastroCortador: TFormCadastroCortador
     Height = 23
     Enabled = False
     TabOrder = 3
-    Text = 'Moema'
+    Text = 'Jardim das Rosas'
     TextHint = 'Ex.: Cascatinha'
   end
   object edtCidade: TEdit
@@ -5466,7 +5466,7 @@ object FormCadastroCortador: TFormCadastroCortador
     Height = 23
     Enabled = False
     TabOrder = 5
-    Text = '10'
+    Text = '1'
   end
   object btnAlterar: TButton
     Left = 8

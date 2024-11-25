@@ -1,0 +1,427 @@
+unit uFormCadastroFaccao;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  Vcl.StdCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.CheckLst,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client, uMainModulo,
+  System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.EngExt,
+  Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope, Math;
+
+type
+  TFormCadastroFaccao = class(TForm)
+    Image1: TImage;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    edtNome: TEdit;
+    edtTelefone: TEdit;
+    edtEndereco: TEdit;
+    edtBairro: TEdit;
+    edtCidade: TEdit;
+    edtCodFaccao: TEdit;
+    btnAlterar: TButton;
+    btnDelete: TButton;
+    btnCancelar: TButton;
+    btnSalvar: TButton;
+    btnCadastrarFaccao: TButton;
+    Label1: TLabel;
+    DBGridFaccao: TDBGrid;
+    CheckListBoxMaquinas: TCheckListBox;
+    Label8: TLabel;
+    Label10: TLabel;
+    edtFiltro: TEdit;
+    DSDadosFaccao: TDataSource;
+    FDQueryFaccao: TFDQuery;
+    BindSourceDB1: TBindSourceDB;
+    BindingsList1: TBindingsList;
+    LinkControlToField1: TLinkControlToField;
+    LinkControlToField2: TLinkControlToField;
+    LinkControlToField3: TLinkControlToField;
+    LinkControlToField4: TLinkControlToField;
+    LinkControlToField5: TLinkControlToField;
+    LinkControlToField6: TLinkControlToField;
+    procedure FDQueryFaccaoAfterScroll(DataSet: TDataSet);
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
+    procedure HabilitarEdits;
+    procedure DesabilitarEdits;
+    procedure LimparEdits;
+    procedure btnCadastrarFaccaoClick(Sender: TObject);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
+    procedure edtFiltroChange(Sender: TObject);
+    procedure FDQueryFaccaoFilterRecord(DataSet: TDataSet; var Accept: Boolean);
+    procedure DBGridFaccaoTitleClick(Column: TColumn);
+    procedure CarregarMaquinas;
+    procedure SalvarMaquinas;
+    procedure DSDadosFaccaoDataChange(Sender: TObject; Field: TField);
+    procedure CheckListBoxMaquinasClickCheck(Sender: TObject);
+    procedure PreencherCheckListBoxMaquinas(const FileName: string);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormCadastroFaccao: TFormCadastroFaccao;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFormCadastroFaccao.PreencherCheckListBoxMaquinas(const FileName: string);
+var
+  FileLines: TStringList;
+begin
+  // Verifica se o arquivo existe
+  if not FileExists(FileName) then
+  begin
+    ShowMessage('O arquivo ' + FileName + ' não foi encontrado.');
+    Exit;
+  end;
+
+  // Cria uma lista para carregar as linhas do arquivo
+  FileLines := TStringList.Create;
+  try
+    // Carrega o conteúdo do arquivo
+    FileLines.LoadFromFile(FileName);
+
+    // Adiciona as linhas ao CheckListBox
+    CheckListBoxMaquinas.Items.Assign(FileLines);
+  finally
+    FileLines.Free;
+  end;
+end;
+
+
+procedure TFormCadastroFaccao.CarregarMaquinas;
+var
+  Maquinas: TStringList;
+  I: Integer;
+  MaquinasColuna: string;
+begin
+  // Obtenha os dados da coluna "maquinas" para a linha atual
+  MaquinasColuna := FDQueryFaccao.FieldByName('maquinas').AsString;
+
+  // Cria uma lista para separar os valores
+  Maquinas := TStringList.Create;
+  try
+    // Configura a lista para usar ', ' como delimitador
+    Maquinas.StrictDelimiter := True;
+    Maquinas.Delimiter := ',';
+    Maquinas.DelimitedText := StringReplace(MaquinasColuna, ', ', ',', [rfReplaceAll]);
+
+    // Percorre os itens do CheckListBox
+    for I := 0 to CheckListBoxMaquinas.Items.Count - 1 do
+    begin
+      // Marca o item se ele estiver presente na lista de máquinas
+      CheckListBoxMaquinas.Checked[I] := Maquinas.IndexOf(CheckListBoxMaquinas.Items[I]) >= 0;
+    end;
+  finally
+    Maquinas.Free;
+  end;
+end;
+
+
+procedure TFormCadastroFaccao.CheckListBoxMaquinasClickCheck(Sender: TObject);
+begin
+  SalvarMaquinas;
+end;
+
+procedure TFormCadastroFaccao.SalvarMaquinas;
+var
+  MaquinasSelecionadas: TStringList;
+  I: Integer;
+begin
+  // Cria uma lista para armazenar as máquinas selecionadas
+  MaquinasSelecionadas := TStringList.Create;
+  try
+    // Percorre os itens do CheckListBox
+    for I := 0 to CheckListBoxMaquinas.Items.Count - 1 do
+    begin
+      // Adiciona à lista as máquinas marcadas
+      if CheckListBoxMaquinas.Checked[I] then
+        MaquinasSelecionadas.Add(CheckListBoxMaquinas.Items[I]);
+    end;
+
+    // Atualiza o campo "maquinas" no banco com os valores selecionados
+    FDQueryFaccao.Edit;
+    FDQueryFaccao.FieldByName('maquinas').AsString := MaquinasSelecionadas.CommaText;
+    //FDQueryFaccao.Post;
+  finally
+    MaquinasSelecionadas.Free;
+  end;
+end;
+
+
+
+function RemoverAcentos(const S: String): String;
+const
+  Acentos: array[0..7] of Char = ('á', 'à', 'ã', 'â', 'é', 'è', 'ê', 'í');
+  SemAcento: array[0..7] of Char = ('a', 'a', 'a', 'a', 'e', 'e', 'e', 'i');
+var
+  i: Integer;
+  ResultStr: String;
+begin
+  ResultStr := S;
+  for i := 0 to Length(Acentos) - 1 do
+    ResultStr := StringReplace(ResultStr, Acentos[i], SemAcento[i], [rfReplaceAll, rfIgnoreCase]);
+  Result := ResultStr;
+end;
+
+procedure AjustarLarguraColunas(DBGrid: TDBGrid);
+var
+  i, largura: Integer;
+begin
+  DBGrid.Columns.BeginUpdate;
+  try
+    for i := 0 to DBGrid.Columns.Count - 1 do
+    begin
+      largura := DBGrid.Canvas.TextWidth(DBGrid.Columns[i].Title.Caption) + 20; // Título com padding
+      DBGrid.Columns[i].Width := largura;
+
+      DBGrid.DataSource.DataSet.First;
+      while not DBGrid.DataSource.DataSet.Eof do
+      begin
+        largura := Max(largura, DBGrid.Canvas.TextWidth(DBGrid.DataSource.DataSet.Fields[i].AsString) + 20);
+        DBGrid.DataSource.DataSet.Next;
+      end;
+      DBGrid.Columns[i].Width := largura;
+    end;
+  finally
+    DBGrid.Columns.EndUpdate;
+  end;
+end;
+
+function GetSelectedMachines(CheckListBox: TCheckListBox): String;
+var
+  i: Integer;
+  Machines: TStringList;
+begin
+  Machines := TStringList.Create;
+  try
+    for i := 0 to CheckListBox.Count - 1 do
+    begin
+      if CheckListBox.Checked[i] then
+        Machines.Add(CheckListBox.Items[i]); // Adiciona os itens selecionados à lista
+    end;
+    Result := Machines.CommaText; // Converte a lista em uma string separada por vírgulas
+  finally
+    Machines.Free;
+  end;
+end;
+
+procedure SetSelectedMachines(CheckListBox: TCheckListBox; MachineList: String);
+var
+  Machines: TStringList;
+  i: Integer;
+begin
+  Machines := TStringList.Create;
+  try
+    Machines.CommaText := MachineList; // Converte a string separada por vírgulas para uma lista
+    for i := 0 to CheckListBox.Count - 1 do
+    begin
+      CheckListBox.Checked[i] := Machines.IndexOf(CheckListBox.Items[i]) <> -1; // Marca os itens correspondentes
+    end;
+  finally
+    Machines.Free;
+  end;
+end;
+
+procedure TFormCadastroFaccao.btnAlterarClick(Sender: TObject);
+begin
+  HabilitarEdits;
+  btnCadastrarFaccao.Enabled := false;
+  btnCancelar.Enabled := true;
+  btnSalvar.Enabled := true;
+  btnAlterar.Enabled := false;
+  btnDelete.Enabled := false;
+  DSDadosFaccao.DataSet.Edit;
+  edtNome.SetFocus;
+end;
+
+procedure TFormCadastroFaccao.btnCadastrarFaccaoClick(Sender: TObject);
+begin
+  HabilitarEdits;
+  btnCadastrarFaccao.Enabled := false;
+  btnCancelar.Enabled := true;
+  btnSalvar.Enabled := true;
+  btnAlterar.Enabled := false;
+  btnDelete.Enabled := false;
+  DSDadosFaccao.DataSet.Insert;
+  edtNome.SetFocus;
+end;
+
+procedure TFormCadastroFaccao.btnCancelarClick(Sender: TObject);
+begin
+  LimparEdits;
+  DesabilitarEdits;
+  btnCancelar.Enabled := false;
+  btnSalvar.Enabled := false;
+  btnAlterar.Enabled := true;
+  btnDelete.Enabled := true;
+  btnCadastrarFaccao.Enabled := true;
+  DSDadosFaccao.DataSet.Cancel;
+end;
+
+procedure TFormCadastroFaccao.btnDeleteClick(Sender: TObject);
+begin
+  if Application.MessageBox(PChar(Format('%s' + #13 + '[%s]',
+    ['Deseja realmente excluir esta facção?',
+    DSDadosFaccao.DataSet.FieldByName('Nome').AsString])), 'Atenção',
+    MB_ICONQUESTION + MB_YESNO) = IDYES then
+  begin
+    try
+      // Deleta o registro do DataSet
+      DSDadosFaccao.DataSet.Delete;
+
+      // Aplica as alterações ao banco de dados
+      if DSDadosFaccao.DataSet is TFDQuery then
+        TFDQuery(DSDadosFaccao.DataSet).ApplyUpdates(0);
+
+      // Atualiza o DataSet manualmente
+      TFDQuery(DSDadosFaccao.DataSet).Close;
+      TFDQuery(DSDadosFaccao.DataSet).Open;
+    except
+      on E: Exception do
+        ShowMessage('Erro ao excluir a facção: ' + E.Message);
+    end;
+  end;
+
+  AjustarLarguraColunas(DBGridFaccao);
+end;
+
+procedure TFormCadastroFaccao.btnSalvarClick(Sender: TObject);
+begin
+  if (edtNome.Text = '') then
+  begin
+    Application.MessageBox('É necessário preencher os campos informados.', 'Atenção');
+    Exit;
+  end
+  else
+  begin
+    DSDadosFaccao.DataSet.FieldByName('Nome').AsString := edtNome.Text;
+    DSDadosFaccao.DataSet.FieldByName('Telefone').AsString := edtTelefone.Text;
+    DSDadosFaccao.DataSet.FieldByName('Endereco').AsString := edtEndereco.Text;
+    DSDadosFaccao.DataSet.FieldByName('Bairro').AsString := edtBairro.Text;
+    DSDadosFaccao.DataSet.FieldByName('Cidade').AsString := edtCidade.Text;
+    SalvarMaquinas;
+    //DSDadosFaccao.DataSet.FieldByName('Maquinas').AsString := ;
+    DSDadosFaccao.DataSet.Post;
+    FDQueryFaccao.ApplyUpdates(0);
+    //DSDadosFaccao.DataSet.Refresh;
+    ShowMessage('Salvo com sucesso');
+    LimparEdits;
+    DesabilitarEdits;
+    AjustarLarguraColunas(DBGridFaccao);
+  end;
+
+  btnAlterar.Enabled := true;
+  btnDelete.Enabled := true;
+  btnCancelar.Enabled := false;
+  btnSalvar.Enabled := false;
+  btnCadastrarFaccao.Enabled := true;
+end;
+
+procedure TFormCadastroFaccao.FDQueryFaccaoFilterRecord(DataSet: TDataSet;
+  var Accept: Boolean);
+var
+  Filtro, Nome, Maquinas, Bairro, Cidade, Id: String;
+begin
+  Filtro := UpperCase(RemoverAcentos(edtFiltro.Text)); // Remove acentos do filtro
+
+  // Obtém os valores dos campos e remove os acentos também
+  Nome := UpperCase(RemoverAcentos(DataSet.FieldByName('Nome').AsString));
+  Maquinas := UpperCase(RemoverAcentos(DataSet.FieldByName('Maquinas').AsString));
+  Bairro := UpperCase(RemoverAcentos(DataSet.FieldByName('Bairro').AsString));
+  Cidade := UpperCase(RemoverAcentos(DataSet.FieldByName('Cidade').AsString));
+  Id := UpperCase(RemoverAcentos(DataSet.FieldByName('Id').AsString));
+
+  // Verifica se o filtro está presente em algum dos campos
+  Accept := (Pos(Filtro, Nome) > 0) or
+            (Pos(Filtro, Maquinas) > 0) or
+            (Pos(Filtro, Bairro) > 0) or
+            (Pos(Filtro, Cidade) > 0) or
+            (Pos(Filtro, Id) > 0);
+end;
+
+procedure TFormCadastroFaccao.FormCreate(Sender: TObject);
+begin
+  AjustarLarguraColunas(DBGridFaccao);
+
+
+end;
+
+
+procedure TFormCadastroFaccao.FormShow(Sender: TObject);
+begin
+  PreencherCheckListBoxMaquinas('lista-maquinas.txt');
+end;
+
+procedure TFormCadastroFaccao.HabilitarEdits;
+begin
+  edtNome.Enabled := true;
+  edtTelefone.Enabled := true;
+  edtEndereco.Enabled := true;
+  edtBairro.Enabled := true;
+  edtCidade.Enabled := true;
+  CheckListBoxMaquinas.Enabled := true;
+end;
+
+procedure TFormCadastroFaccao.DBGridFaccaoTitleClick(Column: TColumn);
+var
+  Coluna: string;
+begin
+  Coluna := Column.FieldName; // Obtém o nome do campo da coluna clicada
+
+  if FDQueryFaccao.Active then
+  begin
+    FDQueryFaccao.IndexFieldNames := Coluna; // Define a ordenação pelo campo
+  end;
+end;
+
+procedure TFormCadastroFaccao.DesabilitarEdits;
+begin
+  edtNome.Enabled := false;
+  edtTelefone.Enabled := false;
+  edtEndereco.Enabled := false;
+  edtBairro.Enabled := false;
+  edtCidade.Enabled := false;
+  CheckListBoxMaquinas.Enabled := false;
+end;
+
+procedure TFormCadastroFaccao.DSDadosFaccaoDataChange(Sender: TObject;
+  Field: TField);
+begin
+  CarregarMaquinas;
+end;
+
+procedure TFormCadastroFaccao.edtFiltroChange(Sender: TObject);
+begin
+  FDQueryFaccao.Filtered := False; // Desabilita o filtro para aplicar novamente
+  FDQueryFaccao.Filtered := edtFiltro.Text <> ''; // Só habilita se houver texto
+end;
+
+procedure TFormCadastroFaccao.LimparEdits;
+begin
+  edtNome.Clear;
+  edtTelefone.Clear;
+  edtEndereco.Clear;
+  edtBairro.Clear;
+  edtCidade.Clear;
+end;
+
+
+end.

@@ -15,15 +15,13 @@ object Form6: TForm6
   object FDConnection1: TFDConnection
     Params.Strings = (
       'Database=C:\sqlite\ConceptDB.db'
-      'OpenMode=CreateUTF16'
-      'DriverID=SQLite'
-      'LockingMode=Normal')
+      'LockingMode=Normal'
+      'DriverID=SQLite')
     FormatOptions.AssignedValues = [fvDefaultParamDataType]
     FormatOptions.DefaultParamDataType = ftString
     UpdateOptions.AssignedValues = [uvLockPoint, uvCheckReadOnly, uvUpdateNonBaseFields]
     UpdateOptions.UpdateNonBaseFields = True
     UpdateOptions.CheckReadOnly = False
-    Connected = True
     LoginPrompt = False
     Left = 136
     Top = 96

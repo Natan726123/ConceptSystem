@@ -78,10 +78,7 @@ type
     procedure Habilitar;
     procedure Limpar;
     Procedure Desabilitar;
-    procedure edtPrecoCustoKeyPress(Sender: TObject; var Key: Char);
-    procedure edtPrecoCustoEnter(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
-    procedure edtPrecoCustoExit(Sender: TObject);
     procedure PreencherComboBoxTamanhos;
     procedure FDQueryProdutosFilterRecord(DataSet: TDataSet;
       var Accept: Boolean);
@@ -207,17 +204,6 @@ begin
   // Substitua a vírgula por ponto para que o Delphi possa converter corretamente
   CleanText := StringReplace(CleanText, ',', '.', [rfReplaceAll]);
 
-//  try
-//    preco := StrToFloat(CleanText);
-//  except
-//    on E: EConvertError do
-//    begin
-//      Application.MessageBox('O valor de Preço de Custo é inválido. Por favor, insira um valor numérico válido.', 'Erro');
-//      edtPrecoCusto.SetFocus;
-//      Exit;
-//    end;
-//  end;
-
   // Verifique se os outros campos estão preenchidos
   if ((edtNome.Text = '') or (edtReferencia.Text = '') or (ComboBoxTecidos.Text = '') or
       (ComboBoxTamanho.Text = '') or (edtRendimento.Text = '') or (edtLocalizacao.Text = '')) then
@@ -289,45 +275,6 @@ begin
   FDQueryProdutos.Filtered := edtFiltro.Text <> ''; // Só habilita se houver texto
 end;
 
-procedure TFormCadastrarProdutos.edtPrecoCustoEnter(Sender: TObject);
-begin
-  //edtPrecoCusto.Text := FormatFloat('0.00', FDQueryProdutos.FieldByName('precoCusto').AsFloat);
-end;
-
-procedure TFormCadastrarProdutos.edtPrecoCustoExit(Sender: TObject);
-  var
-  Value: Double;
-begin
-//  if Trim(EdtPrecoCusto.Text) = '' then
-//    Exit;
-//
-//  try
-//    // Substituir vírgula por ponto para conversão
-//    Value := StrToFloat(StringReplace(EdtPrecoCusto.Text, '.', '', [rfReplaceAll])
-//      .Replace(',', '.'));
-//
-//    // Formatar o valor no padrão brasileiro
-//    EdtPrecoCusto.Text := FormatFloat('#,##0.00', Value);
-//  except
-//    on E: EConvertError do
-//    begin
-//      ShowMessage('Digite um valor válido.');
-//      EdtPrecoCusto.SetFocus;
-//    end;
-//  end;
-end;
-
-
-procedure TFormCadastrarProdutos.edtPrecoCustoKeyPress(Sender: TObject;
-  var Key: Char);
-begin
-//  if not CharInSet(Key, ['0'..'9', ',', '.', #8]) then
-//    Key := #0;
-//
-//  if Key = '.' then
-//    Key := ',';
-end;
-
 procedure TFormCadastrarProdutos.FDQueryProdutosFilterRecord(DataSet: TDataSet;
   var Accept: Boolean);
 
@@ -353,16 +300,7 @@ begin
 end;
 
 procedure TFormCadastrarProdutos.FormCreate(Sender: TObject);
-var
-  codTecidoSelecionado: Integer;
 begin
-
-  // Configurar formato numérico para o Brasil
-  FormatSettings.DecimalSeparator := ',';
-  FormatSettings.ThousandSeparator := '.';
-  //btnSalvar.Enabled := false;
-  //btnCancelar.Enabled := false;
-
   PreencherComboBoxTamanhos;
 
   AjustarLarguraColunas(DBGridProdutos);

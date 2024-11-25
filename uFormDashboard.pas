@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Unit2, uFormCadastroTecido, Vcl.Menus,
   VCLTee.TeCanvas, uFormDBPath, uFormCadastroProduto, uFormCortador, Vcl.Styles, Vcl.Themes,
-  Vcl.Imaging.pngimage, Vcl.ExtCtrls;
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, uFormCadastroFaccao;
 
 type
   TFormDashboard = class(TForm)
@@ -14,7 +14,7 @@ type
     btnCadastrarCortador: TButton;
     btnCadastrarTecido: TButton;
     btnCadastrarProdutos: TButton;
-    Button5: TButton;
+    btnCadastrarFaccao: TButton;
     Button6: TButton;
     MainMenu1: TMainMenu;
     Cadastrar1: TMenuItem;
@@ -49,6 +49,7 @@ type
     procedure Blue1Click(Sender: TObject);
     procedure Default1Click(Sender: TObject);
     procedure Default2Click(Sender: TObject);
+    procedure btnCadastrarFaccaoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -86,6 +87,18 @@ end;
 procedure TFormDashboard.btnStyleGlossyClick(Sender: TObject);
 begin
   TStyleManager.TrySetStyle('Glossy');
+end;
+
+procedure TFormDashboard.btnCadastrarFaccaoClick(Sender: TObject);
+var
+  formCadastrarFaccao: TFormCadastroFaccao;
+begin
+  formCadastrarFaccao := TFormCadastroFaccao.Create(Self);
+  try
+    formCadastrarFaccao.ShowModal;
+  finally
+    formCadastrarFaccao.Free;
+  end;
 end;
 
 procedure TFormDashboard.Blue1Click(Sender: TObject);

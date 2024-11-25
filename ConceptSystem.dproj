@@ -162,6 +162,10 @@
             <Form>FormCadastroCortador</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uFormCadastroFaccao.pas">
+            <Form>FormCadastroFaccao</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

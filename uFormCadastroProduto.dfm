@@ -1,10 +1,10 @@
 ﻿object FormCadastrarProdutos: TFormCadastrarProdutos
   Left = 0
   Top = 0
-  BorderStyle = bsNone
+  BorderStyle = bsDialog
   Caption = 'Cadastrar Produtos'
-  ClientHeight = 685
-  ClientWidth = 963
+  ClientHeight = 646
+  ClientWidth = 947
   Color = clSnow
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -5650,7 +5650,7 @@
       'GG'
       'P'
       'M'
-      'GG'
+      'P'
       'P'
       'P'
       'P'
@@ -5672,9 +5672,6 @@
     TabOrder = 14
     Text = '10,80'
     TextHint = 'Custo em R$'
-    OnEnter = edtPrecoCustoEnter
-    OnExit = edtPrecoCustoExit
-    OnKeyPress = edtPrecoCustoKeyPress
   end
   object edtFiltro: TEdit
     Left = 709
@@ -5688,16 +5685,16 @@
   object DSDadosCadastroTecidos: TDataSource
     AutoEdit = False
     DataSet = Form6.FDQuery1
-    Left = 480
-    Top = 138
+    Left = 368
+    Top = 90
   end
   object FDQueryTecidos: TFDQuery
     Active = True
     Connection = Form6.FDConnection1
     SQL.Strings = (
       'SELECT codTecido, nomeTecido FROM TBtecidos')
-    Left = 424
-    Top = 138
+    Left = 280
+    Top = 90
   end
   object FDQueryProdutos: TFDQuery
     Active = True
@@ -5718,8 +5715,8 @@
       ''
       'from TBprodutos P, TBtecidos T'
       #9'where P.codTecido = T.codTecido;')
-    Left = 424
-    Top = 194
+    Left = 520
+    Top = 82
     object FDQueryProdutosId: TFDAutoIncField
       FieldName = 'Id'
       Origin = 'codProduto'
@@ -5786,8 +5783,8 @@
   object DSDadosProdutos: TDataSource
     AutoEdit = False
     DataSet = FDQueryProdutos
-    Left = 480
-    Top = 194
+    Left = 608
+    Top = 82
   end
   object BindSourceDB1: TBindSourceDB
     DataSet = FDQueryProdutos
