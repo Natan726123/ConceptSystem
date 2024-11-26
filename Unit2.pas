@@ -9,22 +9,46 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, uMainModulo,
-  FireDAC.Comp.Client, Vcl.DBGrids;
+  FireDAC.Comp.Client, Vcl.DBGrids, Vcl.Imaging.pngimage;
 
 type
   TFormGerarOrdemCorte = class(TForm)
     Button1: TButton;
     Label1: TLabel;
     ComboBoxProdutos: TComboBox;
-    EditQuantidade: TEdit;
-    Label2: TLabel;
-    Panel: TPanel;
+    pnlModelos: TPanel;
     DSDadosProdutos: TDataSource;
     FDQueryProdutos: TFDQuery;
     DBGridOrdemDeCorte: TDBGrid;
     DBGrid1: TDBGrid;
+    PanelTamanhos: TPanel;
+    edtCodProduto: TEdit;
+    Label2: TLabel;
+    edtTecido: TEdit;
+    Label3: TLabel;
+    edtCodTecido: TEdit;
+    Label4: TLabel;
+    edtRendimento: TEdit;
+    Label5: TLabel;
+    edtLocalizacao: TEdit;
+    Label6: TLabel;
+    edtCusto: TEdit;
+    Label7: TLabel;
+    Edit6: TEdit;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Button2: TButton;
+    Button3: TButton;
+    MemoObsOrdem: TMemo;
+    Label11: TLabel;
+    Image1: TImage;
+    Edit7: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ComboBoxProdutosChange(Sender: TObject);
+    procedure RadioButtonTamanhoClick(Sender: TObject);
+
 
   private
     { Private declarations }
@@ -42,6 +66,176 @@ implementation
 {$R *.dfm}
 
 
+procedure TFormGerarOrdemCorte.RadioButtonTamanhoClick(Sender: TObject);
+var
+  NomeProduto, TamanhoSelecionado: string;
+begin
+  // Verifica se há um produto selecionado no ComboBox
+  if ComboBoxProdutos.ItemIndex < 0 then
+  begin
+    ShowMessage('Por favor, selecione um produto no ComboBox.');
+    Exit;
+  end;
+
+  // Obtem o nome do produto selecionado
+  NomeProduto := ComboBoxProdutos.Text;
+
+  // Obtem o tamanho selecionado no RadioButton
+  if Sender is TRadioButton then
+    TamanhoSelecionado := TRadioButton(Sender).Caption
+  else
+  begin
+    ShowMessage('Erro ao identificar o tamanho selecionado.');
+    Exit;
+  end;
+
+  try
+    // Prepara a consulta para buscar as informações do produto e tamanho
+    FDQueryProdutos.SQL.Text :=
+      'SELECT codProduto, nomeTecido, codTecido, rendimentoKg, localizacaoProduto, precoCusto ' +
+      'FROM TBprodutos ' +
+      'WHERE nomeProduto = :nomeProduto AND tamanhoProduto = :tamanhoProduto';
+    FDQueryProdutos.ParamByName('nomeProduto').AsString := NomeProduto;
+    FDQueryProdutos.ParamByName('tamanhoProduto').AsString := TamanhoSelecionado;
+    FDQueryProdutos.Open;
+
+    // Verifica se a consulta retornou resultados
+    if not FDQueryProdutos.IsEmpty then
+    begin
+      edtCodProduto.Text := FDQueryProdutos.FieldByName('codProduto').AsString;
+      edtTecido.Text := FDQueryProdutos.FieldByName('nomeTecido').AsString;
+      edtCodTecido.Text := FDQueryProdutos.FieldByName('codTecido').AsString;
+      edtRendimento.Text := FDQueryProdutos.FieldByName('rendimentoKg').AsString;
+      edtLocalizacao.Text := FDQueryProdutos.FieldByName('localizacaoProduto').AsString;
+      edtCusto.Text := FormatFloat('0.00', FDQueryProdutos.FieldByName('precoCusto').AsFloat);
+    end
+    else
+    begin
+      ShowMessage('Nenhum registro encontrado para o produto e tamanho selecionados.');
+    end;
+
+    FDQueryProdutos.Close;
+  except
+    on E: Exception do
+      ShowMessage('Erro ao buscar informações do produto: ' + E.Message);
+  end;
+end;
+
+
+procedure TFormGerarOrdemCorte.ComboBoxProdutosChange(Sender: TObject);
+var
+  Tamanho: string;
+  PosicaoX: Integer;
+  PosicaoY: Integer;
+  NovoRadioButton: TRadioButton;
+  RadioButtonExiste: Boolean;
+  i: Integer;
+  Ctrl: TControl;
+begin
+  // Remove manualmente todos os controles no PanelTamanhos
+  for i := PanelTamanhos.ControlCount - 1 downto 0 do
+  begin
+    Ctrl := PanelTamanhos.Controls[i];
+    if Ctrl is TRadioButton then
+      Ctrl.Free; // Libera a memória do RadioButton
+  end;
+
+  // Verifica se o ComboBoxProduto não está vazio
+  if ComboBoxProdutos.ItemIndex > -1 then
+  begin
+    try
+      // Modifica a consulta do FDQueryProdutos para buscar os tamanhos distintos do produto selecionado
+      FDQueryProdutos.SQL.Text :=
+        'SELECT DISTINCT tamanhoProduto FROM TBprodutos ' +
+        'WHERE nomeProduto = :nomeProduto ' +
+        'ORDER BY ' +
+        '  CASE ' +
+        '    WHEN tamanhoProduto = ''P'' THEN 1 ' +
+        '    WHEN tamanhoProduto = ''M'' THEN 2 ' +
+        '    WHEN tamanhoProduto = ''G'' THEN 3 ' +
+        '    WHEN tamanhoProduto = ''GG'' THEN 4 ' +
+        '    WHEN tamanhoProduto = ''48'' THEN 5 ' +
+        '    WHEN tamanhoProduto = ''50'' THEN 6 ' +
+        '    WHEN tamanhoProduto = ''52'' THEN 7 ' +
+        '    WHEN tamanhoProduto = ''54'' THEN 8 ' +
+        '    WHEN tamanhoProduto = ''56'' THEN 9 ' +
+        '    WHEN tamanhoProduto = ''58'' THEN 10 ' +
+        '    ELSE 11 ' +
+        '  END';
+      FDQueryProdutos.ParamByName('nomeProduto').AsString := ComboBoxProdutos.Text;
+      FDQueryProdutos.Open;
+
+      // Verifica se a consulta retornou dados
+      if not FDQueryProdutos.IsEmpty then
+      begin
+        // Posições iniciais para os RadioButtons
+        PosicaoX := 10;  // Começa na posição horizontal 10
+        PosicaoY := 10;  // Começa na posição vertical 10
+
+        // Cria os RadioButtons com base nos tamanhos disponíveis
+        while not FDQueryProdutos.Eof do
+        begin
+          Tamanho := FDQueryProdutos.FieldByName('tamanhoProduto').AsString;
+
+          // Verifica se já existe um RadioButton com o nome baseado no tamanho
+          RadioButtonExiste := False;
+
+          // Itera sobre os controles do PanelTamanhos usando um índice
+          for i := 0 to PanelTamanhos.ControlCount - 1 do
+          begin
+            if (PanelTamanhos.Controls[i] is TRadioButton) and
+               (TRadioButton(PanelTamanhos.Controls[i]).Caption = Tamanho) then
+            begin
+              RadioButtonExiste := True;
+              Break; // Sai do loop se encontrar um já existente
+            end;
+          end;
+
+          // Se não encontrar um RadioButton com o mesmo nome, cria um novo
+          if not RadioButtonExiste then
+          begin
+            // Cria um novo RadioButton para cada tamanho disponível
+            NovoRadioButton := TRadioButton.Create(Self);
+            NovoRadioButton.Parent := PanelTamanhos;
+            NovoRadioButton.Caption := Tamanho;
+            NovoRadioButton.Left := PosicaoX;
+            NovoRadioButton.Top := PosicaoY;
+            NovoRadioButton.Name := 'rb' + Tamanho; // Nome único para cada RadioButton
+            NovoRadioButton.Width := 40;  // Largura do RadioButton
+            NovoRadioButton.Height := 25;  // Altura do RadioButton
+            NovoRadioButton.Tag := Integer(Tamanho); // Armazena o tamanho como tag
+
+            NovoRadioButton.OnClick := RadioButtonTamanhoClick;
+          end;
+
+          // Atualiza a posição horizontal (Left) com um pequeno espaçamento
+          PosicaoX := PosicaoX + NovoRadioButton.Width + 10;  // Largura do RadioButton + 10 pixels de espaço
+
+          // Se a posição X ultrapassar a largura do painel, move para a próxima linha
+          if PosicaoX + NovoRadioButton.Width > PanelTamanhos.Width then
+          begin
+            PosicaoX := 10;  // Reseta a posição horizontal para 10
+            PosicaoY := PosicaoY + 35;  // Move para a próxima linha (Ajuste a altura conforme necessário)
+          end;
+
+          FDQueryProdutos.Next;
+        end;
+      end
+      else
+      begin
+        // Caso não encontre nenhum tamanho para o produto, adicione uma mensagem ou ação alternativa
+        ShowMessage('Nenhum tamanho disponível para o produto selecionado.');
+      end;
+
+      FDQueryProdutos.Close;  // Fechar a consulta após usá-la
+    except
+      on E: Exception do
+      begin
+        ShowMessage('Erro ao carregar os tamanhos: ' + E.Message);
+      end;
+    end;
+  end;
+end;
 
 procedure TFormGerarOrdemCorte.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -54,13 +248,10 @@ begin
   ComboBoxProdutos.Items.Clear;
 
   while not FDQueryProdutos.Eof do
-  begin
-    ComboBoxProdutos.Items.AddObject(
-      FDQueryProdutos.FieldByName('Produto').AsString,
-      TObject(FDQueryProdutos.FieldByName('cod Produto').AsInteger)
-    );
-    FDQueryProdutos.Next;
-  end;
+begin
+  ComboBoxProdutos.Items.Add(FDQueryProdutos.FieldByName('Produto').AsString); // Adiciona os nomes dos produtos ao ComboBox
+  FDQueryProdutos.Next;
+end;
 
   FDQueryProdutos.Close; // Fecha a consulta após carregar os dados
 
