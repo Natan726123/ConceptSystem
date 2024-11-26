@@ -2,7 +2,7 @@ program ConceptSystem;
 
 uses
   Vcl.Forms,
-  Unit2 in 'Unit2.pas' {Form2},
+  Unit2 in 'Unit2.pas' {FormGerarOrdemCorte},
   uFormCadastroTecido in 'uFormCadastroTecido.pas' {FormCadastroTecido},
   uMainModulo in 'uMainModulo.pas' {Form6},
   uFormDBPath in 'uFormDBPath.pas' {FormPathDB},

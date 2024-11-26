@@ -5564,7 +5564,6 @@ object FormCadastroFaccao: TFormCadastroFaccao
     Width = 114
     Height = 76
     Enabled = False
-    ItemHeight = 15
     TabOrder = 12
     OnClickCheck = CheckListBoxMaquinasClickCheck
   end

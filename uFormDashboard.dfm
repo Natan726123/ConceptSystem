@@ -2,8 +2,8 @@ object FormDashboard: TFormDashboard
   Left = 0
   Top = 0
   Caption = 'Dashboard'
-  ClientHeight = 547
-  ClientWidth = 835
+  ClientHeight = 710
+  ClientWidth = 1072
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,7 +15,7 @@ object FormDashboard: TFormDashboard
   OnClose = FormClose
   TextHeight = 15
   object Label1: TLabel
-    Left = 295
+    Left = 439
     Top = 32
     Width = 243
     Height = 38
@@ -28,7 +28,7 @@ object FormDashboard: TFormDashboard
     ParentFont = False
   end
   object Image1: TImage
-    Left = 232
+    Left = 376
     Top = 8
     Width = 81
     Height = 89
@@ -717,8 +717,8 @@ object FormDashboard: TFormDashboard
     Proportional = True
   end
   object Image2: TImage
-    Left = 664
-    Top = 472
+    Left = 904
+    Top = 640
     Width = 163
     Height = 67
     Picture.Data = {
@@ -6054,62 +6054,137 @@ object FormDashboard: TFormDashboard
       9A50AD0ADA4C0000000049454E44AE426082}
     Proportional = True
   end
-  object btnGerarOrdemCorte: TButton
+  object pnlCadastros: TPanel
     Left = 8
-    Top = 320
-    Width = 257
-    Height = 25
-    Caption = 'Gerar Ordem de Corte'
+    Top = 152
+    Width = 273
+    Height = 233
     TabOrder = 0
-    OnClick = btnGerarOrdemCorteClick
+    object Label2: TLabel
+      Left = 96
+      Top = 0
+      Width = 90
+      Height = 28
+      Caption = 'Cadastros:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -20
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object btnCadastrarProdutos: TButton
+      Left = 8
+      Top = 44
+      Width = 257
+      Height = 40
+      Caption = 'Cadastrar Produto'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      OnClick = btnCadastrarProdutosClick
+    end
+    object btnCadastrarCortador: TButton
+      Left = 8
+      Top = 90
+      Width = 257
+      Height = 40
+      Caption = 'Cadastrar Cortador'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+      OnClick = btnCadastrarCortadorClick
+    end
+    object btnCadastrarFaccao: TButton
+      Left = 8
+      Top = 136
+      Width = 257
+      Height = 40
+      Caption = 'Cadastrar Faccionista'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 2
+      OnClick = btnCadastrarFaccaoClick
+    end
+    object btnCadastrarTecido: TButton
+      Left = 8
+      Top = 182
+      Width = 257
+      Height = 40
+      Caption = 'Cadastrar Tecido'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 3
+      OnClick = btnCadastrarTecidoClick
+    end
   end
-  object btnCadastrarCortador: TButton
+  object pnlOperacoes: TPanel
     Left = 8
-    Top = 225
-    Width = 257
-    Height = 25
-    Caption = 'Cadastrar Cortador'
+    Top = 416
+    Width = 273
+    Height = 145
     TabOrder = 1
-    OnClick = btnCadastrarCortadorClick
-  end
-  object btnCadastrarTecido: TButton
-    Left = 8
-    Top = 194
-    Width = 257
-    Height = 25
-    Caption = 'Cadastrar Tecido'
-    TabOrder = 2
-    OnClick = btnCadastrarTecidoClick
-  end
-  object btnCadastrarProdutos: TButton
-    Left = 8
-    Top = 163
-    Width = 257
-    Height = 25
-    Caption = 'Cadastrar Produto'
-    TabOrder = 3
-    OnClick = btnCadastrarProdutosClick
-  end
-  object btnCadastrarFaccao: TButton
-    Left = 8
-    Top = 256
-    Width = 257
-    Height = 25
-    Caption = 'Cadastrar Faccionista'
-    TabOrder = 4
-    OnClick = btnCadastrarFaccaoClick
-  end
-  object Button6: TButton
-    Left = 8
-    Top = 351
-    Width = 257
-    Height = 25
-    Caption = 'Criar Ficha de Fac'#231#227'o'
-    TabOrder = 5
+    object Label3: TLabel
+      Left = 91
+      Top = 8
+      Width = 97
+      Height = 28
+      Caption = 'Opera'#231#245'es:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -20
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object btnGerarOrdemCorte: TButton
+      Left = 8
+      Top = 51
+      Width = 257
+      Height = 40
+      Caption = 'Gerar Ordem de Corte'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      OnClick = btnGerarOrdemCorteClick
+    end
+    object Button6: TButton
+      Left = 8
+      Top = 97
+      Width = 257
+      Height = 40
+      Caption = 'Criar Ficha de Fac'#231#227'o'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+    end
   end
   object MainMenu1: TMainMenu
-    Left = 688
-    Top = 112
+    Left = 32
     object Cadastrar1: TMenuItem
       Caption = 'Cadastrar'
       object CadastrarProduto1: TMenuItem

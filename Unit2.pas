@@ -5,45 +5,36 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.Actions,
-  Vcl.ActnList, Vcl.Menus, Vcl.ExtCtrls, Vcl.WinXCalendars, Vcl.Grids;
+  Vcl.ActnList, Vcl.Menus, Vcl.ExtCtrls, Vcl.WinXCalendars, Vcl.Grids,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, uMainModulo,
+  FireDAC.Comp.Client, Vcl.DBGrids;
 
 type
-  TForm2 = class(TForm)
+  TFormGerarOrdemCorte = class(TForm)
     Button1: TButton;
     Label1: TLabel;
-    ComboBoxTecidos: TComboBox;
-    ComboBoxModelos: TComboBox;
-    RBTamP: TRadioButton;
-    RBTamM: TRadioButton;
-    RBTamG: TRadioButton;
-    RBTamGG: TRadioButton;
-    RBTam48: TRadioButton;
-    RBTam50: TRadioButton;
-    RBTam52: TRadioButton;
+    ComboBoxProdutos: TComboBox;
     EditQuantidade: TEdit;
     Label2: TLabel;
     Panel: TPanel;
-    Panel2: TPanel;
-    ComboBox1: TComboBox;
-    CalendarPicker1: TCalendarPicker;
-    CalendarPicker2: TCalendarPicker;
-    Label3: TLabel;
-    Label4: TLabel;
-    StringGrid1: TStringGrid;
+    DSDadosProdutos: TDataSource;
+    FDQueryProdutos: TFDQuery;
+    DBGridOrdemDeCorte: TDBGrid;
+    DBGrid1: TDBGrid;
     procedure FormCreate(Sender: TObject);
-    procedure btnAdicionarItemClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
   private
     { Private declarations }
   public
     { Public declarations }
-    procedure AdicionarItemOrdemCorte(Modelo, Tecido, Tamanho: String;Id, Quantidade: Integer);
 
   end;
 
 var
-  Form2: TForm2;
+  FormGerarOrdemCorte: TFormGerarOrdemCorte;
   IdItemLista: Integer;
 
 implementation
@@ -52,69 +43,27 @@ implementation
 
 
 
-procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TFormGerarOrdemCorte.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := caFree;
-  Form2 := nil;
+  FormGerarOrdemCorte := nil;
 end;
 
-procedure TForm2.FormCreate(Sender: TObject);
+procedure TFormGerarOrdemCorte.FormCreate(Sender: TObject);
 begin
-//  IdItemLista := 0;
-//
-//  StringGrid1.Cells[0, 0] := 'Id';
-//  StringGrid1.Cells[1, 0] := 'Modelo';
-//  StringGrid1.Cells[2, 0] := 'Tecido';
-//  StringGrid1.Cells[3, 0] := 'Tamanho';
-//  StringGrid1.Cells[4, 0] := 'Quantidade';
-end;
+  ComboBoxProdutos.Items.Clear;
 
-procedure TForm2.AdicionarItemOrdemCorte(Modelo, Tecido, Tamanho: String;Id, Quantidade: Integer);
-var
-  NovaLinha: Integer;
-begin
-  // Define a nova linha como a última linha existente
-  NovaLinha := StringGrid1.RowCount;
-  StringGrid1.RowCount := NovaLinha + 1; // Expande o grid para adicionar a nova linha
+  while not FDQueryProdutos.Eof do
+  begin
+    ComboBoxProdutos.Items.AddObject(
+      FDQueryProdutos.FieldByName('Produto').AsString,
+      TObject(FDQueryProdutos.FieldByName('cod Produto').AsInteger)
+    );
+    FDQueryProdutos.Next;
+  end;
 
-  // Preenche as células da nova linha com os dados
-  StringGrid1.Cells[0, NovaLinha] := IntToStr(id);
-  StringGrid1.Cells[1, NovaLinha] := Modelo;
-  StringGrid1.Cells[2, NovaLinha] := Tecido;
-  StringGrid1.Cells[3, NovaLinha] := Tamanho;
-  StringGrid1.Cells[4, NovaLinha] := IntToStr(Quantidade);
-end;
+  FDQueryProdutos.Close; // Fecha a consulta após carregar os dados
 
-procedure TForm2.btnAdicionarItemClick(Sender: TObject);
-
-  var
-  Modelo, Tecido, Tamanho: String;
-  Quantidade: Integer;
-begin
-  IdItemLista:= IdItemLista + 1;
-  Modelo := ComboBoxModelos.Text;
-  Tecido := ComboBoxTecidos.Text;
-  Tamanho := 'sem tamanho selecionado';
-  Quantidade := StrToIntDef(EditQuantidade.Text, 0);
-
-  if RBTamP.Checked then
-    Tamanho := 'P'
-  else if RBTamM.Checked then
-    Tamanho := 'M'
-  else if RBTamG.Checked then
-    Tamanho := 'G'
-  else if RBTamGG.Checked then
-    Tamanho := 'GG'
-  else if RBTam48.Checked then
-    Tamanho := '48'
-  else if RBTam50.Checked then
-    Tamanho := '50'
-  else if RBTam52.Checked then
-    Tamanho := '52';
-
-
-  // Adiciona o item ao StringGrid
-  AdicionarItemOrdemCorte(Modelo, Tecido, Tamanho, IdItemLista, Quantidade);
 end;
 
 

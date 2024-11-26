@@ -34,6 +34,10 @@ type
     Default1: TMenuItem;
     Default2: TMenuItem;
     Image2: TImage;
+    pnlCadastros: TPanel;
+    Label2: TLabel;
+    pnlOperacoes: TPanel;
+    Label3: TLabel;
     procedure btnGerarOrdemCorteClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCadastrarTecidoClick(Sender: TObject);
@@ -65,12 +69,12 @@ implementation
 
 procedure TFormDashboard.btnGerarOrdemCorteClick(Sender: TObject);
 var
-  formCorte : TForm2;
+  formCorte : TFormGerarOrdemCorte;
 begin
-  formCorte := TForm2.Create(Self);
+  formCorte := TFormGerarOrdemCorte.Create(Self);
   try
     if not Assigned(formCorte) then
-    Application.CreateForm(TForm2, Form2);
+    Application.CreateForm(TFormGerarOrdemCorte, FormGerarOrdemCorte);
 
     formCorte.Show;
   finally

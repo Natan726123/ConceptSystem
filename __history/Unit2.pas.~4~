@@ -1,0 +1,121 @@
+unit Unit2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.Actions,
+  Vcl.ActnList, Vcl.Menus, Vcl.ExtCtrls, Vcl.WinXCalendars, Vcl.Grids;
+
+type
+  TForm2 = class(TForm)
+    Button1: TButton;
+    Label1: TLabel;
+    ComboBoxTecidos: TComboBox;
+    ComboBoxModelos: TComboBox;
+    RBTamP: TRadioButton;
+    RBTamM: TRadioButton;
+    RBTamG: TRadioButton;
+    RBTamGG: TRadioButton;
+    RBTam48: TRadioButton;
+    RBTam50: TRadioButton;
+    RBTam52: TRadioButton;
+    EditQuantidade: TEdit;
+    Label2: TLabel;
+    Panel: TPanel;
+    Panel2: TPanel;
+    ComboBox1: TComboBox;
+    CalendarPicker1: TCalendarPicker;
+    CalendarPicker2: TCalendarPicker;
+    Label3: TLabel;
+    Label4: TLabel;
+    StringGrid1: TStringGrid;
+    procedure FormCreate(Sender: TObject);
+    procedure btnAdicionarItemClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure AdicionarItemOrdemCorte(Modelo, Tecido, Tamanho: String;Id, Quantidade: Integer);
+
+  end;
+
+var
+  Form2: TForm2;
+  IdItemLista: Integer;
+
+implementation
+
+{$R *.dfm}
+
+
+
+procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+  Form2 := nil;
+end;
+
+procedure TForm2.FormCreate(Sender: TObject);
+begin
+//  IdItemLista := 0;
+//
+//  StringGrid1.Cells[0, 0] := 'Id';
+//  StringGrid1.Cells[1, 0] := 'Modelo';
+//  StringGrid1.Cells[2, 0] := 'Tecido';
+//  StringGrid1.Cells[3, 0] := 'Tamanho';
+//  StringGrid1.Cells[4, 0] := 'Quantidade';
+end;
+
+procedure TForm2.AdicionarItemOrdemCorte(Modelo, Tecido, Tamanho: String;Id, Quantidade: Integer);
+var
+  NovaLinha: Integer;
+begin
+  // Define a nova linha como a última linha existente
+  NovaLinha := StringGrid1.RowCount;
+  StringGrid1.RowCount := NovaLinha + 1; // Expande o grid para adicionar a nova linha
+
+  // Preenche as células da nova linha com os dados
+  StringGrid1.Cells[0, NovaLinha] := IntToStr(id);
+  StringGrid1.Cells[1, NovaLinha] := Modelo;
+  StringGrid1.Cells[2, NovaLinha] := Tecido;
+  StringGrid1.Cells[3, NovaLinha] := Tamanho;
+  StringGrid1.Cells[4, NovaLinha] := IntToStr(Quantidade);
+end;
+
+procedure TForm2.btnAdicionarItemClick(Sender: TObject);
+
+  var
+  Modelo, Tecido, Tamanho: String;
+  Quantidade: Integer;
+begin
+  IdItemLista:= IdItemLista + 1;
+  Modelo := ComboBoxModelos.Text;
+  Tecido := ComboBoxTecidos.Text;
+  Tamanho := 'sem tamanho selecionado';
+  Quantidade := StrToIntDef(EditQuantidade.Text, 0);
+
+  if RBTamP.Checked then
+    Tamanho := 'P'
+  else if RBTamM.Checked then
+    Tamanho := 'M'
+  else if RBTamG.Checked then
+    Tamanho := 'G'
+  else if RBTamGG.Checked then
+    Tamanho := 'GG'
+  else if RBTam48.Checked then
+    Tamanho := '48'
+  else if RBTam50.Checked then
+    Tamanho := '50'
+  else if RBTam52.Checked then
+    Tamanho := '52';
+
+
+  // Adiciona o item ao StringGrid
+  AdicionarItemOrdemCorte(Modelo, Tecido, Tamanho, IdItemLista, Quantidade);
+end;
+
+
+end.

@@ -365,6 +365,9 @@ end;
 procedure TFormCadastroFaccao.FormShow(Sender: TObject);
 begin
   PreencherCheckListBoxMaquinas('lista-maquinas.txt');
+
+  if not DSDadosFaccao.DataSet.IsEmpty then
+  DSDadosFaccao.DataSet.First;
 end;
 
 procedure TFormCadastroFaccao.HabilitarEdits;

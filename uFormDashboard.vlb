@@ -1,12 +1,9 @@
-﻿[FormCadastrarProdutos.FDQueryProdutos]
-Visible=False
-
-[FormCadastrarProdutos.FDQueryTecidos]
-Visible=False
-
-[FormCadastroTecido.DSDados]
+﻿[FormCadastroTecido.DSDados]
 Visible=False
 
 [FormCadastroCortador.FDQueryCortadores]
+Visible=False
+
+[FormCadastroFaccao.FDQueryFaccao]
 Visible=False
 

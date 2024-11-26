@@ -1,0 +1,75 @@
+unit Unit2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.Actions,
+  Vcl.ActnList, Vcl.Menus, Vcl.ExtCtrls, Vcl.WinXCalendars, Vcl.Grids,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, uMainModulo,
+  FireDAC.Comp.Client;
+
+type
+  TFormGerarOrdemCorte = class(TForm)
+    Button1: TButton;
+    Label1: TLabel;
+    ComboBoxProdutos: TComboBox;
+    RBTamP: TRadioButton;
+    RBTamM: TRadioButton;
+    RBTamG: TRadioButton;
+    RBTamGG: TRadioButton;
+    RBTam48: TRadioButton;
+    RBTam50: TRadioButton;
+    RBTam52: TRadioButton;
+    EditQuantidade: TEdit;
+    Label2: TLabel;
+    Panel: TPanel;
+    DSDadosProdutos: TDataSource;
+    FDQueryProdutos: TFDQuery;
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+
+  end;
+
+var
+  FormGerarOrdemCorte: TFormGerarOrdemCorte;
+  IdItemLista: Integer;
+
+implementation
+
+{$R *.dfm}
+
+
+
+procedure TFormGerarOrdemCorte.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+  Form2 := nil;
+end;
+
+procedure TFormGerarOrdemCorte.FormCreate(Sender: TObject);
+begin
+  ComboBoxProdutos.Items.Clear;
+
+  while not FDQueryProdutos.Eof do
+  begin
+    ComboBoxProdutos.Items.AddObject(
+      FDQueryProdutos.FieldByName('Produto').AsString,
+      TObject(FDQueryProdutos.FieldByName('cod Produto').AsInteger)
+    );
+    FDQueryProdutos.Next;
+  end;
+
+  FDQueryProdutos.Close; // Fecha a consulta após carregar os dados
+
+end;
+
+
+end.

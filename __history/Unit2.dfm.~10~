@@ -1,0 +1,161 @@
+object FormGerarOrdemCorte: TFormGerarOrdemCorte
+  Left = 0
+  Top = 0
+  BorderStyle = bsDialog
+  Caption = 'FormGerarOrdemCorte'
+  ClientHeight = 747
+  ClientWidth = 1183
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Position = poScreenCenter
+  Visible = True
+  OnClose = FormClose
+  OnCreate = FormCreate
+  TextHeight = 15
+  object Label1: TLabel
+    Left = 24
+    Top = 24
+    Width = 313
+    Height = 37
+    Caption = 'Ordem de Corte: 12345'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -27
+    Font.Name = '@Malgun Gothic'
+    Font.Style = [fsBold]
+    Font.Quality = fqClearType
+    ParentFont = False
+  end
+  object Button1: TButton
+    Left = 1078
+    Top = 696
+    Width = 75
+    Height = 25
+    Caption = 'Gerar Ordem'
+    TabOrder = 0
+  end
+  object Panel: TPanel
+    Left = 24
+    Top = 101
+    Width = 385
+    Height = 220
+    Caption = 'Panel'
+    ShowCaption = False
+    TabOrder = 1
+    object Label2: TLabel
+      Left = 14
+      Top = 152
+      Width = 65
+      Height = 15
+      Caption = 'Quantidade:'
+    end
+    object ComboBoxProdutos: TComboBox
+      Left = 14
+      Top = 32
+      Width = 329
+      Height = 23
+      TabOrder = 0
+      Text = 'Modelo'
+      Items.Strings = (
+        'Cotton Liso'
+        'Microfibra'
+        'Frezze'
+        'Cotton Liso Preto/Branco/Chocolate'
+        'Cotton Mescla'
+        'Micro Canelada'
+        'Cotton Confete'
+        'Renda'
+        'Micro Pto/Cho'
+        'Romantic'
+        'Cotton Lolita'
+        'Cotton Dry'
+        'Suplex Preto/Chocolate')
+    end
+    object RBTamP: TRadioButton
+      Left = 14
+      Top = 114
+      Width = 33
+      Height = 17
+      Caption = 'P'
+      TabOrder = 1
+    end
+    object RBTamM: TRadioButton
+      Left = 53
+      Top = 114
+      Width = 33
+      Height = 17
+      Caption = 'M'
+      TabOrder = 2
+    end
+    object RBTamG: TRadioButton
+      Left = 102
+      Top = 114
+      Width = 33
+      Height = 17
+      Caption = 'G'
+      TabOrder = 3
+    end
+    object RBTamGG: TRadioButton
+      Left = 149
+      Top = 114
+      Width = 44
+      Height = 17
+      Caption = 'GG'
+      TabOrder = 4
+    end
+    object RBTam48: TRadioButton
+      Left = 199
+      Top = 114
+      Width = 44
+      Height = 17
+      Caption = '48'
+      TabOrder = 5
+    end
+    object RBTam50: TRadioButton
+      Left = 249
+      Top = 114
+      Width = 44
+      Height = 17
+      Caption = '50'
+      TabOrder = 6
+    end
+    object RBTam52: TRadioButton
+      Left = 299
+      Top = 114
+      Width = 44
+      Height = 17
+      Caption = '52'
+      TabOrder = 7
+    end
+    object btnAdicionarItem: TButton
+      Left = 268
+      Top = 178
+      Width = 75
+      Height = 25
+      Caption = 'Adicionar'
+      TabOrder = 8
+    end
+    object EditQuantidade: TEdit
+      Left = 85
+      Top = 149
+      Width = 258
+      Height = 23
+      NumbersOnly = True
+      OEMConvert = True
+      TabOrder = 9
+    end
+  end
+  object DSDadosProdutos: TDataSource
+    Left = 432
+  end
+  object FDQueryProdutos: TFDQuery
+    Connection = Form6.FDConnection1
+    SQL.Strings = (
+      'Select * from tbprodutos;')
+    Left = 544
+  end
+end

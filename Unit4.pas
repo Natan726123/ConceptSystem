@@ -43,10 +43,10 @@ implementation
 
 procedure TForm4.Button1Click(Sender: TObject);
 var
-  formCorte : TForm2;
+  formCorte : TFormGerarOrdemCorte;
 begin
-  if not Assigned(Form2) then
-    Application.CreateForm(TForm2, Form2);
+  if not Assigned(FormGerarOrdemCorte) then
+    Application.CreateForm(TFormGerarOrdemCorte, FormGerarOrdemCorte);
 
   formCorte.Show;
 end;

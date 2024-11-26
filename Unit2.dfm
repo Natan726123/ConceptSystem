@@ -1,9 +1,9 @@
-object Form2: TForm2
+object FormGerarOrdemCorte: TFormGerarOrdemCorte
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'Form2'
-  ClientHeight = 747
+  Caption = 'FormGerarOrdemCorte'
+  ClientHeight = 724
   ClientWidth = 1183
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -11,14 +11,15 @@ object Form2: TForm2
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  Position = poScreenCenter
   Visible = True
   OnClose = FormClose
   OnCreate = FormCreate
   TextHeight = 15
   object Label1: TLabel
-    Left = 40
+    Left = 24
     Top = 24
-    Width = 305
+    Width = 313
     Height = 37
     Caption = 'Ordem de Corte: 12345'
     Font.Charset = DEFAULT_CHARSET
@@ -30,18 +31,18 @@ object Form2: TForm2
     ParentFont = False
   end
   object Button1: TButton
-    Left = 1078
-    Top = 696
-    Width = 75
-    Height = 25
+    Left = 1049
+    Top = 672
+    Width = 113
+    Height = 33
     Caption = 'Gerar Ordem'
     TabOrder = 0
   end
   object Panel: TPanel
     Left = 24
-    Top = 93
-    Width = 385
-    Height = 214
+    Top = 101
+    Width = 409
+    Height = 276
     Caption = 'Panel'
     ShowCaption = False
     TabOrder = 1
@@ -52,13 +53,19 @@ object Form2: TForm2
       Height = 15
       Caption = 'Quantidade:'
     end
-    object ComboBoxTecidos: TComboBox
+    object ComboBoxProdutos: TComboBox
       Left = 14
       Top = 32
-      Width = 329
-      Height = 23
+      Width = 355
+      Height = 29
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 0
-      Text = 'Tecido'
+      Text = 'Modelo'
       Items.Strings = (
         'Cotton Liso'
         'Microfibra'
@@ -74,89 +81,13 @@ object Form2: TForm2
         'Cotton Dry'
         'Suplex Preto/Chocolate')
     end
-    object ComboBoxModelos: TComboBox
-      Left = 14
-      Top = 69
-      Width = 329
-      Height = 23
-      TabOrder = 1
-      Text = 'Modelo'
-      Items.Strings = (
-        'Carinho'
-        'Conforto'
-        'Discreta'
-        'Docinho'
-        'Eleg'#226'ncia'
-        'Levada'
-        'Light'
-        'Pompom'
-        'Sonho'
-        'Sonho Plus')
-    end
-    object RBTamP: TRadioButton
-      Left = 14
-      Top = 114
-      Width = 33
-      Height = 17
-      Caption = 'P'
-      TabOrder = 2
-    end
-    object RBTamM: TRadioButton
-      Left = 53
-      Top = 114
-      Width = 33
-      Height = 17
-      Caption = 'M'
-      TabOrder = 3
-    end
-    object RBTamG: TRadioButton
-      Left = 102
-      Top = 114
-      Width = 33
-      Height = 17
-      Caption = 'G'
-      TabOrder = 4
-    end
-    object RBTamGG: TRadioButton
-      Left = 149
-      Top = 114
-      Width = 44
-      Height = 17
-      Caption = 'GG'
-      TabOrder = 5
-    end
-    object RBTam48: TRadioButton
-      Left = 199
-      Top = 114
-      Width = 44
-      Height = 17
-      Caption = '48'
-      TabOrder = 6
-    end
-    object RBTam50: TRadioButton
-      Left = 249
-      Top = 114
-      Width = 44
-      Height = 17
-      Caption = '50'
-      TabOrder = 7
-    end
-    object RBTam52: TRadioButton
-      Left = 299
-      Top = 114
-      Width = 44
-      Height = 17
-      Caption = '52'
-      TabOrder = 8
-    end
     object btnAdicionarItem: TButton
       Left = 268
       Top = 178
       Width = 75
       Height = 25
       Caption = 'Adicionar'
-      TabOrder = 9
-      OnClick = btnAdicionarItemClick
+      TabOrder = 1
     end
     object EditQuantidade: TEdit
       Left = 85
@@ -165,100 +96,83 @@ object Form2: TForm2
       Height = 23
       NumbersOnly = True
       OEMConvert = True
-      TabOrder = 10
-    end
-  end
-  object Panel2: TPanel
-    Left = 24
-    Top = 313
-    Width = 385
-    Height = 160
-    Caption = 'Panel2'
-    ShowCaption = False
-    TabOrder = 2
-    object Label3: TLabel
-      Left = 13
-      Top = 72
-      Width = 100
-      Height = 15
-      Caption = 'Data de expedi'#231#227'o:'
-    end
-    object Label4: TLabel
-      Left = 13
-      Top = 112
-      Width = 86
-      Height = 15
-      Caption = 'Data de entrega:'
-    end
-    object ComboBox1: TComboBox
-      Left = 14
-      Top = 16
-      Width = 179
-      Height = 23
-      TabOrder = 0
-      Text = 'Cortador'
-      Items.Strings = (
-        'Italo'
-        'Atila'
-        'Thiago')
-    end
-    object CalendarPicker1: TCalendarPicker
-      Left = 119
-      Top = 65
-      Height = 32
-      CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
-      CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
-      CalendarHeaderInfo.DaysOfWeekFont.Height = -13
-      CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
-      CalendarHeaderInfo.DaysOfWeekFont.Style = []
-      CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
-      CalendarHeaderInfo.Font.Color = clWindowText
-      CalendarHeaderInfo.Font.Height = -20
-      CalendarHeaderInfo.Font.Name = 'Segoe UI'
-      CalendarHeaderInfo.Font.Style = []
-      Color = clWindow
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGray
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 1
-      TextHint = 'select a date'
-    end
-    object CalendarPicker2: TCalendarPicker
-      Left = 119
-      Top = 103
-      Height = 32
-      CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
-      CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
-      CalendarHeaderInfo.DaysOfWeekFont.Height = -13
-      CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
-      CalendarHeaderInfo.DaysOfWeekFont.Style = []
-      CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
-      CalendarHeaderInfo.Font.Color = clWindowText
-      CalendarHeaderInfo.Font.Height = -20
-      CalendarHeaderInfo.Font.Name = 'Segoe UI'
-      CalendarHeaderInfo.Font.Style = []
-      Color = clWindow
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGray
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
       TabOrder = 2
-      TextHint = 'select a date'
     end
   end
-  object StringGrid1: TStringGrid
-    Left = 541
-    Top = 93
-    Width = 612
-    Height = 380
-    DefaultColWidth = 120
-    RowCount = 1
-    FixedRows = 0
+  object DBGridOrdemDeCorte: TDBGrid
+    Left = 483
+    Top = 101
+    Width = 679
+    Height = 548
+    Align = alCustom
+    BorderStyle = bsNone
+    Color = clSnow
+    DragCursor = crDefault
+    DrawingStyle = gdsGradient
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    ParentFont = False
+    ParentShowHint = False
+    ReadOnly = True
+    ShowHint = False
+    TabOrder = 2
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -12
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = []
+  end
+  object DBGrid1: TDBGrid
+    Left = 24
+    Top = 414
+    Width = 409
+    Height = 235
+    Align = alCustom
+    BorderStyle = bsNone
+    Color = clSnow
+    DragCursor = crDefault
+    DrawingStyle = gdsGradient
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    ParentFont = False
+    ParentShowHint = False
+    ReadOnly = True
+    ShowHint = False
     TabOrder = 3
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -12
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = []
+  end
+  object DSDadosProdutos: TDataSource
+    DataSet = FDQueryProdutos
+    Left = 432
+  end
+  object FDQueryProdutos: TFDQuery
+    Active = True
+    Connection = Form6.FDConnection1
+    SQL.Strings = (
+      'select P.codProduto as '#39'cod Produto'#39','
+      'P.nomeProduto as '#39'Produto'#39','
+      'P.refProduto as '#39'Refer'#234'ncia'#39','
+      'P.tamanhoProduto as '#39'Tamanho'#39','
+      'P.rendimentoKg as '#39'Rendimento'#39','
+      'P.codTecido as '#39'Cod Tecido'#39','
+      'T.nomeTecido as '#39'Tecido'#39','
+      'P.fichaTecnica as '#39'Ficha T'#233'cnica'#39
+      ''
+      ''
+      'from TBprodutos P, TBtecidos T'
+      #9'where P.codTecido = T.codTecido;')
+    Left = 544
   end
 end
