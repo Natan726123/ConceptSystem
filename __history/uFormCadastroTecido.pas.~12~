@@ -6,7 +6,11 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB, Vcl.Grids,
   Vcl.DBGrids, System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors,
-  Data.Bind.EngExt, Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope, Math;
+  Data.Bind.EngExt, Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope, Math,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, uMainModulo;
 
 type
   TFormCadastroTecido = class(TForm)
@@ -22,13 +26,15 @@ type
     btnAlterar: TButton;
     btnDelete: TButton;
     DSDados: TDataSource;
+    DBGridTecidos: TDBGrid;
+    Label4: TLabel;
+    FDQuery1: TFDQuery;
     BindSourceDB1: TBindSourceDB;
     BindingsList1: TBindingsList;
     LinkControlToField1: TLinkControlToField;
     LinkControlToField2: TLinkControlToField;
     LinkControlToField3: TLinkControlToField;
-    DBGrid1: TDBGrid;
-    Label4: TLabel;
+    Image1: TImage;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCadastrarNovoTecidoClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -39,6 +45,8 @@ type
     procedure btnSalvarClick(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
+    procedure DBGridTecidosTitleClick(Column: TColumn);
+    procedure AtualizarNomeTecidos;
 
   private
     { Private declarations }
@@ -53,7 +61,35 @@ implementation
 
 {$R *.dfm}
 
-uses Unit4, Unit2, uMainModulo;
+uses Unit2;
+
+procedure TFormCadastroTecido.AtualizarNomeTecidos;
+var
+  DBconnect : TForm6;
+begin
+  DBconnect := TForm6.Create(nil);
+  try
+    DBconnect.FDConnection1.ExecSQL(
+      'UPDATE TBprodutos ' +
+      'SET nomeTecido = (' +
+      '  SELECT T.nomeTecido ' +
+      '  FROM TBtecidos T ' +
+      '  WHERE T.codTecido = TBprodutos.codTecido' +
+      ') ' +
+      'WHERE EXISTS (' +
+      '  SELECT 1 ' +
+      '  FROM TBtecidos T ' +
+      '  WHERE T.codTecido = TBprodutos.codTecido' +
+      ');'
+    );
+    ShowMessage('Sincronização de nomes de tecidos concluída com sucesso!');
+  except
+    on E: Exception do
+      ShowMessage('Erro ao atualizar nomes de tecidos: ' + E.Message);
+  end;
+  DBconnect.Free;
+end;
+
 
 procedure AjustarLarguraColunas(DBGrid: TDBGrid);
 var
@@ -112,7 +148,8 @@ begin
   btnDelete.Enabled := true;
   btnAlterar.Enabled := true;
   btnSalvar.Enabled := false;
-  btnCadastrarNovoTecido.Enabled := true;
+  DSDados.DataSet.Cancel;
+  DSDados.DataSet.Refresh;
 end;
 
 procedure TFormCadastroTecido.btnDeleteClick(Sender: TObject);
@@ -148,6 +185,20 @@ begin
     btnCancelar.Enabled := false;
     btnSalvar.Enabled := false;
     btnCadastrarNovoTecido.Enabled := true;
+
+    //AtualizarNomeTecidos; //atualiza o nome dos tecidos na tabela de produtos
+end;
+
+procedure TFormCadastroTecido.DBGridTecidosTitleClick(Column: TColumn);
+var
+  Coluna: string;
+begin
+  Coluna := Column.FieldName; // Obtém o nome do campo da coluna clicada
+
+  if FDQuery1.Active then
+  begin
+    FDQuery1.IndexFieldNames := Coluna; // Define a ordenação pelo campo
+  end;
 end;
 
 procedure TFormCadastroTecido.Desabilitar;
@@ -167,7 +218,7 @@ end;
 
 procedure TFormCadastroTecido.FormCreate(Sender: TObject);
 begin
-  AjustarLarguraColunas(DBGrid1)
+  AjustarLarguraColunas(DBGridTecidos)
 end;
 
 procedure TFormCadastroTecido.Habilitar;

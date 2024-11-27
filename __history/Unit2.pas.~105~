@@ -77,7 +77,6 @@ type
   quantidade: Integer; codTecido: Integer; quantidadeTecidoKg: Double; obs: String);
     procedure FormShow(Sender: TObject);
     procedure edtQuantidadeKeyPress(Sender: TObject; var Key: Char);
-    procedure Button3Click(Sender: TObject);
 
 
   private
@@ -358,16 +357,6 @@ end;
 
 
 
-
-procedure TFormGerarOrdemCorte.Button3Click(Sender: TObject);
-begin
-  if Application.MessageBox(PChar(Format('%s' + #13 + '[%s]',
-    ['Deseja realmente excluir este tecido?',
-    DSDadosItensLista.DataSet.FieldByName('Produto').AsString + ' - ' + DSDadosItensLista.DataSet.FieldByName('Tamanho').AsString])), 'Atenção',
-    MB_ICONQUESTION + MB_YESNO) = IDYES then
-    DSDadosItensLista.DataSet.Delete;
-    //DSDadosItensLista.DataSet.Refresh;
-end;
 
 procedure TFormGerarOrdemCorte.ComboBoxProdutosChange(Sender: TObject);
 var

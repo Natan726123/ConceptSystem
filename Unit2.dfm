@@ -1,10 +1,10 @@
-object FormGerarOrdemCorte: TFormGerarOrdemCorte
+﻿object FormGerarOrdemCorte: TFormGerarOrdemCorte
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'FormGerarOrdemCorte'
-  ClientHeight = 846
-  ClientWidth = 1189
+  Caption = 'Ordem de Corte'
+  ClientHeight = 849
+  ClientWidth = 1401
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,23 +15,24 @@ object FormGerarOrdemCorte: TFormGerarOrdemCorte
   Visible = True
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   TextHeight = 15
   object Label1: TLabel
-    Left = 502
-    Top = 16
-    Width = 209
-    Height = 37
+    Left = 542
+    Top = 15
+    Width = 311
+    Height = 38
     Caption = 'Ordem de Corte'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -27
-    Font.Name = '@Malgun Gothic'
+    Font.Height = -32
+    Font.Name = 'Perpetua Titling MT'
     Font.Style = [fsBold]
     Font.Quality = fqClearType
     ParentFont = False
   end
   object Image1: TImage
-    Left = 1032
+    Left = 1232
     Top = 0
     Width = 161
     Height = 53
@@ -5368,141 +5369,160 @@ object FormGerarOrdemCorte: TFormGerarOrdemCorte
       9A50AD0ADA4C0000000049454E44AE426082}
     Proportional = True
   end
+  object lblNumOrdem: TLabel
+    Left = 8
+    Top = 75
+    Width = 185
+    Height = 20
+    Caption = 'N'#250'mero da ordem:'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Perpetua Titling MT'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
   object pnlModelos: TPanel
-    Left = 24
+    Left = 8
     Top = 101
     Width = 409
     Height = 468
     Caption = 'pnlModelos'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Perpetua Titling MT'
+    Font.Style = []
+    ParentFont = False
     ShowCaption = False
     TabOrder = 0
     object Label2: TLabel
       Left = 14
       Top = 319
-      Width = 59
-      Height = 17
+      Width = 66
+      Height = 18
       Caption = 'C'#243'd. item:'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -16
+      Font.Name = 'Perpetua'
       Font.Style = []
       ParentFont = False
     end
     object Label3: TLabel
       Left = 110
       Top = 368
-      Width = 41
-      Height = 17
+      Width = 45
+      Height = 18
       Caption = 'Tecido:'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -16
+      Font.Name = 'Perpetua'
       Font.Style = []
       ParentFont = False
     end
     object Label4: TLabel
       Left = 14
       Top = 367
-      Width = 72
-      Height = 17
+      Width = 78
+      Height = 18
       Caption = 'C'#243'd. Tecido:'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -16
+      Font.Name = 'Perpetua'
       Font.Style = []
       ParentFont = False
     end
     object Label5: TLabel
       Left = 278
       Top = 367
-      Width = 73
-      Height = 17
-      Caption = 'Rendimento:'
-      Font.Charset = DEFAULT_CHARSET
+      Width = 103
+      Height = 18
+      Caption = 'Rendimento/Kg:'
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -16
+      Font.Name = 'Perpetua'
       Font.Style = []
       ParentFont = False
     end
     object Label6: TLabel
       Left = 278
       Top = 319
-      Width = 70
-      Height = 17
+      Width = 71
+      Height = 18
       Caption = 'Localiza'#231#227'o:'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -16
+      Font.Name = 'Perpetua'
       Font.Style = []
       ParentFont = False
     end
     object Label7: TLabel
       Left = 110
       Top = 319
-      Width = 55
-      Height = 17
+      Width = 60
+      Height = 18
       Caption = 'Custo R$:'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -16
+      Font.Name = 'Perpetua'
       Font.Style = []
       ParentFont = False
     end
     object Label8: TLabel
       Left = 14
-      Top = 81
-      Width = 131
-      Height = 17
+      Top = 84
+      Width = 132
+      Height = 18
       Caption = 'Tamanhos dispon'#237'veis:'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -16
+      Font.Name = 'Perpetua'
       Font.Style = []
       ParentFont = False
     end
     object Label9: TLabel
       Left = 14
-      Top = 9
-      Width = 119
-      Height = 17
+      Top = 11
+      Width = 120
+      Height = 18
       Caption = 'Selecione o modelo:'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -16
+      Font.Name = 'Perpetua'
       Font.Style = []
       ParentFont = False
     end
     object Label10: TLabel
       Left = 14
-      Top = 157
+      Top = 168
       Width = 129
-      Height = 17
+      Height = 18
       Caption = 'Informe a quantidade:'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -16
+      Font.Name = 'Perpetua'
       Font.Style = []
       ParentFont = False
     end
     object Label11: TLabel
       Left = 14
-      Top = 233
-      Width = 79
-      Height = 17
+      Top = 238
+      Width = 80
+      Height = 18
       Caption = 'Observa'#231#245'es:'
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -16
+      Font.Name = 'Perpetua'
       Font.Style = []
       ParentFont = False
     end
@@ -5510,11 +5530,11 @@ object FormGerarOrdemCorte: TFormGerarOrdemCorte
       Left = 14
       Top = 32
       Width = 379
-      Height = 29
-      Font.Charset = DEFAULT_CHARSET
+      Height = 25
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
       TabOrder = 0
@@ -5540,18 +5560,24 @@ object FormGerarOrdemCorte: TFormGerarOrdemCorte
       Top = 104
       Width = 379
       Height = 46
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 1
     end
     object edtCodProduto: TEdit
       Left = 14
       Top = 337
-      Width = 72
+      Width = 78
       Height = 25
       Enabled = False
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
       TabOrder = 2
@@ -5562,10 +5588,10 @@ object FormGerarOrdemCorte: TFormGerarOrdemCorte
       Width = 147
       Height = 25
       Enabled = False
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
       TabOrder = 3
@@ -5573,13 +5599,13 @@ object FormGerarOrdemCorte: TFormGerarOrdemCorte
     object edtCodTecido: TEdit
       Left = 14
       Top = 385
-      Width = 72
+      Width = 78
       Height = 25
       Enabled = False
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
       TabOrder = 4
@@ -5590,10 +5616,10 @@ object FormGerarOrdemCorte: TFormGerarOrdemCorte
       Width = 115
       Height = 25
       Enabled = False
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
       TabOrder = 5
@@ -5604,10 +5630,10 @@ object FormGerarOrdemCorte: TFormGerarOrdemCorte
       Width = 115
       Height = 25
       Enabled = False
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
       TabOrder = 6
@@ -5618,57 +5644,73 @@ object FormGerarOrdemCorte: TFormGerarOrdemCorte
       Width = 147
       Height = 25
       Enabled = False
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
       TabOrder = 7
     end
-    object Edit6: TEdit
+    object edtQuantidade: TEdit
       Left = 14
-      Top = 180
+      Top = 187
       Width = 235
-      Height = 29
-      Font.Charset = DEFAULT_CHARSET
+      Height = 25
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
       Font.Style = []
+      NumbersOnly = True
       ParentFont = False
       TabOrder = 8
       TextHint = 'Quantidade'
+      OnKeyPress = edtQuantidadeKeyPress
     end
     object Button1: TButton
-      Left = 288
+      Left = 256
       Top = 427
-      Width = 113
+      Width = 145
       Height = 33
       Caption = 'Gerar Ordem'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 9
     end
-    object Button2: TButton
-      Left = 278
-      Top = 180
+    object btnAdicionarItens: TButton
+      Left = 280
+      Top = 183
       Width = 113
-      Height = 29
+      Height = 33
       Caption = 'Adicionar'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
-      Font.Name = 'Times New Roman'
+      Font.Name = 'Perpetua Titling MT'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 10
+      OnClick = btnAdicionarItensClick
     end
     object Button3: TButton
       Left = 14
       Top = 427
-      Width = 113
+      Width = 138
       Height = 33
       Caption = 'Remover item'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 11
+      OnClick = Button3Click
     end
     object MemoObsOrdem: TMemo
       Left = 14
@@ -5679,19 +5721,20 @@ object FormGerarOrdemCorte: TFormGerarOrdemCorte
     end
   end
   object DBGridOrdemDeCorte: TDBGrid
-    Left = 502
+    AlignWithMargins = True
+    Left = 496
     Top = 101
-    Width = 679
-    Height = 737
-    Align = alCustom
+    Width = 902
+    Height = 745
     BorderStyle = bsNone
     Color = clSnow
+    DataSource = DSDadosItensLista
     DragCursor = crDefault
     DrawingStyle = gdsGradient
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Segoe UI'
+    Font.Height = -15
+    Font.Name = 'Perpetua Titling MT'
     Font.Style = []
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     ParentFont = False
@@ -5699,15 +5742,15 @@ object FormGerarOrdemCorte: TFormGerarOrdemCorte
     ReadOnly = True
     ShowHint = False
     TabOrder = 1
-    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Charset = ANSI_CHARSET
     TitleFont.Color = clWindowText
-    TitleFont.Height = -12
-    TitleFont.Name = 'Segoe UI'
-    TitleFont.Style = []
+    TitleFont.Height = -15
+    TitleFont.Name = 'Perpetua Titling MT'
+    TitleFont.Style = [fsBold]
   end
   object DBGrid1: TDBGrid
-    Left = 24
-    Top = 603
+    Left = 8
+    Top = 606
     Width = 409
     Height = 235
     Align = alCustom
@@ -5715,10 +5758,10 @@ object FormGerarOrdemCorte: TFormGerarOrdemCorte
     Color = clSnow
     DragCursor = crDefault
     DrawingStyle = gdsGradient
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Segoe UI'
+    Font.Height = -13
+    Font.Name = 'Perpetua Titling MT'
     Font.Style = []
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     ParentFont = False
@@ -5732,14 +5775,6 @@ object FormGerarOrdemCorte: TFormGerarOrdemCorte
     TitleFont.Name = 'Segoe UI'
     TitleFont.Style = []
   end
-  object Edit7: TEdit
-    Left = 24
-    Top = 72
-    Width = 121
-    Height = 23
-    TabOrder = 3
-    TextHint = 'num ordem'
-  end
   object DSDadosProdutos: TDataSource
     DataSet = FDQueryProdutos
     Left = 256
@@ -5750,5 +5785,107 @@ object FormGerarOrdemCorte: TFormGerarOrdemCorte
     SQL.Strings = (
       'select DISTINCT nomeProduto as '#39'Produto'#39' from TBprodutos')
     Left = 168
+  end
+  object FDQueryItensLista: TFDQuery
+    Active = True
+    Connection = Form6.FDConnection1
+    UpdateOptions.AssignedValues = [uvUpdateChngFields]
+    SQL.Strings = (
+      'Select numOrdem as '#39'Ordem'#39','
+      #9'idItemLista as '#39'Item'#39','
+      #9'codProduto as '#39'codProd'#39','
+      #9'nomeProduto as '#39'Produto'#39','
+      #9'tamanhoPecas as '#39'Tamanho'#39','
+      #9'quantidadePecas as '#39'Quantidade'#39','
+      #9'codTecido as '#39'codTecido'#39','
+      #9'nomeTecido as '#39'Tecido'#39','
+      #9'quantidadeTecidoKg as '#39'Tecido Kg'#39','
+      #9'dataOrdem as '#39'Data'#39','
+      #9'obsOrdem as '#39'Observa'#231#227'o'#39
+      #9
+      ' '
+      'from TBordemdecorte   '
+      'Where numOrdem = :numOrdem'
+      'ORDER BY idItemLista ASC')
+    Left = 800
+    Top = 8
+    ParamData = <
+      item
+        Name = 'NUMORDEM'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
+    object FDQueryItensListaItem: TIntegerField
+      FieldName = 'Item'
+      Origin = 'idItemLista'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQueryItensListacodProd: TIntegerField
+      FieldName = 'codProd'
+      Origin = 'codProduto'
+      Required = True
+    end
+    object FDQueryItensListaProduto: TStringField
+      FieldName = 'Produto'
+      Origin = 'nomeProduto'
+      FixedChar = True
+      Size = 50
+    end
+    object FDQueryItensListaTamanho: TStringField
+      FieldName = 'Tamanho'
+      Origin = 'tamanhoPecas'
+      Required = True
+      FixedChar = True
+      Size = 10
+    end
+    object FDQueryItensListaQuantidade: TIntegerField
+      FieldName = 'Quantidade'
+      Origin = 'quantidadePecas'
+      Required = True
+    end
+    object FDQueryItensListaTecido: TStringField
+      FieldName = 'Tecido'
+      Origin = 'nomeTecido'
+      FixedChar = True
+      Size = 50
+    end
+    object FDQueryItensListaTecidoKg: TBCDField
+      FieldName = 'Tecido Kg'
+      Origin = 'quantidadeTecidoKg'
+      Required = True
+      DisplayFormat = '0.00'
+      Precision = 10
+      Size = 2
+    end
+    object FDQueryItensListaObservação: TStringField
+      FieldName = 'Observa'#231#227'o'
+      Origin = 'obsOrdem'
+      FixedChar = True
+      Size = 50
+    end
+    object FDQueryItensListacodTecido: TIntegerField
+      FieldName = 'codTecido'
+      Origin = 'codTecido'
+      Required = True
+    end
+    object FDQueryItensListaOrdem: TIntegerField
+      FieldName = 'Ordem'
+      Origin = 'numOrdem'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQueryItensListaData: TDateField
+      FieldName = 'Data'
+      Origin = 'dataOrdem'
+      Required = True
+    end
+  end
+  object DSDadosItensLista: TDataSource
+    AutoEdit = False
+    DataSet = FDQueryItensLista
+    Left = 904
+    Top = 8
   end
 end

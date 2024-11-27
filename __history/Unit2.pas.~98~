@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, uMainModulo,
-  FireDAC.Comp.Client, Vcl.DBGrids, Vcl.Imaging.pngimage, Math;
+  FireDAC.Comp.Client, Vcl.DBGrids, Vcl.Imaging.pngimage;
 
 type
   TFormGerarOrdemCorte = class(TForm)
@@ -46,17 +46,17 @@ type
     FDQueryItensLista: TFDQuery;
     DSDadosItensLista: TDataSource;
     lblNumOrdem: TLabel;
-    FDQueryItensListaOrdem: TIntegerField;
-    FDQueryItensListaItem: TIntegerField;
-    FDQueryItensListacodProd: TIntegerField;
-    FDQueryItensListaProduto: TStringField;
-    FDQueryItensListaTamanho: TStringField;
-    FDQueryItensListaQuantidade: TIntegerField;
+    FDQueryItensListanumOrdem: TIntegerField;
+    FDQueryItensListaidItemLista: TIntegerField;
+    FDQueryItensListacodProduto: TIntegerField;
+    FDQueryItensListaquantidadePecas: TIntegerField;
+    FDQueryItensListatamanhoPecas: TStringField;
     FDQueryItensListacodTecido: TIntegerField;
-    FDQueryItensListaTecido: TStringField;
-    FDQueryItensListaData: TDateField;
-    FDQueryItensListaObservação: TStringField;
-    FDQueryItensListaTecidoKg: TBCDField;
+    FDQueryItensListaquantidadeTecidoKg: TBCDField;
+    FDQueryItensListadataOrdem: TDateField;
+    FDQueryItensListaobsOrdem: TStringField;
+    FDQueryItensListanomeProduto: TStringField;
+    FDQueryItensListanomeTecido: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ComboBoxProdutosChange(Sender: TObject);
@@ -77,7 +77,6 @@ type
   quantidade: Integer; codTecido: Integer; quantidadeTecidoKg: Double; obs: String);
     procedure FormShow(Sender: TObject);
     procedure edtQuantidadeKeyPress(Sender: TObject; var Key: Char);
-    procedure Button3Click(Sender: TObject);
 
 
   private
@@ -96,30 +95,6 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure AjustarLarguraColunas(DBGrid: TDBGrid);
-var
-  i, largura: Integer;
-begin
-  DBGrid.Columns.BeginUpdate;
-  try
-    for i := 0 to DBGrid.Columns.Count - 1 do
-    begin
-      largura := DBGrid.Canvas.TextWidth(DBGrid.Columns[i].Title.Caption) + 20; // Título com padding
-      DBGrid.Columns[i].Width := largura;
-
-      DBGrid.DataSource.DataSet.First;
-      while not DBGrid.DataSource.DataSet.Eof do
-      begin
-        largura := Max(largura, DBGrid.Canvas.TextWidth(DBGrid.DataSource.DataSet.Fields[i].AsString) + 20);
-        DBGrid.DataSource.DataSet.Next;
-      end;
-      DBGrid.Columns[i].Width := largura;
-    end;
-  finally
-    DBGrid.Columns.EndUpdate;
-  end;
-end;
 
 procedure TFormGerarOrdemCorte.InserirItemPedido(numOrdem: Integer; codProduto: Integer; tamanho: String;
   quantidade: Integer; codTecido: Integer; quantidadeTecidoKg: Double; obs: String);
@@ -223,7 +198,7 @@ var
 begin
   Query := TFDQuery.Create(nil);
   try
-    Query.Connection := Form6.FDConnection1;
+    Query.Connection := Form6.FDConnection1; // Substitua pelo seu componente de conexão
     Query.SQL.Text := 'SELECT COALESCE(MAX(numOrdem), 99999) + 1 AS ProximoNum FROM TBordemdecorte';
     Query.Open;
     Result := Query.FieldByName('ProximoNum').AsInteger;
@@ -256,13 +231,14 @@ procedure TFormGerarOrdemCorte.RadioButtonTamanhoClick(Sender: TObject);
 var
   NomeProduto, TamanhoSelecionado: string;
 begin
-
+  // Verifica se há um produto selecionado no ComboBox
   if ComboBoxProdutos.ItemIndex < 0 then
   begin
     ShowMessage('Por favor, selecione um produto no ComboBox.');
     Exit;
   end;
 
+  // Obtem o nome do produto selecionado
   NomeProduto := ComboBoxProdutos.Text;
 
   // Obtem o tamanho selecionado no RadioButton
@@ -312,62 +288,42 @@ var
   quantidadeTecidoKg: Double;
   idItemLista: Integer;
 begin
-  // Valida se o campo edtQuantidade está preenchido
-  if Trim(edtQuantidade.Text) = '' then
-  begin
-    ShowMessage('O campo "Quantidade" não pode estar vazio. Por favor, insira um valor.');
-    edtQuantidade.SetFocus;
-    Exit;
-  end;
+  // Calcula a quantidade de tecido em kg
+  quantidadeTecidoKg := StrToFloat(edtQuantidade.Text) / StrToFloat(edtRendimento.Text);
 
-  try
-    // Calcula a quantidade de tecido em kg
-    quantidadeTecidoKg := StrToFloat(edtQuantidade.Text) / StrToFloat(edtRendimento.Text);
+  // Coloca o DataSet em modo de inserção
+  DSDadosItensLista.DataSet.Insert;
 
-    // Coloca o DataSet em modo de inserção
-    DSDadosItensLista.DataSet.Insert;
+  // Obtém o próximo idItemLista para este pedido
+  DSDadosItensLista.DataSet.FieldByName('numOrdem').AsInteger := numOrdemAtivo; // Recupera o próximo número da ordem
+  DSDadosItensLista.DataSet.FieldByName('idItemLista').AsInteger := DSDadosItensLista.DataSet.RecordCount + 1;  // Define o idItemLista (o próximo baseado na contagem)
+  DSDadosItensLista.DataSet.FieldByName('codProduto').AsInteger := StrToInt(edtCodProduto.Text); // Define o código do produto
+  DSDadosItensLista.DataSet.FieldByName('nomeProduto').AsString := ComboBoxProdutos.Text;
 
-    // Obtém o próximo idItemLista para este pedido
-    DSDadosItensLista.DataSet.FieldByName('Ordem').AsInteger := numOrdemAtivo; // Número da ordem ativa
-    DSDadosItensLista.DataSet.FieldByName('Item').AsInteger := DSDadosItensLista.DataSet.RecordCount + 1; // Próximo ID da lista
-    DSDadosItensLista.DataSet.FieldByName('codProd').AsInteger := StrToInt(edtCodProduto.Text); // Código do produto
-    DSDadosItensLista.DataSet.FieldByName('Produto').AsString := ComboBoxProdutos.Text; // Nome do produto
+  DSDadosItensLista.DataSet.FieldByName('quantidadePecas').AsInteger := StrToInt(edtQuantidade.Text); // Define a quantidade
+  DSDadosItensLista.DataSet.FieldByName('tamanhoPecas').AsString := GetTamanhoSelecionado; // Define o tamanho selecionado, que será obtido com base no RadioButton
+  DSDadosItensLista.DataSet.FieldByName('codTecido').AsInteger := StrToInt(edtCodTecido.Text); // Define o código do tecido
+  DSDadosItensLista.DataSet.FieldByName('nomeTecido').AsString := edtTecido.Text;
 
-    DSDadosItensLista.DataSet.FieldByName('Quantidade').AsInteger := StrToInt(edtQuantidade.Text); // Quantidade
-    DSDadosItensLista.DataSet.FieldByName('Tamanho').AsString := GetTamanhoSelecionado; // Tamanho selecionado (via RadioButton)
-    DSDadosItensLista.DataSet.FieldByName('codTecido').AsInteger := StrToInt(edtCodTecido.Text); // Código do tecido
-    DSDadosItensLista.DataSet.FieldByName('Tecido').AsString := edtTecido.Text; // Nome do tecido
+  DSDadosItensLista.DataSet.FieldByName('quantidadeTecidoKg').AsFloat := quantidadeTecidoKg; // Define a quantidade de tecido em kg
+  DSDadosItensLista.DataSet.FieldByName('dataOrdem').AsDateTime := Now; // Define a data da ordem
+  DSDadosItensLista.DataSet.FieldByName('obsOrdem').AsString := MemoObsOrdem.Text; // Define a observação
 
-    DSDadosItensLista.DataSet.FieldByName('Tecido Kg').AsFloat := quantidadeTecidoKg; // Quantidade de tecido em kg
-    DSDadosItensLista.DataSet.FieldByName('Data').AsDateTime := Now; // Data atual
-    DSDadosItensLista.DataSet.FieldByName('Observação').AsString := MemoObsOrdem.Text; // Observações
 
-    // Caso necessário, utilize Append e mova o cursor para o final
-    FDQueryItensLista.Append;
-    FDQueryItensLista.Last; // Adiciona o item no final da lista
+  // Posta os dados temporários no DataSet
+  //DSDadosItensLista.DataSet.Post;
 
-    AjustarLarguraColunas(DBGridOrdemDeCorte);
-  except
-    on E: Exception do
-      ShowMessage('Erro ao adicionar item: ' + E.Message);
-  end;
+  FDQueryItensLista.Append;
+  FDQueryItensLista.Last;       //adiciona o item no final da lista
+
+
+
 end;
 
 
 
 
 
-
-
-procedure TFormGerarOrdemCorte.Button3Click(Sender: TObject);
-begin
-  if Application.MessageBox(PChar(Format('%s' + #13 + '[%s]',
-    ['Deseja realmente excluir este tecido?',
-    DSDadosItensLista.DataSet.FieldByName('Produto').AsString + ' - ' + DSDadosItensLista.DataSet.FieldByName('Tamanho').AsString])), 'Atenção',
-    MB_ICONQUESTION + MB_YESNO) = IDYES then
-    DSDadosItensLista.DataSet.Delete;
-    //DSDadosItensLista.DataSet.Refresh;
-end;
 
 procedure TFormGerarOrdemCorte.ComboBoxProdutosChange(Sender: TObject);
 var
@@ -523,9 +479,7 @@ end;
 
 procedure TFormGerarOrdemCorte.FormShow(Sender: TObject);
 begin
-  FDQueryItensLista.IndexFieldNames := 'Item';
-
-  AjustarLarguraColunas(DBGridOrdemDeCorte);
+  FDQueryItensLista.IndexFieldNames := 'idItemLista';
 end;
 
 end.

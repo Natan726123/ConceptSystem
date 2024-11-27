@@ -16,16 +16,16 @@
   OnCreate = FormCreate
   TextHeight = 15
   object Label1: TLabel
-    Left = 294
-    Top = 8
-    Width = 407
-    Height = 34
+    Left = 334
+    Top = 24
+    Width = 278
+    Height = 32
     Caption = 'Cadastro de Produtos'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -29
-    Font.Name = 'Perpetua Titling MT'
-    Font.Style = [fsBold]
+    Font.Name = 'Britannic Bold'
+    Font.Style = []
     ParentFont = False
   end
   object Label2: TLabel
@@ -5500,25 +5500,20 @@
       'Poli'#233'ster'
       'Poli'#233'ster'
       'Poli'#233'ster'
-      'Microfiber do ruimm'
-      'Microfiber do ruimm'
-      'Microfiber do ruimm'
+      'Microfiber do ruim'
+      'Microfiber do ruim'
+      'Microfiber do ruim'
       'Algod'#227'o'
       'Malha fina muito boa mesmo'
       'Algod'#227'o'
       'Natan Tecido'
       'Modal'
-      'Microfiber do ruimm'
-      'Microfiber do ruimm'
+      'Microfiber do ruim'
+      'Microfiber do ruim'
       'Rend'#227'o'
       'Rend'#227'o'
       'Tecido do bombom'
-      'Microfiber do ruimm'
-      'Rend'#227'o'
-      'Algod'#227'o'
-      'Rend'#227'o'
-      'Rend'#227'o'
-      'Rend'#227'o')
+      'Microfiber do ruim')
   end
   object edtCodTecido: TEdit
     Left = 334
@@ -5655,7 +5650,7 @@
       'GG'
       'P'
       'M'
-      'GG'
+      'P'
       'P'
       'P'
       'P'
@@ -5663,15 +5658,10 @@
       'P'
       '50'
       'P'
-      '54'
+      '50'
       'M'
       'GG'
-      '54'
-      'P'
-      'M'
-      'M'
-      'G'
-      '48')
+      '54')
   end
   object edtPrecoCusto: TEdit
     Left = 858

@@ -366,7 +366,7 @@ begin
     DSDadosItensLista.DataSet.FieldByName('Produto').AsString + ' - ' + DSDadosItensLista.DataSet.FieldByName('Tamanho').AsString])), 'Atenção',
     MB_ICONQUESTION + MB_YESNO) = IDYES then
     DSDadosItensLista.DataSet.Delete;
-    //DSDadosItensLista.DataSet.Refresh;
+    DSDadosItensLista.DataSet.Refresh;
 end;
 
 procedure TFormGerarOrdemCorte.ComboBoxProdutosChange(Sender: TObject);
