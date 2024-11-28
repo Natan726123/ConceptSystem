@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, uMainModulo,
-  FireDAC.Comp.Client, Vcl.DBGrids, Vcl.Imaging.pngimage, Math;
+  FireDAC.Comp.Client, Vcl.DBGrids, Vcl.Imaging.pngimage, Math, QuickRpt, QRCtrls;
 
 type
   TFormGerarOrdemCorte = class(TForm)
@@ -20,7 +20,7 @@ type
     DSDadosProdutos: TDataSource;
     FDQueryProdutos: TFDQuery;
     DBGridOrdemDeCorte: TDBGrid;
-    DBGrid1: TDBGrid;
+    DBGridCalcTecidos: TDBGrid;
     PanelTamanhos: TPanel;
     edtCodProduto: TEdit;
     Label2: TLabel;
@@ -57,6 +57,11 @@ type
     FDQueryItensListaData: TDateField;
     FDQueryItensListaObservação: TStringField;
     FDQueryItensListaTecidoKg: TBCDField;
+    DSCalcTecidos: TDataSource;
+    FDQueryCalcTecidos: TFDQuery;
+    Label12: TLabel;
+    edtPedidos: TEdit;
+    FDQueryItensListaPedidos: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ComboBoxProdutosChange(Sender: TObject);
@@ -78,6 +83,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure edtQuantidadeKeyPress(Sender: TObject; var Key: Char);
     procedure Button3Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
 
 
   private
@@ -310,8 +316,35 @@ end;
 procedure TFormGerarOrdemCorte.btnAdicionarItensClick(Sender: TObject);
 var
   quantidadeTecidoKg: Double;
-  idItemLista: Integer;
+  i: Integer;
+  Control: TControl;
+  TamanhoSelecionado: Boolean;
 begin
+  // Inicializa a variável como falsa
+  TamanhoSelecionado := False;
+
+  // Percorre todos os controles no PanelTamanhos
+  for i := 0 to PanelTamanhos.ControlCount - 1 do
+  begin
+    Control := PanelTamanhos.Controls[i]; // Obtém o controle pelo índice
+    if Control is TRadioButton then
+    begin
+      // Verifica se o RadioButton está selecionado
+      if TRadioButton(Control).Checked then
+      begin
+        TamanhoSelecionado := True;
+        Break; // Já encontrou um selecionado, pode parar o loop
+      end;
+    end;
+  end;
+
+  // Valida se algum tamanho foi selecionado
+  if not TamanhoSelecionado then
+  begin
+    ShowMessage('O campo "Tamanho" não pode estar vazio. Por favor, selecione um tamanho.');
+    Exit; // Sai da função para evitar a continuação do processo
+  end;
+
   // Valida se o campo edtQuantidade está preenchido
   if Trim(edtQuantidade.Text) = '' then
   begin
@@ -341,12 +374,41 @@ begin
     DSDadosItensLista.DataSet.FieldByName('Tecido Kg').AsFloat := quantidadeTecidoKg; // Quantidade de tecido em kg
     DSDadosItensLista.DataSet.FieldByName('Data').AsDateTime := Now; // Data atual
     DSDadosItensLista.DataSet.FieldByName('Observação').AsString := MemoObsOrdem.Text; // Observações
+    DSDadosItensLista.DataSet.FieldByName('Pedidos').AsString := edtPedidos.Text; // Observações
 
     // Caso necessário, utilize Append e mova o cursor para o final
     FDQueryItensLista.Append;
     FDQueryItensLista.Last; // Adiciona o item no final da lista
 
     AjustarLarguraColunas(DBGridOrdemDeCorte);
+
+
+    FDQueryCalcTecidos.SQL.Text := 'SELECT DISTINCT ' +
+                          'codTecido as "Cod", ' +
+                          'nomeTecido as "Tecido", ' +
+                          'sum(quantidadeTecidoKg) as "Tecido Kg" ' +
+                          'FROM TBordemdecorte ' +
+                          'WHERE numOrdem = :numOrdem ' +
+                          'GROUP BY Cod, Tecido ' +
+                          'ORDER BY Tecido ASC';
+    // Definir o parâmetro numOrdem na consulta
+    FDQueryCalcTecidos.ParamByName('numOrdem').AsInteger := numOrdemAtivo;
+
+    // Executar a consulta SQL para obter os dados atualizados
+    try
+      FDQueryCalcTecidos.Open; // Abre a consulta para buscar os dados
+
+      // Verifica se retornou dados
+      if FDQueryCalcTecidos.RecordCount = 0 then
+        ShowMessage('Nenhum dado encontrado para a ordem ' + IntToStr(numOrdemAtivo));
+
+    except
+      on E: Exception do
+        ShowMessage('Erro ao executar consulta: ' + E.Message);
+    end;
+
+    AjustarLarguraColunas(DBGridCalcTecidos);
+
   except
     on E: Exception do
       ShowMessage('Erro ao adicionar item: ' + E.Message);
@@ -358,6 +420,37 @@ end;
 
 
 
+
+procedure TFormGerarOrdemCorte.Button1Click(Sender: TObject);
+var
+  QuickRep: TQuickRep;
+  DetailBand: TQRBand;
+  QRDBText: TQRDBText;
+begin
+  QuickRep := TQuickRep.Create(nil);
+  try
+    // Configura o DataSet para o relatório
+    QuickRep.DataSet := FDQueryItensLista; // Use o DataSet que contém os dados
+
+    // Adiciona a banda de detalhes
+    DetailBand := TQRBand.Create(QuickRep);
+    //DetailBand.BandType := rbDetail; // Defina o tipo de banda como Detalhe
+    DetailBand.Parent := QuickRep;
+
+    // Adiciona um componente para exibir dados
+    QRDBText := TQRDBText.Create(DetailBand);
+    QRDBText.Parent := DetailBand; // Define a banda de detalhes como parent
+    QRDBText.DataSet := FDQueryItensLista;
+    QRDBText.DataField := 'nomeProduto'; // Campo do DataSet que será exibido
+    QRDBText.Left := 10; // Posição horizontal
+    QRDBText.Top := 10; // Posição vertical
+
+    // Exibe o relatório em modo de pré-visualização
+    QuickRep.Preview;
+  finally
+    QuickRep.Free; // Libera a memória após o uso
+  end;
+end;
 
 procedure TFormGerarOrdemCorte.Button3Click(Sender: TObject);
 begin
