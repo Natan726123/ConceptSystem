@@ -5588,7 +5588,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
     end
     object QRSubDetail1: TQRSubDetail
       Left = 38
-      Top = 377
+      Top = 327
       Width = 718
       Height = 30
       Frame.DrawTop = True
@@ -5920,7 +5920,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Font.Style = [fsBold]
         ParentFont = False
         Transparent = False
-        ExportAs = exptText
+        ExportAs = exptNumeric
         WrapStyle = BreakOnSpaces
         FullJustify = False
         MaxBreakChars = 0
@@ -6071,7 +6071,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         1899.708333333333000000)
       PreCaluculateBandHeight = False
       KeepOnOnePage = False
-      Expression = 'Tecido'
+      Expression = 'nomeTecido'
       Master = QuickRepOrdemCorte
       ReprintOnNewPage = False
       object QRDBText3: TQRDBText
@@ -6109,21 +6109,20 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
     end
     object QRPBand1: TQRPBand
       Left = 38
-      Top = 281
+      Top = 255
       Width = 718
-      Height = 96
+      Height = 66
       Frame.DrawTop = True
       Frame.DrawBottom = True
       Frame.DrawLeft = True
       Frame.DrawRight = True
       AlignToBottom = False
       Color = clSilver
-      Enabled = False
       TransparentBand = False
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        254.000000000000000000
+        174.625000000000000000
         1899.708333333333000000)
       PreCaluculateBandHeight = False
       KeepOnOnePage = False
@@ -6421,25 +6420,65 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         VerticalAlignment = tlTop
         FontSize = 10
       end
+      object QRFrameline10: TQRFrameline
+        Left = 184
+        Top = 38
+        Width = 10
+        Height = 28
+        Size.Values = (
+          74.083333333333330000
+          486.833333333333300000
+          100.541666666666700000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+      end
+      object QRFrameline11: TQRFrameline
+        Left = 241
+        Top = 38
+        Width = 10
+        Height = 28
+        Size.Values = (
+          74.083333333333330000
+          637.645833333333300000
+          100.541666666666700000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+      end
+      object QRFrameline12: TQRFrameline
+        Left = 297
+        Top = 38
+        Width = 10
+        Height = 28
+        Size.Values = (
+          74.083333333333330000
+          785.812500000000000000
+          100.541666666666700000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+      end
     end
-    object QRGroup2: TQRGroup
+    object QRBand1: TQRBand
       Left = 38
       Top = 217
       Width = 718
-      Height = 64
+      Height = 40
       AlignToBottom = False
       TransparentBand = False
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        169.333333333333300000
+        105.833333333333300000
         1899.708333333333000000)
       PreCaluculateBandHeight = False
       KeepOnOnePage = False
-      Expression = 'Tecido'
-      Master = QuickRepOrdemCorte
-      ReprintOnNewPage = False
-      object QRDBText12: TQRDBText
+      BandType = rbDetail
+      object QRDBText13: TQRDBText
         Left = 336
         Top = 6
         Width = 54
@@ -6468,296 +6507,6 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         WrapStyle = BreakOnSpaces
         FullJustify = False
         MaxBreakChars = 0
-        VerticalAlignment = tlTop
-        FontSize = 10
-      end
-      object QRLabel3: TQRLabel
-        Left = 62
-        Top = 38
-        Width = 63
-        Height = 17
-        Size.Values = (
-          44.979166666666670000
-          164.041666666666700000
-          100.541666666666700000
-          166.687500000000000000)
-        XLColumn = 0
-        XLNumFormat = nfGeneral
-        ActiveInPreview = False
-        Alignment = taLeftJustify
-        AlignToBand = False
-        Caption = 'Modelo'
-        Color = clSilver
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Perpetua Titling MT'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = False
-        ExportAs = exptText
-        WrapStyle = BreakOnSpaces
-        VerticalAlignment = tlTop
-        FontSize = 10
-      end
-      object QRLabel4: TQRLabel
-        Left = 214
-        Top = 40
-        Width = 9
-        Height = 17
-        Size.Values = (
-          44.979166666666670000
-          566.208333333333300000
-          105.833333333333300000
-          23.812500000000000000)
-        XLColumn = 0
-        XLNumFormat = nfGeneral
-        ActiveInPreview = False
-        Alignment = taLeftJustify
-        AlignToBand = False
-        Caption = 'P'
-        Color = clSilver
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Perpetua Titling MT'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = False
-        ExportAs = exptText
-        WrapStyle = BreakOnSpaces
-        VerticalAlignment = tlTop
-        FontSize = 10
-      end
-      object QRLabel6: TQRLabel
-        Left = 267
-        Top = 40
-        Width = 14
-        Height = 17
-        Size.Values = (
-          44.979166666666670000
-          706.437500000000000000
-          105.833333333333300000
-          37.041666666666670000)
-        XLColumn = 0
-        XLNumFormat = nfGeneral
-        ActiveInPreview = False
-        Alignment = taLeftJustify
-        AlignToBand = False
-        Caption = 'M'
-        Color = clSilver
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Perpetua Titling MT'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = False
-        ExportAs = exptText
-        WrapStyle = BreakOnSpaces
-        VerticalAlignment = tlTop
-        FontSize = 10
-      end
-      object QRLabel7: TQRLabel
-        Left = 326
-        Top = 40
-        Width = 11
-        Height = 17
-        Size.Values = (
-          44.979166666666670000
-          862.541666666666700000
-          105.833333333333300000
-          29.104166666666670000)
-        XLColumn = 0
-        XLNumFormat = nfGeneral
-        ActiveInPreview = False
-        Alignment = taLeftJustify
-        AlignToBand = False
-        Caption = 'G'
-        Color = clSilver
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Perpetua Titling MT'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = False
-        ExportAs = exptText
-        WrapStyle = BreakOnSpaces
-        VerticalAlignment = tlTop
-        FontSize = 10
-      end
-      object QRLabel8: TQRLabel
-        Left = 380
-        Top = 40
-        Width = 21
-        Height = 17
-        Size.Values = (
-          44.979166666666670000
-          1005.416666666667000000
-          105.833333333333300000
-          55.562500000000000000)
-        XLColumn = 0
-        XLNumFormat = nfGeneral
-        ActiveInPreview = False
-        Alignment = taLeftJustify
-        AlignToBand = False
-        Caption = 'GG'
-        Color = clSilver
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Perpetua Titling MT'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = False
-        ExportAs = exptText
-        WrapStyle = BreakOnSpaces
-        VerticalAlignment = tlTop
-        FontSize = 10
-      end
-      object QRLabel9: TQRLabel
-        Left = 437
-        Top = 40
-        Width = 16
-        Height = 17
-        Size.Values = (
-          44.979166666666670000
-          1156.229166666667000000
-          105.833333333333300000
-          42.333333333333330000)
-        XLColumn = 0
-        XLNumFormat = nfGeneral
-        ActiveInPreview = False
-        Alignment = taLeftJustify
-        AlignToBand = False
-        Caption = '48'
-        Color = clSilver
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Perpetua Titling MT'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = False
-        ExportAs = exptText
-        WrapStyle = BreakOnSpaces
-        VerticalAlignment = tlTop
-        FontSize = 10
-      end
-      object QRLabel10: TQRLabel
-        Left = 492
-        Top = 40
-        Width = 17
-        Height = 17
-        Size.Values = (
-          44.979166666666670000
-          1301.750000000000000000
-          105.833333333333300000
-          44.979166666666670000)
-        XLColumn = 0
-        XLNumFormat = nfGeneral
-        ActiveInPreview = False
-        Alignment = taLeftJustify
-        AlignToBand = False
-        Caption = '50'
-        Color = clSilver
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Perpetua Titling MT'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = False
-        ExportAs = exptText
-        WrapStyle = BreakOnSpaces
-        VerticalAlignment = tlTop
-        FontSize = 10
-      end
-      object QRLabel11: TQRLabel
-        Left = 550
-        Top = 40
-        Width = 16
-        Height = 17
-        Size.Values = (
-          44.979166666666670000
-          1455.208333333333000000
-          105.833333333333300000
-          42.333333333333330000)
-        XLColumn = 0
-        XLNumFormat = nfGeneral
-        ActiveInPreview = False
-        Alignment = taLeftJustify
-        AlignToBand = False
-        Caption = '52'
-        Color = clSilver
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Perpetua Titling MT'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = False
-        ExportAs = exptText
-        WrapStyle = BreakOnSpaces
-        VerticalAlignment = tlTop
-        FontSize = 10
-      end
-      object QRLabel12: TQRLabel
-        Left = 655
-        Top = 38
-        Width = 55
-        Height = 17
-        Size.Values = (
-          44.979166666666670000
-          1733.020833333333000000
-          100.541666666666700000
-          145.520833333333300000)
-        XLColumn = 0
-        XLNumFormat = nfGeneral
-        ActiveInPreview = False
-        Alignment = taLeftJustify
-        AlignToBand = False
-        Caption = 'TEc. kg'
-        Color = clSilver
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Perpetua Titling MT'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = False
-        ExportAs = exptText
-        WrapStyle = BreakOnSpaces
-        VerticalAlignment = tlTop
-        FontSize = 10
-      end
-      object QRLabel13: TQRLabel
-        Left = 594
-        Top = 38
-        Width = 48
-        Height = 17
-        Size.Values = (
-          44.979166666666670000
-          1571.625000000000000000
-          100.541666666666700000
-          127.000000000000000000)
-        XLColumn = 0
-        XLNumFormat = nfGeneral
-        ActiveInPreview = False
-        Alignment = taLeftJustify
-        AlignToBand = False
-        Caption = 'total'
-        Color = clSilver
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Perpetua Titling MT'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = False
-        ExportAs = exptText
-        WrapStyle = BreakOnSpaces
         VerticalAlignment = tlTop
         FontSize = 10
       end

@@ -42,6 +42,7 @@ type
     QRLabel19: TQRLabel;
     QRLabel20: TQRLabel;
     QRLabel21: TQRLabel;
+    QRDBText12: TQRDBText;
     QRFrameline1: TQRFrameline;
     QRFrameline2: TQRFrameline;
     QRFrameline3: TQRFrameline;
@@ -51,18 +52,9 @@ type
     QRFrameline7: TQRFrameline;
     QRFrameline8: TQRFrameline;
     QRFrameline9: TQRFrameline;
-    QRGroup2: TQRGroup;
-    QRDBText12: TQRDBText;
-    QRLabel3: TQRLabel;
-    QRLabel4: TQRLabel;
-    QRLabel6: TQRLabel;
-    QRLabel7: TQRLabel;
-    QRLabel8: TQRLabel;
-    QRLabel9: TQRLabel;
-    QRLabel10: TQRLabel;
-    QRLabel11: TQRLabel;
-    QRLabel12: TQRLabel;
-    QRLabel13: TQRLabel;
+    QRFrameline10: TQRFrameline;
+    QRFrameline11: TQRFrameline;
+    QRFrameline12: TQRFrameline;
   private
     { Private declarations }
   public

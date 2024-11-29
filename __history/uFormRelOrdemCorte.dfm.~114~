@@ -5590,7 +5590,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
       Left = 38
       Top = 283
       Width = 718
-      Height = 38
+      Height = 30
       Frame.DrawTop = True
       Frame.DrawBottom = True
       Frame.DrawLeft = True
@@ -5600,7 +5600,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        100.541666666666700000
+        79.375000000000000000
         1899.708333333333000000)
       PreCaluculateBandHeight = False
       KeepOnOnePage = False
@@ -5640,13 +5640,13 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         FontSize = 10
       end
       object QRDBText2: TQRDBText
-        Left = 150
+        Left = 214
         Top = 6
         Width = 9
         Height = 17
         Size.Values = (
           44.979166666666670000
-          396.875000000000000000
+          566.208333333333300000
           15.875000000000000000
           23.812500000000000000)
         XLColumn = 0
@@ -5864,13 +5864,13 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         FontSize = 10
       end
       object QRDBText10: TQRDBText
-        Left = 594
+        Left = 572
         Top = 6
         Width = 88
         Height = 17
         Size.Values = (
           44.979166666666670000
-          1571.625000000000000000
+          1513.416666666667000000
           15.875000000000000000
           232.833333333333300000)
         XLColumn = 0
@@ -5888,7 +5888,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Font.Style = [fsBold]
         ParentFont = False
         Transparent = False
-        ExportAs = exptText
+        ExportAs = exptNumeric
         WrapStyle = BreakOnSpaces
         FullJustify = False
         MaxBreakChars = 0
@@ -5896,19 +5896,19 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         FontSize = 10
       end
       object QRDBText11: TQRDBText
-        Left = 649
+        Left = 660
         Top = 6
         Width = 122
         Height = 17
         Size.Values = (
           44.979166666666670000
-          1717.145833333333000000
+          1746.250000000000000000
           15.875000000000000000
           322.791666666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
-        Alignment = taCenter
+        Alignment = taLeftJustify
         AlignToBand = False
         Color = clWhite
         DataSet = FormGerarOrdemCorte.FDQueryRelCorte
@@ -5955,6 +5955,104 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         XLNumFormat = nfGeneral
         ActiveInPreview = False
       end
+      object QRFrameline3: TQRFrameline
+        Left = 297
+        Top = 6
+        Width = 10
+        Height = 28
+        Size.Values = (
+          74.083333333333330000
+          785.812500000000000000
+          15.875000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+      end
+      object QRFrameline4: TQRFrameline
+        Left = 354
+        Top = 6
+        Width = 10
+        Height = 28
+        Size.Values = (
+          74.083333333333330000
+          936.625000000000000000
+          15.875000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+      end
+      object QRFrameline5: TQRFrameline
+        Left = 413
+        Top = 6
+        Width = 10
+        Height = 28
+        Size.Values = (
+          74.083333333333330000
+          1092.729166666667000000
+          15.875000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+      end
+      object QRFrameline6: TQRFrameline
+        Left = 468
+        Top = 6
+        Width = 10
+        Height = 28
+        Size.Values = (
+          74.083333333333330000
+          1238.250000000000000000
+          15.875000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+      end
+      object QRFrameline7: TQRFrameline
+        Left = 524
+        Top = 6
+        Width = 10
+        Height = 28
+        Size.Values = (
+          74.083333333333330000
+          1386.416666666667000000
+          15.875000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+      end
+      object QRFrameline8: TQRFrameline
+        Left = 582
+        Top = 6
+        Width = 10
+        Height = 28
+        Size.Values = (
+          74.083333333333330000
+          1539.875000000000000000
+          15.875000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+      end
+      object QRFrameline9: TQRFrameline
+        Left = 644
+        Top = 6
+        Width = 10
+        Height = 28
+        Size.Values = (
+          74.083333333333330000
+          1703.916666666667000000
+          15.875000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+      end
     end
     object QRGroup1: TQRGroup
       Left = 38
@@ -5973,7 +6071,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         1899.708333333333000000)
       PreCaluculateBandHeight = False
       KeepOnOnePage = False
-      Expression = 'nomeTecido'
+      Expression = 'Tecido'
       Master = QuickRepOrdemCorte
       ReprintOnNewPage = False
       object QRDBText3: TQRDBText
@@ -6019,7 +6117,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
       Frame.DrawLeft = True
       Frame.DrawRight = True
       AlignToBottom = False
-      Color = clMedGray
+      Color = clSilver
       TransparentBand = False
       ForceNewColumn = False
       ForceNewPage = False
@@ -6048,7 +6146,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Caption = 'Modelo'
-        Color = clWhite
+        Color = clSilver
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -6077,7 +6175,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Caption = 'P'
-        Color = clWhite
+        Color = clSilver
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -6106,7 +6204,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Caption = 'M'
-        Color = clWhite
+        Color = clSilver
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -6135,7 +6233,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Caption = 'G'
-        Color = clWhite
+        Color = clSilver
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -6164,7 +6262,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Caption = 'GG'
-        Color = clWhite
+        Color = clSilver
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -6193,7 +6291,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Caption = '48'
-        Color = clWhite
+        Color = clSilver
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -6222,7 +6320,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Caption = '50'
-        Color = clWhite
+        Color = clSilver
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -6251,7 +6349,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Caption = '52'
-        Color = clWhite
+        Color = clSilver
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -6280,7 +6378,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Caption = 'TEc. kg'
-        Color = clWhite
+        Color = clSilver
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -6309,7 +6407,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Caption = 'total'
-        Color = clWhite
+        Color = clSilver
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -6337,7 +6435,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         ActiveInPreview = False
         Alignment = taLeftJustify
         AlignToBand = False
-        Color = clWhite
+        Color = clSilver
         DataSet = FormGerarOrdemCorte.FDQueryRelCorte
         DataField = 'Tecido'
         Font.Charset = ANSI_CHARSET
@@ -6355,89 +6453,5 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         FontSize = 10
       end
     end
-  end
-  object QRFrameline3: TQRFrameline
-    Left = 367
-    Top = 291
-    Width = 10
-    Height = 38
-    Size.Values = (
-      100.541666666666700000
-      971.020833333333300000
-      769.937500000000000000
-      26.458333333333330000)
-    XLColumn = 0
-    XLNumFormat = nfGeneral
-    ActiveInPreview = False
-  end
-  object QRFrameline4: TQRFrameline
-    Left = 424
-    Top = 291
-    Width = 10
-    Height = 38
-    Size.Values = (
-      100.541666666666700000
-      1121.833333333333000000
-      769.937500000000000000
-      26.458333333333330000)
-    XLColumn = 0
-    XLNumFormat = nfGeneral
-    ActiveInPreview = False
-  end
-  object QRFrameline5: TQRFrameline
-    Left = 538
-    Top = 297
-    Width = 10
-    Height = 28
-    Size.Values = (
-      74.083333333333330000
-      1423.458333333333000000
-      785.812500000000000000
-      26.458333333333330000)
-    XLColumn = 0
-    XLNumFormat = nfGeneral
-    ActiveInPreview = False
-  end
-  object QRFrameline6: TQRFrameline
-    Left = 481
-    Top = 297
-    Width = 10
-    Height = 28
-    Size.Values = (
-      74.083333333333330000
-      1272.645833333333000000
-      785.812500000000000000
-      26.458333333333330000)
-    XLColumn = 0
-    XLNumFormat = nfGeneral
-    ActiveInPreview = False
-  end
-  object QRFrameline7: TQRFrameline
-    Left = 651
-    Top = 297
-    Width = 10
-    Height = 28
-    Size.Values = (
-      74.083333333333330000
-      1722.437500000000000000
-      785.812500000000000000
-      26.458333333333330000)
-    XLColumn = 0
-    XLNumFormat = nfGeneral
-    ActiveInPreview = False
-  end
-  object QRFrameline8: TQRFrameline
-    Left = 594
-    Top = 297
-    Width = 10
-    Height = 28
-    Size.Values = (
-      74.083333333333330000
-      1571.625000000000000000
-      785.812500000000000000
-      26.458333333333330000)
-    XLColumn = 0
-    XLNumFormat = nfGeneral
-    ActiveInPreview = False
   end
 end
