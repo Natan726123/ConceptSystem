@@ -1,7 +1,4 @@
-﻿[Button1]
-Coordinates=10,144,59,58
-
-[Label1]
+﻿[Label1]
 Coordinates=79,144,53,58
 
 []
@@ -149,4 +146,7 @@ Coordinates=321,673,60,58
 
 [edtPedidos]
 Coordinates=390,673,79,58
+
+[btnGerarOrdem]
+Coordinates=10,144,59,58
 

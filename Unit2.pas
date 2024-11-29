@@ -9,11 +9,11 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, uMainModulo,
-  FireDAC.Comp.Client, Vcl.DBGrids, Vcl.Imaging.pngimage, Math, QuickRpt, QRCtrls;
+  FireDAC.Comp.Client, Vcl.DBGrids, Vcl.Imaging.pngimage, Math, QuickRpt, QRCtrls, uFormRelOrdemCorte;
 
 type
   TFormGerarOrdemCorte = class(TForm)
-    Button1: TButton;
+    btnGerarOrdem: TButton;
     Label1: TLabel;
     ComboBoxProdutos: TComboBox;
     pnlModelos: TPanel;
@@ -62,6 +62,24 @@ type
     Label12: TLabel;
     edtPedidos: TEdit;
     FDQueryItensListaPedidos: TStringField;
+    FDQueryRelCorte: TFDQuery;
+    DSDadosRelCorte: TDataSource;
+    FDQueryMaster: TFDQuery;
+    FDQueryDetail: TFDQuery;
+    DSDadosRelatorio: TDataSource;
+    FDQueryDetailModelo: TStringField;
+    FDQueryDetailP: TWideStringField;
+    FDQueryDetailM: TWideStringField;
+    FDQueryDetailG: TWideStringField;
+    FDQueryDetailGG: TWideStringField;
+    FDQueryDetailWideStringField48: TWideStringField;
+    FDQueryDetailWideStringField50: TWideStringField;
+    FDQueryDetailWideStringField52: TWideStringField;
+    FDQueryDetailTotalItens: TWideStringField;
+    FDQueryDetailTotalTecidoKg: TWideStringField;
+    FDQueryMastercodTecido: TFDAutoIncField;
+    FDQueryMasterTecido: TStringField;
+    FDQueryMasterTotalTecidoKg: TWideStringField;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ComboBoxProdutosChange(Sender: TObject);
@@ -83,7 +101,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure edtQuantidadeKeyPress(Sender: TObject; var Key: Char);
     procedure Button3Click(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure btnGerarOrdemClick(Sender: TObject);
 
 
   private
@@ -413,6 +431,7 @@ begin
     on E: Exception do
       ShowMessage('Erro ao adicionar item: ' + E.Message);
   end;
+
 end;
 
 
@@ -421,36 +440,119 @@ end;
 
 
 
-procedure TFormGerarOrdemCorte.Button1Click(Sender: TObject);
+procedure TFormGerarOrdemCorte.btnGerarOrdemClick(Sender: TObject);
 var
-  QuickRep: TQuickRep;
-  DetailBand: TQRBand;
-  QRDBText: TQRDBText;
+  QRLabelTitulo, QRLabelData: TQRLabel;
 begin
-  QuickRep := TQuickRep.Create(nil);
-  try
-    // Configura o DataSet para o relatório
-    QuickRep.DataSet := FDQueryItensLista; // Use o DataSet que contém os dados
 
-    // Adiciona a banda de detalhes
-    DetailBand := TQRBand.Create(QuickRep);
-    //DetailBand.BandType := rbDetail; // Defina o tipo de banda como Detalhe
-    DetailBand.Parent := QuickRep;
 
-    // Adiciona um componente para exibir dados
-    QRDBText := TQRDBText.Create(DetailBand);
-    QRDBText.Parent := DetailBand; // Define a banda de detalhes como parent
-    QRDBText.DataSet := FDQueryItensLista;
-    QRDBText.DataField := 'nomeProduto'; // Campo do DataSet que será exibido
-    QRDBText.Left := 10; // Posição horizontal
-    QRDBText.Top := 10; // Posição vertical
-
-    // Exibe o relatório em modo de pré-visualização
-    QuickRep.Preview;
-  finally
-    QuickRep.Free; // Libera a memória após o uso
+  if FDQueryCalcTecidos.IsEmpty then
+  begin
+    ShowMessage('Nenhum dado encontrado para o relatório.');
+    Exit;
   end;
+
+  if not Assigned(FormRelOrdemCorte) then
+    FormRelOrdemCorte := TFormRelOrdemCorte.Create(Self);
+
+
+  FormRelOrdemCorte.QRLabelNumOrdem.Caption := 'ORDEM N°: ';
+  FormRelOrdemCorte.QRLabelNumOrdem.Caption := FormRelOrdemCorte.QRLabelNumOrdem.Caption + IntToStr(numOrdemAtivo);
+
+  FormRelOrdemCorte.QRLabelPedidos.Caption := 'PEDIDOS: ';
+  FormRelOrdemCorte.QRLabelPedidos.Caption := FormRelOrdemCorte.QRLabelPedidos.Caption + edtPedidos.Text;
+
+  FDQueryRelCorte.Close; // Garante que a query esteja fechada
+//
+ FDQueryRelCorte.SQL.Text :=
+  'SELECT ' +
+  '    t.nomeTecido AS Tecido, ' +
+  '    p.nomeProduto AS Modelo, ' +
+  '    CAST(SUM(CASE WHEN o.tamanhoPecas = ''P'' THEN o.quantidadePecas ELSE 0 END) AS TEXT) AS P, ' +
+  '    CAST(SUM(CASE WHEN o.tamanhoPecas = ''M'' THEN o.quantidadePecas ELSE 0 END) AS TEXT) AS M, ' +
+  '    CAST(SUM(CASE WHEN o.tamanhoPecas = ''G'' THEN o.quantidadePecas ELSE 0 END) AS TEXT) AS G, ' +
+  '    CAST(SUM(CASE WHEN o.tamanhoPecas = ''GG'' THEN o.quantidadePecas ELSE 0 END) AS TEXT) AS GG, ' +
+  '    CAST(SUM(CASE WHEN o.tamanhoPecas = ''48'' THEN o.quantidadePecas ELSE 0 END) AS TEXT) AS ''48'', ' +
+  '    CAST(SUM(CASE WHEN o.tamanhoPecas = ''50'' THEN o.quantidadePecas ELSE 0 END) AS TEXT) AS ''50'', ' +
+  '    CAST(SUM(CASE WHEN o.tamanhoPecas = ''52'' THEN o.quantidadePecas ELSE 0 END) AS TEXT) AS ''52'', ' +
+  '    CAST(SUM(o.quantidadePecas) AS TEXT) AS TotalItens, ' +
+  '    CAST(SUM(o.quantidadeTecidoKg) AS TEXT) AS TotalTecidoKg ' +
+  'FROM ' +
+  '    TBordemdecorte o ' +
+  'INNER JOIN ' +
+  '    TBtecidos t ON o.codTecido = t.codTecido ' +
+  'INNER JOIN ' +
+  '    TBprodutos p ON o.codProduto = p.codProduto ' +
+  'WHERE ' +
+  '    o.numOrdem = :numOrdem ' +
+  'GROUP BY ' +
+  '    t.nomeTecido, p.nomeProduto ' +
+  'ORDER BY ' +
+  '    t.nomeTecido, p.nomeProduto';
+
+  FDQueryRelCorte.ParamByName('numOrdem').Value := numOrdemAtivo;
+//
+  FDQueryRelCorte.Open; // Executa a query
+
+  // Configura os parâmetros das queries
+//FDQueryMaster.Close;
+//FDQueryMaster.SQL.Text :=
+//  'SELECT DISTINCT ' +
+//  '    t.codTecido, ' +
+//  '    t.nomeTecido AS Tecido, ' +
+//  '    CAST(SUM(o.quantidadeTecidoKg) AS CHAR) AS TotalTecidoKg ' +
+//  'FROM ' +
+//  '    TBordemdecorte o ' +
+//  'INNER JOIN ' +
+//  '    TBtecidos t ON o.codTecido = t.codTecido ' +
+//  'WHERE ' +
+//  '    o.numOrdem = :numOrdem ' +
+//  'GROUP BY ' +
+//  '    t.codTecido, t.nomeTecido ' +
+//  'ORDER BY ' +
+//  '    t.nomeTecido';
+//FDQueryMaster.ParamByName('numOrdem').Value := numOrdemAtivo; // Defina o parâmetro numOrdem corretamente
+//
+//FDQueryMaster.Open;
+//
+////
+//FDQueryDetail.Close;
+//FDQueryDetail.SQL.Text :=
+//  'SELECT ' +
+//  '  p.codTecido,  '  +
+//  '  p.nomeProduto AS Modelo, ' +
+//  '  SUM(CASE WHEN o.tamanhoPecas = ''P'' THEN o.quantidadePecas ELSE 0 END) AS P, ' +
+//  '  SUM(CASE WHEN o.tamanhoPecas = ''M'' THEN o.quantidadePecas ELSE 0 END) AS M, ' +
+//  '  SUM(CASE WHEN o.tamanhoPecas = ''G'' THEN o.quantidadePecas ELSE 0 END) AS G, ' +
+//  '  SUM(CASE WHEN o.tamanhoPecas = ''GG'' THEN o.quantidadePecas ELSE 0 END) AS GG, ' +
+//  '  SUM(CASE WHEN o.tamanhoPecas = ''48'' THEN o.quantidadePecas ELSE 0 END) AS ''48'', ' +
+//  '  SUM(CASE WHEN o.tamanhoPecas = ''50'' THEN o.quantidadePecas ELSE 0 END) AS ''50'', ' +
+//  '  SUM(CASE WHEN o.tamanhoPecas = ''52'' THEN o.quantidadePecas ELSE 0 END) AS ''52'', ' +
+//  '  SUM(o.quantidadePecas) AS TotalItens, ' +
+//  '  SUM(o.quantidadeTecidoKg) AS TotalTecidoKg ' +
+//  'FROM ' +
+//  '  TBordemdecorte o ' +
+//  'INNER JOIN ' +
+//  '  TBprodutos p ON o.codProduto = p.codProduto ' +
+//  'WHERE ' +
+//  '  o.numOrdem = :numOrdem ' +
+//  'GROUP BY ' +
+//  '  p.nomeProduto ' +
+//  'ORDER BY ' +
+//  '  p.nomeProduto';
+//
+//FDQueryDetail.ParamByName('numOrdem').Value := numOrdemAtivo; // Define o parâmetro numOrdem corretamente
+//
+//// Verifique e atribua corretamente o parâmetro codTecido
+//FDQueryDetail.ParamByName('codTecido').AsString := FDQueryMaster.FieldByName('codTecido').AsString; // Certifique-se de que o campo correto é acessado
+//FDQueryDetail.Open; // Abre a consulta para o Detail
+
+
+
+  FormRelOrdemCorte.QuickRepOrdemCorte.Preview;
+
 end;
+
 
 procedure TFormGerarOrdemCorte.Button3Click(Sender: TObject);
 begin

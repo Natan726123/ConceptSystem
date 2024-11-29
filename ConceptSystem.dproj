@@ -168,6 +168,10 @@
             <Form>FormCadastroFaccao</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uFormRelOrdemCorte.pas">
+            <Form>FormRelOrdemCorte</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
