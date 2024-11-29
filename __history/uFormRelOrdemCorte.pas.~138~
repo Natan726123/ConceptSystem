@@ -1,0 +1,131 @@
+unit uFormRelOrdemCorte;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, QRCtrls, QuickRpt,
+  Vcl.ExtCtrls, Vcl.Imaging.jpeg, qrFramelines, qrpctrls, Data.DB, uMainModulo,
+  Data.Win.ADODB, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+
+type
+  TFormRelOrdemCorte = class(TForm)
+    QuickRepOrdemCorte: TQuickRep;
+    TitleBand1: TQRBand;
+    QRLabelTitulo: TQRLabel;
+    QRSubDetail1: TQRSubDetail;
+    QRDBText1: TQRDBText;
+    QRDBText2: TQRDBText;
+    QRDBText4: TQRDBText;
+    QRDBText5: TQRDBText;
+    QRDBText6: TQRDBText;
+    QRDBText7: TQRDBText;
+    QRDBText8: TQRDBText;
+    QRDBText9: TQRDBText;
+    QRDBText10: TQRDBText;
+    QRDBTotalTecidoKg: TQRDBText;
+    QRPBand1: TQRPBand;
+    QRLabel1: TQRLabel;
+    QRLabel2: TQRLabel;
+    QRLabel14: TQRLabel;
+    QRLabel15: TQRLabel;
+    QRLabel16: TQRLabel;
+    QRLabel17: TQRLabel;
+    QRLabel18: TQRLabel;
+    QRLabel19: TQRLabel;
+    QRLabel20: TQRLabel;
+    QRLabel21: TQRLabel;
+    QRFrameline1: TQRFrameline;
+    QRFrameline2: TQRFrameline;
+    QRFrameline3: TQRFrameline;
+    QRFrameline4: TQRFrameline;
+    QRFrameline5: TQRFrameline;
+    QRFrameline6: TQRFrameline;
+    QRFrameline7: TQRFrameline;
+    QRFrameline8: TQRFrameline;
+    QRFrameline9: TQRFrameline;
+    QRGroup2: TQRGroup;
+    QRDBText12: TQRDBText;
+    QRLabel3: TQRLabel;
+    QRLabel4: TQRLabel;
+    QRLabel6: TQRLabel;
+    QRLabel7: TQRLabel;
+    QRLabel8: TQRLabel;
+    QRLabel9: TQRLabel;
+    QRLabel10: TQRLabel;
+    QRLabel11: TQRLabel;
+    QRLabel12: TQRLabel;
+    QRLabel13: TQRLabel;
+    QRImage1: TQRImage;
+    QRBand1: TQRBand;
+    QRLabelNumOrdem: TQRLabel;
+    QRLabel27: TQRLabel;
+    QRSysData1: TQRSysData;
+    QRLabelPedidos: TQRLabel;
+    QRShape1: TQRShape;
+    QRBand2: TQRBand;
+    QRLabel5: TQRLabel;
+    QRLabelTotal: TQRLabel;
+    QRExprTotalTecidoKg: TQRExpr;
+    FDQueryRelCorte: TFDQuery;
+    FDQueryRelCorteTecido: TStringField;
+    FDQueryRelCorteModelo: TStringField;
+    FDQueryRelCorteP: TWideStringField;
+    FDQueryRelCorteM: TWideStringField;
+    FDQueryRelCorteG: TWideStringField;
+    FDQueryRelCorteGG: TWideStringField;
+    FDQueryRelCorteWideStringField48: TWideStringField;
+    FDQueryRelCorteWideStringField50: TWideStringField;
+    FDQueryRelCorteWideStringField52: TWideStringField;
+    FDQueryRelCorteTotalItens: TWideStringField;
+    FDQueryRelCorteTotalTecidoKg: TWideStringField;
+    DSDadosRelCorte: TDataSource;
+    procedure QRGroup2BeforePrint(Sender: TQRCustomBand;
+      var PrintBand: Boolean);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormRelOrdemCorte: TFormRelOrdemCorte;
+
+implementation
+
+uses
+ Unit2;
+
+{$R *.dfm}
+
+
+
+procedure TFormRelOrdemCorte.QRGroup2BeforePrint(Sender: TQRCustomBand;
+  var PrintBand: Boolean);
+  var
+  TotalKg: Double;
+begin
+
+//FormGerarOrdemCorte.FDQueryRelCorte.Open;
+//  TotalKg := 0;
+//
+//  // Navegar pelo dataset para calcular o total
+//  FormGerarOrdemCorte.FDQueryRelCorte.First;
+//  while not FormGerarOrdemCorte.FDQueryRelCorte.Eof do
+//  begin
+//    // Verifica se o Tecido atual pertence ao grupo
+//    if FormGerarOrdemCorte.FDQueryRelCorte.FieldByName('Tecido').AsString = QRGroup2.Expression then
+//      TotalKg := TotalKg + FormGerarOrdemCorte.FDQueryRelCorte.FieldByName('TotalTecidoKg').AsFloat;
+//
+//    FormGerarOrdemCorte.FDQueryRelCorte.Next;
+//  end;
+//
+//  // Atribuir o valor ao QRLabel no footer
+//  QRLabelTotal.Caption := FormatFloat('#,##0.00', TotalKg);
+end;
+
+
+
+end.

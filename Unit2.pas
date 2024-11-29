@@ -542,7 +542,8 @@ begin
 //  '  p.nomeProduto';
 //
 //FDQueryDetail.ParamByName('numOrdem').Value := numOrdemAtivo; // Define o parâmetro numOrdem corretamente
-//
+
+//
 //// Verifique e atribua corretamente o parâmetro codTecido
 //FDQueryDetail.ParamByName('codTecido').AsString := FDQueryMaster.FieldByName('codTecido').AsString; // Certifique-se de que o campo correto é acessado
 //FDQueryDetail.Open; // Abre a consulta para o Detail

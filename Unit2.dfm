@@ -5954,6 +5954,7 @@
       end>
   end
   object FDQueryRelCorte: TFDQuery
+    Active = True
     Connection = Form6.FDConnection1
     UpdateOptions.AssignedValues = [uvUpdateChngFields]
     SQL.Strings = (

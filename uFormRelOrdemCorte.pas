@@ -63,6 +63,12 @@ type
     QRLabel11: TQRLabel;
     QRLabel12: TQRLabel;
     QRLabel13: TQRLabel;
+    GroupFooterTotalKg: TQRBand;
+    QRExpr1: TQRExpr;
+    QRShape1: TQRShape;
+    QRShape2: TQRShape;
+    QRShape3: TQRShape;
+    QRLabel22: TQRLabel;
   private
     { Private declarations }
   public
