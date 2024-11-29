@@ -64,11 +64,29 @@ type
     QRLabel12: TQRLabel;
     QRLabel13: TQRLabel;
     GroupFooterTotalKg: TQRBand;
-    QRExpr1: TQRExpr;
     QRShape1: TQRShape;
     QRShape2: TQRShape;
     QRShape3: TQRShape;
     QRLabel22: TQRLabel;
+    QRLabel23: TQRLabel;
+    QRDBText13: TQRDBText;
+    QRDBText14: TQRDBText;
+    QRBand1: TQRBand;
+    QRLabel24: TQRLabel;
+    QRLabel25: TQRLabel;
+    QRDBText15: TQRDBText;
+    QRDBText16: TQRDBText;
+    QRShape4: TQRShape;
+    QRShape5: TQRShape;
+    QRShape6: TQRShape;
+    QRShape7: TQRShape;
+    QRShape8: TQRShape;
+    QRShape9: TQRShape;
+    QRShape10: TQRShape;
+    QRShape11: TQRShape;
+    QRShape12: TQRShape;
+    procedure QRDBText14Print(sender: TObject; var Value: string);
+    procedure QRDBText16Print(sender: TObject; var Value: string);
   private
     { Private declarations }
   public
@@ -84,5 +102,19 @@ uses
  Unit2;
 
 {$R *.dfm}
+
+
+procedure TFormRelOrdemCorte.QRDBText14Print(sender: TObject;
+  var Value: string);
+begin
+  Value := FormatFloat('0.00', StrToFloatDef(Value, 0));
+end;
+
+
+procedure TFormRelOrdemCorte.QRDBText16Print(sender: TObject;
+  var Value: string);
+begin
+  Value := FormatFloat('0.00', StrToFloatDef(Value, 0));
+end;
 
 end.

@@ -5954,7 +5954,6 @@
       end>
   end
   object FDQueryRelCorte: TFDQuery
-    Active = True
     Connection = Form6.FDConnection1
     UpdateOptions.AssignedValues = [uvUpdateChngFields]
     SQL.Strings = (
@@ -5983,7 +5982,15 @@
         '    SUM(CASE WHEN o.tamanhoPecas = '#39'52'#39' THEN o.quantidadePecas E' +
         'LSE 0 END) AS '#39'52'#39', '
       '    SUM(o.quantidadePecas) AS TotalItens, '
-      '    SUM(o.quantidadeTecidoKg) AS TotalTecidoKg '
+      '    SUM(o.quantidadeTecidoKg) AS TotalTecidoKg,'
+      
+        '    SUM(SUM(o.quantidadePecas)) OVER (PARTITION BY t.nomeTecido)' +
+        ' AS TotalItensPorTecido,'
+      
+        '    SUM(SUM(o.quantidadeTecidoKg)) OVER (PARTITION BY t.nomeTeci' +
+        'do) AS TotalTecidoKgPorTecido,'
+      '    SUM(SUM(o.quantidadePecas)) OVER () AS TotalFinalItens,'
+      '    SUM(SUM(o.quantidadeTecidoKg)) OVER () AS TotalFinalTecidoKg'
       'FROM '
       '    TBordemdecorte o '
       'INNER JOIN '
@@ -5991,7 +5998,7 @@
       'INNER JOIN '
       '    TBprodutos p ON o.codProduto = p.codProduto '
       'WHERE '
-      '    o.numOrdem = :numOrdem '
+      '    o.numOrdem = :numOrdem'
       'GROUP BY '
       '    t.nomeTecido, p.nomeProduto '
       'ORDER BY '

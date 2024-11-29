@@ -1362,6 +1362,10 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
       Top = 217
       Width = 718
       Height = 64
+      Frame.DrawTop = True
+      Frame.DrawBottom = True
+      Frame.DrawLeft = True
+      Frame.DrawRight = True
       AlignToBottom = False
       Color = clSilver
       TransparentBand = False
@@ -1714,12 +1718,156 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Shape = qrsHorLine
         VertAdjust = 0
       end
+      object QRShape4: TQRShape
+        Left = 184
+        Top = 30
+        Width = 10
+        Height = 34
+        Size.Values = (
+          89.958333333333330000
+          486.833333333333300000
+          79.375000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Shape = qrsVertLine
+        VertAdjust = 0
+      end
+      object QRShape5: TQRShape
+        Left = 241
+        Top = 30
+        Width = 10
+        Height = 34
+        Size.Values = (
+          89.958333333333330000
+          637.645833333333300000
+          79.375000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Shape = qrsVertLine
+        VertAdjust = 0
+      end
+      object QRShape6: TQRShape
+        Left = 297
+        Top = 30
+        Width = 10
+        Height = 34
+        Size.Values = (
+          89.958333333333330000
+          785.812500000000000000
+          79.375000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Shape = qrsVertLine
+        VertAdjust = 0
+      end
+      object QRShape7: TQRShape
+        Left = 354
+        Top = 30
+        Width = 10
+        Height = 34
+        Size.Values = (
+          89.958333333333330000
+          936.625000000000000000
+          79.375000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Shape = qrsVertLine
+        VertAdjust = 0
+      end
+      object QRShape8: TQRShape
+        Left = 413
+        Top = 30
+        Width = 10
+        Height = 34
+        Size.Values = (
+          89.958333333333330000
+          1092.729166666667000000
+          79.375000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Shape = qrsVertLine
+        VertAdjust = 0
+      end
+      object QRShape9: TQRShape
+        Left = 468
+        Top = 30
+        Width = 10
+        Height = 34
+        Size.Values = (
+          89.958333333333330000
+          1238.250000000000000000
+          79.375000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Shape = qrsVertLine
+        VertAdjust = 0
+      end
+      object QRShape10: TQRShape
+        Left = 524
+        Top = 30
+        Width = 10
+        Height = 34
+        Size.Values = (
+          89.958333333333330000
+          1386.416666666667000000
+          79.375000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Shape = qrsVertLine
+        VertAdjust = 0
+      end
+      object QRShape11: TQRShape
+        Left = 582
+        Top = 30
+        Width = 10
+        Height = 34
+        Size.Values = (
+          89.958333333333330000
+          1539.875000000000000000
+          79.375000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Shape = qrsVertLine
+        VertAdjust = 0
+      end
+      object QRShape12: TQRShape
+        Left = 644
+        Top = 30
+        Width = 10
+        Height = 34
+        Size.Values = (
+          89.958333333333330000
+          1703.916666666667000000
+          79.375000000000000000
+          26.458333333333330000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Shape = qrsVertLine
+        VertAdjust = 0
+      end
     end
     object GroupFooterTotalKg: TQRBand
       Left = 38
       Top = 407
       Width = 718
-      Height = 40
+      Height = 34
       Frame.DrawTop = True
       Frame.DrawBottom = True
       Frame.DrawLeft = True
@@ -1729,50 +1877,27 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        105.833333333333300000
+        89.958333333333330000
         1899.708333333333000000)
       PreCaluculateBandHeight = False
       KeepOnOnePage = False
       BandType = rbGroupFooter
-      object QRExpr1: TQRExpr
-        Left = 216
-        Top = 10
-        Width = 369
-        Height = 17
-        Size.Values = (
-          44.979166666666670000
-          571.500000000000000000
-          26.458333333333330000
-          976.312500000000000000)
-        XLColumn = 0
-        XLNumFormat = nfGeneral
-        ActiveInPreview = False
-        Alignment = taLeftJustify
-        AlignToBand = False
-        Color = clWhite
-        ResetAfterPrint = False
-        Transparent = False
-        Expression = 'SUM(FormGerarOrdemCorte.FDQueryRelCorte.TotalTecidosKg)'
-        ExportAs = exptText
-        WrapStyle = BreakOnSpaces
-        FontSize = 10
-      end
       object QRLabel22: TQRLabel
-        Left = 14
-        Top = 10
-        Width = 196
+        Left = 516
+        Top = 6
+        Width = 136
         Height = 17
         Size.Values = (
           44.979166666666670000
-          37.041666666666670000
-          26.458333333333330000
-          518.583333333333300000)
+          1365.250000000000000000
+          15.875000000000000000
+          359.833333333333300000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
         Alignment = taLeftJustify
         AlignToBand = False
-        Caption = 'TOTAL DE Tecidos por kg:'
+        Caption = 'SUBTOTAL POR KG:'
         Color = clWhite
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1783,6 +1908,244 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Transparent = False
         ExportAs = exptText
         WrapStyle = BreakOnSpaces
+        VerticalAlignment = tlTop
+        FontSize = 10
+      end
+      object QRLabel23: TQRLabel
+        Left = 14
+        Top = 6
+        Width = 147
+        Height = 17
+        Size.Values = (
+          44.979166666666670000
+          37.041666666666670000
+          15.875000000000000000
+          388.937500000000000000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Alignment = taLeftJustify
+        AlignToBand = False
+        Caption = 'SUBTOTAL de PE'#199'AS:'
+        Color = clWhite
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = False
+        ExportAs = exptText
+        WrapStyle = BreakOnSpaces
+        VerticalAlignment = tlTop
+        FontSize = 10
+      end
+      object QRDBText13: TQRDBText
+        Left = 167
+        Top = 6
+        Width = 170
+        Height = 17
+        Size.Values = (
+          44.979166666666670000
+          441.854166666666700000
+          15.875000000000000000
+          449.791666666666700000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Alignment = taLeftJustify
+        AlignToBand = False
+        Color = clWhite
+        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataField = 'TotalItensPorTecido'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = False
+        ExportAs = exptText
+        WrapStyle = BreakOnSpaces
+        FullJustify = False
+        MaxBreakChars = 0
+        VerticalAlignment = tlTop
+        FontSize = 10
+      end
+      object QRDBText14: TQRDBText
+        Left = 660
+        Top = 6
+        Width = 204
+        Height = 17
+        Size.Values = (
+          44.979166666666670000
+          1746.250000000000000000
+          15.875000000000000000
+          539.750000000000000000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Alignment = taLeftJustify
+        AlignToBand = False
+        Color = clWhite
+        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataField = 'TotalTecidoKgPorTecido'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = [fsBold]
+        OnPrint = QRDBText14Print
+        ParentFont = False
+        Transparent = False
+        ExportAs = exptText
+        WrapStyle = BreakOnSpaces
+        FullJustify = False
+        MaxBreakChars = 0
+        VerticalAlignment = tlTop
+        FontSize = 10
+      end
+    end
+    object QRBand1: TQRBand
+      Left = 38
+      Top = 447
+      Width = 718
+      Height = 40
+      Frame.DrawTop = True
+      Frame.DrawBottom = True
+      Frame.DrawLeft = True
+      Frame.DrawRight = True
+      AlignToBottom = False
+      Color = clSilver
+      TransparentBand = False
+      ForceNewColumn = False
+      ForceNewPage = False
+      Size.Values = (
+        105.833333333333300000
+        1899.708333333333000000)
+      PreCaluculateBandHeight = False
+      KeepOnOnePage = False
+      BandType = rbSummary
+      object QRLabel24: TQRLabel
+        Left = 14
+        Top = 11
+        Width = 120
+        Height = 17
+        Size.Values = (
+          44.979166666666670000
+          37.041666666666670000
+          29.104166666666670000
+          317.500000000000000000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Alignment = taLeftJustify
+        AlignToBand = False
+        Caption = 'TOTAL de PE'#199'AS:'
+        Color = clSilver
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = False
+        ExportAs = exptText
+        WrapStyle = BreakOnSpaces
+        VerticalAlignment = tlTop
+        FontSize = 10
+      end
+      object QRLabel25: TQRLabel
+        Left = 543
+        Top = 11
+        Width = 109
+        Height = 17
+        Size.Values = (
+          44.979166666666670000
+          1436.687500000000000000
+          29.104166666666670000
+          288.395833333333300000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Alignment = taLeftJustify
+        AlignToBand = False
+        Caption = 'TOTAL POR KG:'
+        Color = clSilver
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = False
+        ExportAs = exptText
+        WrapStyle = BreakOnSpaces
+        VerticalAlignment = tlTop
+        FontSize = 10
+      end
+      object QRDBText15: TQRDBText
+        Left = 140
+        Top = 11
+        Width = 129
+        Height = 17
+        Size.Values = (
+          44.979166666666670000
+          370.416666666666700000
+          29.104166666666670000
+          341.312500000000000000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Alignment = taLeftJustify
+        AlignToBand = False
+        Color = clSilver
+        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataField = 'TotalFinalItens'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = False
+        ExportAs = exptText
+        WrapStyle = BreakOnSpaces
+        FullJustify = False
+        MaxBreakChars = 0
+        VerticalAlignment = tlTop
+        FontSize = 10
+      end
+      object QRDBText16: TQRDBText
+        Left = 660
+        Top = 11
+        Width = 163
+        Height = 17
+        Size.Values = (
+          44.979166666666670000
+          1746.250000000000000000
+          29.104166666666670000
+          431.270833333333300000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Alignment = taLeftJustify
+        AlignToBand = False
+        Color = clSilver
+        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataField = 'TotalFinalTecidoKg'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = [fsBold]
+        OnPrint = QRDBText16Print
+        ParentFont = False
+        Transparent = False
+        ExportAs = exptText
+        WrapStyle = BreakOnSpaces
+        FullJustify = False
+        MaxBreakChars = 0
         VerticalAlignment = tlTop
         FontSize = 10
       end

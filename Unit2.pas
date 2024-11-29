@@ -468,15 +468,19 @@ begin
   'SELECT ' +
   '    t.nomeTecido AS Tecido, ' +
   '    p.nomeProduto AS Modelo, ' +
-  '    CAST(SUM(CASE WHEN o.tamanhoPecas = ''P'' THEN o.quantidadePecas ELSE 0 END) AS TEXT) AS P, ' +
-  '    CAST(SUM(CASE WHEN o.tamanhoPecas = ''M'' THEN o.quantidadePecas ELSE 0 END) AS TEXT) AS M, ' +
-  '    CAST(SUM(CASE WHEN o.tamanhoPecas = ''G'' THEN o.quantidadePecas ELSE 0 END) AS TEXT) AS G, ' +
-  '    CAST(SUM(CASE WHEN o.tamanhoPecas = ''GG'' THEN o.quantidadePecas ELSE 0 END) AS TEXT) AS GG, ' +
-  '    CAST(SUM(CASE WHEN o.tamanhoPecas = ''48'' THEN o.quantidadePecas ELSE 0 END) AS TEXT) AS ''48'', ' +
-  '    CAST(SUM(CASE WHEN o.tamanhoPecas = ''50'' THEN o.quantidadePecas ELSE 0 END) AS TEXT) AS ''50'', ' +
-  '    CAST(SUM(CASE WHEN o.tamanhoPecas = ''52'' THEN o.quantidadePecas ELSE 0 END) AS TEXT) AS ''52'', ' +
-  '    CAST(SUM(o.quantidadePecas) AS TEXT) AS TotalItens, ' +
-  '    CAST(SUM(o.quantidadeTecidoKg) AS TEXT) AS TotalTecidoKg ' +
+  '    SUM(CASE WHEN o.tamanhoPecas = ''P'' THEN o.quantidadePecas ELSE 0 END) AS P, ' +
+  '    SUM(CASE WHEN o.tamanhoPecas = ''M'' THEN o.quantidadePecas ELSE 0 END) AS M, ' +
+  '    SUM(CASE WHEN o.tamanhoPecas = ''G'' THEN o.quantidadePecas ELSE 0 END) AS G, ' +
+  '    SUM(CASE WHEN o.tamanhoPecas = ''GG'' THEN o.quantidadePecas ELSE 0 END) AS GG, ' +
+  '    SUM(CASE WHEN o.tamanhoPecas = ''48'' THEN o.quantidadePecas ELSE 0 END) AS ''48'', ' +
+  '    SUM(CASE WHEN o.tamanhoPecas = ''50'' THEN o.quantidadePecas ELSE 0 END) AS ''50'', ' +
+  '    SUM(CASE WHEN o.tamanhoPecas = ''52'' THEN o.quantidadePecas ELSE 0 END) AS ''52'', ' +
+  '    SUM(o.quantidadePecas) AS TotalItens, ' +
+  '    SUM(o.quantidadeTecidoKg) AS TotalTecidoKg, ' +
+  '    SUM(SUM(o.quantidadePecas)) OVER (PARTITION BY t.nomeTecido) AS TotalItensPorTecido, ' +
+  '    SUM(SUM(o.quantidadeTecidoKg)) OVER (PARTITION BY t.nomeTecido) AS TotalTecidoKgPorTecido, ' +
+  '    SUM(SUM(o.quantidadePecas)) OVER () AS TotalFinalItens, ' +
+  '    SUM(SUM(o.quantidadeTecidoKg)) OVER () AS TotalFinalTecidoKg ' +
   'FROM ' +
   '    TBordemdecorte o ' +
   'INNER JOIN ' +
