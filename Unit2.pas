@@ -80,6 +80,8 @@ type
     FDQueryMastercodTecido: TFDAutoIncField;
     FDQueryMasterTecido: TStringField;
     FDQueryMasterTotalTecidoKg: TWideStringField;
+    edtCodProd: TEdit;
+    Label13: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ComboBoxProdutosChange(Sender: TObject);
@@ -102,6 +104,7 @@ type
     procedure edtQuantidadeKeyPress(Sender: TObject; var Key: Char);
     procedure Button3Click(Sender: TObject);
     procedure btnGerarOrdemClick(Sender: TObject);
+    procedure edtCodProdChange(Sender: TObject);
 
 
   private
@@ -462,6 +465,12 @@ begin
   FormRelOrdemCorte.QRLabelPedidos.Caption := 'PEDIDOS: ';
   FormRelOrdemCorte.QRLabelPedidos.Caption := FormRelOrdemCorte.QRLabelPedidos.Caption + edtPedidos.Text;
 
+  FormRelOrdemCorte.QRLabelObs.Caption := 'OBSERVAÇÕES: ';
+  FormRelOrdemCorte.QRLabelObs.Caption := FormRelOrdemCorte.QRLabelObs.Caption + MemoObsOrdem.Text;
+
+
+
+
   FDQueryRelCorte.Close; // Garante que a query esteja fechada
 //
  FDQueryRelCorte.SQL.Text :=
@@ -495,64 +504,7 @@ begin
   '    t.nomeTecido, p.nomeProduto';
 
   FDQueryRelCorte.ParamByName('numOrdem').Value := numOrdemAtivo;
-//
   FDQueryRelCorte.Open; // Executa a query
-
-  // Configura os parâmetros das queries
-//FDQueryMaster.Close;
-//FDQueryMaster.SQL.Text :=
-//  'SELECT DISTINCT ' +
-//  '    t.codTecido, ' +
-//  '    t.nomeTecido AS Tecido, ' +
-//  '    CAST(SUM(o.quantidadeTecidoKg) AS CHAR) AS TotalTecidoKg ' +
-//  'FROM ' +
-//  '    TBordemdecorte o ' +
-//  'INNER JOIN ' +
-//  '    TBtecidos t ON o.codTecido = t.codTecido ' +
-//  'WHERE ' +
-//  '    o.numOrdem = :numOrdem ' +
-//  'GROUP BY ' +
-//  '    t.codTecido, t.nomeTecido ' +
-//  'ORDER BY ' +
-//  '    t.nomeTecido';
-//FDQueryMaster.ParamByName('numOrdem').Value := numOrdemAtivo; // Defina o parâmetro numOrdem corretamente
-//
-//FDQueryMaster.Open;
-//
-////
-//FDQueryDetail.Close;
-//FDQueryDetail.SQL.Text :=
-//  'SELECT ' +
-//  '  p.codTecido,  '  +
-//  '  p.nomeProduto AS Modelo, ' +
-//  '  SUM(CASE WHEN o.tamanhoPecas = ''P'' THEN o.quantidadePecas ELSE 0 END) AS P, ' +
-//  '  SUM(CASE WHEN o.tamanhoPecas = ''M'' THEN o.quantidadePecas ELSE 0 END) AS M, ' +
-//  '  SUM(CASE WHEN o.tamanhoPecas = ''G'' THEN o.quantidadePecas ELSE 0 END) AS G, ' +
-//  '  SUM(CASE WHEN o.tamanhoPecas = ''GG'' THEN o.quantidadePecas ELSE 0 END) AS GG, ' +
-//  '  SUM(CASE WHEN o.tamanhoPecas = ''48'' THEN o.quantidadePecas ELSE 0 END) AS ''48'', ' +
-//  '  SUM(CASE WHEN o.tamanhoPecas = ''50'' THEN o.quantidadePecas ELSE 0 END) AS ''50'', ' +
-//  '  SUM(CASE WHEN o.tamanhoPecas = ''52'' THEN o.quantidadePecas ELSE 0 END) AS ''52'', ' +
-//  '  SUM(o.quantidadePecas) AS TotalItens, ' +
-//  '  SUM(o.quantidadeTecidoKg) AS TotalTecidoKg ' +
-//  'FROM ' +
-//  '  TBordemdecorte o ' +
-//  'INNER JOIN ' +
-//  '  TBprodutos p ON o.codProduto = p.codProduto ' +
-//  'WHERE ' +
-//  '  o.numOrdem = :numOrdem ' +
-//  'GROUP BY ' +
-//  '  p.nomeProduto ' +
-//  'ORDER BY ' +
-//  '  p.nomeProduto';
-//
-//FDQueryDetail.ParamByName('numOrdem').Value := numOrdemAtivo; // Define o parâmetro numOrdem corretamente
-
-//
-//// Verifique e atribua corretamente o parâmetro codTecido
-//FDQueryDetail.ParamByName('codTecido').AsString := FDQueryMaster.FieldByName('codTecido').AsString; // Certifique-se de que o campo correto é acessado
-//FDQueryDetail.Open; // Abre a consulta para o Detail
-
-
 
   FormRelOrdemCorte.QuickRepOrdemCorte.Preview;
 
@@ -684,13 +636,157 @@ begin
   end;
 end;
 
+procedure TFormGerarOrdemCorte.edtCodProdChange(Sender: TObject);
+var
+  CodigoProduto: String;
+  Tamanho: string;
+  PosicaoX: Integer;
+  PosicaoY: Integer;
+  NovoRadioButton: TRadioButton;
+  RadioButtonExiste: Boolean;
+  i: Integer;
+  Ctrl: TControl;
+begin
+  CodigoProduto := Trim(edtCodProd.Text); // Captura e limpa o texto digitado no TEdit
+
+  // Busca o nome do produto correspondente ao código digitado
+  FDQueryProdutos.Close;
+  FDQueryProdutos.SQL.Text := 'SELECT nomeProduto as Produto FROM TBProdutos WHERE codProduto = :codProduto';
+  FDQueryProdutos.ParamByName('codProduto').AsString := CodigoProduto;
+  FDQueryProdutos.Open;
+
+  if not FDQueryProdutos.IsEmpty then
+  begin
+    // Atualiza o ComboBox com o produto encontrado
+    ComboBoxProdutos.Text := FDQueryProdutos.FieldByName('Produto').AsString;
+
+    // Dispara manualmente o evento OnChange do ComboBox
+    if Assigned(ComboBoxProdutos.OnChange) then
+      ComboBoxProdutos.OnChange(ComboBoxProdutos);
+  end
+  else
+  begin
+    // Caso não encontre, limpa o ComboBox
+    ComboBoxProdutos.Text := '';
+  end;
+
+  FDQueryProdutos.Close; // Fecha a consulta após uso
+
+
+
+//  for i := PanelTamanhos.ControlCount - 1 downto 0 do
+//  begin
+//    Ctrl := PanelTamanhos.Controls[i];
+//    if Ctrl is TRadioButton then
+//      Ctrl.Free; // Libera a memória do RadioButton
+//  end;
+//
+//  // Verifica se o ComboBoxProduto não está vazio
+//  if ComboBoxProdutos.ItemIndex > -1 then
+//  begin
+//    try
+//      // Modifica a consulta do FDQueryProdutos para buscar os tamanhos distintos do produto selecionado
+//      FDQueryProdutos.SQL.Text :=
+//        'SELECT DISTINCT tamanhoProduto FROM TBprodutos ' +
+//        'WHERE nomeProduto = :nomeProduto ' +
+//        'ORDER BY ' +
+//        '  CASE ' +
+//        '    WHEN tamanhoProduto = ''P'' THEN 1 ' +
+//        '    WHEN tamanhoProduto = ''M'' THEN 2 ' +
+//        '    WHEN tamanhoProduto = ''G'' THEN 3 ' +
+//        '    WHEN tamanhoProduto = ''GG'' THEN 4 ' +
+//        '    WHEN tamanhoProduto = ''48'' THEN 5 ' +
+//        '    WHEN tamanhoProduto = ''50'' THEN 6 ' +
+//        '    WHEN tamanhoProduto = ''52'' THEN 7 ' +
+//        '    WHEN tamanhoProduto = ''54'' THEN 8 ' +
+//        '    WHEN tamanhoProduto = ''56'' THEN 9 ' +
+//        '    WHEN tamanhoProduto = ''58'' THEN 10 ' +
+//        '    ELSE 11 ' +
+//        '  END';
+//      FDQueryProdutos.ParamByName('nomeProduto').AsString := ComboBoxProdutos.Text;
+//      FDQueryProdutos.Open;
+//
+//      // Verifica se a consulta retornou dados
+//      if not FDQueryProdutos.IsEmpty then
+//      begin
+//        // Posições iniciais para os RadioButtons
+//        PosicaoX := 10;  // Começa na posição horizontal 10
+//        PosicaoY := 10;  // Começa na posição vertical 10
+//
+//        // Cria os RadioButtons com base nos tamanhos disponíveis
+//        while not FDQueryProdutos.Eof do
+//        begin
+//          Tamanho := FDQueryProdutos.FieldByName('tamanhoProduto').AsString;
+//
+//          // Verifica se já existe um RadioButton com o nome baseado no tamanho
+//          RadioButtonExiste := False;
+//
+//          // Itera sobre os controles do PanelTamanhos usando um índice
+//          for i := 0 to PanelTamanhos.ControlCount - 1 do
+//          begin
+//            if (PanelTamanhos.Controls[i] is TRadioButton) and
+//               (TRadioButton(PanelTamanhos.Controls[i]).Caption = Tamanho) then
+//            begin
+//              RadioButtonExiste := True;
+//              Break; // Sai do loop se encontrar um já existente
+//            end;
+//          end;
+//
+//          // Se não encontrar um RadioButton com o mesmo nome, cria um novo
+//          if not RadioButtonExiste then
+//          begin
+//            // Cria um novo RadioButton para cada tamanho disponível
+//            NovoRadioButton := TRadioButton.Create(Self);
+//            NovoRadioButton.Parent := PanelTamanhos;
+//            NovoRadioButton.Caption := Tamanho;
+//            NovoRadioButton.Left := PosicaoX;
+//            NovoRadioButton.Top := PosicaoY;
+//            NovoRadioButton.Name := 'rb' + Tamanho; // Nome único para cada RadioButton
+//            NovoRadioButton.Width := 40;  // Largura do RadioButton
+//            NovoRadioButton.Height := 25;  // Altura do RadioButton
+//            NovoRadioButton.Tag := Integer(Tamanho); // Armazena o tamanho como tag
+//
+//            NovoRadioButton.OnClick := RadioButtonTamanhoClick;
+//          end;
+//
+//          // Atualiza a posição horizontal (Left) com um pequeno espaçamento
+//          PosicaoX := PosicaoX + NovoRadioButton.Width + 10;  // Largura do RadioButton + 10 pixels de espaço
+//
+//          // Se a posição X ultrapassar a largura do painel, move para a próxima linha
+//          if PosicaoX + NovoRadioButton.Width > PanelTamanhos.Width then
+//          begin
+//            PosicaoX := 10;  // Reseta a posição horizontal para 10
+//            PosicaoY := PosicaoY + 35;  // Move para a próxima linha (Ajuste a altura conforme necessário)
+//          end;
+//
+//          FDQueryProdutos.Next;
+//        end;
+//      end
+//      else
+//      begin
+//        // Caso não encontre nenhum tamanho para o produto, adicione uma mensagem ou ação alternativa
+//        //ShowMessage('Nenhum tamanho disponível para o produto selecionado.');
+//      end;
+//
+//      FDQueryProdutos.Close;  // Fechar a consulta após usá-la
+//    except
+//      on E: Exception do
+//      begin
+//        ShowMessage('Erro ao carregar os tamanhos: ' + E.Message);
+//      end;
+//    end;
+//  end;
+
+
+end;
+
 procedure TFormGerarOrdemCorte.edtQuantidadeKeyPress(Sender: TObject;
   var Key: Char);
 begin
   if Key = #13 then // Verifica se a tecla pressionada é Enter
   begin
     Key := #0; // Cancela o som do Enter
-    btnAdicionarItensClick(btnAdicionarItens); // Chama a procedure do botão
+    ComboBoxProdutos.OnChange(ComboBoxProdutos);
   end;
 end;
 

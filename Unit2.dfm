@@ -5489,8 +5489,8 @@
       ParentFont = False
     end
     object Label9: TLabel
-      Left = 14
-      Top = 11
+      Left = 129
+      Top = 16
       Width = 120
       Height = 18
       Caption = 'Selecione o modelo:'
@@ -5540,10 +5540,23 @@
       Font.Style = []
       ParentFont = False
     end
-    object ComboBoxProdutos: TComboBox
+    object Label13: TLabel
       Left = 14
+      Top = 16
+      Width = 85
+      Height = 18
+      Caption = 'C'#243'd. Produto:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object ComboBoxProdutos: TComboBox
+      Left = 128
       Top = 32
-      Width = 379
+      Width = 265
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -5749,6 +5762,23 @@
       TextHint = 'Informe os pedidos'
       OnKeyPress = edtQuantidadeKeyPress
     end
+    object edtCodProd: TEdit
+      Left = 14
+      Top = 32
+      Width = 91
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      NumbersOnly = True
+      ParentFont = False
+      TabOrder = 14
+      TextHint = 'C'#243'digo'
+      OnChange = edtCodProdChange
+      OnKeyPress = edtQuantidadeKeyPress
+    end
   end
   object DBGridOrdemDeCorte: TDBGrid
     AlignWithMargins = True
@@ -5814,7 +5844,8 @@
     Active = True
     Connection = Form6.FDConnection1
     SQL.Strings = (
-      'select DISTINCT nomeProduto as '#39'Produto'#39' from TBprodutos')
+      'select DISTINCT nomeProduto as '#39'Produto'#39' from TBprodutos'
+      'order by Produto asc')
     Left = 168
   end
   object FDQueryItensLista: TFDQuery

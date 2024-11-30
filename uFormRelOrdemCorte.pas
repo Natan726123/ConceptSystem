@@ -85,8 +85,12 @@ type
     QRShape10: TQRShape;
     QRShape11: TQRShape;
     QRShape12: TQRShape;
+    QRLabelObs: TQRLabel;
+    QRShape13: TQRShape;
+    QRLabel26: TQRLabel;
     procedure QRDBText14Print(sender: TObject; var Value: string);
     procedure QRDBText16Print(sender: TObject; var Value: string);
+    procedure QRDBText11Print(sender: TObject; var Value: string);
   private
     { Private declarations }
   public
@@ -103,6 +107,12 @@ uses
 
 {$R *.dfm}
 
+
+procedure TFormRelOrdemCorte.QRDBText11Print(sender: TObject;
+  var Value: string);
+begin
+  Value := FormatFloat('0.00', StrToFloatDef(Value, 0));
+end;
 
 procedure TFormRelOrdemCorte.QRDBText14Print(sender: TObject;
   var Value: string);

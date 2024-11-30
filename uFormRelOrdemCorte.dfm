@@ -853,6 +853,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Font.Height = -13
         Font.Name = 'Perpetua Titling MT'
         Font.Style = [fsBold]
+        OnPrint = QRDBText11Print
         ParentFont = False
         Transparent = False
         ExportAs = exptText
@@ -2010,7 +2011,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
       Left = 38
       Top = 447
       Width = 718
-      Height = 40
+      Height = 98
       Frame.DrawTop = True
       Frame.DrawBottom = True
       Frame.DrawLeft = True
@@ -2021,20 +2022,20 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        105.833333333333300000
+        259.291666666666700000
         1899.708333333333000000)
       PreCaluculateBandHeight = False
       KeepOnOnePage = False
       BandType = rbSummary
       object QRLabel24: TQRLabel
         Left = 14
-        Top = 11
+        Top = 9
         Width = 120
         Height = 17
         Size.Values = (
           44.979166666666670000
           37.041666666666670000
-          29.104166666666670000
+          23.812500000000000000
           317.500000000000000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -2057,13 +2058,13 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
       end
       object QRLabel25: TQRLabel
         Left = 543
-        Top = 11
+        Top = 9
         Width = 109
         Height = 17
         Size.Values = (
           44.979166666666670000
           1436.687500000000000000
-          29.104166666666670000
+          23.812500000000000000
           288.395833333333300000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -2086,13 +2087,13 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
       end
       object QRDBText15: TQRDBText
         Left = 140
-        Top = 11
+        Top = 9
         Width = 129
         Height = 17
         Size.Values = (
           44.979166666666670000
           370.416666666666700000
-          29.104166666666670000
+          23.812500000000000000
           341.312500000000000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -2118,13 +2119,13 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
       end
       object QRDBText16: TQRDBText
         Left = 660
-        Top = 11
+        Top = 9
         Width = 163
         Height = 17
         Size.Values = (
           44.979166666666670000
           1746.250000000000000000
-          29.104166666666670000
+          23.812500000000000000
           431.270833333333300000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -2148,6 +2149,80 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         MaxBreakChars = 0
         VerticalAlignment = tlTop
         FontSize = 10
+      end
+      object QRLabelObs: TQRLabel
+        Left = 14
+        Top = 42
+        Width = 108
+        Height = 17
+        Size.Values = (
+          44.979166666666670000
+          37.041666666666670000
+          111.125000000000000000
+          285.750000000000000000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Alignment = taLeftJustify
+        AlignToBand = False
+        Caption = 'OBSERVA'#199#213'ES: '
+        Color = clSilver
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = False
+        ExportAs = exptText
+        WrapStyle = BreakOnSpaces
+        VerticalAlignment = tlTop
+        FontSize = 10
+      end
+      object QRShape13: TQRShape
+        Left = 0
+        Top = 34
+        Width = 717
+        Height = 5
+        Size.Values = (
+          13.229166666666670000
+          0.000000000000000000
+          89.958333333333330000
+          1897.062500000000000000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Shape = qrsHorLine
+        VertAdjust = 0
+      end
+      object QRLabel26: TQRLabel
+        Left = 556
+        Top = 82
+        Width = 157
+        Height = 13
+        Size.Values = (
+          34.395833333333330000
+          1471.083333333333000000
+          216.958333333333300000
+          415.395833333333300000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Alignment = taLeftJustify
+        AlignToBand = False
+        Caption = 'Desenvolvido por Natan Viana Dur'#227'o'
+        Color = clSilver
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -9
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        Transparent = False
+        ExportAs = exptText
+        WrapStyle = BreakOnSpaces
+        VerticalAlignment = tlTop
+        FontSize = 7
       end
     end
   end
