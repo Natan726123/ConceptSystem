@@ -15,7 +15,7 @@ type
     btnCadastrarTecido: TButton;
     btnCadastrarProdutos: TButton;
     btnCadastrarFaccao: TButton;
-    Button6: TButton;
+    btnCriarFichaFaccao: TButton;
     MainMenu1: TMainMenu;
     Cadastrar1: TMenuItem;
     CadastrarProduto1: TMenuItem;
@@ -38,6 +38,7 @@ type
     Label2: TLabel;
     pnlOperacoes: TPanel;
     Label3: TLabel;
+    btnGerenciarEstoque: TButton;
     procedure btnGerarOrdemCorteClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCadastrarTecidoClick(Sender: TObject);

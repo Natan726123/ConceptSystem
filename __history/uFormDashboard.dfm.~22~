@@ -6138,7 +6138,7 @@ object FormDashboard: TFormDashboard
     Left = 8
     Top = 416
     Width = 273
-    Height = 193
+    Height = 145
     TabOrder = 1
     object Label3: TLabel
       Left = 91
@@ -6168,7 +6168,7 @@ object FormDashboard: TFormDashboard
       TabOrder = 0
       OnClick = btnGerarOrdemCorteClick
     end
-    object btnCriarFichaFaccao: TButton
+    object Button6: TButton
       Left = 8
       Top = 97
       Width = 257
@@ -6181,20 +6181,6 @@ object FormDashboard: TFormDashboard
       Font.Style = []
       ParentFont = False
       TabOrder = 1
-    end
-    object btnGerenciarEstoque: TButton
-      Left = 8
-      Top = 143
-      Width = 257
-      Height = 40
-      Caption = 'Gerenciar Estoque'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 2
     end
   end
   object MainMenu1: TMainMenu
