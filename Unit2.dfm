@@ -5777,7 +5777,7 @@
     end
     object edtCodProd: TEdit
       Left = 14
-      Top = 42
+      Top = 47
       Width = 91
       Height = 25
       Font.Charset = ANSI_CHARSET
@@ -5789,7 +5789,7 @@
       TabOrder = 14
       TextHint = 'C'#243'digo'
       OnChange = edtCodProdChange
-      OnKeyPress = edtQuantidadeKeyPress
+      OnKeyPress = edtCodProdKeyPress
     end
     object rbBuscaCodigo: TRadioButton
       Left = 265

@@ -108,6 +108,7 @@ type
     procedure Button3Click(Sender: TObject);
     procedure btnGerarOrdemClick(Sender: TObject);
     procedure edtCodProdChange(Sender: TObject);
+    procedure edtCodProdKeyPress(Sender: TObject; var Key: Char);
 
 
   private
@@ -706,16 +707,25 @@ begin
 
 end;
 
-procedure TFormGerarOrdemCorte.edtQuantidadeKeyPress(Sender: TObject;
+procedure TFormGerarOrdemCorte.edtCodProdKeyPress(Sender: TObject;
   var Key: Char);
 begin
-  // Converte o caractere digitado para maiúscula
   Key := UpCase(Key);
 
   if Key = #13 then // Verifica se a tecla pressionada é Enter
   begin
     Key := #0; // Cancela o som do Enter
     ComboBoxProdutos.OnChange(ComboBoxProdutos);
+  end;
+end;
+
+procedure TFormGerarOrdemCorte.edtQuantidadeKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then // Verifica se a tecla pressionada é Enter
+  begin
+    Key := #0; // Cancela o som do Enter
+    btnAdicionarItensClick(btnAdicionarItens);
   end;
 end;
 

@@ -5399,7 +5399,7 @@
     TabOrder = 0
     object Label2: TLabel
       Left = 14
-      Top = 343
+      Top = 353
       Width = 66
       Height = 18
       Caption = 'C'#243'd. item:'
@@ -5412,7 +5412,7 @@
     end
     object Label3: TLabel
       Left = 110
-      Top = 392
+      Top = 402
       Width = 45
       Height = 18
       Caption = 'Tecido:'
@@ -5425,7 +5425,7 @@
     end
     object Label4: TLabel
       Left = 14
-      Top = 391
+      Top = 401
       Width = 78
       Height = 18
       Caption = 'C'#243'd. Tecido:'
@@ -5438,7 +5438,7 @@
     end
     object Label5: TLabel
       Left = 278
-      Top = 391
+      Top = 401
       Width = 103
       Height = 18
       Caption = 'Rendimento/Kg:'
@@ -5451,7 +5451,7 @@
     end
     object Label6: TLabel
       Left = 278
-      Top = 343
+      Top = 353
       Width = 71
       Height = 18
       Caption = 'Localiza'#231#227'o:'
@@ -5464,7 +5464,7 @@
     end
     object Label7: TLabel
       Left = 110
-      Top = 343
+      Top = 353
       Width = 60
       Height = 18
       Caption = 'Custo R$:'
@@ -5477,7 +5477,7 @@
     end
     object Label8: TLabel
       Left = 14
-      Top = 68
+      Top = 78
       Width = 132
       Height = 18
       Caption = 'Tamanhos dispon'#237'veis:'
@@ -5489,8 +5489,8 @@
       ParentFont = False
     end
     object Label9: TLabel
-      Left = 14
-      Top = 11
+      Left = 129
+      Top = 26
       Width = 120
       Height = 18
       Caption = 'Selecione o modelo:'
@@ -5503,7 +5503,7 @@
     end
     object Label10: TLabel
       Left = 14
-      Top = 144
+      Top = 154
       Width = 129
       Height = 18
       Caption = 'Informe a quantidade:'
@@ -5516,7 +5516,7 @@
     end
     object Label11: TLabel
       Left = 14
-      Top = 198
+      Top = 208
       Width = 80
       Height = 18
       Caption = 'Observa'#231#245'es:'
@@ -5529,7 +5529,7 @@
     end
     object Label12: TLabel
       Left = 14
-      Top = 286
+      Top = 296
       Width = 126
       Height = 18
       Caption = 'Pedidos relacionados:'
@@ -5540,10 +5540,36 @@
       Font.Style = []
       ParentFont = False
     end
-    object ComboBoxProdutos: TComboBox
+    object Label13: TLabel
       Left = 14
-      Top = 32
-      Width = 379
+      Top = 26
+      Width = 76
+      Height = 18
+      Caption = 'C'#243'd. / Ref.:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label14: TLabel
+      Left = 187
+      Top = 3
+      Width = 71
+      Height = 17
+      Caption = 'buscar por:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object ComboBoxProdutos: TComboBox
+      Left = 128
+      Top = 42
+      Width = 265
       Height = 25
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -5571,7 +5597,7 @@
     end
     object PanelTamanhos: TPanel
       Left = 14
-      Top = 88
+      Top = 98
       Width = 379
       Height = 46
       Font.Charset = ANSI_CHARSET
@@ -5584,7 +5610,7 @@
     end
     object edtCodProduto: TEdit
       Left = 14
-      Top = 361
+      Top = 371
       Width = 78
       Height = 25
       Enabled = False
@@ -5598,7 +5624,7 @@
     end
     object edtTecido: TEdit
       Left = 110
-      Top = 409
+      Top = 419
       Width = 147
       Height = 25
       Enabled = False
@@ -5612,7 +5638,7 @@
     end
     object edtCodTecido: TEdit
       Left = 14
-      Top = 409
+      Top = 419
       Width = 78
       Height = 25
       Enabled = False
@@ -5626,7 +5652,7 @@
     end
     object edtRendimento: TEdit
       Left = 278
-      Top = 408
+      Top = 418
       Width = 115
       Height = 25
       Enabled = False
@@ -5640,7 +5666,7 @@
     end
     object edtLocalizacao: TEdit
       Left = 278
-      Top = 361
+      Top = 371
       Width = 115
       Height = 25
       Enabled = False
@@ -5654,7 +5680,7 @@
     end
     object edtCusto: TEdit
       Left = 110
-      Top = 361
+      Top = 371
       Width = 147
       Height = 25
       Enabled = False
@@ -5668,7 +5694,7 @@
     end
     object edtQuantidade: TEdit
       Left = 14
-      Top = 163
+      Top = 173
       Width = 235
       Height = 25
       Font.Charset = ANSI_CHARSET
@@ -5699,7 +5725,7 @@
     end
     object btnAdicionarItens: TButton
       Left = 280
-      Top = 159
+      Top = 169
       Width = 113
       Height = 33
       Caption = 'Adicionar'
@@ -5729,14 +5755,14 @@
     end
     object MemoObsOrdem: TMemo
       Left = 14
-      Top = 216
+      Top = 226
       Width = 379
       Height = 57
       TabOrder = 12
     end
     object edtPedidos: TEdit
       Left = 14
-      Top = 305
+      Top = 315
       Width = 379
       Height = 25
       Font.Charset = ANSI_CHARSET
@@ -5748,6 +5774,52 @@
       TabOrder = 13
       TextHint = 'Informe os pedidos'
       OnKeyPress = edtQuantidadeKeyPress
+    end
+    object edtCodProd: TEdit
+      Left = 14
+      Top = 42
+      Width = 91
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 14
+      TextHint = 'C'#243'digo'
+      OnChange = edtCodProdChange
+      OnKeyPress = edtQuantidadeKeyPress
+    end
+    object rbBuscaCodigo: TRadioButton
+      Left = 265
+      Top = 3
+      Width = 57
+      Height = 17
+      Caption = 'c'#243'digo'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 15
+    end
+    object rbBuscaReferencia: TRadioButton
+      Left = 328
+      Top = 3
+      Width = 81
+      Height = 17
+      Caption = 'refer'#234'ncia'
+      Checked = True
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 16
+      TabStop = True
     end
   end
   object DBGridOrdemDeCorte: TDBGrid
@@ -5814,7 +5886,8 @@
     Active = True
     Connection = Form6.FDConnection1
     SQL.Strings = (
-      'select DISTINCT nomeProduto as '#39'Produto'#39' from TBprodutos')
+      'select DISTINCT nomeProduto as '#39'Produto'#39' from TBprodutos'
+      'order by Produto asc')
     Left = 168
   end
   object FDQueryItensLista: TFDQuery
@@ -5982,7 +6055,15 @@
         '    SUM(CASE WHEN o.tamanhoPecas = '#39'52'#39' THEN o.quantidadePecas E' +
         'LSE 0 END) AS '#39'52'#39', '
       '    SUM(o.quantidadePecas) AS TotalItens, '
-      '    SUM(o.quantidadeTecidoKg) AS TotalTecidoKg '
+      '    SUM(o.quantidadeTecidoKg) AS TotalTecidoKg,'
+      
+        '    SUM(SUM(o.quantidadePecas)) OVER (PARTITION BY t.nomeTecido)' +
+        ' AS TotalItensPorTecido,'
+      
+        '    SUM(SUM(o.quantidadeTecidoKg)) OVER (PARTITION BY t.nomeTeci' +
+        'do) AS TotalTecidoKgPorTecido,'
+      '    SUM(SUM(o.quantidadePecas)) OVER () AS TotalFinalItens,'
+      '    SUM(SUM(o.quantidadeTecidoKg)) OVER () AS TotalFinalTecidoKg'
       'FROM '
       '    TBordemdecorte o '
       'INNER JOIN '
@@ -5990,7 +6071,7 @@
       'INNER JOIN '
       '    TBprodutos p ON o.codProduto = p.codProduto '
       'WHERE '
-      '    o.numOrdem = :numOrdem '
+      '    o.numOrdem = :numOrdem'
       'GROUP BY '
       '    t.nomeTecido, p.nomeProduto '
       'ORDER BY '
@@ -6059,7 +6140,7 @@
     end
   end
   object FDQueryDetail: TFDQuery
-    IndexFieldNames = 'codTecido'
+    IndexFieldNames = 'Modelo'
     MasterSource = DSDadosRelatorio
     Connection = Form6.FDConnection1
     SQL.Strings = (

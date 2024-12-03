@@ -80,6 +80,11 @@ type
     FDQueryMastercodTecido: TFDAutoIncField;
     FDQueryMasterTecido: TStringField;
     FDQueryMasterTotalTecidoKg: TWideStringField;
+    edtCodProd: TEdit;
+    Label13: TLabel;
+    rbBuscaCodigo: TRadioButton;
+    rbBuscaReferencia: TRadioButton;
+    Label14: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ComboBoxProdutosChange(Sender: TObject);
@@ -102,6 +107,7 @@ type
     procedure edtQuantidadeKeyPress(Sender: TObject; var Key: Char);
     procedure Button3Click(Sender: TObject);
     procedure btnGerarOrdemClick(Sender: TObject);
+    procedure edtCodProdChange(Sender: TObject);
 
 
   private
@@ -120,6 +126,7 @@ var
 implementation
 
 {$R *.dfm}
+
 
 procedure AjustarLarguraColunas(DBGrid: TDBGrid);
 var
@@ -380,7 +387,7 @@ begin
 
     // Obtém o próximo idItemLista para este pedido
     DSDadosItensLista.DataSet.FieldByName('Ordem').AsInteger := numOrdemAtivo; // Número da ordem ativa
-    DSDadosItensLista.DataSet.FieldByName('Item').AsInteger := DSDadosItensLista.DataSet.RecordCount + 1; // Próximo ID da lista
+    DSDadosItensLista.DataSet.FieldByName('Item').AsInteger := GetNextIdItemLista(numOrdemAtivo); // Próximo ID da lista
     DSDadosItensLista.DataSet.FieldByName('codProd').AsInteger := StrToInt(edtCodProduto.Text); // Código do produto
     DSDadosItensLista.DataSet.FieldByName('Produto').AsString := ComboBoxProdutos.Text; // Nome do produto
 
@@ -432,6 +439,8 @@ begin
       ShowMessage('Erro ao adicionar item: ' + E.Message);
   end;
 
+  edtQuantidade.clear;
+
 end;
 
 
@@ -462,8 +471,11 @@ begin
   FormRelOrdemCorte.QRLabelPedidos.Caption := 'PEDIDOS: ';
   FormRelOrdemCorte.QRLabelPedidos.Caption := FormRelOrdemCorte.QRLabelPedidos.Caption + edtPedidos.Text;
 
+  FormRelOrdemCorte.QRLabelObs.Caption := 'OBSERVAÇÕES: ';
+  FormRelOrdemCorte.QRLabelObs.Caption := FormRelOrdemCorte.QRLabelObs.Caption + MemoObsOrdem.Text;
 
-  FormRelOrdemCorte.QRMemoObservacoes.Caption := MemoObsOrdem.Text;
+
+
 
   FDQueryRelCorte.Close; // Garante que a query esteja fechada
 //
@@ -498,64 +510,7 @@ begin
   '    t.nomeTecido, p.nomeProduto';
 
   FDQueryRelCorte.ParamByName('numOrdem').Value := numOrdemAtivo;
-//
   FDQueryRelCorte.Open; // Executa a query
-
-  // Configura os parâmetros das queries
-//FDQueryMaster.Close;
-//FDQueryMaster.SQL.Text :=
-//  'SELECT DISTINCT ' +
-//  '    t.codTecido, ' +
-//  '    t.nomeTecido AS Tecido, ' +
-//  '    CAST(SUM(o.quantidadeTecidoKg) AS CHAR) AS TotalTecidoKg ' +
-//  'FROM ' +
-//  '    TBordemdecorte o ' +
-//  'INNER JOIN ' +
-//  '    TBtecidos t ON o.codTecido = t.codTecido ' +
-//  'WHERE ' +
-//  '    o.numOrdem = :numOrdem ' +
-//  'GROUP BY ' +
-//  '    t.codTecido, t.nomeTecido ' +
-//  'ORDER BY ' +
-//  '    t.nomeTecido';
-//FDQueryMaster.ParamByName('numOrdem').Value := numOrdemAtivo; // Defina o parâmetro numOrdem corretamente
-//
-//FDQueryMaster.Open;
-//
-////
-//FDQueryDetail.Close;
-//FDQueryDetail.SQL.Text :=
-//  'SELECT ' +
-//  '  p.codTecido,  '  +
-//  '  p.nomeProduto AS Modelo, ' +
-//  '  SUM(CASE WHEN o.tamanhoPecas = ''P'' THEN o.quantidadePecas ELSE 0 END) AS P, ' +
-//  '  SUM(CASE WHEN o.tamanhoPecas = ''M'' THEN o.quantidadePecas ELSE 0 END) AS M, ' +
-//  '  SUM(CASE WHEN o.tamanhoPecas = ''G'' THEN o.quantidadePecas ELSE 0 END) AS G, ' +
-//  '  SUM(CASE WHEN o.tamanhoPecas = ''GG'' THEN o.quantidadePecas ELSE 0 END) AS GG, ' +
-//  '  SUM(CASE WHEN o.tamanhoPecas = ''48'' THEN o.quantidadePecas ELSE 0 END) AS ''48'', ' +
-//  '  SUM(CASE WHEN o.tamanhoPecas = ''50'' THEN o.quantidadePecas ELSE 0 END) AS ''50'', ' +
-//  '  SUM(CASE WHEN o.tamanhoPecas = ''52'' THEN o.quantidadePecas ELSE 0 END) AS ''52'', ' +
-//  '  SUM(o.quantidadePecas) AS TotalItens, ' +
-//  '  SUM(o.quantidadeTecidoKg) AS TotalTecidoKg ' +
-//  'FROM ' +
-//  '  TBordemdecorte o ' +
-//  'INNER JOIN ' +
-//  '  TBprodutos p ON o.codProduto = p.codProduto ' +
-//  'WHERE ' +
-//  '  o.numOrdem = :numOrdem ' +
-//  'GROUP BY ' +
-//  '  p.nomeProduto ' +
-//  'ORDER BY ' +
-//  '  p.nomeProduto';
-//
-//FDQueryDetail.ParamByName('numOrdem').Value := numOrdemAtivo; // Define o parâmetro numOrdem corretamente
-
-//
-//// Verifique e atribua corretamente o parâmetro codTecido
-//FDQueryDetail.ParamByName('codTecido').AsString := FDQueryMaster.FieldByName('codTecido').AsString; // Certifique-se de que o campo correto é acessado
-//FDQueryDetail.Open; // Abre a consulta para o Detail
-
-
 
   FormRelOrdemCorte.QuickRepOrdemCorte.Preview;
 
@@ -687,13 +642,80 @@ begin
   end;
 end;
 
+procedure TFormGerarOrdemCorte.edtCodProdChange(Sender: TObject);
+var
+  CodigoProduto: String;
+  RefProduto: String;
+begin
+  if rbBuscaCodigo.Checked then
+  begin
+    CodigoProduto := Trim(edtCodProd.Text); // Captura e limpa o texto digitado no TEdit
+
+  // Busca o nome do produto correspondente ao código digitado
+  FDQueryProdutos.Close;
+  FDQueryProdutos.SQL.Text := 'SELECT nomeProduto as Produto FROM TBProdutos WHERE codProduto = :codProduto';
+  FDQueryProdutos.ParamByName('codProduto').AsString := CodigoProduto;
+  FDQueryProdutos.Open;
+
+  if not FDQueryProdutos.IsEmpty then
+  begin
+    // Atualiza o ComboBox com o produto encontrado
+    ComboBoxProdutos.Text := FDQueryProdutos.FieldByName('Produto').AsString;
+
+    // Dispara manualmente o evento OnChange do ComboBox
+    if Assigned(ComboBoxProdutos.OnChange) then
+      ComboBoxProdutos.OnChange(ComboBoxProdutos);
+  end
+  else
+  begin
+    // Caso não encontre, limpa o ComboBox
+    ComboBoxProdutos.Text := '';
+  end;
+
+  FDQueryProdutos.Close; // Fecha a consulta após uso
+  end;
+
+
+  if rbBuscaReferencia.Checked then
+  begin
+    RefProduto := Trim(edtCodProd.Text); // Captura e limpa o texto digitado no TEdit
+
+  // Busca o nome do produto correspondente à referência digitada
+    FDQueryProdutos.Close;
+    FDQueryProdutos.SQL.Text := 'SELECT nomeProduto as Produto FROM TBProdutos WHERE refProduto = :refProduto';
+    FDQueryProdutos.ParamByName('refProduto').AsString := RefProduto;
+    FDQueryProdutos.Open;
+
+    if not FDQueryProdutos.IsEmpty then
+    begin
+      // Atualiza o ComboBox com o produto encontrado
+      ComboBoxProdutos.Text := FDQueryProdutos.FieldByName('Produto').AsString;
+
+      // Dispara manualmente o evento OnChange do ComboBox
+      if Assigned(ComboBoxProdutos.OnChange) then
+        ComboBoxProdutos.OnChange(ComboBoxProdutos);
+    end
+    else
+    begin
+      // Caso não encontre, limpa o ComboBox
+      ComboBoxProdutos.Text := '';
+    end;
+
+    FDQueryProdutos.Close; // Fecha a consulta após uso
+  end;
+
+end;
+
 procedure TFormGerarOrdemCorte.edtQuantidadeKeyPress(Sender: TObject;
   var Key: Char);
 begin
+  // Converte o caractere digitado para maiúscula
+  Key := UpCase(Key);
+
   if Key = #13 then // Verifica se a tecla pressionada é Enter
   begin
     Key := #0; // Cancela o som do Enter
-    btnAdicionarItensClick(btnAdicionarItens); // Chama a procedure do botão
+    ComboBoxProdutos.OnChange(ComboBoxProdutos);
   end;
 end;
 
