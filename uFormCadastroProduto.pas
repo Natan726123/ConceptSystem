@@ -49,7 +49,6 @@ type
     LinkControlToField1: TLinkControlToField;
     LinkControlToField3: TLinkControlToField;
     LinkControlToField4: TLinkControlToField;
-    LinkFillControlToField1: TLinkFillControlToField;
     LinkFillControlToField2: TLinkFillControlToField;
     LinkControlToField5: TLinkControlToField;
     LinkControlToField6: TLinkControlToField;
@@ -69,6 +68,7 @@ type
     edtFiltro: TEdit;
     Label10: TLabel;
     Image1: TImage;
+    LinkFillControlToField1: TLinkFillControlToField;
     procedure FormCreate(Sender: TObject);
     procedure ComboBoxTecidosChange(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
