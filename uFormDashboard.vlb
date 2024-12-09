@@ -7,3 +7,9 @@ Visible=False
 [FormCadastroFaccao.FDQueryFaccao]
 Visible=False
 
+[FormCadastrarProdutos.FDQueryProdutos]
+Visible=False
+
+[FormCadastrarProdutos.FDQueryTecidos]
+Visible=False
+

@@ -78,14 +78,14 @@
     Caption = 'Localiza'#231#227'o:'
   end
   object Tamanho: TLabel
-    Left = 595
-    Top = 217
+    Left = 310
+    Top = 173
     Width = 3
     Height = 15
   end
   object Label9: TLabel
-    Left = 523
-    Top = 223
+    Left = 238
+    Top = 179
     Width = 52
     Height = 15
     Caption = 'Tamanho:'
@@ -5442,6 +5442,26 @@
       9A50AD0ADA4C0000000049454E44AE426082}
     Proportional = True
   end
+  object Label11: TLabel
+    Left = 523
+    Top = 223
+    Width = 83
+    Height = 15
+    Caption = 'Aviamento (m):'
+  end
+  object Label12: TLabel
+    Left = 406
+    Top = 173
+    Width = 3
+    Height = 15
+  end
+  object Label13: TLabel
+    Left = 334
+    Top = 179
+    Width = 35
+    Height = 15
+    Caption = 'Status:'
+  end
   object edtNome: TEdit
     Left = 16
     Top = 146
@@ -5449,17 +5469,17 @@
     Height = 23
     Enabled = False
     TabOrder = 0
-    Text = 'Carinho'
+    Text = 'Light'
     TextHint = 'Digite o nome do produto'
   end
   object edtReferencia: TEdit
     Left = 16
     Top = 194
-    Width = 401
+    Width = 201
     Height = 23
     Enabled = False
     TabOrder = 1
-    Text = '700-P'
+    Text = 'REF-GEN'
     TextHint = 'Digite uma refer'#234'ncia do produto'
   end
   object MemoFichaTecnica: TMemo
@@ -5836,6 +5856,7 @@
     Height = 33
     Caption = 'Deletar'
     TabOrder = 9
+    Visible = False
     OnClick = btnDeleteClick
   end
   object btnSalvar: TButton
@@ -5888,9 +5909,9 @@
     OnTitleClick = DBGridProdutosTitleClick
   end
   object ComboBoxTamanho: TComboBox
-    Left = 523
-    Top = 238
-    Width = 89
+    Left = 238
+    Top = 194
+    Width = 83
     Height = 23
     Enabled = False
     ItemIndex = 0
@@ -6200,7 +6221,7 @@
     Height = 23
     Enabled = False
     TabOrder = 14
-    Text = '1,20'
+    Text = '1,70'
     TextHint = 'Custo em R$'
   end
   object edtFiltro: TEdit
@@ -6211,6 +6232,321 @@
     TabOrder = 15
     TextHint = 'Escreva o nome do produto'
     OnChange = edtFiltroChange
+  end
+  object edtAviamento: TEdit
+    Left = 523
+    Top = 238
+    Width = 86
+    Height = 23
+    Enabled = False
+    TabOrder = 16
+    Text = '1,2'
+  end
+  object ComboBoxStatusProduto: TComboBox
+    Left = 334
+    Top = 194
+    Width = 83
+    Height = 23
+    Enabled = False
+    ItemIndex = 0
+    TabOrder = 17
+    Text = 'Ativo'
+    Items.Strings = (
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo')
   end
   object DSDadosCadastroTecidos: TDataSource
     AutoEdit = False
@@ -6240,7 +6576,9 @@
       'P.codTecido as '#39'Cod Tecido'#39','
       'T.nomeTecido as '#39'Tecido'#39','
       'P.fichaTecnica as '#39'Ficha T'#233'cnica'#39','
-      'P.precoCusto as '#39'Custo'#39
+      'P.precoCusto as '#39'Custo'#39','
+      'P.aviamentoProduto as '#39'Aviamento'#39','
+      'P.statusProduto as '#39'Status'#39
       ''
       ''
       'from TBprodutos P, TBtecidos T'
@@ -6308,6 +6646,19 @@
       currency = True
       Precision = 10
       Size = 2
+    end
+    object FDQueryProdutosAviamento: TBCDField
+      FieldName = 'Aviamento'
+      Origin = 'aviamentoProduto'
+      Required = True
+      Precision = 10
+      Size = 2
+    end
+    object FDQueryProdutosStatus: TStringField
+      FieldName = 'Status'
+      Origin = 'statusProduto'
+      Required = True
+      FixedChar = True
     end
   end
   object DSDadosProdutos: TDataSource
@@ -6397,6 +6748,26 @@
       Track = True
       FillDataSource = BindSourceDB1
       FillDisplayFieldName = 'Tamanho'
+      AutoFill = True
+      FillExpressions = <>
+      FillHeaderExpressions = <>
+      FillBreakGroups = <>
+    end
+    object LinkControlToField8: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Aviamento'
+      Control = edtAviamento
+      Track = True
+    end
+    object LinkFillControlToField3: TLinkFillControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Status'
+      Control = ComboBoxStatusProduto
+      Track = True
+      FillDataSource = BindSourceDB1
+      FillDisplayFieldName = 'Status'
       AutoFill = True
       FillExpressions = <>
       FillHeaderExpressions = <>

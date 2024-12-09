@@ -12,7 +12,8 @@ uses
   uFormCadastroProduto in 'uFormCadastroProduto.pas' {FormCadastrarProdutos},
   uFormCortador in 'uFormCortador.pas' {FormCadastroCortador},
   uFormCadastroFaccao in 'uFormCadastroFaccao.pas' {FormCadastroFaccao},
-  uFormRelOrdemCorte in 'uFormRelOrdemCorte.pas' {FormRelOrdemCorte};
+  uFormRelOrdemCorte in 'uFormRelOrdemCorte.pas' {FormRelOrdemCorte},
+  uFormFichaFaccao in 'uFormFichaFaccao.pas' {FormFichaFaccao};
 
 {$R *.res}
 
@@ -22,6 +23,7 @@ begin
 
   TStyleManager.TrySetStyle('Glossy');
   Application.CreateForm(TFormDashboard, FormDashboard);
+  //Application.CreateForm(TFormFichaFaccao, FormFichaFaccao);
   //Application.CreateForm(TFormRelOrdemCorte, FormRelOrdemCorte);
   //Application.CreateForm(TFormCadastroFaccao, FormCadastroFaccao);
   //Application.CreateForm(TFormCadastroCortador, FormCadastroCortador);

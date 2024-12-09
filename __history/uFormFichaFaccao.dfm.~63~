@@ -1,0 +1,1133 @@
+﻿object FormFichaFaccao: TFormFichaFaccao
+  Left = 0
+  Top = 0
+  Caption = 'Criar Ficha de Fac'#231#227'o'
+  ClientHeight = 859
+  ClientWidth = 1038
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Position = poScreenCenter
+  OnCreate = FormCreate
+  OnShow = FormShow
+  TextHeight = 15
+  object Label1: TLabel
+    Left = 350
+    Top = 16
+    Width = 314
+    Height = 38
+    Caption = 'Ficha de Fac'#231#227'o'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Perpetua Titling MT'
+    Font.Style = [fsBold]
+    Font.Quality = fqClearType
+    ParentFont = False
+  end
+  object lblNumFaccao: TLabel
+    Left = 8
+    Top = 95
+    Width = 131
+    Height = 24
+    Caption = 'N'#176' FAC'#199#195'O: '
+    Enabled = False
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Perpetua Titling MT'
+    Font.Style = [fsBold]
+    Font.Quality = fqClearType
+    ParentFont = False
+  end
+  object pnlModelos: TPanel
+    Left = 8
+    Top = 125
+    Width = 1009
+    Height = 380
+    Caption = 'pnlModelos'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Perpetua Titling MT'
+    Font.Style = []
+    ParentFont = False
+    ShowCaption = False
+    TabOrder = 0
+    object lblTamanhos: TLabel
+      Left = 14
+      Top = 95
+      Width = 132
+      Height = 18
+      Caption = 'Tamanhos dispon'#237'veis:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblSelecionarModelo: TLabel
+      Left = 128
+      Top = 32
+      Width = 120
+      Height = 18
+      Caption = 'Selecione o modelo:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblQuantidade: TLabel
+      Left = 14
+      Top = 162
+      Width = 73
+      Height = 18
+      Caption = 'Quantidade:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblCodRef: TLabel
+      Left = 14
+      Top = 34
+      Width = 76
+      Height = 18
+      Caption = 'C'#243'd. / Ref.:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblRaddioButtonBusca: TLabel
+      Left = 145
+      Top = 9
+      Width = 71
+      Height = 17
+      Caption = 'buscar por:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lblDataCorte: TLabel
+      Left = 799
+      Top = 93
+      Width = 86
+      Height = 18
+      Caption = 'Data de corte:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblFaccao: TLabel
+      Left = 477
+      Top = 191
+      Width = 43
+      Height = 18
+      Caption = 'Fac'#231#227'o:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblNumCorte: TLabel
+      Left = 477
+      Top = 96
+      Width = 61
+      Height = 18
+      Caption = 'N'#176' Corte:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblNumOrdemCorte: TLabel
+      Left = 642
+      Top = 94
+      Width = 132
+      Height = 18
+      Caption = 'N'#176' Ordem de Corte::'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblDataEnvio: TLabel
+      Left = 798
+      Top = 141
+      Width = 87
+      Height = 18
+      Caption = 'Data de envio:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblCores: TLabel
+      Left = 268
+      Top = 95
+      Width = 94
+      Height = 18
+      Caption = 'Selecione a cor:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblDataPrevista: TLabel
+      Left = 798
+      Top = 194
+      Width = 84
+      Height = 18
+      Caption = 'Data prevista:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblCortador: TLabel
+      Left = 476
+      Top = 143
+      Width = 59
+      Height = 18
+      Caption = 'Cortador:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblCodItem: TLabel
+      Left = 14
+      Top = 220
+      Width = 66
+      Height = 18
+      Caption = 'C'#243'd. item:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblNomeTecido: TLabel
+      Left = 128
+      Top = 268
+      Width = 45
+      Height = 18
+      Caption = 'Tecido:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblCodTecido: TLabel
+      Left = 14
+      Top = 268
+      Width = 78
+      Height = 18
+      Caption = 'C'#243'd. Tecido:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblAviamento: TLabel
+      Left = 294
+      Top = 268
+      Width = 96
+      Height = 18
+      Caption = 'Aviamento (m):'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblLocalizacao: TLabel
+      Left = 294
+      Top = 220
+      Width = 71
+      Height = 18
+      Caption = 'Localiza'#231#227'o:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblCusto: TLabel
+      Left = 128
+      Top = 220
+      Width = 60
+      Height = 18
+      Caption = 'Custo R$:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblNumTotalPecas: TLabel
+      Left = 798
+      Top = 9
+      Width = 145
+      Height = 24
+      Caption = 'N'#176' de pe'#231'as: '
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -20
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = [fsBold]
+      Font.Quality = fqClearType
+      ParentFont = False
+    end
+    object lblDataEntrega: TLabel
+      Left = 799
+      Top = 242
+      Width = 100
+      Height = 18
+      Caption = 'Data de entrega:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblStatusFaccao: TLabel
+      Left = 476
+      Top = 241
+      Width = 99
+      Height = 18
+      Caption = 'Status da Fac'#231#227'o:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblCodCortador: TLabel
+      Left = 711
+      Top = 143
+      Width = 71
+      Height = 18
+      Caption = 'C'#243'd. Cort.:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblCodFaccao: TLabel
+      Left = 711
+      Top = 193
+      Width = 62
+      Height = 18
+      Caption = 'C'#243'd. Fac.:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object ComboBoxProdutos: TComboBox
+      Left = 128
+      Top = 50
+      Width = 304
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      TextHint = 'Selecione o modelo'
+      OnChange = ComboBoxProdutosChange
+      Items.Strings = (
+        'Cotton Liso'
+        'Microfibra'
+        'Frezze'
+        'Cotton Liso Preto/Branco/Chocolate'
+        'Cotton Mescla'
+        'Micro Canelada'
+        'Cotton Confete'
+        'Renda'
+        'Micro Pto/Cho'
+        'Romantic'
+        'Cotton Lolita'
+        'Cotton Dry'
+        'Suplex Preto/Chocolate')
+    end
+    object PanelTamanhos: TPanel
+      Left = 14
+      Top = 110
+      Width = 234
+      Height = 42
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+    end
+    object edtQuantidade: TEdit
+      Left = 14
+      Top = 180
+      Width = 234
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      NumbersOnly = True
+      ParentFont = False
+      TabOrder = 2
+      TextHint = 'Quantidade'
+    end
+    object btnGerarFicha: TButton
+      Left = 887
+      Top = 323
+      Width = 113
+      Height = 33
+      Caption = 'Gerar Ficha'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+    end
+    object btnAdicionarItens: TButton
+      Left = 268
+      Top = 162
+      Width = 164
+      Height = 43
+      Caption = 'Adicionar'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+      OnClick = btnAdicionarItensClick
+    end
+    object edtCodRef: TEdit
+      Left = 14
+      Top = 50
+      Width = 76
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 5
+      TextHint = 'C'#243'digo'
+      OnChange = edtCodRefChange
+      OnKeyPress = edtCodRefKeyPress
+    end
+    object rbBuscaCodigo: TRadioButton
+      Left = 223
+      Top = 9
+      Width = 57
+      Height = 17
+      Caption = 'c'#243'digo'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 6
+    end
+    object rbBuscaReferencia: TRadioButton
+      Left = 286
+      Top = 9
+      Width = 81
+      Height = 17
+      Caption = 'refer'#234'ncia'
+      Checked = True
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 7
+      TabStop = True
+    end
+    object CalendarDataDeCorte: TCalendarPicker
+      Left = 799
+      Top = 110
+      Width = 202
+      Height = 25
+      CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
+      CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
+      CalendarHeaderInfo.DaysOfWeekFont.Height = -13
+      CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
+      CalendarHeaderInfo.DaysOfWeekFont.Style = []
+      CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
+      CalendarHeaderInfo.Font.Color = clWindowText
+      CalendarHeaderInfo.Font.Height = -20
+      CalendarHeaderInfo.Font.Name = 'Segoe UI'
+      CalendarHeaderInfo.Font.Style = []
+      Color = clWindow
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 8
+      TextHint = 'selecione uma data'
+    end
+    object ComboBoxFaccao: TComboBox
+      Left = 476
+      Top = 210
+      Width = 229
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 9
+      TextHint = 'Selecione o modelo'
+      OnChange = ComboBoxFaccaoChange
+    end
+    object edtNumCorte: TEdit
+      Left = 477
+      Top = 112
+      Width = 140
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 10
+      TextHint = 'C'#243'digo'
+    end
+    object edtNumOrdemCorte: TEdit
+      Left = 642
+      Top = 112
+      Width = 140
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 11
+      TextHint = 'C'#243'digo'
+    end
+    object CalendarDataDeEnvio: TCalendarPicker
+      Left = 798
+      Top = 157
+      Width = 203
+      Height = 25
+      CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
+      CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
+      CalendarHeaderInfo.DaysOfWeekFont.Height = -13
+      CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
+      CalendarHeaderInfo.DaysOfWeekFont.Style = []
+      CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
+      CalendarHeaderInfo.Font.Color = clWindowText
+      CalendarHeaderInfo.Font.Height = -20
+      CalendarHeaderInfo.Font.Name = 'Segoe UI'
+      CalendarHeaderInfo.Font.Style = []
+      Color = clWindow
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 12
+      TextHint = 'selecione uma data'
+    end
+    object ComboBoxCores: TComboBox
+      Left = 266
+      Top = 112
+      Width = 166
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 13
+      TextHint = 'COR'
+    end
+    object CalendarDataPrevista: TCalendarPicker
+      Left = 798
+      Top = 210
+      Width = 203
+      Height = 25
+      CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
+      CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
+      CalendarHeaderInfo.DaysOfWeekFont.Height = -13
+      CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
+      CalendarHeaderInfo.DaysOfWeekFont.Style = []
+      CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
+      CalendarHeaderInfo.Font.Color = clWindowText
+      CalendarHeaderInfo.Font.Height = -20
+      CalendarHeaderInfo.Font.Name = 'Segoe UI'
+      CalendarHeaderInfo.Font.Style = []
+      Color = clWindow
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 14
+      TextHint = 'selecione uma data'
+    end
+    object ComboBoxCortador: TComboBox
+      Left = 476
+      Top = 162
+      Width = 229
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 15
+      TextHint = 'Selecione o modelo'
+      OnChange = ComboBoxCortadorChange
+    end
+    object edtCodProduto: TEdit
+      Left = 14
+      Top = 237
+      Width = 78
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 16
+    end
+    object edtTecido: TEdit
+      Left = 128
+      Top = 285
+      Width = 121
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 17
+    end
+    object edtCodTecido: TEdit
+      Left = 14
+      Top = 285
+      Width = 78
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 18
+    end
+    object edtAviamento: TEdit
+      Left = 294
+      Top = 285
+      Width = 138
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 19
+    end
+    object edtLocalizacao: TEdit
+      Left = 294
+      Top = 237
+      Width = 138
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 20
+    end
+    object edtCusto: TEdit
+      Left = 128
+      Top = 237
+      Width = 121
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 21
+    end
+    object btnCriarFicha: TButton
+      Left = 474
+      Top = 23
+      Width = 124
+      Height = 37
+      Caption = 'Criar Ficha'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 22
+      OnClick = btnCriarFichaClick
+    end
+    object btnConsultarFicha: TButton
+      Left = 626
+      Top = 23
+      Width = 124
+      Height = 37
+      Caption = 'Consultar'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 23
+    end
+    object CalendarDataDeEntrega: TCalendarPicker
+      Left = 799
+      Top = 259
+      Width = 201
+      Height = 25
+      CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
+      CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
+      CalendarHeaderInfo.DaysOfWeekFont.Height = -13
+      CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
+      CalendarHeaderInfo.DaysOfWeekFont.Style = []
+      CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
+      CalendarHeaderInfo.Font.Color = clWindowText
+      CalendarHeaderInfo.Font.Height = -20
+      CalendarHeaderInfo.Font.Name = 'Segoe UI'
+      CalendarHeaderInfo.Font.Style = []
+      Color = clWindow
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 24
+      TextHint = 'selecione uma data'
+    end
+    object btnSalvar: TButton
+      Left = 695
+      Top = 323
+      Width = 129
+      Height = 33
+      Caption = 'Salvar'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 25
+      OnClick = btnSalvarClick
+    end
+    object ComboBoxStatus: TComboBox
+      Left = 477
+      Top = 259
+      Width = 228
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 26
+      TextHint = 'Selecione o modelo'
+    end
+    object btnCancelar: TButton
+      Left = 479
+      Top = 323
+      Width = 129
+      Height = 33
+      Caption = 'Cancelar'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 27
+      OnClick = btnCancelarClick
+    end
+    object edtCodCortador: TEdit
+      Left = 711
+      Top = 160
+      Width = 74
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 28
+      TextHint = 'C'#243'digo'
+    end
+    object edtCodFaccao: TEdit
+      Left = 711
+      Top = 210
+      Width = 74
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 29
+      TextHint = 'C'#243'digo'
+    end
+    object btnRemover: TButton
+      Left = 14
+      Top = 323
+      Width = 132
+      Height = 33
+      Caption = 'Remover'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 30
+      OnClick = btnRemoverClick
+    end
+    object item: TEdit
+      Left = 294
+      Top = 336
+      Width = 34
+      Height = 23
+      TabOrder = 31
+    end
+  end
+  object DBGridFichaDeFaccao: TDBGrid
+    AlignWithMargins = True
+    Left = 8
+    Top = 528
+    Width = 1009
+    Height = 297
+    BorderStyle = bsNone
+    Color = clSnow
+    DataSource = DSDadosFichaDeFaccao
+    DragCursor = crDefault
+    DrawingStyle = gdsGradient
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Perpetua Titling MT'
+    Font.Style = []
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    ParentFont = False
+    ParentShowHint = False
+    ReadOnly = True
+    ShowHint = False
+    TabOrder = 1
+    TitleFont.Charset = ANSI_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -15
+    TitleFont.Name = 'Perpetua Titling MT'
+    TitleFont.Style = [fsBold]
+  end
+  object DSDadosProdutos: TDataSource
+    DataSet = FDQueryProdutos
+    Left = 120
+  end
+  object FDQueryProdutos: TFDQuery
+    Connection = Form6.FDConnection1
+    SQL.Strings = (
+      'select DISTINCT nomeProduto as '#39'Produto'#39' from TBprodutos'
+      'order by Produto asc')
+    Left = 32
+  end
+  object DSDadosCortadores: TDataSource
+    DataSet = FDQueryCortadores
+    Left = 120
+    Top = 40
+  end
+  object FDQueryCortadores: TFDQuery
+    Connection = Form6.FDConnection1
+    SQL.Strings = (
+      'select codCortador, nomeCortador  from TBcortadores'
+      'order by nomeCortador asc')
+    Left = 32
+    Top = 40
+  end
+  object DSDadosFaccao: TDataSource
+    DataSet = FDQueryFaccao
+    Left = 288
+  end
+  object FDQueryFaccao: TFDQuery
+    Connection = Form6.FDConnection1
+    SQL.Strings = (
+      'select codFaccao, nomeFaccao  from TBfaccao'
+      'order by nomeFaccao asc')
+    Left = 200
+  end
+  object DSDadosFichaDeFaccao: TDataSource
+    AutoEdit = False
+    DataSet = FDQueryFichaDeFaccao
+    Left = 744
+    Top = 8
+  end
+  object FDQueryFichaDeFaccao: TFDQuery
+    Active = True
+    Connection = Form6.FDConnection1
+    UpdateOptions.AssignedValues = [uvUpdateMode]
+    SQL.Strings = (
+      'SELECT idFaccao,'
+      #9#9'numCorte as '#39'Num Corte'#39','
+      #9#9'dataCorte as '#39'Data de Corte'#39','
+      #9#9'numOrdem as '#39'Num Ordem'#39','
+      #9#9'codCortador as '#39'Cod. Cort'#39','
+      #9#9'nomeCortador as '#39'Cortador'#39','
+      #9#9'codFaccao as '#39'Cod. Fac'#39','
+      #9#9'nomeFaccao as '#39'Fac'#231#227'o'#39','
+      #9#9'dataEnvio as '#39'Data de Envio'#39','
+      #9#9'dataPrevisao as '#39'Data de Previs'#227'o'#39','#9#9
+      #9#9'dataEntrega as '#39'data de Entrega'#39','
+      #9#9'codProduto as '#39'Cod. Prod'#39','
+      #9#9'nomeProduto as '#39'Produto'#39','
+      #9#9'idItemLista,'
+      #9#9'corTecido as '#39'Cor'#39','
+      #9#9'tamanhoPecas as '#39'Tamanho'#39','
+      #9#9'quantidadePecas as '#39'Quantidade'#39','
+      #9#9'statusOrdem as '#39'Status'#39
+      #9#9
+      'From TBFichaDeFaccao'
+      'where idFaccao = :idFaccao')
+    Left = 688
+    Top = 8
+    ParamData = <
+      item
+        Name = 'IDFACCAO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
+    object FDQueryFichaDeFaccaoidItemLista: TIntegerField
+      FieldName = 'idItemLista'
+      Origin = 'idItemLista'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoCor: TStringField
+      FieldName = 'Cor'
+      Origin = 'corTecido'
+      Required = True
+      FixedChar = True
+    end
+    object FDQueryFichaDeFaccaoTamanho: TStringField
+      FieldName = 'Tamanho'
+      Origin = 'tamanhoPecas'
+      Required = True
+      FixedChar = True
+    end
+    object FDQueryFichaDeFaccaoQuantidade: TIntegerField
+      FieldName = 'Quantidade'
+      Origin = 'quantidadePecas'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoCodProd: TIntegerField
+      FieldName = 'Cod. Prod'
+      Origin = 'codProduto'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoProduto: TStringField
+      FieldName = 'Produto'
+      Origin = 'nomeProduto'
+      Required = True
+      FixedChar = True
+      Size = 50
+    end
+    object FDQueryFichaDeFaccaoidFaccao: TIntegerField
+      FieldName = 'idFaccao'
+      Origin = 'idFaccao'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQueryFichaDeFaccaoNumCorte: TIntegerField
+      FieldName = 'Num Corte'
+      Origin = 'numCorte'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoCodCort: TIntegerField
+      FieldName = 'Cod. Cort'
+      Origin = 'codCortador'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoCortador: TStringField
+      FieldName = 'Cortador'
+      Origin = 'nomeCortador'
+      Required = True
+      FixedChar = True
+      Size = 50
+    end
+    object FDQueryFichaDeFaccaoCodFac: TIntegerField
+      FieldName = 'Cod. Fac'
+      Origin = 'codFaccao'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoFacção: TStringField
+      FieldName = 'Fac'#231#227'o'
+      Origin = 'nomeFaccao'
+      Required = True
+      FixedChar = True
+      Size = 50
+    end
+    object FDQueryFichaDeFaccaoDatadeCorte: TDateField
+      FieldName = 'Data de Corte'
+      Origin = 'dataCorte'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoNumOrdem: TIntegerField
+      FieldName = 'Num Ordem'
+      Origin = 'numOrdem'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoDatadeEnvio: TDateField
+      FieldName = 'Data de Envio'
+      Origin = 'dataEnvio'
+    end
+    object FDQueryFichaDeFaccaoDatadePrevisão: TDateField
+      FieldName = 'Data de Previs'#227'o'
+      Origin = 'dataPrevisao'
+    end
+    object FDQueryFichaDeFaccaodatadeEntrega: TDateField
+      FieldName = 'data de Entrega'
+      Origin = 'dataEntrega'
+    end
+    object FDQueryFichaDeFaccaoStatus: TStringField
+      FieldName = 'Status'
+      Origin = 'statusOrdem'
+      Required = True
+      FixedChar = True
+    end
+  end
+end

@@ -6181,6 +6181,7 @@ object FormDashboard: TFormDashboard
       Font.Style = []
       ParentFont = False
       TabOrder = 1
+      OnClick = btnCriarFichaFaccaoClick
     end
     object btnGerenciarEstoque: TButton
       Left = 8

@@ -69,6 +69,15 @@ type
     Label10: TLabel;
     Image1: TImage;
     LinkFillControlToField1: TLinkFillControlToField;
+    Label11: TLabel;
+    edtAviamento: TEdit;
+    FDQueryProdutosAviamento: TBCDField;
+    LinkControlToField8: TLinkControlToField;
+    Label12: TLabel;
+    Label13: TLabel;
+    ComboBoxStatusProduto: TComboBox;
+    FDQueryProdutosStatus: TStringField;
+    LinkFillControlToField3: TLinkFillControlToField;
     procedure FormCreate(Sender: TObject);
     procedure ComboBoxTecidosChange(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
@@ -84,6 +93,7 @@ type
       var Accept: Boolean);
     procedure edtFiltroChange(Sender: TObject);
     procedure DBGridProdutosTitleClick(Column: TColumn);
+    procedure PreencherComboBoxStatus;
 
   private
     { Private declarations }
@@ -224,6 +234,8 @@ begin
     DSDadosProdutos.DataSet.FieldByName('Rendimento').AsString := edtRendimento.Text;
     DSDadosProdutos.DataSet.FieldByName('Localização').AsString := edtLocalizacao.Text;
     DSDadosProdutos.DataSet.FieldByName('Custo').AsCurrency := preco;
+    DSDadosProdutos.DataSet.FieldByName('Aviamento').AsString := edtAviamento.Text;
+    DSDadosProdutos.DataSet.FieldByName('Status').AsString := ComboBoxStatusProduto.Text;
     DSDadosProdutos.DataSet.Post;
     DSDadosProdutos.DataSet.Refresh;
     ShowMessage('Salvo com sucesso');
@@ -267,6 +279,8 @@ begin
   MemoFichaTecnica.Enabled := false;
   ComboBoxTecidos.Enabled := false;
   ComboBoxTamanho.Enabled := false;
+  ComboBoxStatusProduto.Enabled := false;
+  edtAviamento.Enabled := false;
 end;
 
 procedure TFormCadastrarProdutos.edtFiltroChange(Sender: TObject);
@@ -302,6 +316,7 @@ end;
 procedure TFormCadastrarProdutos.FormCreate(Sender: TObject);
 begin
   PreencherComboBoxTamanhos;
+  PreencherComboBoxStatus;
 
   AjustarLarguraColunas(DBGridProdutos);
 
@@ -336,6 +351,8 @@ begin
   MemoFichaTecnica.Enabled := true;
   ComboBoxTecidos.Enabled := true;
   ComboBoxTamanho.Enabled := true;
+  ComboBoxStatusProduto.Enabled := true;
+  edtAviamento.Enabled := true;
 end;
 
 procedure TFormCadastrarProdutos.Limpar;
@@ -346,6 +363,7 @@ begin
   edtLocalizacao.Clear;
   edtPrecoCusto.Clear;
   MemoFichaTecnica.Clear;
+  edtAviamento.Clear;
 end;
 
 procedure TFormCadastrarProdutos.PreencherComboBoxTamanhos;
@@ -365,6 +383,25 @@ begin
   // Limpa os itens do ComboBox e carrega do arquivo
   ComboBoxTamanho.Items.Clear;
   ComboBoxTamanho.Items.LoadFromFile(CaminhoArquivo);
+end;
+
+procedure TFormCadastrarProdutos.PreencherComboBoxStatus;
+var
+  CaminhoArquivo: string;
+begin
+  // Caminho do arquivo
+  CaminhoArquivo := ExtractFilePath(ParamStr(0)) + 'lista-status.txt';
+
+  // Verifica se o arquivo existe
+  if not FileExists(CaminhoArquivo) then
+  begin
+    ShowMessage('Arquivo lista-tamanhos.txt não encontrado!');
+    Exit;
+  end;
+
+  // Limpa os itens do ComboBox e carrega do arquivo
+  ComboBoxStatusProduto.Items.Clear;
+  ComboBoxStatusProduto.Items.LoadFromFile(CaminhoArquivo);
 end;
 
 end.

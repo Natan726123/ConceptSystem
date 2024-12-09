@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Unit2, uFormCadastroTecido, Vcl.Menus,
   VCLTee.TeCanvas, uFormDBPath, uFormCadastroProduto, uFormCortador, Vcl.Styles, Vcl.Themes,
-  Vcl.Imaging.pngimage, Vcl.ExtCtrls, uFormCadastroFaccao;
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, uFormCadastroFaccao, uFormFichaFaccao;
 
 type
   TFormDashboard = class(TForm)
@@ -55,6 +55,7 @@ type
     procedure Default1Click(Sender: TObject);
     procedure Default2Click(Sender: TObject);
     procedure btnCadastrarFaccaoClick(Sender: TObject);
+    procedure btnCriarFichaFaccaoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -162,6 +163,18 @@ begin
     formCadastrarTecido.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
   finally
     formCadastrarTecido.Free; // Libera o formulário da memória somente após ele ser fechado
+  end;
+end;
+
+procedure TFormDashboard.btnCriarFichaFaccaoClick(Sender: TObject);
+var
+  formFichaFaccao: TFormFichaFaccao;
+begin
+  formFichaFaccao := TFormFichaFaccao.Create(Self);
+  try
+    formFichaFaccao.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
+  finally
+    formFichaFaccao.Free; // Libera o formulário da memória somente após ele ser fechado
   end;
 end;
 

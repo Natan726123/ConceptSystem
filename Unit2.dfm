@@ -5880,18 +5880,16 @@
   end
   object DSDadosProdutos: TDataSource
     DataSet = FDQueryProdutos
-    Left = 256
+    Left = 96
   end
   object FDQueryProdutos: TFDQuery
-    Active = True
     Connection = Form6.FDConnection1
     SQL.Strings = (
       'select DISTINCT nomeProduto as '#39'Produto'#39' from TBprodutos'
       'order by Produto asc')
-    Left = 168
+    Left = 8
   end
   object FDQueryItensLista: TFDQuery
-    Active = True
     Connection = Form6.FDConnection1
     UpdateOptions.AssignedValues = [uvUpdateChngFields]
     SQL.Strings = (
@@ -5912,8 +5910,7 @@
       'from TBordemdecorte   '
       'Where numOrdem = :numOrdem'
       'ORDER BY idItemLista ASC')
-    Left = 800
-    Top = 8
+    Left = 368
     ParamData = <
       item
         Name = 'NUMORDEM'
@@ -5996,16 +5993,13 @@
   object DSDadosItensLista: TDataSource
     AutoEdit = False
     DataSet = FDQueryItensLista
-    Left = 904
-    Top = 8
+    Left = 456
   end
   object DSCalcTecidos: TDataSource
     DataSet = FDQueryCalcTecidos
-    Left = 392
-    Top = 8
+    Left = 192
   end
   object FDQueryCalcTecidos: TFDQuery
-    Active = True
     Connection = Form6.FDConnection1
     SQL.Strings = (
       'Select DISTINCT'
@@ -6016,8 +6010,7 @@
       'Where numOrdem = :numOrdem'
       'group by codTecido, nomeTecido'
       'ORDER BY Tecido asc')
-    Left = 472
-    Top = 8
+    Left = 272
     ParamData = <
       item
         Name = 'NUMORDEM'
@@ -6076,8 +6069,7 @@
       '    t.nomeTecido, p.nomeProduto '
       'ORDER BY '
       '    t.nomeTecido, p.nomeProduto;')
-    Left = 1152
-    Top = 8
+    Left = 640
     ParamData = <
       item
         Name = 'NUMORDEM'
@@ -6089,167 +6081,6 @@
   object DSDadosRelCorte: TDataSource
     AutoEdit = False
     DataSet = FDQueryRelCorte
-    Left = 1064
-    Top = 8
-  end
-  object FDQueryMaster: TFDQuery
-    Connection = Form6.FDConnection1
-    SQL.Strings = (
-      'SELECT DISTINCT'
-      '    t.codTecido,'
-      '    t.nomeTecido AS Tecido,'
-      '    CAST(SUM(o.quantidadeTecidoKg) AS CHAR) AS TotalTecidoKg'
-      'FROM '
-      '    TBordemdecorte o'
-      'INNER JOIN '
-      '    TBtecidos t ON o.codTecido = t.codTecido'
-      'WHERE '
-      '    o.numOrdem = :numOrdem'
-      'GROUP BY '
-      '    t.codTecido, t.nomeTecido'
-      'ORDER BY '
-      '    t.nomeTecido;'
-      ''
-      '')
-    Left = 976
-    Top = 48
-    ParamData = <
-      item
-        Name = 'NUMORDEM'
-        DataType = ftString
-        ParamType = ptInput
-        Value = Null
-      end>
-    object FDQueryMastercodTecido: TFDAutoIncField
-      FieldName = 'codTecido'
-      Origin = 'codTecido'
-      ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = False
-    end
-    object FDQueryMasterTecido: TStringField
-      FieldName = 'Tecido'
-      Origin = 'Tecido'
-      Required = True
-      FixedChar = True
-      Size = 50
-    end
-    object FDQueryMasterTotalTecidoKg: TWideStringField
-      FieldName = 'TotalTecidoKg'
-      Origin = 'TotalTecidoKg'
-      Size = 32767
-    end
-  end
-  object FDQueryDetail: TFDQuery
-    IndexFieldNames = 'Modelo'
-    MasterSource = DSDadosRelatorio
-    Connection = Form6.FDConnection1
-    SQL.Strings = (
-      'SELECT '
-      '    p.nomeProduto AS Modelo,'
-      
-        '    SUM(CASE WHEN o.tamanhoPecas = '#39'P'#39' THEN o.quantidadePecas EL' +
-        'SE 0 END) AS P,'
-      
-        '    SUM(CASE WHEN o.tamanhoPecas = '#39'M'#39' THEN o.quantidadePecas EL' +
-        'SE 0 END) AS M,'
-      
-        '    SUM(CASE WHEN o.tamanhoPecas = '#39'G'#39' THEN o.quantidadePecas EL' +
-        'SE 0 END) AS G,'
-      
-        '    SUM(CASE WHEN o.tamanhoPecas = '#39'GG'#39' THEN o.quantidadePecas E' +
-        'LSE 0 END) AS GG,'
-      
-        '    SUM(CASE WHEN o.tamanhoPecas = '#39'48'#39' THEN o.quantidadePecas E' +
-        'LSE 0 END) AS '#39'48'#39','
-      
-        '    SUM(CASE WHEN o.tamanhoPecas = '#39'50'#39' THEN o.quantidadePecas E' +
-        'LSE 0 END) AS '#39'50'#39','
-      
-        '    SUM(CASE WHEN o.tamanhoPecas = '#39'52'#39' THEN o.quantidadePecas E' +
-        'LSE 0 END) AS '#39'52'#39','
-      '    SUM(o.quantidadePecas) AS TotalItens,'
-      '    SUM(o.quantidadeTecidoKg) AS TotalTecidoKg'
-      'FROM '
-      '    TBordemdecorte o'
-      'INNER JOIN '
-      '    TBprodutos p ON o.codProduto = p.codProduto'
-      'WHERE '
-      '    o.numOrdem = :numOrdem AND o.codTecido = :codTecido'
-      'GROUP BY '
-      '    p.nomeProduto'
-      'ORDER BY '
-      '    p.nomeProduto;'
-      '')
-    Left = 1064
-    Top = 48
-    ParamData = <
-      item
-        Name = 'NUMORDEM'
-        DataType = ftString
-        ParamType = ptInput
-        Value = Null
-      end
-      item
-        Name = 'CODTECIDO'
-        DataType = ftString
-        ParamType = ptInput
-      end>
-    object FDQueryDetailModelo: TStringField
-      FieldName = 'Modelo'
-      Origin = 'Modelo'
-      Required = True
-      FixedChar = True
-      Size = 50
-    end
-    object FDQueryDetailP: TWideStringField
-      FieldName = 'P'
-      Origin = 'P'
-      Size = 32767
-    end
-    object FDQueryDetailM: TWideStringField
-      FieldName = 'M'
-      Origin = 'M'
-      Size = 32767
-    end
-    object FDQueryDetailG: TWideStringField
-      FieldName = 'G'
-      Origin = 'G'
-      Size = 32767
-    end
-    object FDQueryDetailGG: TWideStringField
-      FieldName = 'GG'
-      Origin = 'GG'
-      Size = 32767
-    end
-    object FDQueryDetailWideStringField48: TWideStringField
-      FieldName = '48'
-      Origin = '"48"'
-      Size = 32767
-    end
-    object FDQueryDetailWideStringField50: TWideStringField
-      FieldName = '50'
-      Origin = '"50"'
-      Size = 32767
-    end
-    object FDQueryDetailWideStringField52: TWideStringField
-      FieldName = '52'
-      Origin = '"52"'
-      Size = 32767
-    end
-    object FDQueryDetailTotalItens: TWideStringField
-      FieldName = 'TotalItens'
-      Origin = 'TotalItens'
-      Size = 32767
-    end
-    object FDQueryDetailTotalTecidoKg: TWideStringField
-      FieldName = 'TotalTecidoKg'
-      Origin = 'TotalTecidoKg'
-      Size = 32767
-    end
-  end
-  object DSDadosRelatorio: TDataSource
-    DataSet = FDQueryMaster
-    Left = 816
-    Top = 56
+    Left = 552
   end
 end

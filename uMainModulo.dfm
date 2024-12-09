@@ -16,7 +16,8 @@ object Form6: TForm6
     Params.Strings = (
       'Database=C:\sqlite\ConceptDB.db'
       'LockingMode=Normal'
-      'DriverID=SQLite')
+      'DriverID=SQLite'
+      'DateTimeFormat=String')
     FormatOptions.AssignedValues = [fvDefaultParamDataType]
     FormatOptions.DefaultParamDataType = ftString
     UpdateOptions.AssignedValues = [uvLockPoint, uvCheckReadOnly, uvUpdateNonBaseFields]

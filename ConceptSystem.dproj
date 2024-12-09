@@ -172,6 +172,10 @@
             <Form>FormRelOrdemCorte</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uFormFichaFaccao.pas">
+            <Form>FormFichaFaccao</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

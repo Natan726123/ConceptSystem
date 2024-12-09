@@ -64,22 +64,6 @@ type
     FDQueryItensListaPedidos: TStringField;
     FDQueryRelCorte: TFDQuery;
     DSDadosRelCorte: TDataSource;
-    FDQueryMaster: TFDQuery;
-    FDQueryDetail: TFDQuery;
-    DSDadosRelatorio: TDataSource;
-    FDQueryDetailModelo: TStringField;
-    FDQueryDetailP: TWideStringField;
-    FDQueryDetailM: TWideStringField;
-    FDQueryDetailG: TWideStringField;
-    FDQueryDetailGG: TWideStringField;
-    FDQueryDetailWideStringField48: TWideStringField;
-    FDQueryDetailWideStringField50: TWideStringField;
-    FDQueryDetailWideStringField52: TWideStringField;
-    FDQueryDetailTotalItens: TWideStringField;
-    FDQueryDetailTotalTecidoKg: TWideStringField;
-    FDQueryMastercodTecido: TFDAutoIncField;
-    FDQueryMasterTecido: TStringField;
-    FDQueryMasterTotalTecidoKg: TWideStringField;
     edtCodProd: TEdit;
     Label13: TLabel;
     rbBuscaCodigo: TRadioButton;
@@ -739,6 +723,10 @@ procedure TFormGerarOrdemCorte.FormCreate(Sender: TObject);
 var
   NovoNumOrdem: Integer;
 begin
+  FDQueryProdutos.Active := true;
+  FDQueryItensLista.Active := true;
+  FDQueryItensLista.Active := true;
+
   NovoNumOrdem := GetNextNumOrdem;
   numOrdemAtivo := NovoNumOrdem;
 

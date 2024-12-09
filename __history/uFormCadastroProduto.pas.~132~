@@ -1,0 +1,383 @@
+unit uFormCadastroProduto;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB, Vcl.DBCtrls, uMainModulo,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Math,
+  Vcl.Grids, Vcl.DBGrids, Vcl.CheckLst, Data.Bind.EngExt, Vcl.Bind.DBEngExt,
+  System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components,
+  Data.Bind.DBScope, Vcl.Imaging.pngimage, Vcl.ExtCtrls;
+
+type
+  TFormCadastrarProdutos = class(TForm)
+    Label1: TLabel;
+    edtNome: TEdit;
+    Label2: TLabel;
+    edtReferencia: TEdit;
+    Label3: TLabel;
+    MemoFichaTecnica: TMemo;
+    Label4: TLabel;
+    DSDadosCadastroTecidos: TDataSource;
+    FDQueryTecidos: TFDQuery;
+    ComboBoxTecidos: TComboBox;
+    Label5: TLabel;
+    edtCodTecido: TEdit;
+    Label6: TLabel;
+    edtRendimento: TEdit;
+    Label7: TLabel;
+    Label8: TLabel;
+    edtLocalizacao: TEdit;
+    btnCadastrarProduto: TButton;
+    btnAlterar: TButton;
+    btnDelete: TButton;
+    btnSalvar: TButton;
+    btnCancelar: TButton;
+    DBGridProdutos: TDBGrid;
+    Tamanho: TLabel;
+    ComboBoxTamanho: TComboBox;
+    FDQueryProdutos: TFDQuery;
+    DSDadosProdutos: TDataSource;
+    Label9: TLabel;
+    edtPrecoCusto: TEdit;
+    lblPrecoCusto: TLabel;
+    BindSourceDB1: TBindSourceDB;
+    BindingsList1: TBindingsList;
+    LinkControlToField1: TLinkControlToField;
+    LinkControlToField3: TLinkControlToField;
+    LinkControlToField4: TLinkControlToField;
+    LinkFillControlToField2: TLinkFillControlToField;
+    LinkControlToField5: TLinkControlToField;
+    LinkControlToField6: TLinkControlToField;
+    LinkControlToField7: TLinkControlToField;
+    BindSourceDB2: TBindSourceDB;
+    LinkControlToField2: TLinkControlToField;
+    FDQueryProdutosId: TFDAutoIncField;
+    FDQueryProdutosProduto: TStringField;
+    FDQueryProdutosReferência: TStringField;
+    FDQueryProdutosTamanho: TStringField;
+    FDQueryProdutosRendimento: TIntegerField;
+    FDQueryProdutosLocalização: TStringField;
+    FDQueryProdutosCodTecido: TIntegerField;
+    FDQueryProdutosTecido: TStringField;
+    FDQueryProdutosFichaTécnica: TStringField;
+    FDQueryProdutosCusto: TBCDField;
+    edtFiltro: TEdit;
+    Label10: TLabel;
+    Image1: TImage;
+    LinkFillControlToField1: TLinkFillControlToField;
+    Label11: TLabel;
+    edtAviamento: TEdit;
+    FDQueryProdutosAviamento: TBCDField;
+    LinkControlToField8: TLinkControlToField;
+    Label12: TLabel;
+    Label13: TLabel;
+    ComboBoxStatusProduto: TComboBox;
+    procedure FormCreate(Sender: TObject);
+    procedure ComboBoxTecidosChange(Sender: TObject);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnCadastrarProdutoClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
+    procedure Habilitar;
+    procedure Limpar;
+    Procedure Desabilitar;
+    procedure btnSalvarClick(Sender: TObject);
+    procedure PreencherComboBoxTamanhos;
+    procedure FDQueryProdutosFilterRecord(DataSet: TDataSet;
+      var Accept: Boolean);
+    procedure edtFiltroChange(Sender: TObject);
+    procedure DBGridProdutosTitleClick(Column: TColumn);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormCadastrarProdutos: TFormCadastrarProdutos;
+
+implementation
+
+{$R *.dfm}
+
+function RemoverAcentos(const S: String): String;
+const
+  Acentos: array[0..7] of Char = ('á', 'à', 'ã', 'â', 'é', 'è', 'ê', 'í');
+  SemAcento: array[0..7] of Char = ('a', 'a', 'a', 'a', 'e', 'e', 'e', 'i');
+var
+  i: Integer;
+  ResultStr: String;
+begin
+  ResultStr := S;
+  for i := 0 to Length(Acentos) - 1 do
+    ResultStr := StringReplace(ResultStr, Acentos[i], SemAcento[i], [rfReplaceAll, rfIgnoreCase]);
+  Result := ResultStr;
+end;
+
+
+procedure AjustarLarguraColunas(DBGrid: TDBGrid);
+var
+  i, largura: Integer;
+begin
+  DBGrid.Columns.BeginUpdate;
+  try
+    for i := 0 to DBGrid.Columns.Count - 1 do
+    begin
+      largura := DBGrid.Canvas.TextWidth(DBGrid.Columns[i].Title.Caption) + 20; // Título com padding
+      DBGrid.Columns[i].Width := largura;
+
+      DBGrid.DataSource.DataSet.First;
+      while not DBGrid.DataSource.DataSet.Eof do
+      begin
+        largura := Max(largura, DBGrid.Canvas.TextWidth(DBGrid.DataSource.DataSet.Fields[i].AsString) + 20);
+        DBGrid.DataSource.DataSet.Next;
+      end;
+      DBGrid.Columns[i].Width := largura;
+    end;
+  finally
+    DBGrid.Columns.EndUpdate;
+  end;
+end;
+
+procedure TFormCadastrarProdutos.btnAlterarClick(Sender: TObject);
+begin
+  Habilitar;
+  Limpar;
+  edtNome.SetFocus;
+  btnCancelar.Enabled := true;
+  btnDelete.Enabled := false;
+  btnSalvar.Enabled := true;
+  btnAlterar.Enabled := false;
+  DSDadosProdutos.DataSet.Edit;
+end;
+
+procedure TFormCadastrarProdutos.btnCadastrarProdutoClick(Sender: TObject);
+begin
+  Habilitar;
+  Limpar;
+  edtNome.SetFocus;
+  DSDadosProdutos.DataSet.Insert;
+  btnSalvar.Enabled := true;
+  btnCancelar.Enabled := true;
+  btnDelete.Enabled := false;
+  btnCadastrarProduto.Enabled := false;
+  btnAlterar.Enabled := false;
+end;
+
+procedure TFormCadastrarProdutos.btnCancelarClick(Sender: TObject);
+begin
+  Desabilitar;
+  Limpar;
+  btnCancelar.Enabled := false;
+  btnDelete.Enabled := true;
+  btnAlterar.Enabled := true;
+  btnSalvar.Enabled := false;
+  btnCadastrarProduto.Enabled := true;
+  DSDadosProdutos.DataSet.Cancel;
+  DSDadosProdutos.DataSet.Refresh;
+end;
+
+procedure TFormCadastrarProdutos.btnDeleteClick(Sender: TObject);
+begin
+  if Application.MessageBox(PChar(Format('%s' + #13 + '[%s]',
+    ['Deseja realmente excluir este produto?',
+    DSDadosProdutos.DataSet.FieldByName('Produto').AsString])), 'Atenção',
+    MB_ICONQUESTION + MB_YESNO) = IDYES then
+    DSDadosProdutos.DataSet.Delete;
+    DSDadosProdutos.DataSet.Refresh;
+end;
+
+procedure TFormCadastrarProdutos.btnSalvarClick(Sender: TObject);
+var
+  precoStr : string;
+  preco : Currency;
+  CleanText: string;
+begin
+  precoStr := StringReplace(edtPrecoCusto.Text, ',', '.', [rfReplaceAll]);
+  // Verifique se o valor não está vazio antes de tentar a conversão
+  if Trim(edtPrecoCusto.Text) = '' then
+  begin
+    Application.MessageBox('O campo Preço de Custo não pode estar vazio.', 'Atenção');
+    Exit;
+  end;
+
+  // Primeiro, remova o ponto de separação de milhares
+  CleanText := StringReplace(edtPrecoCusto.Text, '.', '', [rfReplaceAll]);
+  // Substitua a vírgula por ponto para que o Delphi possa converter corretamente
+  CleanText := StringReplace(CleanText, ',', '.', [rfReplaceAll]);
+
+  // Verifique se os outros campos estão preenchidos
+  if ((edtNome.Text = '') or (edtReferencia.Text = '') or (ComboBoxTecidos.Text = '') or
+      (ComboBoxTamanho.Text = '') or (edtRendimento.Text = '') or (edtLocalizacao.Text = '')) then
+  begin
+    Application.MessageBox('É necessário preencher os campos informados.', 'Atenção');
+    Exit;
+  end
+  else
+  begin
+    preco := StrToCurr(edtPrecoCusto.Text);
+    // Se os campos estiverem preenchidos, continue a salvar no banco
+    DSDadosProdutos.DataSet.FieldByName('Produto').AsString := edtNome.Text;
+    DSDadosProdutos.DataSet.FieldByName('Referência').AsString := edtReferencia.Text;
+    DSDadosProdutos.DataSet.FieldByName('Ficha Técnica').AsString := MemoFichaTecnica.Text;
+    DSDadosProdutos.DataSet.FieldByName('Tecido').AsString := ComboBoxTecidos.Text;
+    DSDadosProdutos.DataSet.FieldByName('Cod Tecido').AsString := edtCodTecido.Text;
+    DSDadosProdutos.DataSet.FieldByName('Tamanho').AsString := ComboBoxTamanho.Text;
+    DSDadosProdutos.DataSet.FieldByName('Rendimento').AsString := edtRendimento.Text;
+    DSDadosProdutos.DataSet.FieldByName('Localização').AsString := edtLocalizacao.Text;
+    DSDadosProdutos.DataSet.FieldByName('Custo').AsCurrency := preco;
+    DSDadosProdutos.DataSet.FieldByName('Aviamento').AsString := edtAviamento.Text;
+    DSDadosProdutos.DataSet.Post;
+    DSDadosProdutos.DataSet.Refresh;
+    ShowMessage('Salvo com sucesso');
+    Limpar;
+    Desabilitar;
+  end;
+
+  btnAlterar.Enabled := true;
+  btnDelete.Enabled := true;
+  btnCancelar.Enabled := false;
+  btnSalvar.Enabled := false;
+  btnCadastrarProduto.Enabled := true;
+end;
+
+
+procedure TFormCadastrarProdutos.ComboBoxTecidosChange(Sender: TObject);
+begin
+  if ComboBoxTecidos.ItemIndex <> -1 then
+    edtCodTecido.Text := IntToStr(Integer(ComboBoxTecidos.Items.Objects[ComboBoxTecidos.ItemIndex]));
+end;
+
+procedure TFormCadastrarProdutos.DBGridProdutosTitleClick(Column: TColumn);
+var
+  Coluna: string;
+begin
+  Coluna := Column.FieldName; // Obtém o nome do campo da coluna clicada
+
+  if FDQueryProdutos.Active then
+  begin
+    FDQueryProdutos.IndexFieldNames := Coluna; // Define a ordenação pelo campo
+  end;
+end;
+
+procedure TFormCadastrarProdutos.Desabilitar;
+begin
+  edtNome.Enabled := false;
+  edtReferencia.Enabled := false;
+  edtRendimento.Enabled := false;
+  edtLocalizacao.Enabled := false;
+  edtPrecoCusto.Enabled := false;
+  MemoFichaTecnica.Enabled := false;
+  ComboBoxTecidos.Enabled := false;
+  ComboBoxTamanho.Enabled := false;
+  ComboBoxStatusProduto.Enabled := false;
+  edtAviamento.Enabled := false;
+end;
+
+procedure TFormCadastrarProdutos.edtFiltroChange(Sender: TObject);
+begin
+  FDQueryProdutos.Filtered := False; // Desabilita o filtro para aplicar novamente
+  FDQueryProdutos.Filtered := edtFiltro.Text <> ''; // Só habilita se houver texto
+end;
+
+procedure TFormCadastrarProdutos.FDQueryProdutosFilterRecord(DataSet: TDataSet;
+  var Accept: Boolean);
+
+var
+  Filtro, Produto, Referencia, Localizacao, Tecido, Id: String;
+begin
+  Filtro := UpperCase(RemoverAcentos(edtFiltro.Text)); // Remove acentos do filtro
+
+  // Obtém os valores dos campos e remove os acentos também
+  Produto := UpperCase(RemoverAcentos(DataSet.FieldByName('Produto').AsString));
+  Referencia := UpperCase(RemoverAcentos(DataSet.FieldByName('Referência').AsString));
+  Localizacao := UpperCase(RemoverAcentos(DataSet.FieldByName('Localização').AsString));
+  Tecido := UpperCase(RemoverAcentos(DataSet.FieldByName('Tecido').AsString));
+  Id := UpperCase(RemoverAcentos(DataSet.FieldByName('Id').AsString));
+
+  // Verifica se o filtro está presente em algum dos campos
+  Accept := (Pos(Filtro, Produto) > 0) or
+            (Pos(Filtro, Referencia) > 0) or
+            (Pos(Filtro, Localizacao) > 0) or
+            (Pos(Filtro, Tecido) > 0) or
+            (Pos(Filtro, Id) > 0);
+
+end;
+
+procedure TFormCadastrarProdutos.FormCreate(Sender: TObject);
+begin
+  PreencherComboBoxTamanhos;
+
+  AjustarLarguraColunas(DBGridProdutos);
+
+  FDQueryTecidos.Open; // Abre a consulta para carregar os tecidos
+  // Configurar formato numérico para o Brasil
+  FormatSettings.DecimalSeparator := ',';
+  FormatSettings.ThousandSeparator := '.';
+
+  ComboBoxTecidos.Items.Clear;
+
+  while not FDQueryTecidos.Eof do
+  begin
+    ComboBoxTecidos.Items.AddObject(
+      FDQueryTecidos.FieldByName('nomeTecido').AsString,
+      TObject(FDQueryTecidos.FieldByName('codTecido').AsInteger)
+    );
+    FDQueryTecidos.Next;
+  end;
+
+  FDQueryTecidos.Close; // Fecha a consulta após carregar os dados
+end;
+
+
+
+procedure TFormCadastrarProdutos.Habilitar;
+begin
+  edtNome.Enabled := true;
+  edtReferencia.Enabled := true;
+  edtRendimento.Enabled := true;
+  edtLocalizacao.Enabled := true;
+  edtPrecoCusto.Enabled := true;
+  MemoFichaTecnica.Enabled := true;
+  ComboBoxTecidos.Enabled := true;
+  ComboBoxTamanho.Enabled := true;
+  ComboBoxStatusProduto.Enabled := true;
+  edtAviamento.Enabled := true;
+end;
+
+procedure TFormCadastrarProdutos.Limpar;
+begin
+  edtNome.Clear;
+  edtReferencia.Clear;
+  edtRendimento.Clear;
+  edtLocalizacao.Clear;
+  edtPrecoCusto.Clear;
+  MemoFichaTecnica.Clear;
+  edtAviamento.Clear;
+end;
+
+procedure TFormCadastrarProdutos.PreencherComboBoxTamanhos;
+var
+  CaminhoArquivo: string;
+begin
+  // Caminho do arquivo
+  CaminhoArquivo := ExtractFilePath(ParamStr(0)) + 'lista-tamanhos.txt';
+
+  // Verifica se o arquivo existe
+  if not FileExists(CaminhoArquivo) then
+  begin
+    ShowMessage('Arquivo lista-tamanhos.txt não encontrado!');
+    Exit;
+  end;
+
+  // Limpa os itens do ComboBox e carrega do arquivo
+  ComboBoxTamanho.Items.Clear;
+  ComboBoxTamanho.Items.LoadFromFile(CaminhoArquivo);
+end;
+
+end.
