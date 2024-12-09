@@ -103,6 +103,7 @@ type
     BindSourceDB1: TBindSourceDB;
     BindingsList1: TBindingsList;
     LinkControlToField1: TLinkControlToField;
+    Label2: TLabel;
     procedure edtCodRefChange(Sender: TObject);
     procedure edtCodRefKeyPress(Sender: TObject; var Key: Char);
     procedure ComboBoxProdutosChange(Sender: TObject);
@@ -614,34 +615,65 @@ procedure TFormFichaFaccao.btnRemoverClick(Sender: TObject);
 var
   idItem: Integer;
 begin
-  idItem := StrToIntDef(item.Text, -1); // -1 como valor padrão para indicar erro
-  if idItem = -1 then
-  begin
-    ShowMessage('ID do item inválido.');
-    Exit;
-  end;
+  if Application.MessageBox(PChar(Format('%s' + #13 + '[%s]',
+    ['Deseja realmente excluir este Item?',
+    'Modelo: ' + DSDadosFichaDeFaccao.DataSet.FieldByName('Produto').AsString +
+    ' - Tamanho: ' + DSDadosFichaDeFaccao.DataSet.FieldByName('Tamanho').AsString +
+    ' - Cor: ' + DSDadosFichaDeFaccao.DataSet.FieldByName('Cor').AsString])),
+    'Atenção',
+    MB_ICONQUESTION + MB_YESNO) = IDYES then
+    begin
 
-  try
-    // Exclui o item específico
-    FDQueryFichaDeFaccao.Close;
-    FDQueryFichaDeFaccao.SQL.Text :=
-      'DELETE FROM TBFichaDeFaccao WHERE idFaccao = :idFaccao AND idItemLista = :idItemLista';
-    FDQueryFichaDeFaccao.ParamByName('idFaccao').AsInteger := numFaccaoAtivo;
-    FDQueryFichaDeFaccao.ParamByName('idItemLista').AsInteger := idItem;
-    FDQueryFichaDeFaccao.ExecSQL;
+      idItem := StrToIntDef(item.Text, -1); // -1 como valor padrão para indicar erro
+      if idItem = -1 then
+      begin
+        ShowMessage('ID do item inválido.');
+        Exit;
+      end;
 
-    // Atualiza o grid após a exclusão
-    FDQueryFichaDeFaccao.Close;
-    FDQueryFichaDeFaccao.SQL.Text :=
-      'SELECT * FROM TBFichaDeFaccao WHERE idFaccao = :idFaccao';
-    FDQueryFichaDeFaccao.ParamByName('idFaccao').AsInteger := numFaccaoAtivo;
-    FDQueryFichaDeFaccao.Open;
+      try
+        // Exclui o item específico
+        FDQueryFichaDeFaccao.Close;
+        FDQueryFichaDeFaccao.SQL.Text :=
+          'DELETE FROM TBFichaDeFaccao WHERE idFaccao = :idFaccao AND idItemLista = :idItemLista';
+        FDQueryFichaDeFaccao.ParamByName('idFaccao').AsInteger := numFaccaoAtivo;
+        FDQueryFichaDeFaccao.ParamByName('idItemLista').AsInteger := idItem;
+        FDQueryFichaDeFaccao.ExecSQL;
 
-    ShowMessage('Item removido com sucesso!');
-  except
-    on E: Exception do
-      ShowMessage('Erro ao remover o item: ' + E.Message);
-  end;
+        // Atualiza o grid após a exclusão
+        FDQueryFichaDeFaccao.Close;
+        FDQueryFichaDeFaccao.SQL.Text :=
+        'SELECT idFaccao, ' +
+        '       numCorte as ''Num Corte'', ' +
+        '       dataCorte as ''Data de Corte'', ' +
+        '       numOrdem as ''Num Ordem'', ' +
+        '       codCortador as ''Cod. Cort'', ' +
+        '       nomeCortador as ''Cortador'', ' +
+        '       codFaccao as ''Cod. Fac'', ' +
+        '       nomeFaccao as ''Facção'', ' +
+        '       dataEnvio as ''Data de Envio'', ' +
+        '       dataPrevisao as ''Data de Previsão'', ' +
+        '       dataEntrega as ''data de Entrega'', ' +
+        '       codProduto as ''Cod. Prod'', ' +
+        '       nomeProduto as ''Produto'', ' +
+        '       idItemLista, ' +
+        '       corTecido as ''Cor'', ' +
+        '       tamanhoPecas as ''Tamanho'', ' +
+        '       quantidadePecas as ''Quantidade'', ' +
+        '       statusOrdem as ''Status'' ' +
+        'FROM TBFichaDeFaccao ' +
+        'WHERE idFaccao = :idFaccao';
+
+        FDQueryFichaDeFaccao.ParamByName('idFaccao').AsInteger := numFaccaoAtivo;
+        FDQueryFichaDeFaccao.Open;
+
+        //ShowMessage('Item removido com sucesso!');
+      except
+        on E: Exception do
+          ShowMessage('Erro ao remover o item: ' + E.Message);
+      end;
+    end;
+
 end;
 
 

@@ -195,9 +195,6 @@ Coordinates=1021,157,174,33
 [edtCodCortador]
 Coordinates=390,10,93,51
 
-[btnCancelar]
-Coordinates=119,1433,73,51
-
 [DSDadosFichaDeFaccao]
 Coordinates=490,468,135,33
 
@@ -270,4 +267,7 @@ Coordinates=803,420,120,393
 
 [BindingsList1]
 Coordinates=0,0,82,33
+
+[btnNovaFicha]
+Coordinates=119,1433,73,51
 

@@ -789,7 +789,7 @@
     end
     object btnCriarFicha: TButton
       Left = 474
-      Top = 23
+      Top = 10
       Width = 124
       Height = 37
       Caption = 'Criar Ficha'
@@ -803,8 +803,8 @@
       OnClick = btnCriarFichaClick
     end
     object btnConsultarFicha: TButton
-      Left = 626
-      Top = 23
+      Left = 655
+      Top = 10
       Width = 124
       Height = 37
       Caption = 'Consultar'
@@ -873,12 +873,12 @@
       TabOrder = 26
       TextHint = 'Selecione o modelo'
     end
-    object btnCancelar: TButton
-      Left = 479
-      Top = 323
-      Width = 129
-      Height = 33
-      Caption = 'Cancelar'
+    object btnNovaFicha: TButton
+      Left = 474
+      Top = 10
+      Width = 175
+      Height = 37
+      Caption = 'Criar Nova Ficha'
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -887,7 +887,8 @@
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 27
-      OnClick = btnCancelarClick
+      Visible = False
+      OnClick = btnNovaFichaClick
     end
     object edtCodCortador: TEdit
       Left = 711
