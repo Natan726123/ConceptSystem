@@ -10,7 +10,7 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Data.Bind.EngExt, Vcl.Bind.DBEngExt, System.Rtti, System.Bindings.Outputs,
-  Vcl.Bind.Editors, Data.Bind.Components, Data.Bind.DBScope, uMainModulo;
+  Vcl.Bind.Editors, Data.Bind.Components, Data.Bind.DBScope, uMainModulo, Math;
 
 type
   TFormFichaFaccao = class(TForm)
@@ -69,7 +69,7 @@ type
     lblNumFaccao: TLabel;
     lblStatusFaccao: TLabel;
     ComboBoxStatus: TComboBox;
-    btnCancelar: TButton;
+    btnNovaFicha: TButton;
     DSDadosCortadores: TDataSource;
     FDQueryCortadores: TFDQuery;
     lblCodCortador: TLabel;
@@ -98,12 +98,12 @@ type
     FDQueryFichaDeFaccaoQuantidade: TIntegerField;
     FDQueryFichaDeFaccaoStatus: TStringField;
     FDQueryFichaDeFaccaoidFaccao: TIntegerField;
-    FDQueryFichaDeFaccaoidItemLista: TIntegerField;
     item: TEdit;
+    Label2: TLabel;
+    FDQueryFichaDeFaccaoItem: TIntegerField;
     BindSourceDB1: TBindSourceDB;
     BindingsList1: TBindingsList;
     LinkControlToField1: TLinkControlToField;
-    Label2: TLabel;
     procedure edtCodRefChange(Sender: TObject);
     procedure edtCodRefKeyPress(Sender: TObject; var Key: Char);
     procedure ComboBoxProdutosChange(Sender: TObject);
@@ -119,7 +119,7 @@ type
     procedure btnCriarFichaClick(Sender: TObject);
     procedure HabilitarEdits;
     procedure DesabilitarEdits;
-    procedure btnCancelarClick(Sender: TObject);
+    procedure btnNovaFichaClick(Sender: TObject);
     procedure btnAdicionarItensClick(Sender: TObject);
 
     function GetNextNumFaccao: Integer;
@@ -129,6 +129,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure LimparCampos;
     procedure btnRemoverClick(Sender: TObject);
+    procedure AjustarLarguraColunas(DBGrid: TDBGrid);
   private
     defaultDataEntrega, defaultDataEnvio, defaultDataPrevista, defaultDataCorte : TDateTime;
   public
@@ -141,6 +142,31 @@ var
 implementation
 
 {$R *.dfm}
+
+
+procedure TFormFichaFaccao.AjustarLarguraColunas(DBGrid: TDBGrid);
+var
+  i, largura: Integer;
+begin
+  DBGrid.Columns.BeginUpdate;
+  try
+    for i := 0 to DBGrid.Columns.Count - 1 do
+    begin
+      largura := DBGrid.Canvas.TextWidth(DBGrid.Columns[i].Title.Caption) + 20; // Título com padding
+      DBGrid.Columns[i].Width := largura;
+
+      DBGrid.DataSource.DataSet.First;
+      while not DBGrid.DataSource.DataSet.Eof do
+      begin
+        largura := Max(largura, DBGrid.Canvas.TextWidth(DBGrid.DataSource.DataSet.Fields[i].AsString) + 20);
+        DBGrid.DataSource.DataSet.Next;
+      end;
+      DBGrid.Columns[i].Width := largura;
+    end;
+  finally
+    DBGrid.Columns.EndUpdate;
+  end;
+end;
 
 function TFormFichaFaccao.GetTamanhoSelecionado: String;
 var
@@ -360,8 +386,6 @@ var
 
   DataEntrega : TDateTime;
 begin
-
-
   nextItemLista := GetNextIdItemLista(numFaccaoAtivo);
 
   TamanhoSelecionado := False;
@@ -462,7 +486,7 @@ begin
   // Campos obrigatórios com valores corretos
 
   DSDadosFichaDeFaccao.DataSet.FieldByName('idFaccao').AsInteger := numFaccaoAtivo;
-  DSDadosFichaDeFaccao.DataSet.FieldByName('idItemLista').AsInteger := GetNextIdItemLista(numFaccaoAtivo);
+  DSDadosFichaDeFaccao.DataSet.FieldByName('Item').AsInteger := GetNextIdItemLista(numFaccaoAtivo);
 
   DSDadosFichaDeFaccao.DataSet.FieldByName('Num Corte').AsInteger := StrToIntDef(edtNumCorte.Text, 0);
 
@@ -524,9 +548,12 @@ begin
 
   ComboBoxProdutos.Enabled := false;
   edtCodRef.Enabled := false;
+
+  edtQuantidade.Clear;
+  AjustarLarguraColunas(DBGridFichaDeFaccao);
 end;
 
-procedure TFormFichaFaccao.btnCancelarClick(Sender: TObject);
+procedure TFormFichaFaccao.btnNovaFichaClick(Sender: TObject);
 begin
   Self.Close; // Fecha o formulário atual
   Application.CreateForm(TFormFichaFaccao, FormFichaFaccao); // Cria uma nova instância do formulário
@@ -543,7 +570,7 @@ begin
 //  btnCriarFicha.Enabled := true;
 //  btnAdicionarItens.Enabled := false;
 //  btnRemover.Enabled := false;
-//  btnCancelar.Enabled := false;
+//  btnNovaFicha.Enabled := false;
 //  btnSalvar.Enabled := false;
 //  btnGerarFicha.Enabled := false;
 end;
@@ -570,7 +597,7 @@ begin
   '       dataEntrega as ''data de Entrega'', ' +
   '       codProduto as ''Cod. Prod'', ' +
   '       nomeProduto as ''Produto'', ' +
-  '       idItemLista, ' +
+  '       idItemLista as ''Item'', ' +
   '       corTecido as ''Cor'', ' +
   '       tamanhoPecas as ''Tamanho'', ' +
   '       quantidadePecas as ''Quantidade'', ' +
@@ -601,19 +628,31 @@ begin
 
   btnAdicionarItens.Enabled := true;
   btnRemover.Enabled := true;
-  btnCancelar.Enabled := true;
+  btnNovaFicha.Enabled := true;
   btnSalvar.Enabled := true;
   btnGerarFicha.Enabled := true;
 
   btnConsultarFicha.Enabled := false;
-  btnCancelar.Enabled := true;
+  btnNovaFicha.Enabled := true;
   btnCriarFicha.Enabled := false;
+
+//  btnCriarFicha.Caption := 'Criar Nova Ficha';
+//
+//  if Application.MessageBox(PChar(Format('%s' + #13 + '[%s]',
+//    ['Deseja criar uma nova ficha de facção?',
+//    'Os campos serão limpos para a nova ficha.'])),
+//    'Atenção',
+//    MB_ICONQUESTION + MB_YESNO) = IDYES then
+//    btnNovaFichaClick(btnNovaFicha);
+
+  btnCriarFicha.Visible := false;
+  btnNovaFicha.Visible := true;
 
 end;
 
 procedure TFormFichaFaccao.btnRemoverClick(Sender: TObject);
 var
-  idItem: Integer;
+  idItem, TotalPecas: Integer;
 begin
   if Application.MessageBox(PChar(Format('%s' + #13 + '[%s]',
     ['Deseja realmente excluir este Item?',
@@ -656,7 +695,7 @@ begin
         '       dataEntrega as ''data de Entrega'', ' +
         '       codProduto as ''Cod. Prod'', ' +
         '       nomeProduto as ''Produto'', ' +
-        '       idItemLista, ' +
+        '       idItemLista as ''Item'', ' +
         '       corTecido as ''Cor'', ' +
         '       tamanhoPecas as ''Tamanho'', ' +
         '       quantidadePecas as ''Quantidade'', ' +
@@ -673,6 +712,21 @@ begin
           ShowMessage('Erro ao remover o item: ' + E.Message);
       end;
     end;
+
+
+  TotalPecas := 0; // Inicializa o contador
+  DSDadosFichaDeFaccao.DataSet.First; // Vai para o primeiro registro
+
+  // Somar as quantidades de peças dos itens na tabela
+  while not DSDadosFichaDeFaccao.DataSet.Eof do
+  begin
+    TotalPecas := TotalPecas + DSDadosFichaDeFaccao.DataSet.FieldByName('Quantidade').AsInteger;
+    DSDadosFichaDeFaccao.DataSet.Next; // Vai para o próximo registro
+  end;
+
+  // Atualiza o label com a quantidade total de peças
+  lblNumTotalPecas.Caption := 'N° de peças: ' + IntToStr(TotalPecas);
+
 
 end;
 
@@ -941,6 +995,7 @@ end;
 
 procedure TFormFichaFaccao.FormCreate(Sender: TObject);
 begin
+  AjustarLarguraColunas(DBGridFichaDeFaccao);
 
   FormatSettings.DecimalSeparator := ',';
   FormatSettings.ThousandSeparator := '.';
@@ -957,12 +1012,7 @@ end;
 
 procedure TFormFichaFaccao.FormShow(Sender: TObject);
 begin
-  FDQueryFichaDeFaccao.IndexFieldNames := 'idItemLista';
-
-//  CalendarDataDeCorte.Date := null;
-//  CalendarDataDeEnvio.Date := null;
-//  CalendarDataPrevista.Date := null;
-//  CalendarDataDeEntrega.Date := null;
+  FDQueryFichaDeFaccao.IndexFieldNames := 'Item';
 end;
 
 procedure TFormFichaFaccao.HabilitarEdits;

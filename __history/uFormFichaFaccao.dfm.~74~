@@ -394,6 +394,21 @@
       Font.Style = []
       ParentFont = False
     end
+    object Label2: TLabel
+      Left = 294
+      Top = 324
+      Width = 45
+      Height = 17
+      Caption = 'id Item'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Visible = False
+    end
     object ComboBoxProdutos: TComboBox
       Left = 128
       Top = 50
@@ -774,7 +789,7 @@
     end
     object btnCriarFicha: TButton
       Left = 474
-      Top = 23
+      Top = 10
       Width = 124
       Height = 37
       Caption = 'Criar Ficha'
@@ -788,8 +803,8 @@
       OnClick = btnCriarFichaClick
     end
     object btnConsultarFicha: TButton
-      Left = 626
-      Top = 23
+      Left = 655
+      Top = 10
       Width = 124
       Height = 37
       Caption = 'Consultar'
@@ -858,12 +873,12 @@
       TabOrder = 26
       TextHint = 'Selecione o modelo'
     end
-    object btnCancelar: TButton
-      Left = 479
-      Top = 323
-      Width = 129
-      Height = 33
-      Caption = 'Cancelar'
+    object btnNovaFicha: TButton
+      Left = 474
+      Top = 10
+      Width = 175
+      Height = 37
+      Caption = 'Criar Nova Ficha'
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -872,7 +887,8 @@
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 27
-      OnClick = btnCancelarClick
+      Visible = False
+      OnClick = btnNovaFichaClick
     end
     object edtCodCortador: TEdit
       Left = 711
@@ -926,6 +942,7 @@
       Width = 34
       Height = 23
       TabOrder = 31
+      Visible = False
     end
   end
   object DBGridFichaDeFaccao: TDBGrid
@@ -998,11 +1015,10 @@
     Top = 8
   end
   object FDQueryFichaDeFaccao: TFDQuery
-    Active = True
     Connection = Form6.FDConnection1
     UpdateOptions.AssignedValues = [uvUpdateMode]
     SQL.Strings = (
-      'SELECT idFaccao,'
+      'SELECT idFaccao as '#39'Item'#39','
       #9#9'numCorte as '#39'Num Corte'#39','
       #9#9'dataCorte as '#39'Data de Corte'#39','
       #9#9'numOrdem as '#39'Num Ordem'#39','
@@ -1032,10 +1048,8 @@
         ParamType = ptInput
         Value = Null
       end>
-    object FDQueryFichaDeFaccaoidItemLista: TIntegerField
-      FieldName = 'idItemLista'
-      Origin = 'idItemLista'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    object FDQueryFichaDeFaccaoItem: TIntegerField
+      FieldName = 'Item'
       Required = True
     end
     object FDQueryFichaDeFaccaoCor: TStringField
@@ -1128,6 +1142,25 @@
       Origin = 'statusOrdem'
       Required = True
       FixedChar = True
+    end
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSet = FDQueryFichaDeFaccao
+    ScopeMappings = <>
+    Left = 208
+    Top = 56
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 292
+    Top = 53
+    object LinkControlToField1: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Item'
+      Control = item
+      Track = True
     end
   end
 end

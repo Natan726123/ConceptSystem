@@ -414,7 +414,6 @@
       Top = 50
       Width = 304
       Height = 25
-      Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -579,7 +578,6 @@
       Top = 210
       Width = 229
       Height = 25
-      Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -815,6 +813,7 @@
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 23
+      OnClick = btnConsultarFichaClick
     end
     object CalendarDataDeEntrega: TCalendarPicker
       Left = 799
@@ -1032,7 +1031,7 @@
       #9#9'dataEntrega as '#39'data de Entrega'#39','
       #9#9'codProduto as '#39'Cod. Prod'#39','
       #9#9'nomeProduto as '#39'Produto'#39','
-      #9#9'idItemLista,'
+      #9#9'idItemLista as '#39'Item'#39','
       #9#9'corTecido as '#39'Cor'#39','
       #9#9'tamanhoPecas as '#39'Tamanho'#39','
       #9#9'quantidadePecas as '#39'Quantidade'#39','
@@ -1049,10 +1048,8 @@
         ParamType = ptInput
         Value = Null
       end>
-    object FDQueryFichaDeFaccaoidItemLista: TIntegerField
-      FieldName = 'idItemLista'
-      Origin = 'idItemLista'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    object FDQueryFichaDeFaccaoItem: TIntegerField
+      FieldName = 'Item'
       Required = True
     end
     object FDQueryFichaDeFaccaoCor: TStringField
@@ -1150,18 +1147,18 @@
   object BindSourceDB1: TBindSourceDB
     DataSet = FDQueryFichaDeFaccao
     ScopeMappings = <>
-    Left = 240
-    Top = 48
+    Left = 208
+    Top = 56
   end
   object BindingsList1: TBindingsList
     Methods = <>
     OutputConverters = <>
-    Left = 340
+    Left = 292
     Top = 53
     object LinkControlToField1: TLinkControlToField
       Category = 'Quick Bindings'
       DataSource = BindSourceDB1
-      FieldName = 'idItemLista'
+      FieldName = 'Item'
       Control = item
       Track = True
     end

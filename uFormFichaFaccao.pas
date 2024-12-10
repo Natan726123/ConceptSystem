@@ -98,12 +98,12 @@ type
     FDQueryFichaDeFaccaoQuantidade: TIntegerField;
     FDQueryFichaDeFaccaoStatus: TStringField;
     FDQueryFichaDeFaccaoidFaccao: TIntegerField;
-    FDQueryFichaDeFaccaoidItemLista: TIntegerField;
     item: TEdit;
+    Label2: TLabel;
+    FDQueryFichaDeFaccaoItem: TIntegerField;
     BindSourceDB1: TBindSourceDB;
     BindingsList1: TBindingsList;
     LinkControlToField1: TLinkControlToField;
-    Label2: TLabel;
     procedure edtCodRefChange(Sender: TObject);
     procedure edtCodRefKeyPress(Sender: TObject; var Key: Char);
     procedure ComboBoxProdutosChange(Sender: TObject);
@@ -130,6 +130,7 @@ type
     procedure LimparCampos;
     procedure btnRemoverClick(Sender: TObject);
     procedure AjustarLarguraColunas(DBGrid: TDBGrid);
+    procedure btnConsultarFichaClick(Sender: TObject);
   private
     defaultDataEntrega, defaultDataEnvio, defaultDataPrevista, defaultDataCorte : TDateTime;
   public
@@ -386,8 +387,6 @@ var
 
   DataEntrega : TDateTime;
 begin
-  AjustarLarguraColunas(DBGridFichaDeFaccao);
-
   nextItemLista := GetNextIdItemLista(numFaccaoAtivo);
 
   TamanhoSelecionado := False;
@@ -488,7 +487,7 @@ begin
   // Campos obrigatórios com valores corretos
 
   DSDadosFichaDeFaccao.DataSet.FieldByName('idFaccao').AsInteger := numFaccaoAtivo;
-  DSDadosFichaDeFaccao.DataSet.FieldByName('idItemLista').AsInteger := GetNextIdItemLista(numFaccaoAtivo);
+  DSDadosFichaDeFaccao.DataSet.FieldByName('Item').AsInteger := GetNextIdItemLista(numFaccaoAtivo);
 
   DSDadosFichaDeFaccao.DataSet.FieldByName('Num Corte').AsInteger := StrToIntDef(edtNumCorte.Text, 0);
 
@@ -552,6 +551,7 @@ begin
   edtCodRef.Enabled := false;
 
   edtQuantidade.Clear;
+  AjustarLarguraColunas(DBGridFichaDeFaccao);
 end;
 
 procedure TFormFichaFaccao.btnNovaFichaClick(Sender: TObject);
@@ -576,6 +576,69 @@ begin
 //  btnGerarFicha.Enabled := false;
 end;
 
+procedure TFormFichaFaccao.btnConsultarFichaClick(Sender: TObject);
+var
+  nomeProduto, nomeFaccao: string;
+  codFaccaoInt: Integer;
+begin
+  // Obter os critérios de busca fornecidos pelo usuário
+  nomeProduto := Trim(ComboboxProdutos.Text); // Campo de texto para o nome do produto
+  nomeFaccao := Trim(ComboBoxFaccao.Text);   // Campo de texto para o nome ou código da facção
+
+  if (nomeProduto = '') or (nomeFaccao = '') then
+  begin
+    ShowMessage('Por favor, informe o Nome do Produto e o Nome ou Código da Facção.');
+    Exit;
+  end;
+
+  try
+    // Executar a consulta no banco de dados
+    FDQueryFichaDeFaccao.Close;
+    FDQueryFichaDeFaccao.SQL.Text :=
+      'SELECT * FROM TBFichaDeFaccao ' +
+      'WHERE nomeProduto LIKE :nomeProduto AND (nomeFaccao LIKE :nomeFaccao OR codFaccao = :codFaccao)';
+    FDQueryFichaDeFaccao.ParamByName('nomeProduto').AsString := '%' + nomeProduto + '%';
+    FDQueryFichaDeFaccao.ParamByName('nomeFaccao').AsString := '%' + nomeFaccao + '%';
+
+    // Verifica se o campo informado é código
+    if TryStrToInt(nomeFaccao, codFaccaoInt) then
+    FDQueryFichaDeFaccao.ParamByName('codFaccao').AsInteger := codFaccaoInt
+    else
+    FDQueryFichaDeFaccao.ParamByName('codFaccao').Clear;
+
+    FDQueryFichaDeFaccao.Open;
+
+    if FDQueryFichaDeFaccao.IsEmpty then
+    begin
+      ShowMessage('Nenhum registro encontrado com os critérios informados.');
+      Exit;
+    end;
+
+    // Preencher os campos do formulário com os dados da consulta
+    edtNumCorte.Text := FDQueryFichaDeFaccao.FieldByName('numCorte').AsString;
+    CalendarDataDeCorte.Date := FDQueryFichaDeFaccao.FieldByName('dataCorte').AsDateTime;
+    edtNumOrdemCorte.Text := FDQueryFichaDeFaccao.FieldByName('numOrdem').AsString;
+    edtCodCortador.Text := FDQueryFichaDeFaccao.FieldByName('codCortador').AsString;
+    ComboBoxCortador.Text := FDQueryFichaDeFaccao.FieldByName('nomeCortador').AsString;
+    edtCodFaccao.Text := FDQueryFichaDeFaccao.FieldByName('codFaccao').AsString;
+    ComboBoxFaccao.Text := FDQueryFichaDeFaccao.FieldByName('nomeFaccao').AsString;
+    CalendarDataDeEnvio.Date := FDQueryFichaDeFaccao.FieldByName('dataEnvio').AsDateTime;
+    CalendarDataPrevista.Date := FDQueryFichaDeFaccao.FieldByName('dataPrevisao').AsDateTime;
+    CalendarDataDeEntrega.Date := FDQueryFichaDeFaccao.FieldByName('dataEntrega').AsDateTime;
+    edtCodProduto.Text := FDQueryFichaDeFaccao.FieldByName('codProduto').AsString;
+    ComboBoxProdutos.Text := FDQueryFichaDeFaccao.FieldByName('nomeProduto').AsString;
+    ComboBoxCores.Text := FDQueryFichaDeFaccao.FieldByName('corTecido').AsString;
+    edtQuantidade.Text := FDQueryFichaDeFaccao.FieldByName('quantidadePecas').AsString;
+    ComboBoxStatus.Text := FDQueryFichaDeFaccao.FieldByName('statusOrdem').AsString;
+
+    ShowMessage('Dados carregados com sucesso!');
+  except
+    on E: Exception do
+      ShowMessage('Erro ao consultar os dados: ' + E.Message);
+  end;
+end;
+
+
 procedure TFormFichaFaccao.btnCriarFichaClick(Sender: TObject);
 var
   NovoNumFaccao: Integer;
@@ -598,7 +661,7 @@ begin
   '       dataEntrega as ''data de Entrega'', ' +
   '       codProduto as ''Cod. Prod'', ' +
   '       nomeProduto as ''Produto'', ' +
-  '       idItemLista, ' +
+  '       idItemLista as ''Item'', ' +
   '       corTecido as ''Cor'', ' +
   '       tamanhoPecas as ''Tamanho'', ' +
   '       quantidadePecas as ''Quantidade'', ' +
@@ -696,7 +759,7 @@ begin
         '       dataEntrega as ''data de Entrega'', ' +
         '       codProduto as ''Cod. Prod'', ' +
         '       nomeProduto as ''Produto'', ' +
-        '       idItemLista, ' +
+        '       idItemLista as ''Item'', ' +
         '       corTecido as ''Cor'', ' +
         '       tamanhoPecas as ''Tamanho'', ' +
         '       quantidadePecas as ''Quantidade'', ' +
@@ -1013,12 +1076,7 @@ end;
 
 procedure TFormFichaFaccao.FormShow(Sender: TObject);
 begin
-  FDQueryFichaDeFaccao.IndexFieldNames := 'idItemLista';
-
-//  CalendarDataDeCorte.Date := null;
-//  CalendarDataDeEnvio.Date := null;
-//  CalendarDataPrevista.Date := null;
-//  CalendarDataDeEntrega.Date := null;
+  FDQueryFichaDeFaccao.IndexFieldNames := 'Item';
 end;
 
 procedure TFormFichaFaccao.HabilitarEdits;
