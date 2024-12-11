@@ -414,6 +414,7 @@
       Top = 50
       Width = 304
       Height = 25
+      Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -578,6 +579,7 @@
       Top = 210
       Width = 229
       Height = 25
+      Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15

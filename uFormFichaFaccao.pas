@@ -10,7 +10,7 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Data.Bind.EngExt, Vcl.Bind.DBEngExt, System.Rtti, System.Bindings.Outputs,
-  Vcl.Bind.Editors, Data.Bind.Components, Data.Bind.DBScope, uMainModulo, Math;
+  Vcl.Bind.Editors, Data.Bind.Components, Data.Bind.DBScope, uMainModulo, Math, uFormConsultaFichaFaccao;
 
 type
   TFormFichaFaccao = class(TForm)
@@ -578,63 +578,13 @@ end;
 
 procedure TFormFichaFaccao.btnConsultarFichaClick(Sender: TObject);
 var
-  nomeProduto, nomeFaccao: string;
-  codFaccaoInt: Integer;
+  formConsultaFichaFaccao: TFormConsultaFichaFaccao;
 begin
-  // Obter os critérios de busca fornecidos pelo usuário
-  nomeProduto := Trim(ComboboxProdutos.Text); // Campo de texto para o nome do produto
-  nomeFaccao := Trim(ComboBoxFaccao.Text);   // Campo de texto para o nome ou código da facção
-
-  if (nomeProduto = '') or (nomeFaccao = '') then
-  begin
-    ShowMessage('Por favor, informe o Nome do Produto e o Nome ou Código da Facção.');
-    Exit;
-  end;
-
+  formConsultaFichaFaccao := TFormConsultaFichaFaccao.Create(Self);
   try
-    // Executar a consulta no banco de dados
-    FDQueryFichaDeFaccao.Close;
-    FDQueryFichaDeFaccao.SQL.Text :=
-      'SELECT * FROM TBFichaDeFaccao ' +
-      'WHERE nomeProduto LIKE :nomeProduto AND (nomeFaccao LIKE :nomeFaccao OR codFaccao = :codFaccao)';
-    FDQueryFichaDeFaccao.ParamByName('nomeProduto').AsString := '%' + nomeProduto + '%';
-    FDQueryFichaDeFaccao.ParamByName('nomeFaccao').AsString := '%' + nomeFaccao + '%';
-
-    // Verifica se o campo informado é código
-    if TryStrToInt(nomeFaccao, codFaccaoInt) then
-    FDQueryFichaDeFaccao.ParamByName('codFaccao').AsInteger := codFaccaoInt
-    else
-    FDQueryFichaDeFaccao.ParamByName('codFaccao').Clear;
-
-    FDQueryFichaDeFaccao.Open;
-
-    if FDQueryFichaDeFaccao.IsEmpty then
-    begin
-      ShowMessage('Nenhum registro encontrado com os critérios informados.');
-      Exit;
-    end;
-
-    // Preencher os campos do formulário com os dados da consulta
-    edtNumCorte.Text := FDQueryFichaDeFaccao.FieldByName('numCorte').AsString;
-    CalendarDataDeCorte.Date := FDQueryFichaDeFaccao.FieldByName('dataCorte').AsDateTime;
-    edtNumOrdemCorte.Text := FDQueryFichaDeFaccao.FieldByName('numOrdem').AsString;
-    edtCodCortador.Text := FDQueryFichaDeFaccao.FieldByName('codCortador').AsString;
-    ComboBoxCortador.Text := FDQueryFichaDeFaccao.FieldByName('nomeCortador').AsString;
-    edtCodFaccao.Text := FDQueryFichaDeFaccao.FieldByName('codFaccao').AsString;
-    ComboBoxFaccao.Text := FDQueryFichaDeFaccao.FieldByName('nomeFaccao').AsString;
-    CalendarDataDeEnvio.Date := FDQueryFichaDeFaccao.FieldByName('dataEnvio').AsDateTime;
-    CalendarDataPrevista.Date := FDQueryFichaDeFaccao.FieldByName('dataPrevisao').AsDateTime;
-    CalendarDataDeEntrega.Date := FDQueryFichaDeFaccao.FieldByName('dataEntrega').AsDateTime;
-    edtCodProduto.Text := FDQueryFichaDeFaccao.FieldByName('codProduto').AsString;
-    ComboBoxProdutos.Text := FDQueryFichaDeFaccao.FieldByName('nomeProduto').AsString;
-    ComboBoxCores.Text := FDQueryFichaDeFaccao.FieldByName('corTecido').AsString;
-    edtQuantidade.Text := FDQueryFichaDeFaccao.FieldByName('quantidadePecas').AsString;
-    ComboBoxStatus.Text := FDQueryFichaDeFaccao.FieldByName('statusOrdem').AsString;
-
-    ShowMessage('Dados carregados com sucesso!');
-  except
-    on E: Exception do
-      ShowMessage('Erro ao consultar os dados: ' + E.Message);
+    formConsultaFichaFaccao.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
+  finally
+    formConsultaFichaFaccao.Free; // Libera o formulário da memória somente após ele ser fechado
   end;
 end;
 

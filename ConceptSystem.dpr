@@ -13,7 +13,8 @@ uses
   uFormCortador in 'uFormCortador.pas' {FormCadastroCortador},
   uFormCadastroFaccao in 'uFormCadastroFaccao.pas' {FormCadastroFaccao},
   uFormRelOrdemCorte in 'uFormRelOrdemCorte.pas' {FormRelOrdemCorte},
-  uFormFichaFaccao in 'uFormFichaFaccao.pas' {FormFichaFaccao};
+  uFormFichaFaccao in 'uFormFichaFaccao.pas' {FormFichaFaccao},
+  uFormConsultaFichaFaccao in 'uFormConsultaFichaFaccao.pas' {FormConsultaFichaFaccao};
 
 {$R *.res}
 
@@ -23,6 +24,7 @@ begin
 
   TStyleManager.TrySetStyle('Glossy');
   Application.CreateForm(TFormDashboard, FormDashboard);
+  //Application.CreateForm(TFormConsultaFichaFaccao, FormConsultaFichaFaccao);
   //Application.CreateForm(TFormFichaFaccao, FormFichaFaccao);
   //Application.CreateForm(TFormRelOrdemCorte, FormRelOrdemCorte);
   //Application.CreateForm(TFormCadastroFaccao, FormCadastroFaccao);

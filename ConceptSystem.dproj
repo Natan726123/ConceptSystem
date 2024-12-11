@@ -176,6 +176,10 @@
             <Form>FormFichaFaccao</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uFormConsultaFichaFaccao.pas">
+            <Form>FormConsultaFichaFaccao</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
