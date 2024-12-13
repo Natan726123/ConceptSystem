@@ -274,3 +274,6 @@ Coordinates=969,430,120,393
 [BindingsList1]
 Coordinates=65,1,82,33
 
+[FormConsultaFichaFaccao.FDQueryConsultaFichaFaccao]
+Visible=False
+

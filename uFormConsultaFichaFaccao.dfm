@@ -1,4 +1,4 @@
-object FormConsultaFichaFaccao: TFormConsultaFichaFaccao
+﻿object FormConsultaFichaFaccao: TFormConsultaFichaFaccao
   Left = 0
   Top = 0
   Caption = 'Consultar Ficha de Fac'#231#227'o'
@@ -5596,6 +5596,21 @@ object FormConsultaFichaFaccao: TFormConsultaFichaFaccao
       Font.Style = []
       ParentFont = False
     end
+    object Label4: TLabel
+      Left = 176
+      Top = 281
+      Width = 64
+      Height = 18
+      Caption = 'N'#176' Fac'#231#227'o:'
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+      Visible = False
+    end
     object ComboBoxProdutos: TComboBox
       Left = 128
       Top = 57
@@ -5630,7 +5645,6 @@ object FormConsultaFichaFaccao: TFormConsultaFichaFaccao
       Width = 113
       Height = 33
       Caption = 'Gerar Ficha'
-      Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -5638,6 +5652,7 @@ object FormConsultaFichaFaccao: TFormConsultaFichaFaccao
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 1
+      OnClick = btnGerarFichaClick
     end
     object edtCodRef: TEdit
       Left = 14
@@ -5998,6 +6013,22 @@ object FormConsultaFichaFaccao: TFormConsultaFichaFaccao
       TabOrder = 21
       Visible = False
     end
+    object edtNumFaccao: TEdit
+      Left = 176
+      Top = 301
+      Width = 109
+      Height = 25
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 22
+      TextHint = 'C'#243'digo'
+      Visible = False
+    end
   end
   object DBGridFichaDeFaccao: TDBGrid
     AlignWithMargins = True
@@ -6208,6 +6239,13 @@ object FormConsultaFichaFaccao: TFormConsultaFichaFaccao
       Component = CalendarDataDeEntrega
       ComponentProperty = 'Date'
     end
+    object LinkControlToField4: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'idFaccao'
+      Control = edtNumFaccao
+      Track = True
+    end
   end
   object UpdateSQLConsultaFicha: TFDUpdateSQL
     Connection = Form6.FDConnection1
@@ -6222,5 +6260,230 @@ object FormConsultaFichaFaccao: TFormConsultaFichaFaccao
       'WHERE idFaccao = :idFaccao;')
     Left = 528
     Top = 64
+  end
+  object DSDadosFichaDeFaccao: TDataSource
+    AutoEdit = False
+    DataSet = FDQueryFichaDeFaccao
+    Left = 536
+    Top = 65528
+  end
+  object FDQueryFichaDeFaccao: TFDQuery
+    Active = True
+    Connection = Form6.FDConnection1
+    UpdateOptions.AssignedValues = [uvUpdateMode]
+    SQL.Strings = (
+      'SELECT idFaccao,'
+      #9#9'numCorte as '#39'Num Corte'#39','
+      #9#9'dataCorte as '#39'Data de Corte'#39','
+      #9#9'numOrdem as '#39'Num Ordem'#39','
+      #9#9'codCortador as '#39'Cod. Cort'#39','
+      #9#9'nomeCortador as '#39'Cortador'#39','
+      #9#9'codFaccao as '#39'Cod. Fac'#39','
+      #9#9'nomeFaccao as '#39'Fac'#231#227'o'#39','
+      #9#9'dataEnvio as '#39'Data de Envio'#39','
+      #9#9'dataPrevisao as '#39'Data de Previs'#227'o'#39','#9#9
+      #9#9'dataEntrega as '#39'data de Entrega'#39','
+      #9#9'codProduto as '#39'Cod. Prod'#39','
+      #9#9'nomeProduto as '#39'Produto'#39','
+      #9#9'idItemLista as '#39'Item'#39','
+      #9#9'corTecido as '#39'Cor'#39','
+      #9#9'tamanhoPecas as '#39'Tamanho'#39','
+      #9#9'quantidadePecas as '#39'Quantidade'#39','
+      #9#9'statusOrdem as '#39'Status'#39
+      #9#9
+      'From TBFichaDeFaccao'
+      'where idFaccao = :idFaccao')
+    Left = 480
+    Top = 65528
+    ParamData = <
+      item
+        Name = 'IDFACCAO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
+    object FDQueryFichaDeFaccaoItem: TIntegerField
+      FieldName = 'Item'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoCor: TStringField
+      FieldName = 'Cor'
+      Origin = 'corTecido'
+      Required = True
+      FixedChar = True
+    end
+    object FDQueryFichaDeFaccaoTamanho: TStringField
+      FieldName = 'Tamanho'
+      Origin = 'tamanhoPecas'
+      Required = True
+      FixedChar = True
+    end
+    object FDQueryFichaDeFaccaoQuantidade: TIntegerField
+      FieldName = 'Quantidade'
+      Origin = 'quantidadePecas'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoCodProd: TIntegerField
+      FieldName = 'Cod. Prod'
+      Origin = 'codProduto'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoProduto: TStringField
+      FieldName = 'Produto'
+      Origin = 'nomeProduto'
+      Required = True
+      FixedChar = True
+      Size = 50
+    end
+    object FDQueryFichaDeFaccaoidFaccao: TIntegerField
+      FieldName = 'idFaccao'
+      Origin = 'idFaccao'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object FDQueryFichaDeFaccaoNumCorte: TIntegerField
+      FieldName = 'Num Corte'
+      Origin = 'numCorte'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoCodCort: TIntegerField
+      FieldName = 'Cod. Cort'
+      Origin = 'codCortador'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoCortador: TStringField
+      FieldName = 'Cortador'
+      Origin = 'nomeCortador'
+      Required = True
+      FixedChar = True
+      Size = 50
+    end
+    object FDQueryFichaDeFaccaoCodFac: TIntegerField
+      FieldName = 'Cod. Fac'
+      Origin = 'codFaccao'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoFacção: TStringField
+      FieldName = 'Fac'#231#227'o'
+      Origin = 'nomeFaccao'
+      Required = True
+      FixedChar = True
+      Size = 50
+    end
+    object FDQueryFichaDeFaccaoDatadeCorte: TDateField
+      FieldName = 'Data de Corte'
+      Origin = 'dataCorte'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoNumOrdem: TIntegerField
+      FieldName = 'Num Ordem'
+      Origin = 'numOrdem'
+      Required = True
+    end
+    object FDQueryFichaDeFaccaoDatadeEnvio: TDateField
+      FieldName = 'Data de Envio'
+      Origin = 'dataEnvio'
+    end
+    object FDQueryFichaDeFaccaoDatadePrevisão: TDateField
+      FieldName = 'Data de Previs'#227'o'
+      Origin = 'dataPrevisao'
+    end
+    object FDQueryFichaDeFaccaodatadeEntrega: TDateField
+      FieldName = 'data de Entrega'
+      Origin = 'dataEntrega'
+    end
+    object FDQueryFichaDeFaccaoStatus: TStringField
+      FieldName = 'Status'
+      Origin = 'statusOrdem'
+      Required = True
+      FixedChar = True
+    end
+  end
+  object FDQueryRelFichaFaccao: TFDQuery
+    Connection = Form6.FDConnection1
+    UpdateOptions.AssignedValues = [uvUpdateChngFields]
+    SQL.Strings = (
+      'SELECT '
+      '    f.idFaccao AS Num_Faccao, '
+      '    f.corTecido AS Cor,'
+      #9'p.nomeTecido as Tecido,'#9
+      '    p.fichaTecnica AS Ficha_Tecnica, '
+      
+        '    SUM(CASE WHEN f.tamanhoPecas = '#39'P'#39' THEN f.quantidadePecas EL' +
+        'SE 0 END) AS Tam_P, '
+      
+        '    SUM(CASE WHEN f.tamanhoPecas = '#39'M'#39' THEN f.quantidadePecas EL' +
+        'SE 0 END) AS Tam_M, '
+      
+        '    SUM(CASE WHEN f.tamanhoPecas = '#39'G'#39' THEN f.quantidadePecas EL' +
+        'SE 0 END) AS Tam_G, '
+      
+        '    SUM(CASE WHEN f.tamanhoPecas = '#39'GG'#39' THEN f.quantidadePecas E' +
+        'LSE 0 END) AS Tam_GG, '
+      
+        '    SUM(CASE WHEN f.tamanhoPecas = '#39'48'#39' THEN f.quantidadePecas E' +
+        'LSE 0 END) AS Tam_48, '
+      
+        '    SUM(CASE WHEN f.tamanhoPecas = '#39'50'#39' THEN f.quantidadePecas E' +
+        'LSE 0 END) AS Tam_50, '
+      
+        '    SUM(CASE WHEN f.tamanhoPecas = '#39'52'#39' THEN f.quantidadePecas E' +
+        'LSE 0 END) AS Tam_52, '
+      '    SUM(f.quantidadePecas) AS Total_Pecas_Cor, '
+      
+        '    SUM(f.quantidadePecas * p.aviamentoProduto) AS Total_Aviamen' +
+        'to, '
+      '    (SELECT SUM(f2.quantidadePecas) '
+      '     FROM TBFichaDeFaccao f2 '
+      
+        '     WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = '#39'P'#39') A' +
+        'S Total_Tam_P, '
+      '    (SELECT SUM(f2.quantidadePecas) '
+      '     FROM TBFichaDeFaccao f2 '
+      
+        '     WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = '#39'M'#39') A' +
+        'S Total_Tam_M, '
+      '    (SELECT SUM(f2.quantidadePecas) '
+      '     FROM TBFichaDeFaccao f2 '
+      
+        '     WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = '#39'G'#39') A' +
+        'S Total_Tam_G, '
+      '    (SELECT SUM(f2.quantidadePecas) '
+      '     FROM TBFichaDeFaccao f2 '
+      
+        '     WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = '#39'GG'#39') ' +
+        'AS Total_Tam_GG, '
+      '    (SELECT SUM(f2.quantidadePecas) '
+      '     FROM TBFichaDeFaccao f2 '
+      
+        '     WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = '#39'48'#39') ' +
+        'AS Total_Tam_48, '
+      '    (SELECT SUM(f2.quantidadePecas) '
+      '     FROM TBFichaDeFaccao f2 '
+      
+        '     WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = '#39'50'#39') ' +
+        'AS Total_Tam_50, '
+      '    (SELECT SUM(f2.quantidadePecas) '
+      '     FROM TBFichaDeFaccao f2 '
+      
+        '     WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = '#39'52'#39') ' +
+        'AS Total_Tam_52 '
+      'FROM '
+      '    TBFichaDeFaccao f '
+      'JOIN '
+      '    TBprodutos p ON f.codProduto = p.codProduto '
+      'WHERE '
+      '    f.idFaccao = '#39'500090'#39
+      'GROUP BY '
+      '    f.idFaccao, f.corTecido, p.fichaTecnica '
+      'ORDER BY '
+      '    f.corTecido;')
+    Left = 480
+    Top = 56
+  end
+  object DSDadosRelFichaFaccao: TDataSource
+    AutoEdit = False
+    DataSet = FDQueryRelFichaFaccao
+    Left = 584
+    Top = 56
   end
 end

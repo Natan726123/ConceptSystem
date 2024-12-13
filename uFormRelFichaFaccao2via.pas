@@ -5,7 +5,10 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, QuickRpt, qrFramelines, QRCtrls,
-  qrpctrls, Vcl.Imaging.jpeg, Vcl.ExtCtrls;
+  qrpctrls, Vcl.Imaging.jpeg, Vcl.ExtCtrls, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TFormRelFichaFaccao2via = class(TForm)
@@ -52,8 +55,6 @@ type
     QRFrameline15: TQRFrameline;
     QRFrameline16: TQRFrameline;
     QRFrameline17: TQRFrameline;
-    QRDBText27: TQRDBText;
-    QRFrameline18: TQRFrameline;
     QRDBText28: TQRDBText;
     QRLabel22: TQRLabel;
     QRShape32: TQRShape;
@@ -74,10 +75,11 @@ type
     QRShape43: TQRShape;
     QRShape44: TQRShape;
     QRShape45: TQRShape;
-    QRShape46: TQRShape;
-    QRLabel37: TQRLabel;
     QRDBText3: TQRDBText;
     QRLabel3: TQRLabel;
+    FDQueryRelFichaFaccao: TFDQuery;
+    DSDadosRelFichaFaccao: TDataSource;
+    QRDBText1: TQRDBText;
   private
     { Private declarations }
   public

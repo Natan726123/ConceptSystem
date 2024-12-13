@@ -18,7 +18,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
     Width = 794
     Height = 1123
     ShowingPreview = False
-    DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+    DataSet = FDQueryRelFichaFaccao
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -800,6 +800,38 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         VerticalAlignment = tlTop
         FontSize = 8
       end
+      object QRDBText26: TQRDBText
+        Left = 492
+        Top = 221
+        Width = 112
+        Height = 19
+        Size.Values = (
+          50.270833333333330000
+          1301.750000000000000000
+          584.729166666666700000
+          296.333333333333300000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Alignment = taLeftJustify
+        AlignToBand = False
+        Color = clWhite
+        DataSet = FDQueryRelFichaFaccao
+        DataField = 'Total_Pecas'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = False
+        ExportAs = exptText
+        WrapStyle = BreakOnSpaces
+        FullJustify = False
+        MaxBreakChars = 0
+        VerticalAlignment = tlTop
+        FontSize = 11
+      end
     end
     object QRBand1: TQRBand
       Left = 38
@@ -1114,7 +1146,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taLeftJustify
         AlignToBand = False
         Color = clWhite
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Cor'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1146,7 +1178,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Tam_P'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1178,7 +1210,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Tam_M'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1210,7 +1242,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Tam_G'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1242,7 +1274,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Tam_GG'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1274,7 +1306,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Tam_48'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1306,7 +1338,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Tam_50'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1338,7 +1370,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Total_Pecas_Cor'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1469,21 +1501,21 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
       object QRDBText12: TQRDBText
         Left = 680
         Top = 6
-        Width = 134
+        Width = 142
         Height = 17
         Size.Values = (
           44.979166666666670000
           1799.166666666667000000
           15.875000000000000000
-          354.541666666666700000)
+          375.708333333333300000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
         Alignment = taLeftJustify
         AlignToBand = False
         Color = clWhite
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
-        DataField = 'Total_Pecas_Cor'
+        DataSet = FDQueryRelFichaFaccao
+        DataField = 'Total_Aviamento'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -1528,7 +1560,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Tam_52'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -2299,7 +2331,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Total_Tam_GG'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -2331,7 +2363,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Total_Tam_50'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -2363,7 +2395,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Total_Tam_52'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -2790,7 +2822,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Total_Tam_M'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -2822,7 +2854,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Total_Tam_P'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -2854,7 +2886,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Total_Tam_48'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -2886,7 +2918,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Total_Tam_G'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -2918,7 +2950,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taLeftJustify
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FDQueryRelFichaFaccao
         DataField = 'Tecido'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -2951,5 +2983,102 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
     ActiveInPreview = False
     Shape = qrsHorLine
     VertAdjust = 0
+  end
+  object FDQueryRelFichaFaccao: TFDQuery
+    Connection = Form6.FDConnection1
+    UpdateOptions.AssignedValues = [uvUpdateChngFields]
+    SQL.Strings = (
+      'SELECT '
+      '    f.idFaccao AS Num_Faccao, '
+      '    f.corTecido AS Cor,'
+      '    p.nomeTecido AS Tecido,'
+      '    p.fichaTecnica AS Ficha_Tecnica, '
+      
+        '    SUM(CASE WHEN f.tamanhoPecas = '#39'P'#39' THEN f.quantidadePecas EL' +
+        'SE 0 END) AS Tam_P, '
+      
+        '    SUM(CASE WHEN f.tamanhoPecas = '#39'M'#39' THEN f.quantidadePecas EL' +
+        'SE 0 END) AS Tam_M, '
+      
+        '    SUM(CASE WHEN f.tamanhoPecas = '#39'G'#39' THEN f.quantidadePecas EL' +
+        'SE 0 END) AS Tam_G, '
+      
+        '    SUM(CASE WHEN f.tamanhoPecas = '#39'GG'#39' THEN f.quantidadePecas E' +
+        'LSE 0 END) AS Tam_GG, '
+      
+        '    SUM(CASE WHEN f.tamanhoPecas = '#39'48'#39' THEN f.quantidadePecas E' +
+        'LSE 0 END) AS Tam_48, '
+      
+        '    SUM(CASE WHEN f.tamanhoPecas = '#39'50'#39' THEN f.quantidadePecas E' +
+        'LSE 0 END) AS Tam_50, '
+      
+        '    SUM(CASE WHEN f.tamanhoPecas = '#39'52'#39' THEN f.quantidadePecas E' +
+        'LSE 0 END) AS Tam_52, '
+      '    SUM(f.quantidadePecas) AS Total_Pecas_Cor, '
+      
+        '    SUM(f.quantidadePecas * p.aviamentoProduto) AS Total_Aviamen' +
+        'to, '
+      '    (SELECT SUM(f2.quantidadePecas) '
+      '     FROM TBFichaDeFaccao f2 '
+      
+        '     WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = '#39'P'#39') A' +
+        'S Total_Tam_P, '
+      '    (SELECT SUM(f2.quantidadePecas) '
+      '     FROM TBFichaDeFaccao f2 '
+      
+        '     WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = '#39'M'#39') A' +
+        'S Total_Tam_M, '
+      '    (SELECT SUM(f2.quantidadePecas) '
+      '     FROM TBFichaDeFaccao f2 '
+      
+        '     WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = '#39'G'#39') A' +
+        'S Total_Tam_G, '
+      '    (SELECT SUM(f2.quantidadePecas) '
+      '     FROM TBFichaDeFaccao f2 '
+      
+        '     WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = '#39'GG'#39') ' +
+        'AS Total_Tam_GG, '
+      '    (SELECT SUM(f2.quantidadePecas) '
+      '     FROM TBFichaDeFaccao f2 '
+      
+        '     WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = '#39'48'#39') ' +
+        'AS Total_Tam_48, '
+      '    (SELECT SUM(f2.quantidadePecas) '
+      '     FROM TBFichaDeFaccao f2 '
+      
+        '     WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = '#39'50'#39') ' +
+        'AS Total_Tam_50, '
+      '    (SELECT SUM(f2.quantidadePecas) '
+      '     FROM TBFichaDeFaccao f2 '
+      
+        '     WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = '#39'52'#39') ' +
+        'AS Total_Tam_52,'
+      '    SUM(f.quantidadePecas) AS Total_Pecas'
+      'FROM '
+      '    TBFichaDeFaccao f '
+      'JOIN '
+      '    TBprodutos p ON f.codProduto = p.codProduto '
+      'WHERE '
+      '    f.idFaccao = :idFaccao'
+      'GROUP BY '
+      '    f.idFaccao, f.corTecido, p.fichaTecnica, p.nomeTecido '
+      'ORDER BY '
+      '    f.corTecido;'
+      '')
+    Left = 984
+    Top = 40
+    ParamData = <
+      item
+        Name = 'IDFACCAO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object DSDadosRelFichaFaccao: TDataSource
+    AutoEdit = False
+    DataSet = FDQueryRelFichaFaccao
+    Left = 984
+    Top = 144
   end
 end

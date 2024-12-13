@@ -466,12 +466,12 @@ begin
     Exit;
   end;
 
-  if Trim(ComboBoxFaccao.Text) = '' then
-  begin
-    ShowMessage('O campo "Facção" não pode estar vazio. Por favor, insira um valor.');
-    ComboBoxFaccao.SetFocus;
-    Exit;
-  end;
+//  if Trim(ComboBoxFaccao.Text) = '' then
+//  begin
+//    ShowMessage('O campo "Facção" não pode estar vazio. Por favor, insira um valor.');
+//    ComboBoxFaccao.SetFocus;
+//    Exit;
+//  end;
 
   if (CalendarDataDeCorte.Date = defaultDataCorte) then
   begin
@@ -1093,6 +1093,20 @@ end;
 
 procedure TFormFichaFaccao.FormCreate(Sender: TObject);
 begin
+  // Verifica se o formulário do relatório de 1ª via está criado
+  if Assigned(FormRelFichaFaccao1Via) then
+  begin
+    FormRelFichaFaccao1Via.Free;
+    FormRelFichaFaccao1Via := nil;
+  end;
+
+  // Verifica se o formulário do relatório de 2ª via está criado
+  if Assigned(FormRelFichaFaccao2Via) then
+  begin
+    FormRelFichaFaccao2Via.Free;
+    FormRelFichaFaccao2Via := nil;
+  end;
+
   AjustarLarguraColunas(DBGridFichaDeFaccao);
 
   FormatSettings.DecimalSeparator := ',';
@@ -1204,52 +1218,53 @@ begin
   FormRelFichaFaccao1via.QRLabelModeloHeader.Caption := ComboBoxProdutos.Text;
   //QRLabelModeloHeader
 
-  FDQueryRelFichaFaccao.Close;
+  FormRelFichaFaccao1via.FDQueryRelFichaFaccao.Close;
 
-  FDQueryRelFichaFaccao.SQL.Text :=
-    'SELECT ' +
-    '    f.idFaccao AS Num_Faccao, ' +
-    '    f.corTecido AS Cor, ' +
-    '    p.nomeTecido as Tecido, ' +
-    '    p.fichaTecnica AS Ficha_Tecnica, ' +
-    '    SUM(CASE WHEN f.tamanhoPecas = ''P'' THEN f.quantidadePecas ELSE 0 END) AS Tam_P, ' +
-    '    SUM(CASE WHEN f.tamanhoPecas = ''M'' THEN f.quantidadePecas ELSE 0 END) AS Tam_M, ' +
-    '    SUM(CASE WHEN f.tamanhoPecas = ''G'' THEN f.quantidadePecas ELSE 0 END) AS Tam_G, ' +
-    '    SUM(CASE WHEN f.tamanhoPecas = ''GG'' THEN f.quantidadePecas ELSE 0 END) AS Tam_GG, ' +
-    '    SUM(CASE WHEN f.tamanhoPecas = ''48'' THEN f.quantidadePecas ELSE 0 END) AS Tam_48, ' +
-    '    SUM(CASE WHEN f.tamanhoPecas = ''50'' THEN f.quantidadePecas ELSE 0 END) AS Tam_50, ' +
-    '    SUM(CASE WHEN f.tamanhoPecas = ''52'' THEN f.quantidadePecas ELSE 0 END) AS Tam_52, ' +
-    '    SUM(f.quantidadePecas) AS Total_Pecas_Cor, ' +
-    '    SUM(f.quantidadePecas * p.aviamentoProduto) AS Total_Aviamento, ' +
-    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''P'') AS Total_Tam_P, ' +
-    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''M'') AS Total_Tam_M, ' +
-    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''G'') AS Total_Tam_G, ' +
-    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''GG'') AS Total_Tam_GG, ' +
-    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''48'') AS Total_Tam_48, ' +
-    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''50'') AS Total_Tam_50, ' +
-    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''52'') AS Total_Tam_52 ' +
-    'FROM ' +
-    '    TBFichaDeFaccao f ' +
-    'JOIN ' +
-    '    TBprodutos p ON f.codProduto = p.codProduto ' +
-    'WHERE ' +
-    '    f.idFaccao = :idFaccao ' +
-    'GROUP BY ' +
-    '    f.idFaccao, f.corTecido, p.fichaTecnica ' +
-    'ORDER BY ' +
-    '    f.corTecido;';
+  FormRelFichaFaccao1via.FDQueryRelFichaFaccao.SQL.Text :=
+  'SELECT ' +
+  '    f.idFaccao AS Num_Faccao, ' +
+  '    f.corTecido AS Cor, ' +
+  '    p.nomeTecido AS Tecido, ' +
+  '    p.fichaTecnica AS Ficha_Tecnica, ' +
+  '    SUM(CASE WHEN f.tamanhoPecas = ''P'' THEN f.quantidadePecas ELSE 0 END) AS Tam_P, ' +
+  '    SUM(CASE WHEN f.tamanhoPecas = ''M'' THEN f.quantidadePecas ELSE 0 END) AS Tam_M, ' +
+  '    SUM(CASE WHEN f.tamanhoPecas = ''G'' THEN f.quantidadePecas ELSE 0 END) AS Tam_G, ' +
+  '    SUM(CASE WHEN f.tamanhoPecas = ''GG'' THEN f.quantidadePecas ELSE 0 END) AS Tam_GG, ' +
+  '    SUM(CASE WHEN f.tamanhoPecas = ''48'' THEN f.quantidadePecas ELSE 0 END) AS Tam_48, ' +
+  '    SUM(CASE WHEN f.tamanhoPecas = ''50'' THEN f.quantidadePecas ELSE 0 END) AS Tam_50, ' +
+  '    SUM(CASE WHEN f.tamanhoPecas = ''52'' THEN f.quantidadePecas ELSE 0 END) AS Tam_52, ' +
+  '    SUM(f.quantidadePecas) AS Total_Pecas_Cor, ' +
+  '    SUM(f.quantidadePecas * p.aviamentoProduto) AS Total_Aviamento, ' +
+  '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''P'') AS Total_Tam_P, ' +
+  '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''M'') AS Total_Tam_M, ' +
+  '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''G'') AS Total_Tam_G, ' +
+  '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''GG'') AS Total_Tam_GG, ' +
+  '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''48'') AS Total_Tam_48, ' +
+  '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''50'') AS Total_Tam_50, ' +
+  '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''52'') AS Total_Tam_52, ' +
+  '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao) AS Total_Pecas   ' +
+  'FROM ' +
+  '    TBFichaDeFaccao f ' +
+  'JOIN ' +
+  '    TBprodutos p ON f.codProduto = p.codProduto ' +
+  'WHERE ' +
+  '    f.idFaccao = :idFaccao ' +
+  'GROUP BY ' +
+  '    f.idFaccao, f.corTecido, p.fichaTecnica, p.nomeTecido ' +
+  'ORDER BY ' +
+  '    f.corTecido;';
 
   // Atribuir o valor do parâmetro
-  FDQueryRelFichaFaccao.ParamByName('idFaccao').AsInteger := numFaccaoAtivo;
+  FormRelFichaFaccao1via.FDQueryRelFichaFaccao.ParamByName('idFaccao').AsInteger := numFaccaoAtivo;
 
   try
-    FDQueryRelFichaFaccao.Open; // Executa a consulta
+    FormRelFichaFaccao1via.FDQueryRelFichaFaccao.Open; // Executa a consulta
   except
     on E: Exception do
       ShowMessage('Erro ao gerar o relatório: ' + E.Message);
   end;
 
-
+
   FormRelFichaFaccao1via.QuickRepFichaFaccao.Preview;
 end;
 
@@ -1283,8 +1298,8 @@ begin
   FormRelFichaFaccao2via.QRLabelDataCorte.Caption := 'DATA DE CORTE: ';
   FormRelFichaFaccao2via.QRLabelDataCorte.Caption := FormRelFichaFaccao2via.QRLabelDataCorte.Caption + DateToStr(CalendarDataDeCorte.Date);
 
-  FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption := 'N° DE PEÇAS: ';
-  FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption := lblNumTotalPecas.Caption;
+//  FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption := 'N° DE PEÇAS: ';
+//  FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption := lblNumTotalPecas.Caption;
 
   FormRelFichaFaccao2via.QRLabelModeloHeader.Caption := 'MODELO';
   FormRelFichaFaccao2via.QRLabelModeloHeader.Caption := ComboBoxProdutos.Text;
@@ -1294,13 +1309,12 @@ begin
 
   //QRLabelModeloHeader
 
-  FDQueryRelFichaFaccao.Close;
-
-  FDQueryRelFichaFaccao.SQL.Text :=
+  FormRelFichaFaccao2via.FDQueryRelFichaFaccao.Close;
+  FormRelFichaFaccao2via.FDQueryRelFichaFaccao.SQL.Text :=
     'SELECT ' +
     '    f.idFaccao AS Num_Faccao, ' +
     '    f.corTecido AS Cor, ' +
-    '    p.nomeTecido as Tecido, ' +
+    '    p.nomeTecido AS Tecido, ' +
     '    p.fichaTecnica AS Ficha_Tecnica, ' +
     '    SUM(CASE WHEN f.tamanhoPecas = ''P'' THEN f.quantidadePecas ELSE 0 END) AS Tam_P, ' +
     '    SUM(CASE WHEN f.tamanhoPecas = ''M'' THEN f.quantidadePecas ELSE 0 END) AS Tam_M, ' +
@@ -1317,7 +1331,8 @@ begin
     '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''GG'') AS Total_Tam_GG, ' +
     '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''48'') AS Total_Tam_48, ' +
     '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''50'') AS Total_Tam_50, ' +
-    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''52'') AS Total_Tam_52 ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''52'') AS Total_Tam_52, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao) AS Total_Pecas ' +
     'FROM ' +
     '    TBFichaDeFaccao f ' +
     'JOIN ' +
@@ -1325,15 +1340,26 @@ begin
     'WHERE ' +
     '    f.idFaccao = :idFaccao ' +
     'GROUP BY ' +
-    '    f.idFaccao, f.corTecido, p.fichaTecnica ' +
+    '    f.idFaccao, f.corTecido, p.fichaTecnica, p.nomeTecido ' +
     'ORDER BY ' +
     '    f.corTecido;';
 
-  // Atribuir o valor do parâmetro
-  FDQueryRelFichaFaccao.ParamByName('idFaccao').AsInteger := numFaccaoAtivo;
+  FormRelFichaFaccao2via.FDQueryRelFichaFaccao.ParamByName('idFaccao').AsInteger := numFaccaoAtivo;
+  FormRelFichaFaccao2via.FDQueryRelFichaFaccao.Open;
 
+  // Verificar se há registros antes de acessar os campos
+  if not FormRelFichaFaccao2via.FDQueryRelFichaFaccao.IsEmpty then
+  begin
+    // Atualizar o texto do label com o valor de Total_Pecas
+    FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption :=
+      'N° DE PEÇAS: ' + FormRelFichaFaccao2via.FDQueryRelFichaFaccao.FieldByName('Total_Pecas').AsString;
+  end
+  else
+  begin
+    FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption := 'Nenhum dado encontrado.';
+  end;
   try
-    FDQueryRelFichaFaccao.Open; // Executa a consulta
+    FormRelFichaFaccao2via.FDQueryRelFichaFaccao.Open; // Executa a consulta
   except
     on E: Exception do
       ShowMessage('Erro ao gerar o relatório: ' + E.Message);

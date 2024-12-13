@@ -6196,6 +6196,7 @@
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 25
+      Visible = False
       OnClick = btnSalvarClick
     end
     object ComboBoxStatus: TComboBox
