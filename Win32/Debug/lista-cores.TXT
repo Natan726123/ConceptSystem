@@ -3,3 +3,9 @@ Branco
 Cinza
 Laranja
 Vermelho
+Azul Claro
+Azul Marinho
+Roxo
+Lilás
+Ciano
+Verde

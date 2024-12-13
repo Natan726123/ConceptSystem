@@ -1,0 +1,99 @@
+unit uFormRelFichaFaccao1via;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, qrpctrls, QuickRpt, qrFramelines,
+  QRCtrls, Vcl.Imaging.jpeg, Vcl.ExtCtrls;
+
+type
+  TFormRelFichaFaccao1via = class(TForm)
+    QuickRepFichaFaccao: TQuickRep;
+    TitleBand1: TQRBand;
+    QRLabelTitulo: TQRLabel;
+    QRLabelNumCorte: TQRLabel;
+    QRLabelNomeFaccao: TQRLabel;
+    QRImage1: TQRImage;
+    QRShape1: TQRShape;
+    QRShape2: TQRShape;
+    QRPBand1: TQRPBand;
+    QRGroup2: TQRGroup;
+    QRLabel3: TQRLabel;
+    QRLabel4: TQRLabel;
+    QRLabel6: TQRLabel;
+    QRLabel7: TQRLabel;
+    QRLabel8: TQRLabel;
+    QRLabel9: TQRLabel;
+    QRLabel10: TQRLabel;
+    QRLabel11: TQRLabel;
+    QRLabel13: TQRLabel;
+    QRShape3: TQRShape;
+    QRShape4: TQRShape;
+    QRShape5: TQRShape;
+    QRShape6: TQRShape;
+    QRShape7: TQRShape;
+    QRShape8: TQRShape;
+    QRShape9: TQRShape;
+    QRShape10: TQRShape;
+    QRShape11: TQRShape;
+    QRBand1: TQRBand;
+    QRLabel24: TQRLabel;
+    QRLabel25: TQRLabel;
+    QRDBText15: TQRDBText;
+    QRDBText16: TQRDBText;
+    QRLabelObs: TQRLabel;
+    QRShape13: TQRShape;
+    QRLabel26: TQRLabel;
+    QRShape14: TQRShape;
+    QRLabelModelo: TQRLabel;
+    QRLabelDataCorte: TQRLabel;
+    QRLabelNumOrdemCorte: TQRLabel;
+    QRShape15: TQRShape;
+    QRLabelNomeCortador: TQRLabel;
+    QRShape16: TQRShape;
+    QRLabel30: TQRLabel;
+    QRLabel31: TQRLabel;
+    QRLabel32: TQRLabel;
+    QRLabelNumTotalPecas: TQRLabel;
+    QRLabelNumFaccao: TQRLabel;
+    QRDBText1: TQRDBText;
+    QRFrameline1: TQRFrameline;
+    QRLabelModeloHeader: TQRLabel;
+    QRLabel1: TQRLabel;
+    QRPBand2: TQRPBand;
+    QRDBText3: TQRDBText;
+    QRDBText11: TQRDBText;
+    QRDBText12: TQRDBText;
+    QRDBText13: TQRDBText;
+    QRDBText14: TQRDBText;
+    QRDBText17: TQRDBText;
+    QRDBText18: TQRDBText;
+    QRDBText19: TQRDBText;
+    QRDBText20: TQRDBText;
+    QRFrameline9: TQRFrameline;
+    QRFrameline10: TQRFrameline;
+    QRFrameline11: TQRFrameline;
+    QRFrameline12: TQRFrameline;
+    QRFrameline13: TQRFrameline;
+    QRFrameline14: TQRFrameline;
+    QRFrameline15: TQRFrameline;
+    QRFrameline16: TQRFrameline;
+    QRDBText2: TQRDBText;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormRelFichaFaccao1via: TFormRelFichaFaccao1via;
+
+implementation
+
+uses
+  uFormFichaFaccao;
+
+{$R *.dfm}
+
+end.

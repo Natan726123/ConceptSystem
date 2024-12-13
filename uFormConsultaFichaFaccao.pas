@@ -10,7 +10,8 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, uMainModulo, System.Rtti,
   System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.EngExt,
-  Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope, Math, DateUtils;
+  Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope, Math, DateUtils,
+  Vcl.Imaging.pngimage;
 
 type
   TFormConsultaFichaFaccao = class(TForm)
@@ -72,6 +73,7 @@ type
     LinkPropertyToFieldDate2: TLinkPropertyToField;
     LinkPropertyToFieldDate3: TLinkPropertyToField;
     btnAttData: TButton;
+    Image1: TImage;
     procedure FormCreate(Sender: TObject);
     procedure PreencherComboBoxFaccao;
     procedure PreencherComboBoxProdutos;

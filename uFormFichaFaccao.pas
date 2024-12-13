@@ -10,7 +10,8 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Data.Bind.EngExt, Vcl.Bind.DBEngExt, System.Rtti, System.Bindings.Outputs,
-  Vcl.Bind.Editors, Data.Bind.Components, Data.Bind.DBScope, uMainModulo, Math, uFormConsultaFichaFaccao;
+  Vcl.Bind.Editors, Data.Bind.Components, Data.Bind.DBScope, uMainModulo, Math, uFormConsultaFichaFaccao,
+  Vcl.Imaging.pngimage, uFormRelFichaFaccao1via, uFormRelFichaFaccao2via;
 
 type
   TFormFichaFaccao = class(TForm)
@@ -104,6 +105,9 @@ type
     BindSourceDB1: TBindSourceDB;
     BindingsList1: TBindingsList;
     LinkControlToField1: TLinkControlToField;
+    Image1: TImage;
+    FDQueryRelFichaFaccao: TFDQuery;
+    DSDadosRelFichaFaccao: TDataSource;
     procedure edtCodRefChange(Sender: TObject);
     procedure edtCodRefKeyPress(Sender: TObject; var Key: Char);
     procedure ComboBoxProdutosChange(Sender: TObject);
@@ -131,6 +135,10 @@ type
     procedure btnRemoverClick(Sender: TObject);
     procedure AjustarLarguraColunas(DBGrid: TDBGrid);
     procedure btnConsultarFichaClick(Sender: TObject);
+    procedure btnGerarFichaClick(Sender: TObject);
+
+    procedure imprimirFicha1via;
+    procedure imprimirFicha2via;
   private
     defaultDataEntrega, defaultDataEnvio, defaultDataPrevista, defaultDataCorte : TDateTime;
   public
@@ -551,7 +559,7 @@ begin
   edtCodRef.Enabled := false;
 
   edtQuantidade.Clear;
-  AjustarLarguraColunas(DBGridFichaDeFaccao);
+  //AjustarLarguraColunas(DBGridFichaDeFaccao);
 end;
 
 procedure TFormFichaFaccao.btnNovaFichaClick(Sender: TObject);
@@ -661,6 +669,82 @@ begin
 
   btnCriarFicha.Visible := false;
   btnNovaFicha.Visible := true;
+
+end;
+
+procedure TFormFichaFaccao.btnGerarFichaClick(Sender: TObject);
+var
+  Dialog: TForm;
+  BtnPrimeiraVia, BtnSegundaVia, BtnCancelar: TButton;
+  FormWidth, FormHeight, ButtonSpacing, ButtonTop: Integer;
+begin
+  if FDQueryFichaDeFaccao.IsEmpty then
+  begin
+    ShowMessage('Nenhum dado encontrado para o relatório.');
+    Exit;
+  end;
+
+  // Configurações gerais
+  FormWidth := 400;       // Largura do formulário
+  FormHeight := 100;      // Altura do formulário
+  ButtonSpacing := 20;    // Espaçamento entre os botões
+  ButtonTop := 50;       // Distância dos botões ao topo do formulário
+
+  // Cria o formulário do diálogo
+  Dialog := CreateMessageDialog('Deseja imprimir a 1° ou 2° via?', mtConfirmation, []);
+  try
+    Dialog.Caption := 'Escolha a via';
+    Dialog.ClientWidth := FormWidth;  // Ajusta a largura do formulário
+    Dialog.ClientHeight := FormHeight; // Ajusta a altura do formulário
+    Dialog.Position := poScreenCenter; // Centraliza na tela
+
+    // Cria o botão para a 1° via
+    BtnPrimeiraVia := TButton.Create(Dialog);
+    BtnPrimeiraVia.Parent := Dialog;
+    BtnPrimeiraVia.Caption := '1° via';
+    BtnPrimeiraVia.ModalResult := mrYes; // Define o resultado como mrYes
+    BtnPrimeiraVia.Width := 70; // Largura do botão
+    BtnPrimeiraVia.Top := ButtonTop;
+
+    // Cria o botão para a 2° via
+    BtnSegundaVia := TButton.Create(Dialog);
+    BtnSegundaVia.Parent := Dialog;
+    BtnSegundaVia.Caption := '2° via';
+    BtnSegundaVia.ModalResult := mrNo; // Define o resultado como mrNo
+    BtnSegundaVia.Width := 70;
+    BtnSegundaVia.Top := ButtonTop;
+
+    // Cria o botão de Cancelar
+    BtnCancelar := TButton.Create(Dialog);
+    BtnCancelar.Parent := Dialog;
+    BtnCancelar.Caption := 'Cancelar';
+    BtnCancelar.ModalResult := mrCancel; // Define o resultado como mrCancel
+    BtnCancelar.Width := 70;
+    BtnCancelar.Top := ButtonTop;
+
+    // Calcula posições centralizadas
+    BtnPrimeiraVia.Left := (FormWidth div 2) - BtnPrimeiraVia.Width - (ButtonSpacing div 2);
+    BtnSegundaVia.Left := BtnPrimeiraVia.Left + BtnPrimeiraVia.Width + ButtonSpacing;
+    BtnCancelar.Left := BtnSegundaVia.Left + BtnSegundaVia.Width + ButtonSpacing;
+
+    // Exibe o diálogo
+    case Dialog.ShowModal of
+      mrYes:
+        begin
+          //ShowMessage('1° via selecionada');
+          imprimirFicha1via;
+        end;
+      mrNo:
+        begin
+          //ShowMessage('2° via selecionada');
+          imprimirFicha2via;
+        end;
+      mrCancel:
+        ShowMessage('Operação cancelada.');
+    end;
+  finally
+    Dialog.Free;
+  end;
 
 end;
 
@@ -1085,6 +1169,178 @@ begin
   lblCodTecido.Enabled := true;
   lblNomeTecido.Enabled := true;
   lblAviamento.Enabled := true;
+end;
+
+procedure TFormFichaFaccao.imprimirFicha1via;
+begin
+  if not Assigned(FormRelFichaFaccao1via) then
+    FormRelFichaFaccao1via := TFormRelFichaFaccao1via.Create(Self);
+
+  FormRelFichaFaccao1via.QRLabelNumFaccao.Caption := 'FICHA N°: ';
+  FormRelFichaFaccao1via.QRLabelNumFaccao.Caption := FormRelFichaFaccao1via.QRLabelNumFaccao.Caption + IntToStr(numFaccaoAtivo);
+
+  FormRelFichaFaccao1via.QRLabelModelo.Caption := 'MODELO: ';
+  FormRelFichaFaccao1via.QRLabelModelo.Caption := FormRelFichaFaccao1via.QRLabelModelo.Caption + ComboBoxProdutos.Text;
+
+  FormRelFichaFaccao1via.QRLabelNomeFaccao.Caption := 'FACÇÃO: ';
+  FormRelFichaFaccao1via.QRLabelNomeFaccao.Caption := FormRelFichaFaccao1via.QRLabelNomeFaccao.Caption + ComboBoxFaccao.Text;
+
+  FormRelFichaFaccao1via.QRLabelNumCorte.Caption := 'N° CORTE: ';
+  FormRelFichaFaccao1via.QRLabelNumCorte.Caption := FormRelFichaFaccao1via.QRLabelNumCorte.Caption + edtNumCorte.Text;
+
+  FormRelFichaFaccao1via.QRLabelNumOrdemCorte.Caption := 'N° ORDEM DE CORTE: ';
+  FormRelFichaFaccao1via.QRLabelNumOrdemCorte.Caption := FormRelFichaFaccao1via.QRLabelNumOrdemCorte.Caption + edtNumOrdemCorte.Text;
+
+  FormRelFichaFaccao1via.QRLabelNomeCortador.Caption := 'CORTADOR: ';
+  FormRelFichaFaccao1via.QRLabelNomeCortador.Caption := FormRelFichaFaccao1via.QRLabelNomeCortador.Caption + ComboBoxCortador.Text;
+
+  FormRelFichaFaccao1via.QRLabelDataCorte.Caption := 'DATA DE CORTE: ';
+  FormRelFichaFaccao1via.QRLabelDataCorte.Caption := FormRelFichaFaccao1via.QRLabelDataCorte.Caption + DateToStr(CalendarDataDeCorte.Date);
+
+  FormRelFichaFaccao1via.QRLabelNumTotalPecas.Caption := 'N° DE PEÇAS: ';
+  FormRelFichaFaccao1via.QRLabelNumTotalPecas.Caption := lblNumTotalPecas.Caption;
+
+  FormRelFichaFaccao1via.QRLabelModeloHeader.Caption := 'MODELO';
+  FormRelFichaFaccao1via.QRLabelModeloHeader.Caption := ComboBoxProdutos.Text;
+  //QRLabelModeloHeader
+
+  FDQueryRelFichaFaccao.Close;
+
+  FDQueryRelFichaFaccao.SQL.Text :=
+    'SELECT ' +
+    '    f.idFaccao AS Num_Faccao, ' +
+    '    f.corTecido AS Cor, ' +
+    '    p.nomeTecido as Tecido, ' +
+    '    p.fichaTecnica AS Ficha_Tecnica, ' +
+    '    SUM(CASE WHEN f.tamanhoPecas = ''P'' THEN f.quantidadePecas ELSE 0 END) AS Tam_P, ' +
+    '    SUM(CASE WHEN f.tamanhoPecas = ''M'' THEN f.quantidadePecas ELSE 0 END) AS Tam_M, ' +
+    '    SUM(CASE WHEN f.tamanhoPecas = ''G'' THEN f.quantidadePecas ELSE 0 END) AS Tam_G, ' +
+    '    SUM(CASE WHEN f.tamanhoPecas = ''GG'' THEN f.quantidadePecas ELSE 0 END) AS Tam_GG, ' +
+    '    SUM(CASE WHEN f.tamanhoPecas = ''48'' THEN f.quantidadePecas ELSE 0 END) AS Tam_48, ' +
+    '    SUM(CASE WHEN f.tamanhoPecas = ''50'' THEN f.quantidadePecas ELSE 0 END) AS Tam_50, ' +
+    '    SUM(CASE WHEN f.tamanhoPecas = ''52'' THEN f.quantidadePecas ELSE 0 END) AS Tam_52, ' +
+    '    SUM(f.quantidadePecas) AS Total_Pecas_Cor, ' +
+    '    SUM(f.quantidadePecas * p.aviamentoProduto) AS Total_Aviamento, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''P'') AS Total_Tam_P, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''M'') AS Total_Tam_M, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''G'') AS Total_Tam_G, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''GG'') AS Total_Tam_GG, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''48'') AS Total_Tam_48, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''50'') AS Total_Tam_50, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''52'') AS Total_Tam_52 ' +
+    'FROM ' +
+    '    TBFichaDeFaccao f ' +
+    'JOIN ' +
+    '    TBprodutos p ON f.codProduto = p.codProduto ' +
+    'WHERE ' +
+    '    f.idFaccao = :idFaccao ' +
+    'GROUP BY ' +
+    '    f.idFaccao, f.corTecido, p.fichaTecnica ' +
+    'ORDER BY ' +
+    '    f.corTecido;';
+
+  // Atribuir o valor do parâmetro
+  FDQueryRelFichaFaccao.ParamByName('idFaccao').AsInteger := numFaccaoAtivo;
+
+  try
+    FDQueryRelFichaFaccao.Open; // Executa a consulta
+  except
+    on E: Exception do
+      ShowMessage('Erro ao gerar o relatório: ' + E.Message);
+  end;
+
+
+  FormRelFichaFaccao1via.QuickRepFichaFaccao.Preview;
+end;
+
+procedure TFormFichaFaccao.imprimirFicha2via;
+begin
+
+
+  if not Assigned(FormRelFichaFaccao2via) then
+    FormRelFichaFaccao2via := TFormRelFichaFaccao2via.Create(Self);
+
+  FormRelFichaFaccao2via.QRLabelNumFaccao.Caption := 'FICHA N°: ';
+  FormRelFichaFaccao2via.QRLabelNumFaccao.Caption := FormRelFichaFaccao2via.QRLabelNumFaccao.Caption + IntToStr(numFaccaoAtivo);
+
+  FormRelFichaFaccao2via.QRLabelModelo.Caption := 'MODELO: ';
+  FormRelFichaFaccao2via.QRLabelModelo.Caption := FormRelFichaFaccao2via.QRLabelModelo.Caption + ComboBoxProdutos.Text;
+
+
+
+  FormRelFichaFaccao2via.QRLabelNomeFaccao.Caption := 'FACÇÃO: ';
+  FormRelFichaFaccao2via.QRLabelNomeFaccao.Caption := FormRelFichaFaccao2via.QRLabelNomeFaccao.Caption + ComboBoxFaccao.Text;
+
+  FormRelFichaFaccao2via.QRLabelNumCorte.Caption := 'N° CORTE: ';
+  FormRelFichaFaccao2via.QRLabelNumCorte.Caption := FormRelFichaFaccao2via.QRLabelNumCorte.Caption + edtNumCorte.Text;
+
+  FormRelFichaFaccao2via.QRLabelNumOrdemCorte.Caption := 'N° ORDEM DE CORTE: ';
+  FormRelFichaFaccao2via.QRLabelNumOrdemCorte.Caption := FormRelFichaFaccao2via.QRLabelNumOrdemCorte.Caption + edtNumOrdemCorte.Text;
+
+  FormRelFichaFaccao2via.QRLabelNomeCortador.Caption := 'CORTADOR: ';
+  FormRelFichaFaccao2via.QRLabelNomeCortador.Caption := FormRelFichaFaccao2via.QRLabelNomeCortador.Caption + ComboBoxCortador.Text;
+
+  FormRelFichaFaccao2via.QRLabelDataCorte.Caption := 'DATA DE CORTE: ';
+  FormRelFichaFaccao2via.QRLabelDataCorte.Caption := FormRelFichaFaccao2via.QRLabelDataCorte.Caption + DateToStr(CalendarDataDeCorte.Date);
+
+  FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption := 'N° DE PEÇAS: ';
+  FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption := lblNumTotalPecas.Caption;
+
+  FormRelFichaFaccao2via.QRLabelModeloHeader.Caption := 'MODELO';
+  FormRelFichaFaccao2via.QRLabelModeloHeader.Caption := ComboBoxProdutos.Text;
+
+//  FormRelFichaFaccao2via.QRLabelModeloHeader2via.Caption := 'MODELO';
+//  FormRelFichaFaccao2via.QRLabelModeloHeader2via.Caption := ComboBoxProdutos.Text;
+
+  //QRLabelModeloHeader
+
+  FDQueryRelFichaFaccao.Close;
+
+  FDQueryRelFichaFaccao.SQL.Text :=
+    'SELECT ' +
+    '    f.idFaccao AS Num_Faccao, ' +
+    '    f.corTecido AS Cor, ' +
+    '    p.nomeTecido as Tecido, ' +
+    '    p.fichaTecnica AS Ficha_Tecnica, ' +
+    '    SUM(CASE WHEN f.tamanhoPecas = ''P'' THEN f.quantidadePecas ELSE 0 END) AS Tam_P, ' +
+    '    SUM(CASE WHEN f.tamanhoPecas = ''M'' THEN f.quantidadePecas ELSE 0 END) AS Tam_M, ' +
+    '    SUM(CASE WHEN f.tamanhoPecas = ''G'' THEN f.quantidadePecas ELSE 0 END) AS Tam_G, ' +
+    '    SUM(CASE WHEN f.tamanhoPecas = ''GG'' THEN f.quantidadePecas ELSE 0 END) AS Tam_GG, ' +
+    '    SUM(CASE WHEN f.tamanhoPecas = ''48'' THEN f.quantidadePecas ELSE 0 END) AS Tam_48, ' +
+    '    SUM(CASE WHEN f.tamanhoPecas = ''50'' THEN f.quantidadePecas ELSE 0 END) AS Tam_50, ' +
+    '    SUM(CASE WHEN f.tamanhoPecas = ''52'' THEN f.quantidadePecas ELSE 0 END) AS Tam_52, ' +
+    '    SUM(f.quantidadePecas) AS Total_Pecas_Cor, ' +
+    '    SUM(f.quantidadePecas * p.aviamentoProduto) AS Total_Aviamento, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''P'') AS Total_Tam_P, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''M'') AS Total_Tam_M, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''G'') AS Total_Tam_G, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''GG'') AS Total_Tam_GG, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''48'') AS Total_Tam_48, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''50'') AS Total_Tam_50, ' +
+    '    (SELECT SUM(f2.quantidadePecas) FROM TBFichaDeFaccao f2 WHERE f2.idFaccao = f.idFaccao AND f2.tamanhoPecas = ''52'') AS Total_Tam_52 ' +
+    'FROM ' +
+    '    TBFichaDeFaccao f ' +
+    'JOIN ' +
+    '    TBprodutos p ON f.codProduto = p.codProduto ' +
+    'WHERE ' +
+    '    f.idFaccao = :idFaccao ' +
+    'GROUP BY ' +
+    '    f.idFaccao, f.corTecido, p.fichaTecnica ' +
+    'ORDER BY ' +
+    '    f.corTecido;';
+
+  // Atribuir o valor do parâmetro
+  FDQueryRelFichaFaccao.ParamByName('idFaccao').AsInteger := numFaccaoAtivo;
+
+  try
+    FDQueryRelFichaFaccao.Open; // Executa a consulta
+  except
+    on E: Exception do
+      ShowMessage('Erro ao gerar o relatório: ' + E.Message);
+  end;
+
+
+  FormRelFichaFaccao2via.QuickRepFichaFaccao.Preview;
 end;
 
 procedure TFormFichaFaccao.LimparCampos;

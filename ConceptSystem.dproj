@@ -180,6 +180,14 @@
             <Form>FormConsultaFichaFaccao</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uFormRelFichaFaccao1via.pas">
+            <Form>FormRelFichaFaccao1via</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uFormRelFichaFaccao2via.pas">
+            <Form>FormRelFichaFaccao2via</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
