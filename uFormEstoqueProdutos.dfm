@@ -5709,7 +5709,7 @@ object FormEstoqueProdutos: TFormEstoqueProdutos
     end
     object edtCodRef: TEdit
       Left = 14
-      Top = 47
+      Top = 42
       Width = 91
       Height = 25
       Font.Charset = ANSI_CHARSET
