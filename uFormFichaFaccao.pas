@@ -1264,7 +1264,8 @@ begin
       ShowMessage('Erro ao gerar o relatório: ' + E.Message);
   end;
 
-
+
+
   FormRelFichaFaccao1via.QuickRepFichaFaccao.Preview;
 end;
 

@@ -125,7 +125,6 @@ type
     QRDBText18: TQRDBText;
     FDQueryRelFichaFaccao: TFDQuery;
     DSDadosRelFichaFaccao: TDataSource;
-    QRDBText26: TQRDBText;
   private
     { Private declarations }
   public

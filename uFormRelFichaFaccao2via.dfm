@@ -1848,38 +1848,6 @@ object FormRelFichaFaccao2via: TFormRelFichaFaccao2via
       end
     end
   end
-  object QRDBText1: TQRDBText
-    Left = 658
-    Top = 243
-    Width = 112
-    Height = 19
-    Size.Values = (
-      50.270833333333330000
-      1740.958333333333000000
-      642.937500000000000000
-      296.333333333333300000)
-    XLColumn = 0
-    XLNumFormat = nfGeneral
-    ActiveInPreview = False
-    Alignment = taLeftJustify
-    AlignToBand = False
-    Color = clWhite
-    DataSet = FDQueryRelFichaFaccao
-    DataField = 'Total_Pecas'
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -15
-    Font.Name = 'Perpetua Titling MT'
-    Font.Style = [fsBold]
-    ParentFont = False
-    Transparent = False
-    ExportAs = exptText
-    WrapStyle = BreakOnSpaces
-    FullJustify = False
-    MaxBreakChars = 0
-    VerticalAlignment = tlTop
-    FontSize = 11
-  end
   object FDQueryRelFichaFaccao: TFDQuery
     Connection = Form6.FDConnection1
     UpdateOptions.AssignedValues = [uvUpdateChngFields]

@@ -188,6 +188,10 @@
             <Form>FormRelFichaFaccao2via</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uFormEstoqueProdutos.pas">
+            <Form>FormEstoqueProdutos</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

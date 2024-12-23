@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Unit2, uFormCadastroTecido, Vcl.Menus,
   VCLTee.TeCanvas, uFormDBPath, uFormCadastroProduto, uFormCortador, Vcl.Styles, Vcl.Themes,
-  Vcl.Imaging.pngimage, Vcl.ExtCtrls, uFormCadastroFaccao, uFormFichaFaccao;
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, uFormCadastroFaccao, uFormFichaFaccao, uFormEstoqueProdutos;
 
 type
   TFormDashboard = class(TForm)
@@ -56,6 +56,7 @@ type
     procedure Default2Click(Sender: TObject);
     procedure btnCadastrarFaccaoClick(Sender: TObject);
     procedure btnCriarFichaFaccaoClick(Sender: TObject);
+    procedure btnGerenciarEstoqueClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -83,6 +84,18 @@ begin
     //formCorte.Free;
   end;
 
+end;
+
+procedure TFormDashboard.btnGerenciarEstoqueClick(Sender: TObject);
+var
+  formEstoqueProdutos: TFormEstoqueProdutos;
+begin
+  formEstoqueProdutos := TFormEstoqueProdutos.Create(Self);
+  try
+    formEstoqueProdutos.ShowModal;
+  finally
+    formEstoqueProdutos.Free;
+  end;
 end;
 
 procedure TFormDashboard.btnOnyxBlueClick(Sender: TObject);

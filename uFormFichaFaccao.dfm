@@ -5510,9 +5510,9 @@
     object lblNumOrdemCorte: TLabel
       Left = 642
       Top = 94
-      Width = 132
+      Width = 127
       Height = 18
-      Caption = 'N'#176' Ordem de Corte::'
+      Caption = 'N'#176' Ordem de Corte:'
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText

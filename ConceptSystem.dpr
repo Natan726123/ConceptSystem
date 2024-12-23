@@ -16,7 +16,8 @@ uses
   uFormFichaFaccao in 'uFormFichaFaccao.pas' {FormFichaFaccao},
   uFormConsultaFichaFaccao in 'uFormConsultaFichaFaccao.pas' {FormConsultaFichaFaccao},
   uFormRelFichaFaccao1via in 'uFormRelFichaFaccao1via.pas' {FormRelFichaFaccao1via},
-  uFormRelFichaFaccao2via in 'uFormRelFichaFaccao2via.pas' {FormRelFichaFaccao2via};
+  uFormRelFichaFaccao2via in 'uFormRelFichaFaccao2via.pas' {FormRelFichaFaccao2via},
+  uFormEstoqueProdutos in 'uFormEstoqueProdutos.pas' {FormEstoqueProdutos};
 
 {$R *.res}
 
@@ -26,6 +27,7 @@ begin
 
   TStyleManager.TrySetStyle('Glossy');
   Application.CreateForm(TFormDashboard, FormDashboard);
+  //Application.CreateForm(TFormEstoqueProdutos, FormEstoqueProdutos);
   //Application.CreateForm(TFormRelFichaFaccao2via, FormRelFichaFaccao2via);
   //Application.CreateForm(TFormRelFichaFaccao1via, FormRelFichaFaccao1via);
   //Application.CreateForm(TFormConsultaFichaFaccao, FormConsultaFichaFaccao);

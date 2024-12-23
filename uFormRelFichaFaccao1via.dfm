@@ -800,38 +800,6 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         VerticalAlignment = tlTop
         FontSize = 8
       end
-      object QRDBText26: TQRDBText
-        Left = 492
-        Top = 221
-        Width = 112
-        Height = 19
-        Size.Values = (
-          50.270833333333330000
-          1301.750000000000000000
-          584.729166666666700000
-          296.333333333333300000)
-        XLColumn = 0
-        XLNumFormat = nfGeneral
-        ActiveInPreview = False
-        Alignment = taLeftJustify
-        AlignToBand = False
-        Color = clWhite
-        DataSet = FDQueryRelFichaFaccao
-        DataField = 'Total_Pecas'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -15
-        Font.Name = 'Perpetua Titling MT'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = False
-        ExportAs = exptText
-        WrapStyle = BreakOnSpaces
-        FullJustify = False
-        MaxBreakChars = 0
-        VerticalAlignment = tlTop
-        FontSize = 11
-      end
     end
     object QRBand1: TQRBand
       Left = 38

@@ -717,8 +717,8 @@ object FormDashboard: TFormDashboard
     Proportional = True
   end
   object Image2: TImage
-    Left = 904
-    Top = 640
+    Left = 901
+    Top = 643
     Width = 163
     Height = 67
     Picture.Data = {
@@ -6196,6 +6196,7 @@ object FormDashboard: TFormDashboard
       Font.Style = []
       ParentFont = False
       TabOrder = 2
+      OnClick = btnGerenciarEstoqueClick
     end
   end
   object MainMenu1: TMainMenu

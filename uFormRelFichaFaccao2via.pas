@@ -79,7 +79,6 @@ type
     QRLabel3: TQRLabel;
     FDQueryRelFichaFaccao: TFDQuery;
     DSDadosRelFichaFaccao: TDataSource;
-    QRDBText1: TQRDBText;
   private
     { Private declarations }
   public
