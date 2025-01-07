@@ -245,7 +245,7 @@ begin
     'FROM TBFichaDeFaccao ' +
     'WHERE nomeProduto = :nomeProduto AND ' +
     '      codFaccao = :codFaccao AND ' +
-    '      dataCriacao BETWEEN '':dataInicial'' AND '':dataFinal'' ' +
+    '      dataCriacao BETWEEN :dataInicial AND :dataFinal ' +
     'GROUP BY nomeProduto, corTecido, statusOrdem ' +
     'ORDER BY idFaccao, dataCriacao, nomeProduto, corTecido';
 

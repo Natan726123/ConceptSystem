@@ -13,7 +13,6 @@ object FormDashboard: TFormDashboard
   Menu = MainMenu1
   Position = poScreenCenter
   OnClose = FormClose
-  OnShow = FormShow
   TextHeight = 15
   object Label1: TLabel
     Left = 615
@@ -6055,40 +6054,14 @@ object FormDashboard: TFormDashboard
       9A50AD0ADA4C0000000049454E44AE426082}
     Proportional = True
   end
-  object Label4: TLabel
-    Left = 694
-    Top = 119
-    Width = 72
-    Height = 18
-    Caption = 'Data inicial:'
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Perpetua'
-    Font.Style = []
-    ParentFont = False
-  end
-  object Label5: TLabel
-    Left = 903
-    Top = 119
-    Width = 62
-    Height = 18
-    Caption = 'Data final:'
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Perpetua'
-    Font.Style = []
-    ParentFont = False
-  end
   object pnlCadastros: TPanel
-    Left = 24
-    Top = 96
-    Width = 273
+    Left = 552
+    Top = 585
+    Width = 186
     Height = 233
     TabOrder = 0
     object Label2: TLabel
-      Left = 96
+      Left = 50
       Top = 0
       Width = 90
       Height = 28
@@ -6103,7 +6076,7 @@ object FormDashboard: TFormDashboard
     object btnCadastrarProdutos: TButton
       Left = 8
       Top = 44
-      Width = 257
+      Width = 170
       Height = 40
       Caption = 'Cadastrar Produto'
       Font.Charset = DEFAULT_CHARSET
@@ -6118,7 +6091,7 @@ object FormDashboard: TFormDashboard
     object btnCadastrarCortador: TButton
       Left = 8
       Top = 90
-      Width = 257
+      Width = 170
       Height = 40
       Caption = 'Cadastrar Cortador'
       Font.Charset = DEFAULT_CHARSET
@@ -6133,7 +6106,7 @@ object FormDashboard: TFormDashboard
     object btnCadastrarFaccao: TButton
       Left = 8
       Top = 136
-      Width = 257
+      Width = 170
       Height = 40
       Caption = 'Cadastrar Faccionista'
       Font.Charset = DEFAULT_CHARSET
@@ -6148,7 +6121,7 @@ object FormDashboard: TFormDashboard
     object btnCadastrarTecido: TButton
       Left = 8
       Top = 182
-      Width = 257
+      Width = 170
       Height = 40
       Caption = 'Cadastrar Tecido'
       Font.Charset = DEFAULT_CHARSET
@@ -6162,14 +6135,14 @@ object FormDashboard: TFormDashboard
     end
   end
   object pnlOperacoes: TPanel
-    Left = 24
-    Top = 360
-    Width = 273
+    Left = 360
+    Top = 584
+    Width = 186
     Height = 193
     TabOrder = 1
     object Label3: TLabel
-      Left = 91
-      Top = 8
+      Left = 43
+      Top = 1
       Width = 97
       Height = 28
       Caption = 'Opera'#231#245'es:'
@@ -6183,7 +6156,7 @@ object FormDashboard: TFormDashboard
     object btnGerarOrdemCorte: TButton
       Left = 8
       Top = 51
-      Width = 257
+      Width = 170
       Height = 40
       Caption = 'Gerar Ordem de Corte'
       Font.Charset = DEFAULT_CHARSET
@@ -6198,7 +6171,7 @@ object FormDashboard: TFormDashboard
     object btnCriarFichaFaccao: TButton
       Left = 8
       Top = 97
-      Width = 257
+      Width = 170
       Height = 40
       Caption = 'Criar Ficha de Fac'#231#227'o'
       Font.Charset = DEFAULT_CHARSET
@@ -6213,7 +6186,7 @@ object FormDashboard: TFormDashboard
     object btnGerenciarEstoque: TButton
       Left = 8
       Top = 143
-      Width = 257
+      Width = 170
       Height = 40
       Caption = 'Gerenciar Estoque'
       Font.Charset = DEFAULT_CHARSET
@@ -6226,285 +6199,260 @@ object FormDashboard: TFormDashboard
       OnClick = btnGerenciarEstoqueClick
     end
   end
-  object ChartRankingCorte: TChart
-    Left = 752
-    Top = 167
-    Width = 689
-    Height = 330
-    Border.Color = 503316480
-    Border.Width = 0
-    Border.Visible = True
-    BorderRound = 20
-    Gradient.EndColor = 7405568
-    Gradient.MidColor = 16725815
-    Gradient.StartColor = 10485760
-    Gradient.Visible = True
-    Legend.DividingLines.Color = -1845493760
-    Legend.DividingLines.Style = psDot
-    Legend.DividingLines.EndStyle = esRound
-    Legend.DividingLines.JoinStyle = jsBevel
-    Legend.DividingLines.Visible = True
-    Legend.Frame.Visible = False
-    Legend.LegendStyle = lsSeries
-    Legend.PositionUnits = muPercent
-    Legend.ResizeChart = False
-    Legend.RoundSize = 7
-    Legend.ShapeStyle = fosRoundRectangle
-    Legend.Symbol.Gradient.Colors = <
-      item
-        Color = clYellow
-        Transparency = 2
-      end
-      item
-        Color = clNavy
-        Offset = 1.000000000000000000
-      end>
-    Legend.Symbol.Gradient.EndColor = clNavy
-    Legend.Symbol.Gradient.StartColor = clYellow
-    Legend.TextStyle = ltsRightPercent
-    Legend.TextSymbolGap = 1
-    Legend.Title.Alignment = taRightJustify
-    Legend.Transparency = 21
-    Legend.VertSpacing = 1
-    Legend.Visible = False
-    Title.Font.Charset = ANSI_CHARSET
-    Title.Font.Color = clWhite
-    Title.Font.Height = -21
-    Title.Font.Name = 'Perpetua Titling MT'
-    Title.Font.Style = [fsBold]
-    Title.Margins.Right = 5
-    Title.Text.Strings = (
-      'RANKING DE CORTE')
-    BottomAxis.Automatic = False
-    BottomAxis.AutomaticMinimum = False
-    BottomAxis.Labels = False
-    BottomAxis.LabelsFormat.Visible = False
-    BottomAxis.Minimum = -201293684.574341000000000000
-    ClipPoints = False
-    LeftAxis.LabelsFormat.Font.Color = 184549375
-    LeftAxis.Logarithmic = True
-    LeftAxis.MaximumOffset = 10
-    LeftAxis.MaximumRound = True
-    LeftAxis.MinimumOffset = 100
-    LeftAxis.MinimumRound = True
-    Pages.AutoScale = True
-    Panning.MouseWheel = pmwNone
-    RightAxis.Automatic = False
-    RightAxis.AutomaticMaximum = False
-    RightAxis.AutomaticMinimum = False
-    RightAxis.Title.Angle = 90
-    Shadow.Color = clBlack
-    Shadow.HorizSize = 29
-    Shadow.VertSize = 29
-    Shadow.Visible = False
-    TopAxis.Automatic = False
-    TopAxis.AutomaticMaximum = False
-    TopAxis.AutomaticMinimum = False
-    TopAxis.Axis.Fill.Gradient.StartColor = clRed
-    View3D = False
-    Zoom.Animated = True
-    Zoom.MouseWheel = pmwNormal
-    Color = clWhite
-    TabOrder = 2
-    DefaultCanvas = 'TGDIPlusCanvas'
-    PrintMargins = (
-      15
-      22
-      15
-      22)
-    ColorPaletteIndex = 2
-    object Series1: TBarSeries
-      HoverElement = []
-      Legend.Visible = False
-      Active = False
-      ColorEachPoint = True
-      Marks.Emboss.Direction = sdCenter
-      Marks.Emboss.Smooth = False
-      Marks.Emboss.Transparency = 58
-      Marks.Font.Color = clWhite
-      Marks.Font.Name = 'Calibri'
-      Marks.Font.InterCharSize = 10
-      Marks.Font.Shadow.Visible = False
-      Marks.Frame.Width = 0
-      Marks.RoundSize = 8
-      Marks.Shadow.Direction = sdCenter
-      Marks.Shadow.Smooth = False
-      Marks.Shadow.Visible = False
-      Marks.Margins.Left = 19
-      Marks.Margins.Top = 21
-      Marks.Margins.Right = 19
-      Marks.Margins.Bottom = 21
-      Marks.Style = smsLabelValue
-      Marks.Angle = 90
-      Marks.BackColor = 8404992
-      Marks.Callout.Distance = -20
-      Marks.Callout.Length = 0
-      Marks.Clip = True
-      Marks.MultiLine = True
-      Marks.SoftClip = True
-      Marks.Symbol.Frame.Visible = False
-      Marks.Symbol.Pen.Visible = False
-      Marks.Tail.Margin = 5
-      Marks.UseSeriesTransparency = False
-      Marks.Color = 8404992
-      DataSource = DBCrossTabSource1
-      ShowInLegend = False
-      ValueFormat = '0,0'
-      MultiBar = mbStacked
-      Shadow.Visible = False
-      Sides = 36
-      YOrigin = 1.000000000000000000
-      XValues.Name = 'X'
-      XValues.Order = loAscending
-      YValues.Name = 'Bar'
-      YValues.Order = loNone
-    end
-  end
-  object dtpDataInicial: TCalendarPicker
-    Left = 694
-    Top = 136
-    Width = 170
-    Height = 25
-    CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
-    CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
-    CalendarHeaderInfo.DaysOfWeekFont.Height = -13
-    CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
-    CalendarHeaderInfo.DaysOfWeekFont.Style = []
-    CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
-    CalendarHeaderInfo.Font.Color = clWindowText
-    CalendarHeaderInfo.Font.Height = -20
-    CalendarHeaderInfo.Font.Name = 'Segoe UI'
-    CalendarHeaderInfo.Font.Style = []
-    Color = clWindow
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clGray
-    Font.Height = -16
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 3
-    TextHint = 'selecione uma data'
-  end
-  object dtpDataFinal: TCalendarPicker
-    Left = 903
-    Top = 136
-    Width = 170
-    Height = 25
-    CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
-    CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
-    CalendarHeaderInfo.DaysOfWeekFont.Height = -13
-    CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
-    CalendarHeaderInfo.DaysOfWeekFont.Style = []
-    CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
-    CalendarHeaderInfo.Font.Color = clWindowText
-    CalendarHeaderInfo.Font.Height = -20
-    CalendarHeaderInfo.Font.Name = 'Segoe UI'
-    CalendarHeaderInfo.Font.Style = []
-    Color = clWindow
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clGray
-    Font.Height = -16
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 4
-    TextHint = 'selecione uma data'
-  end
-  object btnAtualizar: TButton
-    Left = 1096
-    Top = 136
-    Width = 89
-    Height = 25
-    Caption = 'Atualizar'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 5
-    OnClick = btnAtualizarClick
-  end
   object DBGrid1: TDBGrid
-    Left = 336
-    Top = 544
+    Left = 16
+    Top = 608
     Width = 320
     Height = 120
-    DataSource = DSDadosCortadores
-    TabOrder = 6
+    DataSource = DSDadosFaccao
+    TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -12
     TitleFont.Name = 'Segoe UI'
     TitleFont.Style = []
   end
-  object Chart1: TChart
-    Left = 752
-    Top = 503
-    Width = 689
-    Height = 307
-    Gradient.Balance = 74
-    Gradient.Direction = gdBottomTop
-    Gradient.EndColor = 10485760
-    Gradient.MidColor = 16723759
-    Gradient.StartColor = 10485760
-    Gradient.Visible = True
-    Legend.Symbol.Gradient.EndColor = 16777164
-    Legend.Visible = False
-    Title.Font.Color = clWhite
-    Title.Font.Height = -21
-    Title.Font.Name = 'Times New Roman'
-    Title.Font.Style = [fsBold]
-    Title.Text.Strings = (
-      ' RANKING DE CORTE')
-    BottomAxis.Visible = False
-    LeftAxis.Automatic = False
-    LeftAxis.AutomaticMaximum = False
-    LeftAxis.Labels = False
-    LeftAxis.LabelsFormat.Visible = False
-    LeftAxis.Logarithmic = True
-    LeftAxis.Maximum = 16140.000000000000000000
-    LeftAxis.MaximumOffset = 100
-    View3D = False
-    TabOrder = 7
-    DefaultCanvas = 'TGDIPlusCanvas'
-    ColorPaletteIndex = 3
-    object Series2: TBarSeries
-      HoverElement = []
-      Legend.Visible = False
-      BarBrush.Gradient.EndColor = 16777164
-      BarBrush.Gradient.Visible = True
-      Marks.Emboss.Clip = True
-      Marks.Font.Color = clWhite
-      Marks.Font.Name = 'Calibri'
-      Marks.Font.Quality = fqClearType
-      Marks.Font.Shadow.Visible = False
-      Marks.Shadow.Clip = True
-      Marks.Shadow.Visible = False
-      Marks.Style = smsLabelValue
-      Marks.Angle = 90
-      Marks.BackColor = 8404992
-      Marks.Clip = True
-      Marks.MultiLine = True
-      Marks.SoftClip = True
-      Marks.Color = 8404992
-      DataSource = DBCrossTabSource3
-      ShowInLegend = False
-      BarStyle = bsRectGradient
-      Gradient.EndColor = 16777164
+  object pnlDashboard: TPanel
+    Left = 8
+    Top = 107
+    Width = 1433
+    Height = 472
+    TabOrder = 3
+    object Label4: TLabel
+      Left = 8
+      Top = 10
+      Width = 72
+      Height = 18
+      Caption = 'Data inicial:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label5: TLabel
+      Left = 217
+      Top = 10
+      Width = 62
+      Height = 18
+      Caption = 'Data final:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object dtpDataInicial: TCalendarPicker
+      Left = 8
+      Top = 27
+      Width = 170
+      Height = 25
+      CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
+      CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
+      CalendarHeaderInfo.DaysOfWeekFont.Height = -13
+      CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
+      CalendarHeaderInfo.DaysOfWeekFont.Style = []
+      CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
+      CalendarHeaderInfo.Font.Color = clWindowText
+      CalendarHeaderInfo.Font.Height = -20
+      CalendarHeaderInfo.Font.Name = 'Segoe UI'
+      CalendarHeaderInfo.Font.Style = []
+      Color = clWindow
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      TextHint = 'selecione uma data'
+    end
+    object dtpDataFinal: TCalendarPicker
+      Left = 217
+      Top = 27
+      Width = 170
+      Height = 25
+      CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
+      CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
+      CalendarHeaderInfo.DaysOfWeekFont.Height = -13
+      CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
+      CalendarHeaderInfo.DaysOfWeekFont.Style = []
+      CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
+      CalendarHeaderInfo.Font.Color = clWindowText
+      CalendarHeaderInfo.Font.Height = -20
+      CalendarHeaderInfo.Font.Name = 'Segoe UI'
+      CalendarHeaderInfo.Font.Style = []
+      Color = clWindow
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+      TextHint = 'selecione uma data'
+    end
+    object btnAtualizar: TButton
+      Left = 400
+      Top = 27
+      Width = 89
+      Height = 25
+      Caption = 'Atualizar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 2
+      OnClick = btnAtualizarClick
+    end
+    object ChartRankingFaccao: TChart
+      Left = 8
+      Top = 67
+      Width = 689
+      Height = 326
+      BorderRound = 21
+      Gradient.Balance = 74
+      Gradient.Direction = gdBottomTop
+      Gradient.EndColor = 10485760
+      Gradient.MidColor = 16723759
+      Gradient.StartColor = 10485760
       Gradient.Visible = True
-      MultiBar = mbStacked
-      Shadow.Visible = False
-      Sides = 33
-      UseYOrigin = False
-      XValues.Name = 'X'
-      XValues.Order = loNone
-      YValues.Name = 'Bar'
-      YValues.Order = loAscending
+      Legend.LegendStyle = lsSeries
+      Legend.Symbol.Gradient.EndColor = 16777164
+      Legend.TextStyle = ltsRightPercent
+      Legend.Visible = False
+      Title.Font.Color = clWhite
+      Title.Font.Height = -21
+      Title.Font.Name = 'Times New Roman'
+      Title.Font.Style = [fsBold]
+      Title.Text.Strings = (
+        ' RANKING DE FAC'#199#195'O')
+      BottomAxis.Visible = False
+      LeftAxis.Automatic = False
+      LeftAxis.AutomaticMaximum = False
+      LeftAxis.Labels = False
+      LeftAxis.LabelsFormat.Visible = False
+      LeftAxis.Logarithmic = True
+      LeftAxis.Maximum = 16140.000000000000000000
+      LeftAxis.MaximumOffset = 100
+      View3D = False
+      TabOrder = 3
+      DefaultCanvas = 'TGDIPlusCanvas'
+      ColorPaletteIndex = 3
+      object Series2: TBarSeries
+        HoverElement = []
+        Legend.Visible = False
+        Active = False
+        BarBrush.Gradient.EndColor = 10066176
+        BarBrush.Gradient.Visible = True
+        ColorEachPoint = True
+        Marks.Emboss.Clip = True
+        Marks.Font.Color = clWhite
+        Marks.Font.Name = 'Calibri'
+        Marks.Font.Quality = fqClearType
+        Marks.Font.Shadow.Visible = False
+        Marks.Shadow.Clip = True
+        Marks.Shadow.Visible = False
+        Marks.Style = smsLabelValue
+        Marks.Angle = 90
+        Marks.BackColor = 8404992
+        Marks.Clip = True
+        Marks.MultiLine = True
+        Marks.SoftClip = True
+        Marks.Color = 8404992
+        DataSource = DBCrossTabSource1
+        ShowInLegend = False
+        Title = 'RankingFaccao'
+        BarStyle = bsRectGradient
+        Gradient.EndColor = 10066176
+        Gradient.Visible = True
+        MultiBar = mbStacked
+        Shadow.Visible = False
+        Sides = 33
+        UseYOrigin = False
+        XValues.Name = 'X'
+        XValues.Order = loNone
+        YValues.Name = 'Bar'
+        YValues.Order = loAscending
+      end
+    end
+    object ChartRankingCorte: TChart
+      Left = 728
+      Top = 67
+      Width = 689
+      Height = 326
+      BorderRound = 21
+      Gradient.Balance = 74
+      Gradient.Direction = gdBottomTop
+      Gradient.EndColor = 10485760
+      Gradient.MidColor = 16723759
+      Gradient.StartColor = 10485760
+      Gradient.Visible = True
+      Legend.Symbol.Gradient.EndColor = 16777164
+      Legend.Visible = False
+      Title.Font.Color = clWhite
+      Title.Font.Height = -21
+      Title.Font.Name = 'Times New Roman'
+      Title.Font.Style = [fsBold]
+      Title.Text.Strings = (
+        ' RANKING DE CORTE')
+      BottomAxis.Visible = False
+      LeftAxis.Automatic = False
+      LeftAxis.AutomaticMaximum = False
+      LeftAxis.Labels = False
+      LeftAxis.LabelsFormat.Visible = False
+      LeftAxis.Logarithmic = True
+      LeftAxis.Maximum = 16140.000000000000000000
+      LeftAxis.MaximumOffset = 100
+      View3D = False
+      TabOrder = 4
+      DefaultCanvas = 'TGDIPlusCanvas'
+      ColorPaletteIndex = 3
+      object BarSeries1: TBarSeries
+        HoverElement = []
+        Legend.Visible = False
+        Active = False
+        BarBrush.Gradient.EndColor = 13421823
+        BarBrush.Gradient.Visible = True
+        ColorEachPoint = True
+        Marks.Emboss.Clip = True
+        Marks.Font.Color = clWhite
+        Marks.Font.Name = 'Calibri'
+        Marks.Font.Quality = fqClearType
+        Marks.Font.Shadow.Visible = False
+        Marks.Shadow.Clip = True
+        Marks.Shadow.Visible = False
+        Marks.Style = smsLabelValue
+        Marks.Angle = 90
+        Marks.BackColor = 8404992
+        Marks.Clip = True
+        Marks.MultiLine = True
+        Marks.SoftClip = True
+        Marks.Color = 8404992
+        DataSource = DBCrossTabSource2
+        ShowInLegend = False
+        Title = 'RankingCorte'
+        BarStyle = bsRectGradient
+        Gradient.EndColor = 13421823
+        Gradient.Visible = True
+        MultiBar = mbStacked
+        Shadow.Visible = False
+        Sides = 33
+        UseYOrigin = False
+        XValues.Name = 'X'
+        XValues.Order = loNone
+        YValues.Name = 'Bar'
+        YValues.Order = loAscending
+      end
     end
   end
   object MainMenu1: TMainMenu
-    Left = 32
+    Left = 160
+    Top = 8
     object Cadastrar1: TMenuItem
       Caption = 'Cadastrar'
       object CadastrarProduto1: TMenuItem
@@ -6517,9 +6465,26 @@ object FormDashboard: TFormDashboard
       end
       object CadastrarCortador1: TMenuItem
         Caption = 'Cadastrar Cortador'
+        OnClick = CadastrarCortador1Click
       end
       object CadastrarFaccionista1: TMenuItem
         Caption = 'Cadastrar Faccionista'
+        OnClick = CadastrarFaccionista1Click
+      end
+    end
+    object Gerar1: TMenuItem
+      Caption = 'Gerar'
+      object GerarOrdemdeCorte1: TMenuItem
+        Caption = 'Gerar Ordem de Corte'
+        OnClick = GerarOrdemdeCorte1Click
+      end
+      object CriarFichadeFaco1: TMenuItem
+        Caption = 'Criar Ficha de Fac'#231#227'o'
+        OnClick = CriarFichadeFaco1Click
+      end
+      object GerenciarEstoque1: TMenuItem
+        Caption = 'Gerenciar Estoque'
+        OnClick = GerenciarEstoque1Click
       end
     end
     object Editar1: TMenuItem
@@ -6557,6 +6522,7 @@ object FormDashboard: TFormDashboard
     end
   end
   object FDQueryCortadores: TFDQuery
+    Active = True
     Connection = DataModule1.FDConnection1
     SQL.Strings = (
       'SELECT '
@@ -6565,14 +6531,13 @@ object FormDashboard: TFormDashboard
       'FROM '
       '    TBFichaDeFaccao'
       'WHERE '
-      #9'dataCriacao BETWEEN :dataInicial and :dataFinal'
+      ' dataCriacao BETWEEN :dataInicial and :dataFinal'
       ' --dataCriacao BETWEEN '#39'2024-10-10'#39' and '#39'2025-10-10'#39
       'GROUP BY '
       '     nomeCortador'
       'ORDER BY '
       '    totalPecas DESC')
-    Left = 768
-    Top = 72
+    Left = 976
     ParamData = <
       item
         Name = 'DATAINICIAL'
@@ -6588,35 +6553,56 @@ object FormDashboard: TFormDashboard
   end
   object DSDadosCortadores: TDataSource
     DataSet = FDQueryCortadores
-    Left = 912
-    Top = 72
+    Left = 1072
+  end
+  object FDQueryFaccao: TFDQuery
+    Active = True
+    Connection = DataModule1.FDConnection1
+    SQL.Strings = (
+      'SELECT '
+      '    distinct nomeFaccao,'
+      '    SUM(quantidadePecas) AS totalPecas'
+      'FROM '
+      '    TBFichaDeFaccao'
+      'WHERE '
+      #9'dataCriacao BETWEEN :dataInicial and :dataFinal'
+      ' --dataCriacao BETWEEN '#39'2024-10-10'#39' and '#39'2025-10-10'#39
+      ' and nomeFaccao <> '#39#39
+      'GROUP BY '
+      '     nomeFaccao'
+      'ORDER BY '
+      '    totalPecas DESC')
+    Left = 1184
+    ParamData = <
+      item
+        Name = 'DATAINICIAL'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'DATAFINAL'
+        DataType = ftString
+        ParamType = ptInput
+      end>
+  end
+  object DSDadosFaccao: TDataSource
+    DataSet = FDQueryFaccao
+    Left = 1280
   end
   object DBCrossTabSource1: TDBCrossTabSource
     Active = True
-    Formula = gfMax
-    GroupField = 'nomeCortador'
-    LabelField = 'nomeCortador'
-    Series = Series1
+    GroupField = 'nomeFaccao'
+    LabelField = 'nomeFaccao'
+    Series = Series2
     ValueField = 'totalPecas'
-    DataSet = FDQueryCortadores
+    DataSet = FDQueryFaccao
   end
   object DBCrossTabSource2: TDBCrossTabSource
-    GroupField = 'nomeCortador'
-    LabelField = 'nomeCortador'
-    ValueField = 'totalPecas'
-    DataSet = FDQueryCortadores
-  end
-  object DBCrossTabSource3: TDBCrossTabSource
     Active = True
     GroupField = 'nomeCortador'
     LabelField = 'nomeCortador'
-    Series = Series2
-    ValueField = 'totalPecas'
-    DataSet = FDQueryCortadores
-  end
-  object DBCrossTabSource4: TDBCrossTabSource
-    GroupField = 'nomeCortador'
-    LabelField = 'nomeCortador'
+    Series = BarSeries1
     ValueField = 'totalPecas'
     DataSet = FDQueryCortadores
   end
