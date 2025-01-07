@@ -192,6 +192,11 @@
             <Form>FormEstoqueProdutos</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uDataModulo.pas">
+            <Form>DataModule1</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

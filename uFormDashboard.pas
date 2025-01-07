@@ -6,7 +6,13 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Unit2, uFormCadastroTecido, Vcl.Menus,
   VCLTee.TeCanvas, uFormDBPath, uFormCadastroProduto, uFormCortador, Vcl.Styles, Vcl.Themes,
-  Vcl.Imaging.pngimage, Vcl.ExtCtrls, uFormCadastroFaccao, uFormFichaFaccao, uFormEstoqueProdutos;
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, uFormCadastroFaccao, uFormFichaFaccao, uFormEstoqueProdutos,
+  VclTee.TeeGDIPlus, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, VCLTee.TeEngine, VCLTee.Series, VCLTee.TeeProcs, uDataModulo,
+  VCLTee.Chart, VCLTee.DBChart, VCLTee.TeeDBCrossTab, Math, Vcl.WinXCalendars,
+  Vcl.Grids, Vcl.DBGrids;
 
 type
   TFormDashboard = class(TForm)
@@ -39,6 +45,22 @@ type
     pnlOperacoes: TPanel;
     Label3: TLabel;
     btnGerenciarEstoque: TButton;
+    ChartRankingCorte: TChart;
+    FDQueryCortadores: TFDQuery;
+    DSDadosCortadores: TDataSource;
+    DBCrossTabSource1: TDBCrossTabSource;
+    DBCrossTabSource2: TDBCrossTabSource;
+    Label4: TLabel;
+    Label5: TLabel;
+    dtpDataInicial: TCalendarPicker;
+    dtpDataFinal: TCalendarPicker;
+    btnAtualizar: TButton;
+    DBGrid1: TDBGrid;
+    Series1: TBarSeries;
+    Chart1: TChart;
+    Series2: TBarSeries;
+    DBCrossTabSource3: TDBCrossTabSource;
+    DBCrossTabSource4: TDBCrossTabSource;
     procedure btnGerarOrdemCorteClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCadastrarTecidoClick(Sender: TObject);
@@ -57,6 +79,10 @@ type
     procedure btnCadastrarFaccaoClick(Sender: TObject);
     procedure btnCriarFichaFaccaoClick(Sender: TObject);
     procedure btnGerenciarEstoqueClick(Sender: TObject);
+    procedure AjustarMarksNoCentro;
+    procedure FormShow(Sender: TObject);
+    procedure AtualizarRankingCortadores;
+    procedure btnAtualizarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -69,6 +95,93 @@ var
 implementation
 
 {$R *.dfm}
+
+
+procedure TFormDashboard.AjustarMarksNoCentro;
+var
+  i: Integer;
+  BarTop, BarBottom, BarHeight, YCenter: Integer;
+begin
+  if Series1.Count = 0 then Exit;
+
+  for i := 0 to Series1.Count - 1 do
+  begin
+    if not Assigned(Series1.Marks.Items[i]) then Continue;
+
+    // Calcula o centro vertical da barra
+    BarTop := Series1.CalcYPos(i);
+    BarBottom := Series1.CalcYPosValue(0);
+    BarHeight := Abs(BarBottom - BarTop);
+    YCenter := BarTop + (BarHeight div 2);
+
+    // Ajusta a posição do rótulo
+    if Assigned(Series1.Marks.Positions[i]) then
+    begin
+      Series1.Marks.Positions[i].Custom := True;
+      Series1.Marks.Positions[i].LeftTop := Point(
+        Series1.CalcXPos(i) - (Series1.Marks.Width div 2),
+        YCenter - (Series1.Marks.Height div 2)
+      );
+    end;
+
+    // Define o texto do rótulo
+    Series1.Marks.Items[i].Text.Clear;
+    Series1.Marks.Items[i].Text.Add(FormatFloat('0.##', Series1.YValue[i]));
+  end;
+end;
+
+procedure TFormDashboard.AtualizarRankingCortadores;
+var
+  DataInicial, DataFinal: string;
+  Cortador: string;
+  TotalPecas: Double;
+begin
+  // Converte as datas para o formato yyyy-mm-dd
+  DataInicial := FormatDateTime('yyyy-mm-dd', dtpDataInicial.Date);
+  DataFinal := FormatDateTime('yyyy-mm-dd', dtpDataFinal.Date);
+
+  FDQueryCortadores.Close;
+
+  FDQueryCortadores.SQL.Text :=
+  'SELECT ' +
+  '    nomeCortador, ' +
+  '    SUM(quantidadePecas) AS totalPecas ' +
+  'FROM ' +
+  '    TBFichaDeFaccao ' +
+  'WHERE ' +
+  '    dataCriacao BETWEEN :dataInicial AND :dataFinal ' +
+  'GROUP BY ' +
+  '    nomeCortador ' +
+  'ORDER BY ' +
+  '    totalPecas DESC';
+
+
+  FDQueryCortadores.ParamByName('dataInicial').AsString := FormatDateTime('yyyy-mm-dd', dtpDataInicial.Date);
+  FDQueryCortadores.ParamByName('dataFinal').AsString := FormatDateTime('yyyy-mm-dd', dtpDataFinal.Date);
+
+  FDQueryCortadores.Open;
+
+  // Limpa os dados do gráfico
+  //ChartRankingCorte.Series[0].Clear;
+
+  // Preenche o gráfico com os dados da query
+  while not FDQueryCortadores.Eof do
+  begin
+    Cortador := FDQueryCortadores.FieldByName('nomeCortador').AsString;
+    TotalPecas := FDQueryCortadores.FieldByName('totalPecas').AsFloat;
+
+    // Adiciona os dados ao gráfico
+    Chart1.Series[0].Add(TotalPecas, Cortador);
+
+    FDQueryCortadores.Next;
+  end;
+
+  // Exibe mensagem se não houver dados
+  if FDQueryCortadores.IsEmpty then
+    ShowMessage('Nenhum dado encontrado para o período selecionado.');
+
+  Chart1.Refresh;
+end;
 
 procedure TFormDashboard.btnGerarOrdemCorteClick(Sender: TObject);
 var
@@ -123,6 +236,14 @@ end;
 procedure TFormDashboard.Blue1Click(Sender: TObject);
 begin
   TStyleManager.TrySetStyle('Onyx Blue');
+end;
+
+procedure TFormDashboard.btnAtualizarClick(Sender: TObject);
+begin
+  AtualizarRankingCortadores;
+
+  DSDadosCortadores.DataSet.Refresh;
+  //ShowMessage(DateToStr(dtpDataInicial.Date));
 end;
 
 procedure TFormDashboard.btnCadastrarCortadorClick(Sender: TObject);
@@ -234,6 +355,16 @@ end;
 procedure TFormDashboard.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := caHide;
+end;
+
+procedure TFormDashboard.FormShow(Sender: TObject);
+begin
+  try
+    AjustarMarksNoCentro;
+  except
+    on E: Exception do
+      ShowMessage('Erro ao ajustar os rótulos: ' + E.Message);
+  end;
 end;
 
 procedure TFormDashboard.Light1Click(Sender: TObject);

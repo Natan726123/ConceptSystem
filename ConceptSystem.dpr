@@ -17,7 +17,8 @@ uses
   uFormConsultaFichaFaccao in 'uFormConsultaFichaFaccao.pas' {FormConsultaFichaFaccao},
   uFormRelFichaFaccao1via in 'uFormRelFichaFaccao1via.pas' {FormRelFichaFaccao1via},
   uFormRelFichaFaccao2via in 'uFormRelFichaFaccao2via.pas' {FormRelFichaFaccao2via},
-  uFormEstoqueProdutos in 'uFormEstoqueProdutos.pas' {FormEstoqueProdutos};
+  uFormEstoqueProdutos in 'uFormEstoqueProdutos.pas' {FormEstoqueProdutos},
+  uDataModulo in 'uDataModulo.pas' {DataModule1: TDataModule};
 
 {$R *.res}
 
@@ -26,20 +27,10 @@ begin
   Application.MainFormOnTaskbar := True;
 
   TStyleManager.TrySetStyle('Glossy');
+  Application.CreateForm(TDataModule1, DataModule1);
   Application.CreateForm(TFormDashboard, FormDashboard);
-  //Application.CreateForm(TFormEstoqueProdutos, FormEstoqueProdutos);
-  //Application.CreateForm(TFormRelFichaFaccao2via, FormRelFichaFaccao2via);
-  //Application.CreateForm(TFormRelFichaFaccao1via, FormRelFichaFaccao1via);
-  //Application.CreateForm(TFormConsultaFichaFaccao, FormConsultaFichaFaccao);
-  //Application.CreateForm(TFormFichaFaccao, FormFichaFaccao);
-  //Application.CreateForm(TFormRelOrdemCorte, FormRelOrdemCorte);
-  //Application.CreateForm(TFormCadastroFaccao, FormCadastroFaccao);
-  //Application.CreateForm(TFormCadastroCortador, FormCadastroCortador);
-  //Application.CreateForm(TForm1, Form1);
-  //Application.CreateForm(TFormPathDB, FormPathDB);
-  //Application.CreateForm(TForm4, Form4);
-  //Application.CreateForm(TFormCadastroTecido, FormCadastroTecido);
-  //Application.CreateForm(TForm2, Form2);
+
+
   Application.CreateForm(TForm6, Form6);
   Application.Run;
 end.
