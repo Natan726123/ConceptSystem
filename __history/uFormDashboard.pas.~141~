@@ -47,18 +47,25 @@ type
     btnGerenciarEstoque: TButton;
     FDQueryCortadores: TFDQuery;
     DSDadosCortadores: TDataSource;
-    DBCrossTabSource1: TDBCrossTabSource;
-    DBCrossTabSource2: TDBCrossTabSource;
+    DBGrid1: TDBGrid;
+    Gerar1: TMenuItem;
+    GerarOrdemdeCorte1: TMenuItem;
+    CriarFichadeFaco1: TMenuItem;
+    GerenciarEstoque1: TMenuItem;
+    pnlDashboard: TPanel;
     Label4: TLabel;
     Label5: TLabel;
     dtpDataInicial: TCalendarPicker;
     dtpDataFinal: TCalendarPicker;
     btnAtualizar: TButton;
-    DBGrid1: TDBGrid;
-    Chart1: TChart;
+    ChartRankingFaccao: TChart;
     Series2: TBarSeries;
-    DBCrossTabSource3: TDBCrossTabSource;
-    DBCrossTabSource4: TDBCrossTabSource;
+    ChartRankingCorte: TChart;
+    BarSeries1: TBarSeries;
+    FDQueryFaccao: TFDQuery;
+    DSDadosFaccao: TDataSource;
+    DBCrossTabSource1: TDBCrossTabSource;
+    DBCrossTabSource2: TDBCrossTabSource;
     procedure btnGerarOrdemCorteClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCadastrarTecidoClick(Sender: TObject);
@@ -77,10 +84,14 @@ type
     procedure btnCadastrarFaccaoClick(Sender: TObject);
     procedure btnCriarFichaFaccaoClick(Sender: TObject);
     procedure btnGerenciarEstoqueClick(Sender: TObject);
-    procedure AjustarMarksNoCentro;
-    procedure FormShow(Sender: TObject);
     procedure AtualizarRankingCortadores;
     procedure btnAtualizarClick(Sender: TObject);
+    procedure CadastrarCortador1Click(Sender: TObject);
+    procedure CadastrarFaccionista1Click(Sender: TObject);
+    procedure GerarOrdemdeCorte1Click(Sender: TObject);
+    procedure CriarFichadeFaco1Click(Sender: TObject);
+    procedure GerenciarEstoque1Click(Sender: TObject);
+    procedure AtualizarRankingFaccao;
   private
     { Private declarations }
   public
@@ -94,39 +105,6 @@ implementation
 
 {$R *.dfm}
 
-
-procedure TFormDashboard.AjustarMarksNoCentro;
-var
-  i: Integer;
-  BarTop, BarBottom, BarHeight, YCenter: Integer;
-begin
-  if Series1.Count = 0 then Exit;
-
-  for i := 0 to Series1.Count - 1 do
-  begin
-    if not Assigned(Series1.Marks.Items[i]) then Continue;
-
-    // Calcula o centro vertical da barra
-    BarTop := Series1.CalcYPos(i);
-    BarBottom := Series1.CalcYPosValue(0);
-    BarHeight := Abs(BarBottom - BarTop);
-    YCenter := BarTop + (BarHeight div 2);
-
-    // Ajusta a posição do rótulo
-    if Assigned(Series1.Marks.Positions[i]) then
-    begin
-      Series1.Marks.Positions[i].Custom := True;
-      Series1.Marks.Positions[i].LeftTop := Point(
-        Series1.CalcXPos(i) - (Series1.Marks.Width div 2),
-        YCenter - (Series1.Marks.Height div 2)
-      );
-    end;
-
-    // Define o texto do rótulo
-    Series1.Marks.Items[i].Text.Clear;
-    Series1.Marks.Items[i].Text.Add(FormatFloat('0.##', Series1.YValue[i]));
-  end;
-end;
 
 procedure TFormDashboard.AtualizarRankingCortadores;
 var
@@ -169,7 +147,7 @@ begin
     TotalPecas := FDQueryCortadores.FieldByName('totalPecas').AsFloat;
 
     // Adiciona os dados ao gráfico
-    Chart1.Series[0].Add(TotalPecas, Cortador);
+    ChartRankingCorte.Series[0].Add(TotalPecas, Cortador);
 
     FDQueryCortadores.Next;
   end;
@@ -178,7 +156,7 @@ begin
   if FDQueryCortadores.IsEmpty then
     ShowMessage('Nenhum dado encontrado para o período selecionado.');
 
-  Chart1.Refresh;
+  ChartRankingCorte.Refresh;
 end;
 
 procedure TFormDashboard.btnGerarOrdemCorteClick(Sender: TObject);
@@ -238,9 +216,14 @@ end;
 
 procedure TFormDashboard.btnAtualizarClick(Sender: TObject);
 begin
+  ChartRankingCorte.Series[0].Clear;
+  ChartRankingFaccao.Series[0].Clear;
+
   AtualizarRankingCortadores;
+  AtualizarRankingFaccao;
 
   DSDadosCortadores.DataSet.Refresh;
+  DSDadosFaccao.DataSet.Refresh;
   //ShowMessage(DateToStr(dtpDataInicial.Date));
 end;
 
@@ -270,6 +253,60 @@ begin
     formCadastrarProduto.Free;
   end;
 end;
+end;
+
+procedure TFormDashboard.AtualizarRankingFaccao;
+var
+  DataInicial, DataFinal: string;
+  Faccao: string;
+  TotalPecas: Double;
+begin
+  // Converte as datas para o formato yyyy-mm-dd
+  DataInicial := FormatDateTime('yyyy-mm-dd', dtpDataInicial.Date);
+  DataFinal := FormatDateTime('yyyy-mm-dd', dtpDataFinal.Date);
+
+  FDQueryFaccao.Close;
+
+  FDQueryFaccao.SQL.Text :=
+  'SELECT ' +
+  '    DISTINCT nomeFaccao, ' +
+  '    SUM(quantidadePecas) AS totalPecas ' +
+  'FROM ' +
+  '    TBFichaDeFaccao ' +
+  'WHERE ' +
+  '    dataCriacao BETWEEN :dataInicial AND :dataFinal ' +
+  '    and nomeFaccao <> '''' ' +
+  'GROUP BY ' +
+  '    nomeFaccao ' +
+  'ORDER BY ' +
+  '    totalPecas DESC';
+
+
+  FDQueryFaccao.ParamByName('dataInicial').AsString := FormatDateTime('yyyy-mm-dd', dtpDataInicial.Date);
+  FDQueryFaccao.ParamByName('dataFinal').AsString := FormatDateTime('yyyy-mm-dd', dtpDataFinal.Date);
+
+  FDQueryFaccao.Open;
+
+  // Limpa os dados do gráfico
+  //ChartRankingCorte.Series[0].Clear;
+
+  // Preenche o gráfico com os dados da query
+  while not FDQueryFaccao.Eof do
+  begin
+    Faccao := FDQueryFaccao.FieldByName('nomeFaccao').AsString;
+    TotalPecas := FDQueryFaccao.FieldByName('totalPecas').AsFloat;
+
+    // Adiciona os dados ao gráfico
+    ChartRankingFaccao.Series[0].Add(TotalPecas, Faccao);
+
+    FDQueryFaccao.Next;
+  end;
+
+  // Exibe mensagem se não houver dados
+  if FDQueryFaccao.IsEmpty then
+    ShowMessage('Nenhum dado encontrado para o período selecionado.');
+
+  ChartRankingFaccao.Refresh;
 end;
 
 procedure TFormDashboard.Basededados1Click(Sender: TObject);
@@ -310,6 +347,31 @@ begin
   end;
 end;
 
+procedure TFormDashboard.CadastrarCortador1Click(Sender: TObject);
+var
+  formCadastrarCortador: TFormCadastroCortador;
+begin
+  formCadastrarCortador := TFormCadastroCortador.Create(Self);
+  try
+    formCadastrarCortador.ShowModal;
+  finally
+    formCadastrarCortador.Free;
+  end;
+end;
+
+
+procedure TFormDashboard.CadastrarFaccionista1Click(Sender: TObject);
+var
+  formCadastrarFaccao: TFormCadastroFaccao;
+begin
+  formCadastrarFaccao := TFormCadastroFaccao.Create(Self);
+  try
+    formCadastrarFaccao.ShowModal;
+  finally
+    formCadastrarFaccao.Free;
+  end;
+end;
+
 procedure TFormDashboard.CadastrarProduto1Click(Sender: TObject);
 var
   formCadastrarProduto: TFormCadastrarProdutos;
@@ -335,6 +397,18 @@ begin
 end;
 
 
+procedure TFormDashboard.CriarFichadeFaco1Click(Sender: TObject);
+var
+  formFichaFaccao: TFormFichaFaccao;
+begin
+  formFichaFaccao := TFormFichaFaccao.Create(Self);
+  try
+    formFichaFaccao.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
+  finally
+    formFichaFaccao.Free; // Libera o formulário da memória somente após ele ser fechado
+  end;
+end;
+
 procedure TFormDashboard.Dark1Click(Sender: TObject);
 begin
   TStyleManager.TrySetStyle('Glossy');
@@ -355,13 +429,31 @@ begin
   Action := caHide;
 end;
 
-procedure TFormDashboard.FormShow(Sender: TObject);
+procedure TFormDashboard.GerarOrdemdeCorte1Click(Sender: TObject);
+var
+  formCorte : TFormGerarOrdemCorte;
 begin
+  formCorte := TFormGerarOrdemCorte.Create(Self);
   try
-    AjustarMarksNoCentro;
-  except
-    on E: Exception do
-      ShowMessage('Erro ao ajustar os rótulos: ' + E.Message);
+    if not Assigned(formCorte) then
+    Application.CreateForm(TFormGerarOrdemCorte, FormGerarOrdemCorte);
+
+    formCorte.Show;
+  finally
+    //formCorte.Free;
+  end;
+
+end;
+
+procedure TFormDashboard.GerenciarEstoque1Click(Sender: TObject);
+var
+  formEstoqueProdutos: TFormEstoqueProdutos;
+begin
+  formEstoqueProdutos := TFormEstoqueProdutos.Create(Self);
+  try
+    formEstoqueProdutos.ShowModal;
+  finally
+    formEstoqueProdutos.Free;
   end;
 end;
 

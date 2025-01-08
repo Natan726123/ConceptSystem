@@ -10,9 +10,12 @@ object FormDashboard: TFormDashboard
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  KeyPreview = True
   Menu = MainMenu1
   Position = poScreenCenter
   OnClose = FormClose
+  OnKeyDown = FormKeyDown
+  OnShow = FormShow
   TextHeight = 15
   object Label1: TLabel
     Left = 615
@@ -6204,7 +6207,7 @@ object FormDashboard: TFormDashboard
     Top = 608
     Width = 320
     Height = 120
-    DataSource = DSDadosCortadores
+    DataSource = DSDadosFaccao
     TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -6321,7 +6324,9 @@ object FormDashboard: TFormDashboard
       Gradient.MidColor = 16723759
       Gradient.StartColor = 10485760
       Gradient.Visible = True
+      Legend.LegendStyle = lsSeries
       Legend.Symbol.Gradient.EndColor = 16777164
+      Legend.TextStyle = ltsRightPercent
       Legend.Visible = False
       Title.Font.Color = clWhite
       Title.Font.Height = -21
@@ -6344,7 +6349,8 @@ object FormDashboard: TFormDashboard
       object Series2: TBarSeries
         HoverElement = []
         Legend.Visible = False
-        BarBrush.Gradient.EndColor = 13421823
+        Active = False
+        BarBrush.Gradient.EndColor = 10066176
         BarBrush.Gradient.Visible = True
         ColorEachPoint = True
         Marks.Emboss.Clip = True
@@ -6361,11 +6367,11 @@ object FormDashboard: TFormDashboard
         Marks.MultiLine = True
         Marks.SoftClip = True
         Marks.Color = 8404992
-        DataSource = DBCrossTabSource3
+        DataSource = DBCrossTabSource1
         ShowInLegend = False
         Title = 'RankingFaccao'
         BarStyle = bsRectGradient
-        Gradient.EndColor = 13421823
+        Gradient.EndColor = 10066176
         Gradient.Visible = True
         MultiBar = mbStacked
         Shadow.Visible = False
@@ -6430,7 +6436,7 @@ object FormDashboard: TFormDashboard
         Marks.MultiLine = True
         Marks.SoftClip = True
         Marks.Color = 8404992
-        DataSource = DBCrossTabSource3
+        DataSource = DBCrossTabSource2
         ShowInLegend = False
         Title = 'RankingCorte'
         BarStyle = bsRectGradient
@@ -6552,37 +6558,8 @@ object FormDashboard: TFormDashboard
     DataSet = FDQueryCortadores
     Left = 1072
   end
-  object DBCrossTabSource1: TDBCrossTabSource
-    Formula = gfMax
-    GroupField = 'nomeCortador'
-    LabelField = 'nomeCortador'
-    ValueField = 'totalPecas'
-    DataSet = FDQueryCortadores
-    Left = 8
-  end
-  object DBCrossTabSource2: TDBCrossTabSource
-    GroupField = 'nomeCortador'
-    LabelField = 'nomeCortador'
-    ValueField = 'totalPecas'
-    DataSet = FDQueryCortadores
-    Left = 8
-  end
-  object DBCrossTabSource3: TDBCrossTabSource
-    GroupField = 'nomeFaccao'
-    LabelField = 'nomeFaccao'
-    Series = BarSeries1
-    ValueField = 'totalPecas'
-    DataSet = FDQueryFaccao
-    Left = 8
-  end
-  object DBCrossTabSource4: TDBCrossTabSource
-    GroupField = 'nomeCortador'
-    LabelField = 'nomeCortador'
-    ValueField = 'totalPecas'
-    DataSet = FDQueryCortadores
-    Top = 65528
-  end
   object FDQueryFaccao: TFDQuery
+    Active = True
     Connection = DataModule1.FDConnection1
     SQL.Strings = (
       'SELECT '
@@ -6615,5 +6592,21 @@ object FormDashboard: TFormDashboard
   object DSDadosFaccao: TDataSource
     DataSet = FDQueryFaccao
     Left = 1280
+  end
+  object DBCrossTabSource1: TDBCrossTabSource
+    Active = True
+    GroupField = 'nomeFaccao'
+    LabelField = 'nomeFaccao'
+    Series = Series2
+    ValueField = 'totalPecas'
+    DataSet = FDQueryFaccao
+  end
+  object DBCrossTabSource2: TDBCrossTabSource
+    Active = True
+    GroupField = 'nomeCortador'
+    LabelField = 'nomeCortador'
+    Series = BarSeries1
+    ValueField = 'totalPecas'
+    DataSet = FDQueryCortadores
   end
 end

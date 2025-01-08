@@ -30,8 +30,6 @@ type
     CadastrarFaccionista1: TMenuItem;
     Editar1: TMenuItem;
     Basededados1: TMenuItem;
-    Label1: TLabel;
-    Image1: TImage;
     Visualizar1: TMenuItem;
     Aparncia1: TMenuItem;
     Dark1: TMenuItem;
@@ -43,7 +41,6 @@ type
     pnlCadastros: TPanel;
     Label2: TLabel;
     pnlOperacoes: TPanel;
-    Label3: TLabel;
     btnGerenciarEstoque: TButton;
     FDQueryCortadores: TFDQuery;
     DSDadosCortadores: TDataSource;
@@ -66,6 +63,10 @@ type
     DSDadosFaccao: TDataSource;
     DBCrossTabSource1: TDBCrossTabSource;
     DBCrossTabSource2: TDBCrossTabSource;
+    pnlMenu: TPanel;
+    Label1: TLabel;
+    Image1: TImage;
+    Label3: TLabel;
     procedure btnGerarOrdemCorteClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCadastrarTecidoClick(Sender: TObject);
@@ -92,6 +93,8 @@ type
     procedure CriarFichadeFaco1Click(Sender: TObject);
     procedure GerenciarEstoque1Click(Sender: TObject);
     procedure AtualizarRankingFaccao;
+    procedure FormShow(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -427,6 +430,61 @@ end;
 procedure TFormDashboard.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := caHide;
+end;
+
+procedure TFormDashboard.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var
+  formEstoqueProdutos: TFormEstoqueProdutos;
+begin
+
+  case Key of
+      VK_F5:
+        begin
+          formEstoqueProdutos := TFormEstoqueProdutos.Create(Self);
+          try
+            formEstoqueProdutos.ShowModal;
+          finally
+            formEstoqueProdutos.Free;
+          end;
+        end;
+
+//      VK_F2: // F2 para abrir o formulário de corte
+//        begin
+//          if not Assigned(FormCorte) then
+//            FormCorte := TFormCorte.Create(Self);
+//          FormCorte.Show;
+//        end;
+//
+//      VK_F3: // F3 para abrir o formulário de facção
+//        begin
+//          if not Assigned(FormFaccao) then
+//            FormFaccao := TFormFaccao.Create(Self);
+//          FormFaccao.Show;
+//        end;
+
+
+
+    end;
+end;
+
+procedure TFormDashboard.FormShow(Sender: TObject);
+var
+  Ano, Mes, Dia: Word;
+begin
+  // Define o primeiro dia do mês atual como data inicial
+  DecodeDate(Date, Ano, Mes, Dia);
+  dtpDataInicial.Date := EncodeDate(Ano, Mes, 1);
+
+  // Define a data atual como data final
+  dtpDataFinal.Date := Date;
+
+  // Atualiza os gráficos com base no intervalo de datas inicial e final
+  AtualizarRankingCortadores;
+  AtualizarRankingFaccao;
+
+  DSDadosCortadores.DataSet.Refresh;
+  DSDadosFaccao.DataSet.Refresh;
 end;
 
 procedure TFormDashboard.GerarOrdemdeCorte1Click(Sender: TObject);
