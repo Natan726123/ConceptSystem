@@ -69,9 +69,6 @@ type
     Label3: TLabel;
     Chart1: TChart;
     Series1: THorizBarSeries;
-    FDQueryProdutos: TFDQuery;
-    DSDadosProdutos: TDataSource;
-    DBCrossTabSource3: TDBCrossTabSource;
     procedure btnGerarOrdemCorteClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCadastrarTecidoClick(Sender: TObject);

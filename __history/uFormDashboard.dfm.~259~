@@ -5610,31 +5610,9 @@ object FormDashboard: TFormDashboard
       Top = 67
       Width = 633
       Height = 662
-      BorderRound = 20
-      Gradient.Colors = <
-        item
-          Color = 10485760
-        end
-        item
-          Color = 16725301
-          Offset = 0.488023952095808400
-        end
-        item
-          Color = clNavy
-          Offset = 1.000000000000000000
-        end>
-      Gradient.EndColor = clNavy
-      Gradient.MidColor = 16725301
-      Gradient.StartColor = 10485760
-      Gradient.Visible = True
-      Legend.Symbol.Gradient.EndColor = 10708548
       Legend.Visible = False
-      Title.Font.Color = clWhite
-      Title.Font.Height = -21
-      Title.Font.Name = 'Times New Roman'
-      Title.Font.Style = [fsBold]
       Title.Text.Strings = (
-        'RANKING DE PRODUTOS')
+        'TChart')
       BottomAxis.Visible = False
       LeftAxis.Inverted = True
       LeftAxis.Visible = False
@@ -5644,27 +5622,15 @@ object FormDashboard: TFormDashboard
       ColorPaletteIndex = 13
       object Series1: THorizBarSeries
         HoverElement = []
-        Legend.Visible = False
+        Active = False
         BarBrush.Gradient.Direction = gdLeftRight
-        BarBrush.Gradient.EndColor = 10708548
-        BarBrush.Gradient.Visible = True
-        ColorEachPoint = True
-        Marks.Emboss.Clip = True
         Marks.Font.Color = clWhite
-        Marks.Shadow.Clip = True
         Marks.Style = smsLabelValue
         Marks.BackColor = 8404992
-        Marks.Clip = True
-        Marks.MultiLine = True
-        Marks.SoftClip = True
         Marks.Color = 8404992
         DataSource = DBCrossTabSource3
-        ShowInLegend = False
         Title = 'RankingProdutos'
-        BarStyle = bsRectGradient
         Gradient.Direction = gdLeftRight
-        Gradient.EndColor = 10708548
-        Gradient.Visible = True
         MultiBar = mbNone
         XValues.Name = 'Bar'
         XValues.Order = loNone

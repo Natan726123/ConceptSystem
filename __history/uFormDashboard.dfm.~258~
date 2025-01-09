@@ -5610,62 +5610,17 @@ object FormDashboard: TFormDashboard
       Top = 67
       Width = 633
       Height = 662
-      BorderRound = 20
-      Gradient.Colors = <
-        item
-          Color = 10485760
-        end
-        item
-          Color = 16725301
-          Offset = 0.488023952095808400
-        end
-        item
-          Color = clNavy
-          Offset = 1.000000000000000000
-        end>
-      Gradient.EndColor = clNavy
-      Gradient.MidColor = 16725301
-      Gradient.StartColor = 10485760
-      Gradient.Visible = True
-      Legend.Symbol.Gradient.EndColor = 10708548
-      Legend.Visible = False
-      Title.Font.Color = clWhite
-      Title.Font.Height = -21
-      Title.Font.Name = 'Times New Roman'
-      Title.Font.Style = [fsBold]
       Title.Text.Strings = (
-        'RANKING DE PRODUTOS')
-      BottomAxis.Visible = False
-      LeftAxis.Inverted = True
-      LeftAxis.Visible = False
-      View3D = False
+        'TChart')
       TabOrder = 6
       DefaultCanvas = 'TGDIPlusCanvas'
       ColorPaletteIndex = 13
       object Series1: THorizBarSeries
         HoverElement = []
-        Legend.Visible = False
         BarBrush.Gradient.Direction = gdLeftRight
-        BarBrush.Gradient.EndColor = 10708548
-        BarBrush.Gradient.Visible = True
-        ColorEachPoint = True
-        Marks.Emboss.Clip = True
-        Marks.Font.Color = clWhite
-        Marks.Shadow.Clip = True
-        Marks.Style = smsLabelValue
-        Marks.BackColor = 8404992
-        Marks.Clip = True
-        Marks.MultiLine = True
-        Marks.SoftClip = True
-        Marks.Color = 8404992
         DataSource = DBCrossTabSource3
-        ShowInLegend = False
         Title = 'RankingProdutos'
-        BarStyle = bsRectGradient
         Gradient.Direction = gdLeftRight
-        Gradient.EndColor = 10708548
-        Gradient.Visible = True
-        MultiBar = mbNone
         XValues.Name = 'Bar'
         XValues.Order = loNone
         YValues.Name = 'Y'
@@ -6528,6 +6483,8 @@ object FormDashboard: TFormDashboard
     end
   end
   object MainMenu1: TMainMenu
+    Left = 1184
+    Top = 648
     object Cadastrar1: TMenuItem
       Caption = 'Cadastrar'
       object CadastrarProduto1: TMenuItem
@@ -6612,8 +6569,8 @@ object FormDashboard: TFormDashboard
       '     nomeCortador'
       'ORDER BY '
       '    totalPecas DESC')
-    Left = 48
-    Top = 776
+    Left = 816
+    Top = 736
     ParamData = <
       item
         Name = 'DATAINICIAL'
@@ -6629,8 +6586,8 @@ object FormDashboard: TFormDashboard
   end
   object DSDadosCortadores: TDataSource
     DataSet = FDQueryCortadores
-    Left = 144
-    Top = 776
+    Left = 912
+    Top = 736
   end
   object FDQueryFaccao: TFDQuery
     Active = True
@@ -6649,8 +6606,8 @@ object FormDashboard: TFormDashboard
       '     nomeFaccao'
       'ORDER BY '
       '    totalPecas DESC')
-    Left = 64
-    Top = 432
+    Left = 1024
+    Top = 736
     ParamData = <
       item
         Name = 'DATAINICIAL'
@@ -6666,8 +6623,8 @@ object FormDashboard: TFormDashboard
   end
   object DSDadosFaccao: TDataSource
     DataSet = FDQueryFaccao
-    Left = 144
-    Top = 432
+    Left = 1120
+    Top = 736
   end
   object DBCrossTabSource1: TDBCrossTabSource
     Active = True
@@ -6676,8 +6633,8 @@ object FormDashboard: TFormDashboard
     Series = Series2
     ValueField = 'totalPecas'
     DataSet = FDQueryFaccao
-    Left = 616
-    Top = 178
+    Left = 1056
+    Top = 634
   end
   object DBCrossTabSource2: TDBCrossTabSource
     Active = True
@@ -6686,8 +6643,8 @@ object FormDashboard: TFormDashboard
     Series = BarSeries1
     ValueField = 'totalPecas'
     DataSet = FDQueryCortadores
-    Left = 624
-    Top = 506
+    Left = 1080
+    Top = 634
   end
   object FDQueryProdutos: TFDQuery
     Active = True
@@ -6705,22 +6662,19 @@ object FormDashboard: TFormDashboard
       #9
       'Limit 15'
       '')
-    Left = 800
-    Top = 768
+    Left = 1208
+    Top = 736
   end
   object DSDadosProdutos: TDataSource
     DataSet = FDQueryProdutos
-    Left = 896
-    Top = 768
+    Left = 1312
+    Top = 736
   end
   object DBCrossTabSource3: TDBCrossTabSource
-    Active = True
     GroupField = 'nomeProduto'
     LabelField = 'nomeProduto'
     Series = Series1
     ValueField = 'totalPecas'
     DataSet = FDQueryProdutos
-    Left = 1320
-    Top = 168
   end
 end
