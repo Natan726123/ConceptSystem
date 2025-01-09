@@ -5408,6 +5408,13 @@ object FormCadastroCortador: TFormCadastroCortador
       9A50AD0ADA4C0000000049454E44AE426082}
     Proportional = True
   end
+  object Label9: TLabel
+    Left = 344
+    Top = 83
+    Width = 19
+    Height = 15
+    Caption = 'Pix:'
+  end
   object edtNome: TEdit
     Left = 8
     Top = 144
@@ -5415,7 +5422,7 @@ object FormCadastroCortador: TFormCadastroCortador
     Height = 23
     Enabled = False
     TabOrder = 0
-    Text = 'Carlos Almeida'
+    Text = 'Concept Lingerie (cortador teste)'
     TextHint = 'Escreva o nome do cortador'
   end
   object edtTelefone: TEdit
@@ -5544,10 +5551,19 @@ object FormCadastroCortador: TFormCadastroCortador
     TabOrder = 11
     OnClick = btnCadastrarCortadorClick
   end
+  object edtChavePix: TEdit
+    Left = 344
+    Top = 99
+    Width = 257
+    Height = 23
+    Enabled = False
+    TabOrder = 12
+    Text = '140.250.419-50'
+    TextHint = 'Ex.: 123.456.789-00'
+  end
   object DSDadosCortadores: TDataSource
     DataSet = FDQueryCortadores
-    Left = 536
-    Top = 72
+    Left = 488
   end
   object FDQueryCortadores: TFDQuery
     Active = True
@@ -5558,7 +5574,8 @@ object FormCadastroCortador: TFormCadastroCortador
       #9'telefoneCortador as '#39'Telefone'#39','
       #9'enderecoCortador as '#39'Endere'#231'o'#39','
       #9'bairroCortador as '#39'Bairro'#39','
-      #9'cidadeCortador as '#39'Cidade'#39
+      #9'cidadeCortador as '#39'Cidade'#39','
+      #9'chavePixCortador as '#39'Pix'#39
       ''
       ' from TBcortadores;')
     Left = 536
@@ -5615,6 +5632,13 @@ object FormCadastroCortador: TFormCadastroCortador
       DataSource = BindSourceDB1
       FieldName = 'Bairro'
       Control = edtBairro
+      Track = True
+    end
+    object LinkControlToField7: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Pix'
+      Control = edtChavePix
       Track = True
     end
   end

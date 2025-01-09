@@ -44,6 +44,9 @@ type
     LinkControlToField5: TLinkControlToField;
     LinkControlToField6: TLinkControlToField;
     Image1: TImage;
+    edtChavePix: TEdit;
+    Label9: TLabel;
+    LinkControlToField7: TLinkControlToField;
     procedure btnCadastrarCortadorClick(Sender: TObject);
     procedure HabilitarEdits;
     procedure DesabilitarEdits;
@@ -168,6 +171,7 @@ begin
     DSDadosCortadores.DataSet.FieldByName('Endereço').AsString := edtEndereco.Text;
     DSDadosCortadores.DataSet.FieldByName('Bairro').AsString := edtBairro.Text;
     DSDadosCortadores.DataSet.FieldByName('Cidade').AsString := edtCidade.Text;
+    DSDadosCortadores.DataSet.FieldByName('Pix').AsString := edtChavePix.Text;
     DSDadosCortadores.DataSet.Post;
     DSDadosCortadores.DataSet.Refresh;
     ShowMessage('Salvo com sucesso');
@@ -225,6 +229,7 @@ begin
   edtEndereco.Enabled := false;
   edtBairro.Enabled := false;
   edtCidade.Enabled := false;
+  edtChavePix.Enabled := false;
 end;
 
 procedure TFormCadastroCortador.FormCreate(Sender: TObject);
@@ -245,6 +250,7 @@ begin
   edtEndereco.Enabled := true;
   edtBairro.Enabled := true;
   edtCidade.Enabled := true;
+  edtChavePix.Enabled := true;
 end;
 
 procedure TFormCadastroCortador.LimparEdits;
@@ -254,6 +260,7 @@ begin
   edtEndereco.Clear;
   edtBairro.Clear;
   edtCidade.Clear;
+  edtChavePix.Clear;
 end;
 
 end.

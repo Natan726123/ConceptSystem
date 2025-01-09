@@ -1,82 +1,91 @@
 ﻿[DBGridCortador]
-Coordinates=10,768,107,36
+Coordinates=10,768,93,33
 
 [Label4]
-Coordinates=550,684,53,58
+Coordinates=550,684,46,51
 
 [edtCodCortador]
-Coordinates=208,10,106,58
+Coordinates=208,10,93,51
 
 [Label7]
-Coordinates=10,684,53,58
+Coordinates=10,684,46,51
 
 [Label3]
-Coordinates=199,684,53,58
+Coordinates=199,684,46,51
 
 [btnAlterar]
-Coordinates=278,684,71,58
+Coordinates=278,684,63,51
 
 [Label5]
-Coordinates=645,10,53,58
+Coordinates=645,10,46,51
 
 [edtTelefone]
-Coordinates=230,280,83,58
+Coordinates=230,280,72,51
 
 [Label2]
-Coordinates=471,684,53,58
+Coordinates=471,684,46,51
 
 [btnCancelar]
-Coordinates=89,684,84,58
+Coordinates=89,684,73,51
 
 [edtNome]
-Coordinates=240,210,66,58
+Coordinates=240,210,58,51
 
 [Label6]
-Coordinates=629,684,53,58
+Coordinates=629,684,46,51
 
 [edtEndereco]
-Coordinates=230,350,87,58
+Coordinates=230,350,76,51
 
 [btnSalvar]
-Coordinates=708,684,69,58
+Coordinates=708,684,61,51
 
 [Form6.FDQuery1]
-Coordinates=505,10,114,58
+Coordinates=505,10,97,51
 
 [DSDadosCortadores]
-Coordinates=198,1,133,36
+Coordinates=198,1,115,33
 
 [btnCadastrarCortador]
-Coordinates=340,10,139,58
+Coordinates=340,10,121,51
 
 [btnDelete]
-Coordinates=375,684,70,58
+Coordinates=375,684,61,51
 
 [edtBairro]
-Coordinates=228,482,67,58
+Coordinates=228,482,60,51
 
 [Label1]
-Coordinates=803,684,53,58
+Coordinates=803,684,46,51
 
 [FDQueryCortadores]
-Coordinates=630,40,130,36
+Coordinates=630,40,112,33
 Visible=False
 
 [edtCidade]
-Coordinates=225,600,73,58
+Coordinates=225,600,64,51
 
 []
 Coordinates=113,269,91,36
 
 [BindSourceDB1]
-Coordinates=10,228,118,212
+Coordinates=10,228,99,195
 
 [BindingsList1]
-Coordinates=0,0,91,36
+Coordinates=0,0,82,33
 
 [FormCadastrarProdutos.FDQueryProdutos]
 Visible=False
 
 [FormCadastrarProdutos.FDQueryTecidos]
 Visible=False
+
+[Image1]
+Coordinates=101,1,49,51
+
+[edtChavePix]
+Coordinates=22,52,76,51
+
+[Label9]
+Coordinates=149,141,46,51
 

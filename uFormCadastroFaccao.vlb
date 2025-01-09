@@ -26,7 +26,7 @@ Coordinates=743,10,55,51
 Coordinates=89,684,46,51
 
 [FDQueryFaccao]
-Coordinates=793,110,93,33
+Coordinates=1514,180,93,33
 Visible=True
 
 [Label7]
@@ -78,7 +78,7 @@ Coordinates=10,684,46,51
 Coordinates=508,133,91,36
 
 [BindSourceDB1]
-Coordinates=690,100,93,33
+Coordinates=1411,170,92,213
 
 [BindingsList1]
 Coordinates=0,0,82,33
@@ -88,4 +88,10 @@ Coordinates=864,684,130,33
 
 [Form6.FDQuery1]
 Coordinates=319,80,97,51
+
+[edtChavePix]
+Coordinates=332,157,76,51
+
+[Label9]
+Coordinates=110,1,46,51
 

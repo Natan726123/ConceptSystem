@@ -37,7 +37,6 @@ type
     Blue1: TMenuItem;
     Default1: TMenuItem;
     Default2: TMenuItem;
-    Image2: TImage;
     pnlCadastros: TPanel;
     Label2: TLabel;
     pnlOperacoes: TPanel;
@@ -161,8 +160,8 @@ begin
   end;
 
   // Exibe mensagem se não houver dados
-  if FDQueryCortadores.IsEmpty then
-    ShowMessage('Nenhum dado encontrado para o período selecionado.');
+//  if FDQueryCortadores.IsEmpty then
+//    ShowMessage('Nenhum dado de Cortador encontrado para o período selecionado.');
 
   ChartRankingCorte.Refresh;
 end;
@@ -224,6 +223,12 @@ end;
 
 procedure TFormDashboard.btnAtualizarClick(Sender: TObject);
 begin
+  if dtpDataInicial.Date > dtpDataFinal.Date then
+  begin
+    ShowMessage('A data inicial não pode ser maior que a data final.');
+    Exit;
+  end;
+
   ChartRankingCorte.Series[0].Clear;
   ChartRankingFaccao.Series[0].Clear;
   ChartRankingProdutos.Series[0].Clear;
@@ -231,6 +236,9 @@ begin
   AtualizarRankingCortadores;
   AtualizarRankingFaccao;
   AtualizarRankingProdutos;
+
+  if (FDQueryCortadores.IsEmpty or FDQueryFaccao.IsEmpty or FDQueryProdutos.IsEmpty) then
+    ShowMessage('Nenhum dado encontrado para o período selecionado.');
 
   DSDadosCortadores.DataSet.Refresh;
   DSDadosFaccao.DataSet.Refresh;
@@ -313,8 +321,8 @@ begin
   end;
 
   // Exibe mensagem se não houver dados
-  if FDQueryFaccao.IsEmpty then
-    ShowMessage('Nenhum dado encontrado para o período selecionado.');
+//  if FDQueryFaccao.IsEmpty then
+//    ShowMessage('Nenhum dado encontrado para o período selecionado.');
 
   ChartRankingFaccao.Refresh;
 end;
@@ -367,8 +375,8 @@ begin
   end;
 
   // Exibe mensagem se não houver dados
-  if FDQueryProdutos.IsEmpty then
-    ShowMessage('Nenhum dado encontrado para o período selecionado.');
+//  if FDQueryProdutos.IsEmpty then
+//    ShowMessage('Nenhum dado encontrado para o período selecionado.');
 
   ChartRankingProdutos.Refresh;
 end;
@@ -597,6 +605,9 @@ begin
   AtualizarRankingCortadores;
   AtualizarRankingFaccao;
   AtualizarRankingProdutos;
+
+  if (FDQueryCortadores.IsEmpty or FDQueryFaccao.IsEmpty or FDQueryProdutos.IsEmpty) then
+    ShowMessage('Nenhum dado encontrado para mês atual.');
 
   DSDadosCortadores.DataSet.Refresh;
   DSDadosFaccao.DataSet.Refresh;

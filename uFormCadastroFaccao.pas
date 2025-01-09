@@ -48,6 +48,9 @@ type
     LinkControlToField4: TLinkControlToField;
     LinkControlToField5: TLinkControlToField;
     LinkControlToField6: TLinkControlToField;
+    edtChavePix: TEdit;
+    Label9: TLabel;
+    LinkControlToField7: TLinkControlToField;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
@@ -316,6 +319,7 @@ begin
     DSDadosFaccao.DataSet.FieldByName('Endereco').AsString := edtEndereco.Text;
     DSDadosFaccao.DataSet.FieldByName('Bairro').AsString := edtBairro.Text;
     DSDadosFaccao.DataSet.FieldByName('Cidade').AsString := edtCidade.Text;
+    DSDadosFaccao.DataSet.FieldByName('Pix').AsString := edtChavePix.Text;
     SalvarMaquinas;
     DSDadosFaccao.DataSet.Post;
     FDQueryFaccao.ApplyUpdates(0);
@@ -377,6 +381,7 @@ begin
   edtEndereco.Enabled := true;
   edtBairro.Enabled := true;
   edtCidade.Enabled := true;
+  edtChavePix.Enabled := true;
   CheckListBoxMaquinas.Enabled := true;
 end;
 
@@ -399,6 +404,7 @@ begin
   edtEndereco.Enabled := false;
   edtBairro.Enabled := false;
   edtCidade.Enabled := false;
+  edtChavePix.Enabled := false;
   CheckListBoxMaquinas.Enabled := false;
 end;
 
@@ -421,6 +427,7 @@ begin
   edtEndereco.Clear;
   edtBairro.Clear;
   edtCidade.Clear;
+  edtChavePix.Clear;
 end;
 
 

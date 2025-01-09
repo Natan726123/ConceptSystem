@@ -3,7 +3,7 @@ object FormCadastroFaccao: TFormCadastroFaccao
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Cadastrar Fac'#231#227'o'
-  ClientHeight = 652
+  ClientHeight = 692
   ClientWidth = 688
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -5422,6 +5422,13 @@ object FormCadastroFaccao: TFormCadastroFaccao
     Height = 15
     Caption = 'Filtro:'
   end
+  object Label9: TLabel
+    Left = 305
+    Top = 242
+    Width = 19
+    Height = 15
+    Caption = 'Pix:'
+  end
   object edtNome: TEdit
     Left = 9
     Top = 160
@@ -5429,7 +5436,7 @@ object FormCadastroFaccao: TFormCadastroFaccao
     Height = 23
     Enabled = False
     TabOrder = 0
-    Text = 'Ana'
+    Text = 'Concept Lingerie (Faccao Teste)'
     TextHint = 'Escreva o nome do cortador'
   end
   object edtTelefone: TEdit
@@ -5483,8 +5490,8 @@ object FormCadastroFaccao: TFormCadastroFaccao
     Text = '1'
   end
   object btnAlterar: TButton
-    Left = 9
-    Top = 256
+    Left = 7
+    Top = 296
     Width = 105
     Height = 33
     Caption = 'Alterar'
@@ -5492,8 +5499,8 @@ object FormCadastroFaccao: TFormCadastroFaccao
     OnClick = btnAlterarClick
   end
   object btnDelete: TButton
-    Left = 129
-    Top = 256
+    Left = 127
+    Top = 296
     Width = 105
     Height = 33
     Caption = 'Deletar'
@@ -5501,8 +5508,8 @@ object FormCadastroFaccao: TFormCadastroFaccao
     OnClick = btnDeleteClick
   end
   object btnCancelar: TButton
-    Left = 457
-    Top = 256
+    Left = 455
+    Top = 296
     Width = 105
     Height = 33
     Caption = 'Cancelar'
@@ -5511,8 +5518,8 @@ object FormCadastroFaccao: TFormCadastroFaccao
     OnClick = btnCancelarClick
   end
   object btnSalvar: TButton
-    Left = 577
-    Top = 256
+    Left = 575
+    Top = 296
     Width = 105
     Height = 33
     Caption = 'Salvar'
@@ -5530,8 +5537,8 @@ object FormCadastroFaccao: TFormCadastroFaccao
     OnClick = btnCadastrarFaccaoClick
   end
   object DBGridFaccao: TDBGrid
-    Left = 3
-    Top = 306
+    Left = 1
+    Top = 346
     Width = 679
     Height = 338
     Align = alCustom
@@ -5562,7 +5569,7 @@ object FormCadastroFaccao: TFormCadastroFaccao
     Left = 568
     Top = 160
     Width = 114
-    Height = 76
+    Height = 121
     Enabled = False
     TabOrder = 12
     OnClickCheck = CheckListBoxMaquinasClickCheck
@@ -5575,6 +5582,16 @@ object FormCadastroFaccao: TFormCadastroFaccao
     TabOrder = 13
     TextHint = 'Escreva o nome do produto'
     OnChange = edtFiltroChange
+  end
+  object edtChavePix: TEdit
+    Left = 305
+    Top = 258
+    Width = 257
+    Height = 23
+    Enabled = False
+    TabOrder = 14
+    Text = '22988774411'
+    TextHint = 'Ex.: 123.456.789-00'
   end
   object DSDadosFaccao: TDataSource
     AutoEdit = False
@@ -5595,7 +5612,8 @@ object FormCadastroFaccao: TFormCadastroFaccao
       #9'enderecoFaccao as '#39'Endereco'#39','
       #9'bairroFaccao as '#39'Bairro'#39','
       #9'cidadeFaccao as '#39'Cidade'#39','
-      #9'maquinasFaccao as '#39'Maquinas'#39
+      #9'maquinasFaccao as '#39'Maquinas'#39','
+      #9'chavePixFaccao as '#39'Pix'#39
       ''
       ''
       ' FROM TBFACCAO;')
@@ -5653,6 +5671,13 @@ object FormCadastroFaccao: TFormCadastroFaccao
       DataSource = BindSourceDB1
       FieldName = 'Bairro'
       Control = edtBairro
+      Track = True
+    end
+    object LinkControlToField7: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Pix'
+      Control = edtChavePix
       Track = True
     end
   end
