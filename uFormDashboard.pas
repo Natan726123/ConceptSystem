@@ -496,35 +496,88 @@ end;
 procedure TFormDashboard.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var
+  formCorte : TFormGerarOrdemCorte;
+  formFichaFaccao: TFormFichaFaccao;
   formEstoqueProdutos: TFormEstoqueProdutos;
+  formCadastrarProduto: TFormCadastrarProdutos;
+  formCadastrarCortador: TFormCadastroCortador;
+  formCadastrarFaccao: TFormCadastroFaccao;
+  formCadastrarTecido: TFormCadastroTecido;
 begin
 
   case Key of
-      VK_F5:
-        begin
-          formEstoqueProdutos := TFormEstoqueProdutos.Create(Self);
-          try
-            formEstoqueProdutos.ShowModal;
-          finally
-            formEstoqueProdutos.Free;
-          end;
+    VK_F1:
+      begin
+        formCorte := TFormGerarOrdemCorte.Create(Self);
+        try
+          if not Assigned(formCorte) then
+          Application.CreateForm(TFormGerarOrdemCorte, FormGerarOrdemCorte);
+
+          formCorte.Show;
+        finally
+          //formCorte.Free;
         end;
+      end;
 
-//      VK_F2: // F2 para abrir o formulário de corte
-//        begin
-//          if not Assigned(FormCorte) then
-//            FormCorte := TFormCorte.Create(Self);
-//          FormCorte.Show;
-//        end;
-//
-//      VK_F3: // F3 para abrir o formulário de facção
-//        begin
-//          if not Assigned(FormFaccao) then
-//            FormFaccao := TFormFaccao.Create(Self);
-//          FormFaccao.Show;
-//        end;
+    VK_F2:
+      begin
+        formFichaFaccao := TFormFichaFaccao.Create(Self);
+        try
+          formFichaFaccao.ShowModal;
+        finally
+          formFichaFaccao.Free;
+        end;
+      end;
 
+    VK_F3:
+      begin
+        formEstoqueProdutos := TFormEstoqueProdutos.Create(Self);
+        try
+          formEstoqueProdutos.ShowModal;
+        finally
+          formEstoqueProdutos.Free;
+        end;
+      end;
 
+    VK_F5:
+      begin
+        formCadastrarProduto := TFormCadastrarProdutos.Create(Self);
+        try
+          formCadastrarProduto.ShowModal;
+        finally
+          formCadastrarProduto.Free;
+        end;
+      end;
+
+    VK_F6:
+      begin
+        formCadastrarCortador := TFormCadastroCortador.Create(Self);
+        try
+          formCadastrarCortador.ShowModal;
+        finally
+          formCadastrarCortador.Free;
+        end;
+      end;
+
+      VK_F7:
+      begin
+        formCadastrarFaccao := TFormCadastroFaccao.Create(Self);
+        try
+          formCadastrarFaccao.ShowModal;
+        finally
+          formCadastrarFaccao.Free;
+        end;
+      end;
+
+      VK_F8:
+      begin
+        formCadastrarTecido := TFormCadastroTecido.Create(Self);
+        try
+          formCadastrarTecido.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
+        finally
+          formCadastrarTecido.Free; // Libera o formulário da memória somente após ele ser fechado
+        end;
+      end;
 
     end;
 end;
