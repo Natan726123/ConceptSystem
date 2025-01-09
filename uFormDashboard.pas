@@ -44,7 +44,6 @@ type
     btnGerenciarEstoque: TButton;
     FDQueryCortadores: TFDQuery;
     DSDadosCortadores: TDataSource;
-    DBGrid1: TDBGrid;
     Gerar1: TMenuItem;
     GerarOrdemdeCorte1: TMenuItem;
     CriarFichadeFaco1: TMenuItem;
@@ -67,7 +66,7 @@ type
     Label1: TLabel;
     Image1: TImage;
     Label3: TLabel;
-    Chart1: TChart;
+    ChartRankingProdutos: TChart;
     Series1: THorizBarSeries;
     FDQueryProdutos: TFDQuery;
     DSDadosProdutos: TDataSource;
@@ -100,6 +99,7 @@ type
     procedure AtualizarRankingFaccao;
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure AtualizarRankingProdutos;
   private
     { Private declarations }
   public
@@ -226,13 +226,15 @@ procedure TFormDashboard.btnAtualizarClick(Sender: TObject);
 begin
   ChartRankingCorte.Series[0].Clear;
   ChartRankingFaccao.Series[0].Clear;
+  ChartRankingProdutos.Series[0].Clear;
 
   AtualizarRankingCortadores;
   AtualizarRankingFaccao;
+  AtualizarRankingProdutos;
 
   DSDadosCortadores.DataSet.Refresh;
   DSDadosFaccao.DataSet.Refresh;
-  //ShowMessage(DateToStr(dtpDataInicial.Date));
+  DSDadosProdutos.DataSet.Refresh;
 end;
 
 procedure TFormDashboard.btnCadastrarCortadorClick(Sender: TObject);
@@ -315,6 +317,60 @@ begin
     ShowMessage('Nenhum dado encontrado para o período selecionado.');
 
   ChartRankingFaccao.Refresh;
+end;
+
+procedure TFormDashboard.AtualizarRankingProdutos;
+var
+  DataInicial, DataFinal: string;
+  Produto: string;
+  TotalPecas: Double;
+begin
+  // Converte as datas para o formato yyyy-mm-dd
+  DataInicial := FormatDateTime('yyyy-mm-dd', dtpDataInicial.Date);
+  DataFinal := FormatDateTime('yyyy-mm-dd', dtpDataFinal.Date);
+
+  FDQueryProdutos.Close;
+
+  FDQueryProdutos.SQL.Text :=
+      'SELECT DISTINCT ' +
+      '  nomeProduto, ' +
+      '  SUM(quantidadePecas) AS totalPecas ' +
+      'FROM ' +
+      '  TBFichaDeFaccao ' +
+      'WHERE ' +
+      '  dataCriacao BETWEEN :dataInicial AND :dataFinal ' +
+      'GROUP BY ' +
+      '  nomeProduto ' +
+      'ORDER BY ' +
+      '  totalPecas DESC ' +
+      'LIMIT 15';
+
+
+  FDQueryProdutos.ParamByName('dataInicial').AsString := FormatDateTime('yyyy-mm-dd', dtpDataInicial.Date);
+  FDQueryProdutos.ParamByName('dataFinal').AsString := FormatDateTime('yyyy-mm-dd', dtpDataFinal.Date);
+
+  FDQueryProdutos.Open;
+
+  // Limpa os dados do gráfico
+  //ChartRankingCorte.Series[0].Clear;
+
+  // Preenche o gráfico com os dados da query
+  while not FDQueryProdutos.Eof do
+  begin
+    Produto := FDQueryProdutos.FieldByName('nomeProduto').AsString;
+    TotalPecas := FDQueryProdutos.FieldByName('totalPecas').AsFloat;
+
+    // Adiciona os dados ao gráfico
+    ChartRankingProdutos.Series[0].Add(TotalPecas, Produto);
+
+    FDQueryProdutos.Next;
+  end;
+
+  // Exibe mensagem se não houver dados
+  if FDQueryProdutos.IsEmpty then
+    ShowMessage('Nenhum dado encontrado para o período selecionado.');
+
+  ChartRankingProdutos.Refresh;
 end;
 
 procedure TFormDashboard.Basededados1Click(Sender: TObject);
@@ -487,9 +543,11 @@ begin
   // Atualiza os gráficos com base no intervalo de datas inicial e final
   AtualizarRankingCortadores;
   AtualizarRankingFaccao;
+  AtualizarRankingProdutos;
 
   DSDadosCortadores.DataSet.Refresh;
   DSDadosFaccao.DataSet.Refresh;
+  DSDadosProdutos.DataSet.Refresh;
 end;
 
 procedure TFormDashboard.GerarOrdemdeCorte1Click(Sender: TObject);

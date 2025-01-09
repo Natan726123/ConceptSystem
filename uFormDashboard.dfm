@@ -3,7 +3,7 @@ object FormDashboard: TFormDashboard
   Top = 0
   Caption = 'Dashboard'
   ClientHeight = 841
-  ClientWidth = 1449
+  ClientWidth = 1382
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -5356,9 +5356,9 @@ object FormDashboard: TFormDashboard
     Proportional = True
   end
   object pnlDashboard: TPanel
-    Left = 16
+    Left = 8
     Top = 105
-    Width = 1409
+    Width = 1369
     Height = 728
     TabOrder = 0
     object Label4: TLabel
@@ -5460,9 +5460,9 @@ object FormDashboard: TFormDashboard
       BorderRound = 21
       Gradient.Balance = 74
       Gradient.Direction = gdBottomTop
-      Gradient.EndColor = 10485760
-      Gradient.MidColor = 16723759
-      Gradient.StartColor = 10485760
+      Gradient.EndColor = 4063232
+      Gradient.MidColor = 5832704
+      Gradient.StartColor = 4063232
       Gradient.Visible = True
       Legend.LegendStyle = lsSeries
       Legend.Symbol.Gradient.EndColor = 16777164
@@ -5485,14 +5485,21 @@ object FormDashboard: TFormDashboard
       View3D = False
       TabOrder = 3
       DefaultCanvas = 'TGDIPlusCanvas'
-      ColorPaletteIndex = 3
+      ColorPaletteIndex = -2
+      ColorPalette = (
+        5030896
+        1738481
+        612827
+        409799
+        470206
+        530104
+        329126
+        1704819)
       object Series2: TBarSeries
         HoverElement = []
         Legend.Visible = False
         Active = False
         BarBrush.Gradient.EndColor = 10066176
-        BarBrush.Gradient.Visible = True
-        ColorEachPoint = True
         Marks.Emboss.Clip = True
         Marks.Font.Color = clWhite
         Marks.Font.Name = 'Calibri'
@@ -5502,7 +5509,11 @@ object FormDashboard: TFormDashboard
         Marks.Shadow.Visible = False
         Marks.Style = smsLabelValue
         Marks.Angle = 90
+        Marks.Arrow.Color = clBlack
         Marks.BackColor = 8404992
+        Marks.Callout.Arrow.Color = clBlack
+        Marks.Callout.ArrowHeadSize = 5
+        Marks.Callout.Length = 5
         Marks.Clip = True
         Marks.MultiLine = True
         Marks.SoftClip = True
@@ -5510,9 +5521,7 @@ object FormDashboard: TFormDashboard
         DataSource = DBCrossTabSource1
         ShowInLegend = False
         Title = 'RankingFaccao'
-        BarStyle = bsRectGradient
         Gradient.EndColor = 10066176
-        Gradient.Visible = True
         MultiBar = mbStacked
         Shadow.Visible = False
         Sides = 33
@@ -5525,15 +5534,15 @@ object FormDashboard: TFormDashboard
     end
     object ChartRankingCorte: TChart
       Left = 8
-      Top = 399
+      Top = 402
       Width = 689
       Height = 326
       BorderRound = 21
       Gradient.Balance = 74
       Gradient.Direction = gdBottomTop
-      Gradient.EndColor = 10485760
-      Gradient.MidColor = 16723759
-      Gradient.StartColor = 10485760
+      Gradient.EndColor = 4063232
+      Gradient.MidColor = 5832704
+      Gradient.StartColor = 4063232
       Gradient.Visible = True
       Legend.Symbol.Gradient.EndColor = 16777164
       Legend.Visible = False
@@ -5554,14 +5563,21 @@ object FormDashboard: TFormDashboard
       View3D = False
       TabOrder = 4
       DefaultCanvas = 'TGDIPlusCanvas'
-      ColorPaletteIndex = 3
+      ColorPaletteIndex = -2
+      ColorPalette = (
+        5030896
+        1738481
+        612827
+        409799
+        470206
+        530104
+        329126
+        1704819)
       object BarSeries1: TBarSeries
         HoverElement = []
         Legend.Visible = False
         Active = False
         BarBrush.Gradient.EndColor = 13421823
-        BarBrush.Gradient.Visible = True
-        ColorEachPoint = True
         Marks.Emboss.Clip = True
         Marks.Font.Color = clWhite
         Marks.Font.Name = 'Calibri'
@@ -5571,7 +5587,11 @@ object FormDashboard: TFormDashboard
         Marks.Shadow.Visible = False
         Marks.Style = smsLabelValue
         Marks.Angle = 90
+        Marks.Arrow.Color = clDefault
         Marks.BackColor = 8404992
+        Marks.Callout.Arrow.Color = clDefault
+        Marks.Callout.ArrowHeadSize = 5
+        Marks.Callout.Length = 5
         Marks.Clip = True
         Marks.MultiLine = True
         Marks.SoftClip = True
@@ -5579,9 +5599,7 @@ object FormDashboard: TFormDashboard
         DataSource = DBCrossTabSource2
         ShowInLegend = False
         Title = 'RankingCorte'
-        BarStyle = bsRectGradient
         Gradient.EndColor = 13421823
-        Gradient.Visible = True
         MultiBar = mbStacked
         Shadow.Visible = False
         Sides = 33
@@ -5592,42 +5610,17 @@ object FormDashboard: TFormDashboard
         YValues.Order = loAscending
       end
     end
-    object DBGrid1: TDBGrid
-      Left = 1057
-      Top = 584
-      Width = 320
-      Height = 120
-      DataSource = DSDadosFaccao
-      TabOrder = 5
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -12
-      TitleFont.Name = 'Segoe UI'
-      TitleFont.Style = []
-    end
-    object Chart1: TChart
-      Left = 744
+    object ChartRankingProdutos: TChart
+      Left = 728
       Top = 67
       Width = 633
       Height = 662
       BorderRound = 20
-      Gradient.Colors = <
-        item
-          Color = 10485760
-        end
-        item
-          Color = 16725301
-          Offset = 0.488023952095808400
-        end
-        item
-          Color = clNavy
-          Offset = 1.000000000000000000
-        end>
-      Gradient.EndColor = clNavy
-      Gradient.MidColor = 16725301
-      Gradient.StartColor = 10485760
+      Gradient.EndColor = 4063232
+      Gradient.MidColor = 5832704
+      Gradient.StartColor = 4063232
       Gradient.Visible = True
-      Legend.Symbol.Gradient.EndColor = 10708548
+      Legend.Symbol.Gradient.EndColor = 16777164
       Legend.Visible = False
       Title.Font.Color = clWhite
       Title.Font.Height = -21
@@ -5637,34 +5630,46 @@ object FormDashboard: TFormDashboard
         'RANKING DE PRODUTOS')
       BottomAxis.Visible = False
       LeftAxis.Inverted = True
+      LeftAxis.MaximumOffset = 10
       LeftAxis.Visible = False
       View3D = False
-      TabOrder = 6
+      TabOrder = 5
       DefaultCanvas = 'TGDIPlusCanvas'
-      ColorPaletteIndex = 13
+      ColorPaletteIndex = -2
+      ColorPalette = (
+        5030896
+        1738481
+        612827
+        409799
+        470206
+        530104
+        329126
+        1704819)
       object Series1: THorizBarSeries
         HoverElement = []
         Legend.Visible = False
+        Active = False
         BarBrush.Gradient.Direction = gdLeftRight
-        BarBrush.Gradient.EndColor = 10708548
-        BarBrush.Gradient.Visible = True
-        ColorEachPoint = True
-        Marks.Emboss.Clip = True
+        BarBrush.Gradient.EndColor = 16777164
         Marks.Font.Color = clWhite
-        Marks.Shadow.Clip = True
+        Marks.Shadow.Visible = False
+        Marks.ShapeStyle = fosRectangle
         Marks.Style = smsLabelValue
+        Marks.Arrow.Color = clDefault
+        Marks.Arrow.Width = 0
         Marks.BackColor = 8404992
-        Marks.Clip = True
+        Marks.Callout.Arrow.Color = clDefault
+        Marks.Callout.Arrow.Width = 0
+        Marks.Callout.ArrowHeadSize = 5
+        Marks.Callout.Length = 5
         Marks.MultiLine = True
         Marks.SoftClip = True
         Marks.Color = 8404992
         DataSource = DBCrossTabSource3
         ShowInLegend = False
         Title = 'RankingProdutos'
-        BarStyle = bsRectGradient
         Gradient.Direction = gdLeftRight
-        Gradient.EndColor = 10708548
-        Gradient.Visible = True
+        Gradient.EndColor = 16777164
         MultiBar = mbNone
         XValues.Name = 'Bar'
         XValues.Order = loNone
@@ -5676,12 +5681,12 @@ object FormDashboard: TFormDashboard
   object pnlMenu: TPanel
     Left = 16
     Top = 8
-    Width = 1409
+    Width = 1361
     Height = 81
     TabOrder = 1
     object Label1: TLabel
       Left = 55
-      Top = 14
+      Top = 20
       Width = 243
       Height = 38
       Caption = 'Concept System'
@@ -6382,13 +6387,13 @@ object FormDashboard: TFormDashboard
       Proportional = True
     end
     object pnlOperacoes: TPanel
-      Left = 352
+      Left = 320
       Top = 4
-      Width = 425
+      Width = 516
       Height = 73
       TabOrder = 0
       object Label3: TLabel
-        Left = 8
+        Left = 11
         Top = 8
         Width = 70
         Height = 19
@@ -6401,11 +6406,11 @@ object FormDashboard: TFormDashboard
         ParentFont = False
       end
       object btnGerarOrdemCorte: TButton
-        Left = 8
+        Left = 11
         Top = 33
-        Width = 130
+        Width = 160
         Height = 30
-        Caption = 'Gerar Ordem de Corte'
+        Caption = 'Gerar Ordem de Corte (F1)'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -12
@@ -6416,11 +6421,11 @@ object FormDashboard: TFormDashboard
         OnClick = btnGerarOrdemCorteClick
       end
       object btnCriarFichaFaccao: TButton
-        Left = 144
+        Left = 178
         Top = 33
-        Width = 130
+        Width = 160
         Height = 30
-        Caption = 'Criar Ficha de Fac'#231#227'o'
+        Caption = 'Criar Ficha de Fac'#231#227'o (F2)'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -12
@@ -6431,11 +6436,11 @@ object FormDashboard: TFormDashboard
         OnClick = btnCriarFichaFaccaoClick
       end
       object btnGerenciarEstoque: TButton
-        Left = 280
+        Left = 345
         Top = 33
-        Width = 130
+        Width = 160
         Height = 30
-        Caption = 'Gerenciar Estoque'
+        Caption = 'Gerenciar Estoque (F3)'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -12
@@ -6447,13 +6452,13 @@ object FormDashboard: TFormDashboard
       end
     end
     object pnlCadastros: TPanel
-      Left = 792
+      Left = 842
       Top = 4
-      Width = 561
+      Width = 513
       Height = 73
       TabOrder = 1
       object Label2: TLabel
-        Left = 10
+        Left = 6
         Top = 8
         Width = 65
         Height = 19
@@ -6466,11 +6471,11 @@ object FormDashboard: TFormDashboard
         ParentFont = False
       end
       object btnCadastrarProdutos: TButton
-        Left = 8
+        Left = 6
         Top = 33
-        Width = 130
+        Width = 120
         Height = 30
-        Caption = 'Cadastrar Produto'
+        Caption = 'Produtos (F5)'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -12
@@ -6481,11 +6486,11 @@ object FormDashboard: TFormDashboard
         OnClick = btnCadastrarProdutosClick
       end
       object btnCadastrarCortador: TButton
-        Left = 144
+        Left = 132
         Top = 33
-        Width = 130
+        Width = 120
         Height = 30
-        Caption = 'Cadastrar Cortador'
+        Caption = 'Cortadores (F6)'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -12
@@ -6496,11 +6501,11 @@ object FormDashboard: TFormDashboard
         OnClick = btnCadastrarCortadorClick
       end
       object btnCadastrarFaccao: TButton
-        Left = 280
+        Left = 258
         Top = 33
-        Width = 130
+        Width = 120
         Height = 30
-        Caption = 'Cadastrar Faccionista'
+        Caption = 'Fac'#231#245'es (F7)'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -12
@@ -6511,11 +6516,11 @@ object FormDashboard: TFormDashboard
         OnClick = btnCadastrarFaccaoClick
       end
       object btnCadastrarTecido: TButton
-        Left = 416
+        Left = 384
         Top = 33
-        Width = 130
+        Width = 120
         Height = 30
-        Caption = 'Cadastrar Tecido'
+        Caption = 'Tecidos (F8)'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -12
@@ -6698,15 +6703,28 @@ object FormDashboard: TFormDashboard
       '    SUM(quantidadePecas) AS totalPecas'
       'FROM'
       '    TBFichaDeFaccao'
+      'WHERE '
+      ' dataCriacao BETWEEN :dataInicial and :dataFinal'
       'GROUP BY'
-      '    nomeProduto'
+      '    nomeProduto'#9
       'ORDER BY'
       '    totalPecas DESC'
-      #9
       'Limit 15'
       '')
     Left = 800
     Top = 768
+    ParamData = <
+      item
+        Name = 'DATAINICIAL'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'DATAFINAL'
+        DataType = ftString
+        ParamType = ptInput
+      end>
   end
   object DSDadosProdutos: TDataSource
     DataSet = FDQueryProdutos
@@ -6720,7 +6738,7 @@ object FormDashboard: TFormDashboard
     Series = Series1
     ValueField = 'totalPecas'
     DataSet = FDQueryProdutos
-    Left = 1320
-    Top = 168
+    Left = 1264
+    Top = 192
   end
 end
