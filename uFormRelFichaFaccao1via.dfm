@@ -18,6 +18,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
     Width = 794
     Height = 1123
     ShowingPreview = False
+    BeforePrint = QuickRepFichaFaccaoBeforePrint
     DataSet = FDQueryRelFichaFaccao
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -626,7 +627,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Shape = qrsHorLine
         VertAdjust = 0
       end
-      object QRLabel30: TQRLabel
+      object QRLabelDataEnvio: TQRLabel
         Left = 14
         Top = 196
         Width = 200
@@ -655,7 +656,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         VerticalAlignment = tlTop
         FontSize = 11
       end
-      object QRLabel31: TQRLabel
+      object QRLabelDataPrevista: TQRLabel
         Left = 14
         Top = 221
         Width = 229
@@ -684,7 +685,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         VerticalAlignment = tlTop
         FontSize = 11
       end
-      object QRLabel32: TQRLabel
+      object QRLabelDataEntrega: TQRLabel
         Left = 380
         Top = 196
         Width = 227
@@ -867,7 +868,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FormConsultaFichaFaccao.FDQueryRelFichaFaccao
         DataField = 'Total_Tam_P'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -899,7 +900,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FormConsultaFichaFaccao.FDQueryRelFichaFaccao
         DataField = 'Total_Tam_M'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -931,7 +932,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FormConsultaFichaFaccao.FDQueryRelFichaFaccao
         DataField = 'Total_Tam_G'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -963,7 +964,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FormConsultaFichaFaccao.FDQueryRelFichaFaccao
         DataField = 'Total_Tam_GG'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -995,7 +996,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FormConsultaFichaFaccao.FDQueryRelFichaFaccao
         DataField = 'Total_Tam_48'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1027,7 +1028,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FormConsultaFichaFaccao.FDQueryRelFichaFaccao
         DataField = 'Total_Tam_50'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1059,7 +1060,7 @@ object FormRelFichaFaccao1via: TFormRelFichaFaccao1via
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormFichaFaccao.FDQueryRelFichaFaccao
+        DataSet = FormConsultaFichaFaccao.FDQueryRelFichaFaccao
         DataField = 'Total_Tam_52'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText

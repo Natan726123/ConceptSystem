@@ -1,236 +1,280 @@
 ﻿[lblDataEntrega]
-Coordinates=10,553,100,58
+Coordinates=10,553,87,51
 
 [lblCodRef]
-Coordinates=193,492,71,58
+Coordinates=193,492,62,51
 
 [lblCortador]
-Coordinates=234,553,78,58
+Coordinates=234,553,69,51
 
 [ComboBoxCortador]
-Coordinates=440,270,128,124
+Coordinates=440,270,112,105
 
 [DBGridFichaDeFaccao]
-Coordinates=140,614,146,36
+Coordinates=140,614,125,33
+Visible=True
 
 [edtNumCorte]
-Coordinates=918,431,91,58
+Coordinates=918,431,79,51
 
 [ComboBoxProdutos]
-Coordinates=184,10,129,124
+Coordinates=184,10,114,105
 
 [btnConsultarFicha]
-Coordinates=684,431,119,58
+Coordinates=684,431,105,51
 
 [CalendarDataPrevista]
-Coordinates=310,160,140,58
+Coordinates=310,160,120,51
 ExplicitSubNodes=Date
 
 [FDQueryFaccao]
-Coordinates=654,10,108,102
+Coordinates=654,10,93,87
 
 [CalendarDataDeEnvio]
-Coordinates=670,220,142,58
+Coordinates=670,220,121,51
 ExplicitSubNodes=Date
 
 [lblRaddioButtonBusca]
-Coordinates=955,492,141,58
+Coordinates=955,492,125,51
 
 [rbBuscaCodigo]
-Coordinates=880,553,102,36
+Coordinates=880,553,91,33
 
 [DSDadosProdutos]
-Coordinates=335,71,121,36
+Coordinates=335,71,105,33
 
 [edtCodRef]
-Coordinates=190,431,76,58
+Coordinates=190,431,66,51
 
 [lblSelecionarModelo]
-Coordinates=66,431,131,58
+Coordinates=66,431,114,51
 
 [lblNumOrdemCorte]
-Coordinates=799,431,125,58
+Coordinates=799,431,109,51
 
 [btnSalvar]
-Coordinates=562,492,69,58
+Coordinates=562,492,61,51
 
 [Label2]
-Coordinates=805,492,53,58
+Coordinates=805,492,46,51
 
 [FDQueryConsultaFichaFaccao]
-Coordinates=10,10,191,36
+Coordinates=10,10,164,33
 Visible=False
 
 [Form6.FDQuery1]
-Coordinates=266,431,114,58
+Coordinates=266,431,97,51
 
 [dtpDataFinal]
-Coordinates=794,553,88,36
+Coordinates=794,553,76,33
 
 [lblStatusFaccao]
-Coordinates=373,431,106,58
+Coordinates=373,431,93,51
 
 [FDQueryProdutos]
-Coordinates=757,10,118,58
+Coordinates=757,10,103,51
 
 [lblDataCorte]
-Coordinates=10,492,86,58
+Coordinates=10,492,75,51
 
 [edtCodFaccao]
-Coordinates=368,492,98,58
+Coordinates=368,492,85,51
 
 [CalendarDataDeEntrega]
-Coordinates=670,290,155,58
+Coordinates=670,290,132,51
 ExplicitSubNodes=Date
 
 [dtpDataInicial]
-Coordinates=561,553,93,36
+Coordinates=561,553,81,33
 
 [btnAlterar]
-Coordinates=956,10,71,58
+Coordinates=956,10,63,51
 
 [pnlModelos]
-Coordinates=724,492,80,58
+Coordinates=724,492,71,51
+Visible=True
 
 [ComboBoxStatus]
-Coordinates=308,10,114,124
+Coordinates=308,10,100,105
 
 [DSDadosFaccao]
-Coordinates=128,450,111,36
+Coordinates=128,450,95,33
 
 [edtCodCortador]
-Coordinates=265,492,106,58
+Coordinates=265,492,93,51
 
 [lblCodFaccao]
-Coordinates=633,492,93,58
+Coordinates=633,492,81,51
 
 [lblDataPrevista]
-Coordinates=95,492,102,58
+Coordinates=95,492,88,51
 
 [ComboBoxFaccao]
-Coordinates=418,10,120,124
+Coordinates=418,10,104,105
 
 [lblCodCortador]
-Coordinates=463,492,101,58
+Coordinates=463,492,89,51
 
 [Label3]
-Coordinates=10,431,53,58
+Coordinates=10,431,46,51
 
 [edtNumOrdemCorte]
-Coordinates=562,431,130,58
+Coordinates=562,431,112,51
 
 [lblFaccao]
-Coordinates=107,553,70,58
+Coordinates=107,553,61,51
 
 [btnGerarFicha]
-Coordinates=861,492,97,58
+Coordinates=861,492,84,51
 
 [lblDataEnvio]
-Coordinates=476,431,87,58
+Coordinates=476,431,76,51
 
 [rbBuscaReferencia]
-Coordinates=443,553,124,36
+Coordinates=443,553,108,33
 
 [DSDadosConsultaFichaFaccao]
-Coordinates=316,159,193,36
+Coordinates=316,159,166,33
 
 [lblNumCorte]
-Coordinates=870,10,86,58
+Coordinates=870,10,76,51
 
 [CalendarDataDeCorte]
-Coordinates=310,220,142,80
+Coordinates=310,220,120,69
 ExplicitSubNodes=Date;DateFormat
 
 [Label1]
-Coordinates=178,553,53,58
+Coordinates=178,553,46,51
 
 []
-Coordinates=226,740,82,33
+Coordinates=547,608,120,393
 
 [BindSourceDB1]
-Coordinates=10,10,176,534
+Coordinates=10,10,147,285
 
 [BindingsList1]
-Coordinates=176,134,91,36
+Coordinates=176,134,82,33
 
 [UpdateSQLConsultaFicha]
-Coordinates=520,134,164,36
+Coordinates=520,134,141,33
 
 [btnAttData]
-Coordinates=193,186,75,58
+Coordinates=193,186,66,51
 
 [Image1]
-Coordinates=205,263,57,58
+Coordinates=205,263,49,51
 
 [FDQueryFichaDeFaccaoidFaccao]
-Coordinates=722,131,208,36
+Coordinates=722,131,178,33
 
 [FDQueryFichaDeFaccaoCortador]
-Coordinates=722,367,206,36
+Coordinates=722,367,176,33
 
 [DSDadosRelFichaFaccao]
-Coordinates=215,695,162,36
+Coordinates=215,695,138,33
 
 [FDQueryFichaDeFaccaoCodFac]
-Coordinates=722,608,201,36
+Coordinates=722,608,171,33
 
 [FDQueryFichaDeFaccaodatadeEntrega]
-Coordinates=722,663,240,36
+Coordinates=722,663,204,33
 
 [FDQueryFichaDeFaccaoStatus]
-Coordinates=1020,87,193,36
+Coordinates=1020,87,164,33
 
 [FDQueryFichaDeFaccaoDatadeEnvio]
-Coordinates=1047,1,230,36
+Coordinates=1047,1,195,33
 
 [FDQueryFichaDeFaccaoNumCorte]
-Coordinates=1047,142,214,36
+Coordinates=1047,142,183,33
 
 [FDQueryFichaDeFaccaoItem]
-Coordinates=968,197,181,36
+Coordinates=968,197,154,33
 
 [FDQueryFichaDeFaccaoNumOrdem]
-Coordinates=1047,252,222,36
+Coordinates=1047,252,189,33
 
 [FDQueryFichaDeFaccaoFacção]
-Coordinates=1047,307,198,36
+Coordinates=1047,307,168,33
 
 [edtNumFaccao]
-Coordinates=547,1,101,58
+Coordinates=547,1,88,51
 
 [FDQueryFichaDeFaccaoDatadeCorte]
-Coordinates=1047,362,229,36
+Coordinates=1047,362,194,33
 
 [FDQueryFichaDeFaccaoDatadePrevisão]
-Coordinates=1187,197,248,36
+Coordinates=1187,197,210,33
 
 [FDQueryFichaDeFaccao]
-Coordinates=547,608,156,454
+Coordinates=690,618,133,375
 
 [FDQueryFichaDeFaccaoCodCort]
-Coordinates=1047,417,204,36
+Coordinates=1047,417,174,33
 
 [FDQueryFichaDeFaccaoTamanho]
-Coordinates=1047,569,210,36
+Coordinates=1047,569,179,33
 
 [FDQueryFichaDeFaccaoCor]
-Coordinates=968,624,177,36
+Coordinates=968,624,151,33
 
 [FDQueryFichaDeFaccaoQuantidade]
-Coordinates=1047,679,223,36
+Coordinates=1047,679,190,33
 
 [FDQueryFichaDeFaccaoCodProd]
-Coordinates=1047,734,207,36
+Coordinates=1047,734,176,33
 
 [DSDadosFichaDeFaccao]
-Coordinates=384,695,159,36
+Coordinates=384,695,135,33
 
 [Label4]
-Coordinates=220,340,53,58
+Coordinates=220,340,46,51
 
 [FDQueryFichaDeFaccaoProduto]
-Coordinates=1047,789,201,36
+Coordinates=1047,789,172,33
 
 [FDQueryRelFichaFaccao]
-Coordinates=46,695,159,58
+Coordinates=46,695,136,51
+
+[edtCodFaccao2]
+Coordinates=460,210,91,51
+
+[edtNomeFaccao]
+Coordinates=496,133,93,51
+
+[Label6]
+Coordinates=581,189,46,51
+
+[Label7]
+Coordinates=581,266,46,51
+
+[Label5]
+Coordinates=0,630,46,51
+
+[ComboBoxStatusConsulta]
+Coordinates=863,718,144,105
+
+[edtNumFichaDeFaccao]
+Coordinates=74,314,128,51
+
+[Label8]
+Coordinates=25,314,46,51
+
+[edtModelo]
+Coordinates=360,600,65,51
+
+[FormRelFichaFaccao1via.DSDadosRelFichaFaccao]
+Coordinates=718,842,265,33
+
+[Label9]
+Coordinates=336,378,46,51
+
+[FormRelFichaFaccao2via.DSDadosRelFichaFaccao]
+Coordinates=1435,71,265,33
+
+[FormRelFichaFaccao2via.FDQueryRelFichaFaccao]
+Coordinates=1435,1,263,51
+
+[FormRelFichaFaccao1via.FDQueryRelFichaFaccao]
+Coordinates=445,1108,263,429
 

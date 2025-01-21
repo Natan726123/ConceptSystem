@@ -626,7 +626,7 @@ object FormRelFichaFaccao2via: TFormRelFichaFaccao2via
         Shape = qrsHorLine
         VertAdjust = 0
       end
-      object QRLabel30: TQRLabel
+      object QRLabelDataEnvio: TQRLabel
         Left = 14
         Top = 196
         Width = 200
@@ -655,7 +655,7 @@ object FormRelFichaFaccao2via: TFormRelFichaFaccao2via
         VerticalAlignment = tlTop
         FontSize = 11
       end
-      object QRLabel31: TQRLabel
+      object QRLabelDataPrevista: TQRLabel
         Left = 14
         Top = 221
         Width = 229
@@ -684,7 +684,7 @@ object FormRelFichaFaccao2via: TFormRelFichaFaccao2via
         VerticalAlignment = tlTop
         FontSize = 11
       end
-      object QRLabel32: TQRLabel
+      object QRLabelDataEntrega: TQRLabel
         Left = 380
         Top = 196
         Width = 227

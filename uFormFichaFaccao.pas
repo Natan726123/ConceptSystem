@@ -139,6 +139,7 @@ type
 
     procedure imprimirFicha1via;
     procedure imprimirFicha2via;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     defaultDataEntrega, defaultDataEnvio, defaultDataPrevista, defaultDataCorte : TDateTime;
   public
@@ -585,15 +586,21 @@ begin
 end;
 
 procedure TFormFichaFaccao.btnConsultarFichaClick(Sender: TObject);
-var
-  formConsultaFichaFaccao: TFormConsultaFichaFaccao;
+//var
+//  formConsultaFichaFaccao: TFormConsultaFichaFaccao;
 begin
-  formConsultaFichaFaccao := TFormConsultaFichaFaccao.Create(Self);
-  try
-    formConsultaFichaFaccao.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
-  finally
-    formConsultaFichaFaccao.Free; // Libera o formulário da memória somente após ele ser fechado
-  end;
+//  formConsultaFichaFaccao := TFormConsultaFichaFaccao.Create(Self);
+//  try
+//    formConsultaFichaFaccao.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
+//  finally
+//    formConsultaFichaFaccao.Free; // Libera o formulário da memória somente após ele ser fechado
+//  end;
+
+    if not Assigned(formConsultaFichaFaccao) then
+      Application.CreateForm(TFormConsultaFichaFaccao, formConsultaFichaFaccao);
+
+    // Exibe o formulário
+    formConsultaFichaFaccao.Show;
 end;
 
 
@@ -1091,6 +1098,12 @@ begin
   end;
 end;
 
+procedure TFormFichaFaccao.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+//  Action := caFree;
+  FormFichaFaccao := nil;
+end;
+
 procedure TFormFichaFaccao.FormCreate(Sender: TObject);
 begin
   // Verifica se o formulário do relatório de 1ª via está criado
@@ -1211,6 +1224,28 @@ begin
   FormRelFichaFaccao1via.QRLabelDataCorte.Caption := 'DATA DE CORTE: ';
   FormRelFichaFaccao1via.QRLabelDataCorte.Caption := FormRelFichaFaccao1via.QRLabelDataCorte.Caption + DateToStr(CalendarDataDeCorte.Date);
 
+  //ENVIO: _____/ _____/ _____
+  FormRelFichaFaccao1via.QRLabelDataEnvio.Caption := 'ENVIO: ';
+  if (CalendarDataDeEnvio.IsEmpty) then
+    FormRelFichaFaccao1via.QRLabelDataEnvio.Caption := 'ENVIO: _____/ _____/ _____'
+  else
+  FormRelFichaFaccao1via.QRLabelDataEnvio.Caption := FormRelFichaFaccao1via.QRLabelDataEnvio.Caption + DateToStr(CalendarDataDeEnvio.Date);
+
+  //PREVISÃO: _____/ _____/ _____
+  FormRelFichaFaccao1via.QRLabelDataPrevista.Caption := 'PREVISÃO: ';
+  if (CalendarDataPrevista.IsEmpty) then
+    FormRelFichaFaccao1via.QRLabelDataPrevista.Caption := 'PREVISÃO: _____/ _____/ _____'
+  else
+  FormRelFichaFaccao1via.QRLabelDataPrevista.Caption := FormRelFichaFaccao1via.QRLabelDataPrevista.Caption + DateToStr(CalendarDataPrevista.Date);
+
+  //ENTREGA: _____/ _____/ _____
+  FormRelFichaFaccao1via.QRLabelDataEntrega.Caption := 'ENTREGA: ';
+  if (CalendarDataDeEntrega.IsEmpty) then
+    FormRelFichaFaccao1via.QRLabelDataEntrega.Caption := 'ENTREGA: _____/ _____/ _____'
+  else
+  FormRelFichaFaccao1via.QRLabelDataEntrega.Caption := FormRelFichaFaccao1via.QRLabelDataEntrega.Caption + DateToStr(CalendarDataDeEntrega.Date);
+
+
   FormRelFichaFaccao1via.QRLabelNumTotalPecas.Caption := 'N° DE PEÇAS: ';
   FormRelFichaFaccao1via.QRLabelNumTotalPecas.Caption := lblNumTotalPecas.Caption;
 
@@ -1301,6 +1336,27 @@ begin
 
 //  FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption := 'N° DE PEÇAS: ';
 //  FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption := lblNumTotalPecas.Caption;
+
+  //ENVIO: _____/ _____/ _____
+  FormRelFichaFaccao2via.QRLabelDataEnvio.Caption := 'ENVIO: ';
+  if (CalendarDataDeEnvio.IsEmpty) then
+    FormRelFichaFaccao2via.QRLabelDataEnvio.Caption := 'ENVIO: _____/ _____/ _____'
+  else
+  FormRelFichaFaccao2via.QRLabelDataEnvio.Caption := FormRelFichaFaccao2via.QRLabelDataEnvio.Caption + DateToStr(CalendarDataDeEnvio.Date);
+
+  //PREVISÃO: _____/ _____/ _____
+  FormRelFichaFaccao2via.QRLabelDataPrevista.Caption := 'PREVISÃO: ';
+  if (CalendarDataPrevista.IsEmpty) then
+    FormRelFichaFaccao2via.QRLabelDataPrevista.Caption := 'PREVISÃO: _____/ _____/ _____'
+  else
+  FormRelFichaFaccao2via.QRLabelDataPrevista.Caption := FormRelFichaFaccao2via.QRLabelDataPrevista.Caption + DateToStr(CalendarDataPrevista.Date);
+
+  //ENTREGA: _____/ _____/ _____
+  FormRelFichaFaccao2via.QRLabelDataEntrega.Caption := 'ENTREGA: ';
+  if (CalendarDataDeEntrega.IsEmpty) then
+    FormRelFichaFaccao2via.QRLabelDataEntrega.Caption := 'ENTREGA: _____/ _____/ _____'
+  else
+  FormRelFichaFaccao2via.QRLabelDataEntrega.Caption := FormRelFichaFaccao2via.QRLabelDataEntrega.Caption + DateToStr(CalendarDataDeEntrega.Date);
 
   FormRelFichaFaccao2via.QRLabelModeloHeader.Caption := 'MODELO';
   FormRelFichaFaccao2via.QRLabelModeloHeader.Caption := ComboBoxProdutos.Text;

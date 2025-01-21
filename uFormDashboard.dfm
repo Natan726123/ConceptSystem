@@ -2,8 +2,8 @@ object FormDashboard: TFormDashboard
   Left = 0
   Top = 0
   Caption = 'Dashboard'
-  ClientHeight = 847
-  ClientWidth = 1382
+  ClientHeight = 954
+  ClientWidth = 1781
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,15 +13,17 @@ object FormDashboard: TFormDashboard
   KeyPreview = True
   Menu = MainMenu1
   Position = poScreenCenter
+  WindowState = wsMaximized
   OnClose = FormClose
+  OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   OnShow = FormShow
   TextHeight = 15
   object pnlDashboard: TPanel
     Left = 8
     Top = 105
-    Width = 1369
-    Height = 734
+    Width = 1765
+    Height = 841
     TabOrder = 0
     object Label4: TLabel
       Left = 8
@@ -42,6 +44,45 @@ object FormDashboard: TFormDashboard
       Width = 62
       Height = 18
       Caption = 'Data final:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label6: TLabel
+      Left = 520
+      Top = 10
+      Width = 320
+      Height = 18
+      Caption = 'Modelo:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label7: TLabel
+      Left = 865
+      Top = 10
+      Width = 320
+      Height = 18
+      Caption = 'Fac'#231#227'o:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Perpetua'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblCortador: TLabel
+      Left = 1213
+      Top = 7
+      Width = 320
+      Height = 18
+      Caption = 'Cortador:'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
@@ -116,9 +157,9 @@ object FormDashboard: TFormDashboard
     end
     object ChartRankingFaccao: TChart
       Left = 8
-      Top = 67
-      Width = 689
-      Height = 326
+      Top = 76
+      Width = 953
+      Height = 374
       BorderRound = 21
       Gradient.Balance = 74
       Gradient.Direction = gdBottomTop
@@ -164,7 +205,8 @@ object FormDashboard: TFormDashboard
         BarBrush.Gradient.EndColor = 10066176
         Marks.Emboss.Clip = True
         Marks.Font.Color = clWhite
-        Marks.Font.Name = 'Calibri'
+        Marks.Font.Height = -13
+        Marks.Font.Name = 'Calibri Light'
         Marks.Font.Quality = fqClearType
         Marks.Font.Shadow.Visible = False
         Marks.Shadow.Clip = True
@@ -196,9 +238,9 @@ object FormDashboard: TFormDashboard
     end
     object ChartRankingCorte: TChart
       Left = 8
-      Top = 402
-      Width = 689
-      Height = 326
+      Top = 456
+      Width = 953
+      Height = 377
       BorderRound = 21
       Gradient.Balance = 74
       Gradient.Direction = gdBottomTop
@@ -242,7 +284,8 @@ object FormDashboard: TFormDashboard
         BarBrush.Gradient.EndColor = 13421823
         Marks.Emboss.Clip = True
         Marks.Font.Color = clWhite
-        Marks.Font.Name = 'Calibri'
+        Marks.Font.Height = -13
+        Marks.Font.Name = 'Calibri Light'
         Marks.Font.Quality = fqClearType
         Marks.Font.Shadow.Visible = False
         Marks.Shadow.Clip = True
@@ -273,10 +316,10 @@ object FormDashboard: TFormDashboard
       end
     end
     object ChartRankingProdutos: TChart
-      Left = 728
+      Left = 1020
       Top = 67
-      Width = 633
-      Height = 662
+      Width = 736
+      Height = 766
       BorderRound = 20
       Gradient.EndColor = 4063232
       Gradient.MidColor = 5832704
@@ -314,6 +357,8 @@ object FormDashboard: TFormDashboard
         BarBrush.Gradient.Direction = gdLeftRight
         BarBrush.Gradient.EndColor = 16777164
         Marks.Font.Color = clWhite
+        Marks.Font.Height = -13
+        Marks.Font.Name = 'Calibri Light'
         Marks.Shadow.Visible = False
         Marks.ShapeStyle = fosRectangle
         Marks.Style = smsLabelValue
@@ -339,11 +384,55 @@ object FormDashboard: TFormDashboard
         YValues.Order = loAscending
       end
     end
+    object ComboBoxProdutos: TComboBox
+      Left = 520
+      Top = 26
+      Width = 320
+      Height = 25
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 6
+      TextHint = 'Selecione o modelo'
+    end
+    object ComboBoxFaccao: TComboBox
+      Left = 865
+      Top = 26
+      Width = 320
+      Height = 25
+      Style = csDropDownList
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 7
+      TextHint = 'Selecione o modelo'
+    end
+    object ComboBoxCortador: TComboBox
+      Left = 1213
+      Top = 26
+      Width = 320
+      Height = 25
+      Style = csDropDownList
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 8
+      TextHint = 'Selecione o modelo'
+    end
   end
   object pnlMenu: TPanel
-    Left = 16
+    Left = 8
     Top = 8
-    Width = 1361
+    Width = 1765
     Height = 81
     TabOrder = 1
     object Label1: TLabel
@@ -1051,7 +1140,7 @@ object FormDashboard: TFormDashboard
     object pnlOperacoes: TPanel
       Left = 320
       Top = 4
-      Width = 516
+      Width = 665
       Height = 73
       TabOrder = 0
       object Label3: TLabel
@@ -1070,7 +1159,7 @@ object FormDashboard: TFormDashboard
       object btnGerarOrdemCorte: TButton
         Left = 11
         Top = 33
-        Width = 160
+        Width = 200
         Height = 30
         Caption = 'Gerar Ordem de Corte (F1)'
         Font.Charset = DEFAULT_CHARSET
@@ -1083,9 +1172,9 @@ object FormDashboard: TFormDashboard
         OnClick = btnGerarOrdemCorteClick
       end
       object btnCriarFichaFaccao: TButton
-        Left = 178
+        Left = 234
         Top = 33
-        Width = 160
+        Width = 200
         Height = 30
         Caption = 'Criar Ficha de Fac'#231#227'o (F2)'
         Font.Charset = DEFAULT_CHARSET
@@ -1098,9 +1187,9 @@ object FormDashboard: TFormDashboard
         OnClick = btnCriarFichaFaccaoClick
       end
       object btnGerenciarEstoque: TButton
-        Left = 345
+        Left = 457
         Top = 33
-        Width = 160
+        Width = 200
         Height = 30
         Caption = 'Gerenciar Estoque (F3)'
         Font.Charset = DEFAULT_CHARSET
@@ -1114,9 +1203,9 @@ object FormDashboard: TFormDashboard
       end
     end
     object pnlCadastros: TPanel
-      Left = 842
+      Left = 991
       Top = 4
-      Width = 513
+      Width = 770
       Height = 73
       TabOrder = 1
       object Label2: TLabel
@@ -1135,7 +1224,7 @@ object FormDashboard: TFormDashboard
       object btnCadastrarProdutos: TButton
         Left = 6
         Top = 33
-        Width = 120
+        Width = 170
         Height = 30
         Caption = 'Produtos (F5)'
         Font.Charset = ANSI_CHARSET
@@ -1148,9 +1237,9 @@ object FormDashboard: TFormDashboard
         OnClick = btnCadastrarProdutosClick
       end
       object btnCadastrarCortador: TButton
-        Left = 132
+        Left = 196
         Top = 33
-        Width = 120
+        Width = 170
         Height = 30
         Caption = 'Cortadores (F6)'
         Font.Charset = ANSI_CHARSET
@@ -1163,9 +1252,9 @@ object FormDashboard: TFormDashboard
         OnClick = btnCadastrarCortadorClick
       end
       object btnCadastrarFaccao: TButton
-        Left = 258
+        Left = 389
         Top = 33
-        Width = 120
+        Width = 170
         Height = 30
         Caption = 'Fac'#231#245'es (F7)'
         Font.Charset = ANSI_CHARSET
@@ -1178,9 +1267,9 @@ object FormDashboard: TFormDashboard
         OnClick = btnCadastrarFaccaoClick
       end
       object btnCadastrarTecido: TButton
-        Left = 384
+        Left = 584
         Top = 33
-        Width = 120
+        Width = 170
         Height = 30
         Caption = 'Tecidos (F8)'
         Font.Charset = ANSI_CHARSET
@@ -1227,13 +1316,6 @@ object FormDashboard: TFormDashboard
       object GerenciarEstoque1: TMenuItem
         Caption = 'Gerenciar Estoque'
         OnClick = GerenciarEstoque1Click
-      end
-    end
-    object Editar1: TMenuItem
-      Caption = 'Editar'
-      object Basededados1: TMenuItem
-        Caption = 'Base de dados'
-        OnClick = Basededados1Click
       end
     end
     object Visualizar1: TMenuItem
@@ -1402,5 +1484,47 @@ object FormDashboard: TFormDashboard
     DataSet = FDQueryProdutos
     Left = 1264
     Top = 192
+  end
+  object DSDadosFiltroProdutos: TDataSource
+    DataSet = FDQueryFiltroProdutos
+    Left = 648
+    Top = 56
+  end
+  object FDQueryFiltroProdutos: TFDQuery
+    Active = True
+    Connection = DataModule1.FDConnection1
+    SQL.Strings = (
+      'select DISTINCT nomeProduto as '#39'Produto'#39' from TBprodutos'
+      'order by Produto asc')
+    Left = 552
+    Top = 56
+  end
+  object DSDadosFiltroFaccao: TDataSource
+    DataSet = FDQueryFiltroFaccao
+    Left = 944
+    Top = 56
+  end
+  object FDQueryFiltroFaccao: TFDQuery
+    Active = True
+    Connection = DataModule1.FDConnection1
+    SQL.Strings = (
+      'select codFaccao, nomeFaccao  from TBfaccao'
+      'order by nomeFaccao asc')
+    Left = 872
+    Top = 56
+  end
+  object DSDadosFiltroCortadores: TDataSource
+    DataSet = FDQueryFiltroCortadores
+    Left = 1320
+    Top = 64
+  end
+  object FDQueryFiltroCortadores: TFDQuery
+    Active = True
+    Connection = DataModule1.FDConnection1
+    SQL.Strings = (
+      'select codCortador, nomeCortador  from TBcortadores'
+      'order by nomeCortador asc')
+    Left = 1232
+    Top = 64
   end
 end

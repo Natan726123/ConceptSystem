@@ -3,7 +3,7 @@ object FormPathDB: TFormPathDB
   Top = 0
   Caption = 'Caminho da Base de Dados'
   ClientHeight = 158
-  ClientWidth = 624
+  ClientWidth = 490
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

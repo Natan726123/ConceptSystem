@@ -8,7 +8,8 @@ uses
   QRCtrls, Vcl.Imaging.jpeg, Vcl.ExtCtrls, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, QRQRBarcode, Vcl.OleCtrls,
+  Vcl.DBOleCtl, ACTIVEBARCODELib_TLB;
 
 type
   TFormRelFichaFaccao1via = class(TForm)
@@ -47,9 +48,9 @@ type
     QRShape15: TQRShape;
     QRLabelNomeCortador: TQRLabel;
     QRShape16: TQRShape;
-    QRLabel30: TQRLabel;
-    QRLabel31: TQRLabel;
-    QRLabel32: TQRLabel;
+    QRLabelDataEnvio: TQRLabel;
+    QRLabelDataPrevista: TQRLabel;
+    QRLabelDataEntrega: TQRLabel;
     QRLabelNumTotalPecas: TQRLabel;
     QRLabelNumFaccao: TQRLabel;
     QRLabelModeloHeader: TQRLabel;
@@ -125,6 +126,8 @@ type
     QRDBText18: TQRDBText;
     FDQueryRelFichaFaccao: TFDQuery;
     DSDadosRelFichaFaccao: TDataSource;
+    procedure QuickRepFichaFaccaoBeforePrint(Sender: TCustomQuickRep;
+      var PrintReport: Boolean);
   private
     { Private declarations }
   public
@@ -140,5 +143,11 @@ uses
   uFormFichaFaccao, uFormConsultaFichaFaccao;
 
 {$R *.dfm}
+
+procedure TFormRelFichaFaccao1via.QuickRepFichaFaccaoBeforePrint(
+  Sender: TCustomQuickRep; var PrintReport: Boolean);
+begin
+  //Barcode.Text := FDQueryConsultaFichaFaccao.FieldByName('idFaccao').AsString;
+end;
 
 end.

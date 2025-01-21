@@ -99,6 +99,19 @@ type
     edtNumFaccao: TEdit;
     Label4: TLabel;
     LinkControlToField4: TLinkControlToField;
+    Label5: TLabel;
+    ComboBoxStatusConsulta: TComboBox;
+    Label6: TLabel;
+    edtCodFaccao2: TEdit;
+    Label7: TLabel;
+    edtNomeFaccao: TEdit;
+    LinkControlToField5: TLinkControlToField;
+    LinkControlToField6: TLinkControlToField;
+    Label8: TLabel;
+    edtNumFichaDeFaccao: TEdit;
+    Label9: TLabel;
+    edtModelo: TEdit;
+    edtTotalPecas: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure PreencherComboBoxFaccao;
     procedure PreencherComboBoxProdutos;
@@ -113,6 +126,13 @@ type
     procedure btnGerarFichaClick(Sender: TObject);
     procedure imprimirFicha1via;
     procedure imprimirFicha2via;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BuscarFichasPorStatus;
+    procedure BuscarFichasPorParametros;
+    procedure BuscarFichasDinamicamente;
+    procedure btnAlterarClick(Sender: TObject);
+    procedure HabilitarCampos;
+    procedure DesabilitarCampos;
   private
     FAtualizandoCalendarios: Boolean; // Variável de controle
     idFaccaoAtivo: Integer;
@@ -200,69 +220,19 @@ begin
   // Limpa os itens do ComboBox e carrega do arquivo
   ComboBoxStatus.Items.Clear;
   ComboBoxStatus.Items.LoadFromFile(CaminhoArquivo);
+
+  ComboBoxStatusConsulta.Items.Clear;
+  ComboBoxStatusConsulta.Items.LoadFromFile(CaminhoArquivo);
+end;
+
+procedure TFormConsultaFichaFaccao.btnAlterarClick(Sender: TObject);
+begin
+  HabilitarCampos;
 end;
 
 procedure TFormConsultaFichaFaccao.btnConsultarFichaClick(Sender: TObject);
 begin
-  // Validação dos filtros
-  if Trim(ComboboxProdutos.Text) = '' then
-  begin
-    ShowMessage('Informe o nome do produto.');
-    Exit;
-  end;
-
-//  if Trim(edtCodFaccao.Text) = '' then
-//  begin
-//    ShowMessage('Informe o código da facção.');
-//    Exit;
-//  end;
-
-  if dtpDataInicial.Date > dtpDataFinal.Date then
-  begin
-    ShowMessage('A data inicial não pode ser maior que a data final.');
-    Exit;
-  end;
-
-  // Prepara a consulta
-  FDQueryConsultaFichaFaccao.Close;
-  FDQueryConsultaFichaFaccao.SQL.Text :=
-    'SELECT idFaccao, dataCriacao, ' +
-    '       nomeProduto AS Modelo, ' +
-    '       corTecido AS Cor, ' +
-    '       SUM(CASE WHEN tamanhoPecas = ''P'' THEN quantidadePecas ELSE 0 END) AS Tam_P, ' +
-    '       SUM(CASE WHEN tamanhoPecas = ''M'' THEN quantidadePecas ELSE 0 END) AS Tam_M, ' +
-    '       SUM(CASE WHEN tamanhoPecas = ''G'' THEN quantidadePecas ELSE 0 END) AS Tam_G, ' +
-    '       SUM(CASE WHEN tamanhoPecas = ''GG'' THEN quantidadePecas ELSE 0 END) AS Tam_GG, ' +
-    '       SUM(CASE WHEN tamanhoPecas = ''48'' THEN quantidadePecas ELSE 0 END) AS Tam_48, ' +
-    '       SUM(CASE WHEN tamanhoPecas = ''50'' THEN quantidadePecas ELSE 0 END) AS Tam_50, ' +
-    '       SUM(CASE WHEN tamanhoPecas = ''52'' THEN quantidadePecas ELSE 0 END) AS Tam_52, ' +
-    '       statusOrdem AS Status, ' +
-    '       STRFTIME(''%d/%m/%Y'', dataCorte) AS DataCorte, ' +
-    '       STRFTIME(''%d/%m/%Y'', DataEnvio)  AS DataEnvio, ' +
-    '       STRFTIME(''%d/%m/%Y'', DataPrevisao) AS DataPrevisao, ' +
-    '       STRFTIME(''%d/%m/%Y'', DataEntrega) AS DataEntrega, ' +
-    '       numCorte, numOrdem, codCortador, nomeCortador ' +
-    'FROM TBFichaDeFaccao ' +
-    'WHERE nomeProduto = :nomeProduto AND ' +
-    '      codFaccao = :codFaccao AND ' +
-    '      dataCriacao BETWEEN :dataInicial AND :dataFinal ' +
-    'GROUP BY nomeProduto, corTecido, statusOrdem ' +
-    'ORDER BY idFaccao, dataCriacao, nomeProduto, corTecido';
-
-  // Atribui os parâmetros
-  FDQueryConsultaFichaFaccao.ParamByName('nomeProduto').AsString := ComboBoxProdutos.Text;
-  FDQueryConsultaFichaFaccao.ParamByName('codFaccao').AsInteger := StrToIntDef(edtCodFaccao.Text, 0);
-  FDQueryConsultaFichaFaccao.ParamByName('dataInicial').AsDate := dtpDataInicial.Date;
-  FDQueryConsultaFichaFaccao.ParamByName('dataFinal').AsDate := dtpDataFinal.Date;
-
-  // Executa a consulta
-  try
-    FDQueryConsultaFichaFaccao.Open;
-  except
-    on E: Exception do
-      ShowMessage('Erro ao executar a consulta: ' + E.Message);
-  end;
-
+  BuscarFichasDinamicamente;
   AjustarLarguraColunas(DBGridFichaDeFaccao);
   //DSDadosConsultaFichaFaccao.DataSet.Edit;
 end;
@@ -389,14 +359,218 @@ begin
   end;
 
   PreencherComboBoxStatus;
+
+  DesabilitarCampos;
 end;
 
+procedure TFormConsultaFichaFaccao.BuscarFichasDinamicamente;
+var
+  SQLBase, SQLWhere: string;
+begin
+  // Validações básicas
+  if (Trim(ComboBoxProdutos.Text) = '') and (Trim(edtCodFaccao.Text) = '') and
+     (Trim(edtNumFichaDeFaccao.Text) = '') and (ComboBoxStatusConsulta.ItemIndex = -1) and
+     (dtpDataInicial.Date = 0) and (dtpDataFinal.Date = 0) then
+  begin
+    ShowMessage('Informe pelo menos um parâmetro para a busca.');
+    Exit;
+  end;
 
+  // Monta a base da consulta
+  SQLBase :=
+    'SELECT idFaccao, codFaccao, nomeFaccao, dataCriacao, ' +
+    '       nomeProduto AS Modelo, corTecido AS Cor, ' +
+    '       SUM(CASE WHEN tamanhoPecas = ''P'' THEN quantidadePecas ELSE 0 END) AS Tam_P, ' +
+    '       SUM(CASE WHEN tamanhoPecas = ''M'' THEN quantidadePecas ELSE 0 END) AS Tam_M, ' +
+    '       SUM(CASE WHEN tamanhoPecas = ''G'' THEN quantidadePecas ELSE 0 END) AS Tam_G, ' +
+    '       SUM(CASE WHEN tamanhoPecas = ''GG'' THEN quantidadePecas ELSE 0 END) AS Tam_GG, ' +
+    '       SUM(CASE WHEN tamanhoPecas = ''48'' THEN quantidadePecas ELSE 0 END) AS Tam_48, ' +
+    '       SUM(CASE WHEN tamanhoPecas = ''50'' THEN quantidadePecas ELSE 0 END) AS Tam_50, ' +
+    '       SUM(CASE WHEN tamanhoPecas = ''52'' THEN quantidadePecas ELSE 0 END) AS Tam_52, ' +
+    '       statusOrdem AS Status, ' +
+    '       STRFTIME(''%d/%m/%Y'', dataCorte) AS DataCorte, ' +
+    '       STRFTIME(''%d/%m/%Y'', DataEnvio)  AS DataEnvio, ' +
+    '       STRFTIME(''%d/%m/%Y'', DataPrevisao) AS DataPrevisao, ' +
+    '       STRFTIME(''%d/%m/%Y'', DataEntrega) AS DataEntrega, ' +
+    '       numCorte, numOrdem, codCortador, nomeCortador, ' +
+    '       (SELECT SUM(quantidadePecas) ' +          // Subquery para total geral por ficha
+    '        FROM TBFichaDeFaccao F2 ' +
+    '        WHERE F2.idFaccao = TBFichaDeFaccao.idFaccao) AS TotalPorFicha ' +
+    'FROM TBFichaDeFaccao ';
+
+  // Adiciona as condições dinamicamente
+  SQLWhere := 'WHERE 1=1 '; // Cláusula inicial sempre verdadeira para facilitar adições
+
+  if Trim(ComboBoxProdutos.Text) <> '' then
+    SQLWhere := SQLWhere + 'AND nomeProduto = :nomeProduto ';
+
+  if Trim(edtCodFaccao.Text) <> '' then
+    SQLWhere := SQLWhere + 'AND codFaccao = :codFaccao ';
+
+  if Trim(edtNumFichaDeFaccao.Text) <> '' then
+    SQLWhere := SQLWhere + 'AND idFaccao = :idFaccao ';
+
+  if ComboBoxStatusConsulta.ItemIndex <> -1 then
+    SQLWhere := SQLWhere + 'AND statusOrdem = :statusOrdem ';
+
+  if (dtpDataInicial.Date > 0) and (dtpDataFinal.Date > 0) then
+  begin
+    if dtpDataInicial.Date > dtpDataFinal.Date then
+    begin
+      ShowMessage('A data inicial não pode ser maior que a data final.');
+      Exit;
+    end;
+    SQLWhere := SQLWhere + 'AND dataCriacao BETWEEN :dataInicial AND :dataFinal ';
+  end;
+
+  // Completa a consulta
+  SQLBase := SQLBase + SQLWhere +
+    'GROUP BY idFaccao, codFaccao, nomeFaccao, nomeProduto, corTecido, statusOrdem ' +
+    'ORDER BY idFaccao, dataCriacao, nomeProduto, corTecido';
+
+  // Prepara a consulta
+  FDQueryConsultaFichaFaccao.Close;
+  FDQueryConsultaFichaFaccao.SQL.Text := SQLBase;
+
+  // Atribui os parâmetros
+  if Trim(ComboBoxProdutos.Text) <> '' then
+    FDQueryConsultaFichaFaccao.ParamByName('nomeProduto').AsString := ComboBoxProdutos.Text;
+
+  if Trim(edtCodFaccao.Text) <> '' then
+    FDQueryConsultaFichaFaccao.ParamByName('codFaccao').AsInteger := StrToIntDef(edtCodFaccao.Text, 0);
+
+  if Trim(edtNumFichaDeFaccao.Text) <> '' then
+    FDQueryConsultaFichaFaccao.ParamByName('idFaccao').AsInteger := StrToIntDef(edtNumFichaDeFaccao.Text, 0);
+
+  if ComboBoxStatusConsulta.ItemIndex <> -1 then
+    FDQueryConsultaFichaFaccao.ParamByName('statusOrdem').AsString := ComboBoxStatusConsulta.Text;
+
+  if (dtpDataInicial.Date > 0) and (dtpDataFinal.Date > 0) then
+  begin
+    FDQueryConsultaFichaFaccao.ParamByName('dataInicial').AsDate := dtpDataInicial.Date;
+    FDQueryConsultaFichaFaccao.ParamByName('dataFinal').AsDate := dtpDataFinal.Date;
+  end;
+
+  // Executa a consulta
+  try
+    FDQueryConsultaFichaFaccao.Open;
+  except
+    on E: Exception do
+      ShowMessage('Erro ao executar a consulta: ' + E.Message);
+  end;
+end;
+
+procedure TFormConsultaFichaFaccao.BuscarFichasPorParametros;
+begin
+  if Trim(ComboboxProdutos.Text) = '' then
+    begin
+      ShowMessage('Informe o nome do produto.');
+      Exit;
+    end;
+
+    if dtpDataInicial.Date > dtpDataFinal.Date then
+    begin
+      ShowMessage('A data inicial não pode ser maior que a data final.');
+      Exit;
+    end;
+
+    // Prepara a consulta
+    FDQueryConsultaFichaFaccao.Close;
+    FDQueryConsultaFichaFaccao.SQL.Text :=
+      'SELECT idFaccao, dataCriacao, ' +
+      '       nomeProduto AS Modelo, ' +
+      '       corTecido AS Cor, ' +
+      '       SUM(CASE WHEN tamanhoPecas = ''P'' THEN quantidadePecas ELSE 0 END) AS Tam_P, ' +
+      '       SUM(CASE WHEN tamanhoPecas = ''M'' THEN quantidadePecas ELSE 0 END) AS Tam_M, ' +
+      '       SUM(CASE WHEN tamanhoPecas = ''G'' THEN quantidadePecas ELSE 0 END) AS Tam_G, ' +
+      '       SUM(CASE WHEN tamanhoPecas = ''GG'' THEN quantidadePecas ELSE 0 END) AS Tam_GG, ' +
+      '       SUM(CASE WHEN tamanhoPecas = ''48'' THEN quantidadePecas ELSE 0 END) AS Tam_48, ' +
+      '       SUM(CASE WHEN tamanhoPecas = ''50'' THEN quantidadePecas ELSE 0 END) AS Tam_50, ' +
+      '       SUM(CASE WHEN tamanhoPecas = ''52'' THEN quantidadePecas ELSE 0 END) AS Tam_52, ' +
+      '       statusOrdem AS Status, ' +
+      '       STRFTIME(''%d/%m/%Y'', dataCorte) AS DataCorte, ' +
+      '       STRFTIME(''%d/%m/%Y'', DataEnvio)  AS DataEnvio, ' +
+      '       STRFTIME(''%d/%m/%Y'', DataPrevisao) AS DataPrevisao, ' +
+      '       STRFTIME(''%d/%m/%Y'', DataEntrega) AS DataEntrega, ' +
+      '       numCorte, numOrdem, codCortador, nomeCortador ' +
+      'FROM TBFichaDeFaccao ' +
+      'WHERE nomeProduto = :nomeProduto AND ' +
+      '      codFaccao = :codFaccao AND ' +
+      '      dataCriacao BETWEEN :dataInicial AND :dataFinal ' +
+      'GROUP BY nomeProduto, corTecido, statusOrdem ' +
+      'ORDER BY idFaccao, dataCriacao, nomeProduto, corTecido';
+
+    // Atribui os parâmetros
+    FDQueryConsultaFichaFaccao.ParamByName('nomeProduto').AsString := ComboBoxProdutos.Text;
+    FDQueryConsultaFichaFaccao.ParamByName('codFaccao').AsInteger := StrToIntDef(edtCodFaccao.Text, 0);
+    FDQueryConsultaFichaFaccao.ParamByName('dataInicial').AsDate := dtpDataInicial.Date;
+    FDQueryConsultaFichaFaccao.ParamByName('dataFinal').AsDate := dtpDataFinal.Date;
+
+    // Executa a consulta
+    try
+      FDQueryConsultaFichaFaccao.Open;
+    except
+      on E: Exception do
+        ShowMessage('Erro ao executar a consulta: ' + E.Message);
+    end;
+end;
+
+procedure TFormConsultaFichaFaccao.BuscarFichasPorStatus;
+begin
+  FDQueryConsultaFichaFaccao.Close;
+  FDQueryConsultaFichaFaccao.SQL.Text :=
+    'SELECT idFaccao, dataCriacao, ' +
+    '       nomeProduto AS Modelo, ' +
+    '       corTecido AS Cor, ' +
+    '       SUM(CASE WHEN tamanhoPecas = ''P'' THEN quantidadePecas ELSE 0 END) AS Tam_P, ' +
+    '       SUM(CASE WHEN tamanhoPecas = ''M'' THEN quantidadePecas ELSE 0 END) AS Tam_M, ' +
+    '       SUM(CASE WHEN tamanhoPecas = ''G'' THEN quantidadePecas ELSE 0 END) AS Tam_G, ' +
+    '       SUM(CASE WHEN tamanhoPecas = ''GG'' THEN quantidadePecas ELSE 0 END) AS Tam_GG, ' +
+    '       SUM(CASE WHEN tamanhoPecas = ''48'' THEN quantidadePecas ELSE 0 END) AS Tam_48, ' +
+    '       SUM(CASE WHEN tamanhoPecas = ''50'' THEN quantidadePecas ELSE 0 END) AS Tam_50, ' +
+    '       SUM(CASE WHEN tamanhoPecas = ''52'' THEN quantidadePecas ELSE 0 END) AS Tam_52, ' +
+    '       statusOrdem, ' +
+    '       STRFTIME(''%d/%m/%Y'', dataCorte) AS DataCorte, ' +
+    '       STRFTIME(''%d/%m/%Y'', DataEnvio)  AS DataEnvio, ' +
+    '       STRFTIME(''%d/%m/%Y'', DataPrevisao) AS DataPrevisao, ' +
+    '       STRFTIME(''%d/%m/%Y'', DataEntrega) AS DataEntrega, ' +
+    '       numCorte, numOrdem, codCortador, nomeCortador ' +
+    'FROM TBFichaDeFaccao ' +
+    'WHERE statusOrdem = :statusOrdem AND' + // Certifique-se de incluir o espaço no final
+    '      dataCriacao BETWEEN :dataInicial AND :dataFinal ' +
+    'GROUP BY nomeProduto, corTecido, statusOrdem ' +
+    'ORDER BY idFaccao, dataCriacao, nomeProduto, corTecido';
+
+  // Atribui os parâmetros
+    FDQueryConsultaFichaFaccao.ParamByName('statusOrdem').AsString := ComboBoxStatusConsulta.Text;
+    FDQueryConsultaFichaFaccao.ParamByName('dataInicial').AsDate := dtpDataInicial.Date;
+    FDQueryConsultaFichaFaccao.ParamByName('dataFinal').AsDate := dtpDataFinal.Date;
+
+    // Executa a consulta
+    try
+      FDQueryConsultaFichaFaccao.Open;
+    except
+      on E: Exception do
+        ShowMessage('Erro ao executar a consulta: ' + E.Message);
+    end;
+end;
 
 procedure TFormConsultaFichaFaccao.ComboBoxFaccaoChange(Sender: TObject);
 begin
 if ComboBoxFaccao.ItemIndex <> -1 then
     edtCodFaccao.Text := IntToStr(Integer(ComboBoxFaccao.Items.Objects[ComboBoxFaccao.ItemIndex]));
+end;
+
+procedure TFormConsultaFichaFaccao.DesabilitarCampos;
+begin
+  lblDataEnvio.Enabled := false;
+  CalendarDataDeEnvio.Enabled := false;
+  lblDataPrevista.Enabled := false;
+  CalendarDataPrevista.Enabled := false;
+  lblDataEntrega.Enabled := false;
+  CalendarDataDeEntrega.Enabled := false;
+  lblStatusFaccao.Enabled := false;
+  ComboBoxStatus.Enabled := false;
 end;
 
 procedure TFormConsultaFichaFaccao.DSDadosConsultaFichaFaccaoDataChange(
@@ -426,8 +600,11 @@ begin
       CalendarDataDeEntrega.Date := dataEntrega ;
 //    else
 //      CalendarDataDeEntrega.Date := now;
-
     idFaccaoAtivo := FDQueryConsultaFichaFaccao.FieldByName('idFaccao').AsInteger;
+
+    edtModelo.Text := FDQueryConsultaFichaFaccao.FieldByName('Modelo').AsString;
+
+    edtTotalPecas.Text := FDQueryConsultaFichaFaccao.FieldByName('TotalPorFicha').AsString;
 
   finally
     FAtualizandoCalendarios := False;
@@ -500,12 +677,30 @@ begin
 
 end;
 
+procedure TFormConsultaFichaFaccao.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  FormConsultaFichaFaccao := nil;
+end;
+
 procedure TFormConsultaFichaFaccao.FormCreate(Sender: TObject);
 begin
   FAtualizandoCalendarios := false;
   PreencherComboBoxFaccao;
   PreencherComboBoxStatus;
   PreencherComboBoxProdutos;
+end;
+
+procedure TFormConsultaFichaFaccao.HabilitarCampos;
+begin
+  lblDataEnvio.Enabled := true;
+  CalendarDataDeEnvio.Enabled := true;
+  lblDataPrevista.Enabled := true;
+  CalendarDataPrevista.Enabled := true;
+  lblDataEntrega.Enabled := true;
+  CalendarDataDeEntrega.Enabled := true;
+  lblStatusFaccao.Enabled := true;
+  ComboBoxStatus.Enabled := true;
 end;
 
 procedure TFormConsultaFichaFaccao.imprimirFicha1via;
@@ -517,10 +712,10 @@ begin
   FormRelFichaFaccao1via.QRLabelNumFaccao.Caption := FormRelFichaFaccao1via.QRLabelNumFaccao.Caption + edtNumFaccao.Text;
 
   FormRelFichaFaccao1via.QRLabelModelo.Caption := 'MODELO: ';
-  FormRelFichaFaccao1via.QRLabelModelo.Caption := FormRelFichaFaccao1via.QRLabelModelo.Caption + ComboBoxProdutos.Text;
+  FormRelFichaFaccao1via.QRLabelModelo.Caption := FormRelFichaFaccao1via.QRLabelModelo.Caption + edtModelo.Text;
 
   FormRelFichaFaccao1via.QRLabelNomeFaccao.Caption := 'FACÇÃO: ';
-  FormRelFichaFaccao1via.QRLabelNomeFaccao.Caption := FormRelFichaFaccao1via.QRLabelNomeFaccao.Caption + ComboBoxFaccao.Text;
+  FormRelFichaFaccao1via.QRLabelNomeFaccao.Caption := FormRelFichaFaccao1via.QRLabelNomeFaccao.Caption + edtNomeFaccao.Text;
 
   FormRelFichaFaccao1via.QRLabelNumCorte.Caption := 'N° CORTE: ';
   FormRelFichaFaccao1via.QRLabelNumCorte.Caption := FormRelFichaFaccao1via.QRLabelNumCorte.Caption + edtNumCorte.Text;
@@ -534,11 +729,32 @@ begin
   FormRelFichaFaccao1via.QRLabelDataCorte.Caption := 'DATA DE CORTE: ';
   FormRelFichaFaccao1via.QRLabelDataCorte.Caption := FormRelFichaFaccao1via.QRLabelDataCorte.Caption + DateToStr(CalendarDataDeCorte.Date);
 
-//  FormRelFichaFaccao1via.QRLabelNumTotalPecas.Caption := 'N° DE PEÇAS: ';
-//  FormRelFichaFaccao1via.QRLabelNumTotalPecas.Caption := lblNumTotalPecas.Caption;
+  //ENVIO: _____/ _____/ _____
+  FormRelFichaFaccao1via.QRLabelDataEnvio.Caption := 'ENVIO: ';
+  if (CalendarDataDeEnvio.IsEmpty) or (DateToStr(CalendarDataDeEnvio.Date) = '30/12/1899')  then
+    FormRelFichaFaccao1via.QRLabelDataEnvio.Caption := 'ENVIO: _____/ _____/ _____'
+  else
+  FormRelFichaFaccao1via.QRLabelDataEnvio.Caption := FormRelFichaFaccao1via.QRLabelDataEnvio.Caption + DateToStr(CalendarDataDeEnvio.Date);
+
+  //PREVISÃO: _____/ _____/ _____
+  FormRelFichaFaccao1via.QRLabelDataPrevista.Caption := 'PREVISÃO: ';
+  if (CalendarDataPrevista.IsEmpty) or (DateToStr(CalendarDataPrevista.Date) = '30/12/1899') then
+    FormRelFichaFaccao1via.QRLabelDataPrevista.Caption := 'PREVISÃO: _____/ _____/ _____'
+  else
+  FormRelFichaFaccao1via.QRLabelDataPrevista.Caption := FormRelFichaFaccao1via.QRLabelDataPrevista.Caption + DateToStr(CalendarDataPrevista.Date);
+
+  //ENTREGA: _____/ _____/ _____
+  FormRelFichaFaccao1via.QRLabelDataEntrega.Caption := 'ENTREGA: ';
+  if (CalendarDataDeEntrega.IsEmpty) or (DateToStr(CalendarDataDeEntrega.Date) = '30/12/1899')  then
+    FormRelFichaFaccao1via.QRLabelDataEntrega.Caption := 'ENTREGA: _____/ _____/ _____'
+  else
+  FormRelFichaFaccao1via.QRLabelDataEntrega.Caption := FormRelFichaFaccao1via.QRLabelDataEntrega.Caption + DateToStr(CalendarDataDeEntrega.Date);
+
+  FormRelFichaFaccao1via.QRLabelNumTotalPecas.Caption := 'N° DE PEÇAS: ';
+  FormRelFichaFaccao1via.QRLabelNumTotalPecas.Caption := FormRelFichaFaccao1via.QRLabelNumTotalPecas.Caption + edtTotalPecas.Text;
 
   FormRelFichaFaccao1via.QRLabelModeloHeader.Caption := 'MODELO';
-  FormRelFichaFaccao1via.QRLabelModeloHeader.Caption := ComboBoxProdutos.Text;
+  FormRelFichaFaccao1via.QRLabelModeloHeader.Caption := edtModelo.Text;
   //QRLabelModeloHeader
 
   FormRelFichaFaccao1via.FDQueryRelFichaFaccao.Close;
@@ -599,11 +815,10 @@ begin
   FormRelFichaFaccao2via.QRLabelNumFaccao.Caption := 'FICHA N°: ';
   FormRelFichaFaccao2via.QRLabelNumFaccao.Caption := FormRelFichaFaccao2via.QRLabelNumFaccao.Caption + edtNumFaccao.Text;
 
-  FormRelFichaFaccao2via.QRLabelModelo.Caption := 'MODELO: ';
-  FormRelFichaFaccao2via.QRLabelModelo.Caption := FormRelFichaFaccao2via.QRLabelModelo.Caption + ComboBoxProdutos.Text;
+
 
   FormRelFichaFaccao2via.QRLabelNomeFaccao.Caption := 'FACÇÃO: ';
-  FormRelFichaFaccao2via.QRLabelNomeFaccao.Caption := FormRelFichaFaccao2via.QRLabelNomeFaccao.Caption + ComboBoxFaccao.Text;
+  FormRelFichaFaccao2via.QRLabelNomeFaccao.Caption := FormRelFichaFaccao2via.QRLabelNomeFaccao.Caption + edtNomeFaccao.Text;
 
   FormRelFichaFaccao2via.QRLabelNumCorte.Caption := 'N° CORTE: ';
   FormRelFichaFaccao2via.QRLabelNumCorte.Caption := FormRelFichaFaccao2via.QRLabelNumCorte.Caption + edtNumCorte.Text;
@@ -617,11 +832,37 @@ begin
   FormRelFichaFaccao2via.QRLabelDataCorte.Caption := 'DATA DE CORTE: ';
   FormRelFichaFaccao2via.QRLabelDataCorte.Caption := FormRelFichaFaccao2via.QRLabelDataCorte.Caption + DateToStr(CalendarDataDeCorte.Date);
 
-//  FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption := 'N° DE PEÇAS: ';
-//  FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption := lblNumTotalPecas.Caption;
+  FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption := 'N° DE PEÇAS: ';
+  FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption := FormRelFichaFaccao2via.QRLabelNumTotalPecas.Caption + edtTotalPecas.Text;
+
+  //ENVIO: _____/ _____/ _____
+  FormRelFichaFaccao2via.QRLabelDataEnvio.Caption := 'ENVIO: ';
+  if (CalendarDataDeEnvio.IsEmpty) or (DateToStr(CalendarDataDeEnvio.Date) = '30/12/1899')  then
+    FormRelFichaFaccao2via.QRLabelDataEnvio.Caption := 'ENVIO: _____/ _____/ _____'
+  else
+  FormRelFichaFaccao2via.QRLabelDataEnvio.Caption := FormRelFichaFaccao2via.QRLabelDataEnvio.Caption + DateToStr(CalendarDataDeEnvio.Date);
+
+  //PREVISÃO: _____/ _____/ _____
+  FormRelFichaFaccao2via.QRLabelDataPrevista.Caption := 'PREVISÃO: ';
+  if (CalendarDataPrevista.IsEmpty) or (DateToStr(CalendarDataPrevista.Date) = '30/12/1899') then
+    FormRelFichaFaccao2via.QRLabelDataPrevista.Caption := 'PREVISÃO: _____/ _____/ _____'
+  else
+  FormRelFichaFaccao2via.QRLabelDataPrevista.Caption := FormRelFichaFaccao2via.QRLabelDataPrevista.Caption + DateToStr(CalendarDataPrevista.Date);
+
+  //ENTREGA: _____/ _____/ _____
+  FormRelFichaFaccao2via.QRLabelDataEntrega.Caption := 'ENTREGA: ';
+  if (CalendarDataDeEntrega.IsEmpty) or (DateToStr(CalendarDataDeEntrega.Date) = '30/12/1899')  then
+    FormRelFichaFaccao2via.QRLabelDataEntrega.Caption := 'ENTREGA: _____/ _____/ _____'
+  else
+  FormRelFichaFaccao2via.QRLabelDataEntrega.Caption := FormRelFichaFaccao2via.QRLabelDataEntrega.Caption + DateToStr(CalendarDataDeEntrega.Date);
+
 
   FormRelFichaFaccao2via.QRLabelModeloHeader.Caption := 'MODELO';
-  FormRelFichaFaccao2via.QRLabelModeloHeader.Caption := ComboBoxProdutos.Text;
+  FormRelFichaFaccao2via.QRLabelModeloHeader.Caption := edtModelo.Text;
+
+  FormRelFichaFaccao2via.QRLabelModelo.Caption := 'MODELO: ';
+  FormRelFichaFaccao2via.QRLabelModelo.Caption := FormRelFichaFaccao2via.QRLabelModelo.Caption + edtModelo.Text;
+
   //QRLabelModeloHeader
 
   FormRelFichaFaccao2via.FDQueryRelFichaFaccao.Close;

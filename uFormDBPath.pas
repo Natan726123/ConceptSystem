@@ -28,7 +28,13 @@ implementation
 
 procedure TFormPathDB.btnSalvarPathDBClick(Sender: TObject);
 begin
-  DBPath.FDConnection1.Params.Database := edtNamePathDB.Text;
+
+  if Application.MessageBox(PChar(
+    'Deseja realmente alterar o caminho da base de dados?'), 'Atenção',
+    MB_ICONQUESTION + MB_YESNO) = IDYES then
+    Form6.FDConnection1.Params.Database := edtNamePathDB.Text;
+
+
 end;
 
 end.

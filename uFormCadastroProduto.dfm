@@ -5469,7 +5469,7 @@
     Height = 23
     Enabled = False
     TabOrder = 0
-    Text = 'Light'
+    Text = 'Carinho'
     TextHint = 'Digite o nome do produto'
   end
   object edtReferencia: TEdit
@@ -5479,7 +5479,7 @@
     Height = 23
     Enabled = False
     TabOrder = 1
-    Text = 'REF-GEN'
+    Text = '700'
     TextHint = 'Digite uma refer'#234'ncia do produto'
   end
   object MemoFichaTecnica: TMemo
@@ -6548,6 +6548,15 @@
       'Ativo'
       'Ativo')
   end
+  object btnReplicarFichaTecnica: TButton
+    Left = 808
+    Top = 124
+    Width = 131
+    Height = 21
+    Caption = 'Replicar ficha t'#233'cnica'
+    TabOrder = 18
+    OnClick = btnReplicarFichaTecnicaClick
+  end
   object DSDadosCadastroTecidos: TDataSource
     AutoEdit = False
     DataSet = Form6.FDQuery1
@@ -6638,7 +6647,7 @@
       FieldName = 'Ficha T'#233'cnica'
       Origin = 'fichaTecnica'
       FixedChar = True
-      Size = 50
+      Size = 200
     end
     object FDQueryProdutosCusto: TBCDField
       FieldName = 'Custo'
@@ -6719,13 +6728,6 @@
       Control = edtPrecoCusto
       Track = True
     end
-    object LinkControlToField6: TLinkControlToField
-      Category = 'Quick Bindings'
-      DataSource = BindSourceDB1
-      FieldName = 'Ficha T'#233'cnica'
-      Control = MemoFichaTecnica
-      Track = False
-    end
     object LinkControlToField7: TLinkControlToField
       Category = 'Quick Bindings'
       DataSource = BindSourceDB1
@@ -6773,11 +6775,122 @@
       FillHeaderExpressions = <>
       FillBreakGroups = <>
     end
+    object LinkControlToField6: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB3
+      FieldName = 'Ficha T'#233'cnica'
+      Control = MemoFichaTecnica
+      Track = False
+    end
   end
   object BindSourceDB2: TBindSourceDB
     DataSet = FDQueryTecidos
     ScopeMappings = <>
     Left = 168
     Top = 8
+  end
+  object BindSourceDB3: TBindSourceDB
+    DataSource = DSDadosProdutos
+    ScopeMappings = <>
+    Left = 448
+    Top = 176
+  end
+  object FDQueryUpdate: TFDQuery
+    OnFilterRecord = FDQueryProdutosFilterRecord
+    Connection = Form6.FDConnection1
+    SQL.Strings = (
+      'select P.codProduto as '#39'Id'#39','
+      'P.nomeProduto as '#39'Produto'#39','
+      'P.refProduto as '#39'Refer'#234'ncia'#39','
+      'P.tamanhoProduto as '#39'Tamanho'#39','
+      'P.rendimentoKg as '#39'Rendimento'#39','
+      'P.localizacaoProduto as '#39'Localiza'#231#227'o'#39','
+      'P.codTecido as '#39'Cod Tecido'#39','
+      'T.nomeTecido as '#39'Tecido'#39','
+      'P.fichaTecnica as '#39'Ficha T'#233'cnica'#39','
+      'P.precoCusto as '#39'Custo'#39','
+      'P.aviamentoProduto as '#39'Aviamento'#39','
+      'P.statusProduto as '#39'Status'#39
+      ''
+      ''
+      'from TBprodutos P, TBtecidos T'
+      #9'where P.codTecido = T.codTecido;')
+    Left = 448
+    Top = 58
+    object FDAutoIncField1: TFDAutoIncField
+      FieldName = 'Id'
+      Origin = 'codProduto'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = False
+    end
+    object StringField1: TStringField
+      FieldName = 'Produto'
+      Origin = 'nomeProduto'
+      Required = True
+      FixedChar = True
+      Size = 50
+    end
+    object StringField2: TStringField
+      FieldName = 'Refer'#234'ncia'
+      Origin = 'refProduto'
+      FixedChar = True
+      Size = 50
+    end
+    object StringField3: TStringField
+      FieldName = 'Tamanho'
+      Origin = 'tamanhoProduto'
+      Required = True
+      FixedChar = True
+      Size = 10
+    end
+    object IntegerField1: TIntegerField
+      FieldName = 'Rendimento'
+      Origin = 'rendimentoKg'
+      Required = True
+    end
+    object StringField4: TStringField
+      FieldName = 'Localiza'#231#227'o'
+      Origin = 'localizacaoProduto'
+      Required = True
+      FixedChar = True
+    end
+    object IntegerField2: TIntegerField
+      FieldName = 'Cod Tecido'
+      Origin = 'codTecido'
+      Required = True
+    end
+    object StringField5: TStringField
+      FieldName = 'Tecido'
+      Origin = 'nomeTecido'
+      Required = True
+      FixedChar = True
+      Size = 50
+    end
+    object StringField6: TStringField
+      FieldName = 'Ficha T'#233'cnica'
+      Origin = 'fichaTecnica'
+      FixedChar = True
+      Size = 200
+    end
+    object BCDField1: TBCDField
+      FieldName = 'Custo'
+      Origin = 'precoCusto'
+      currency = True
+      Precision = 10
+      Size = 2
+    end
+    object BCDField2: TBCDField
+      FieldName = 'Aviamento'
+      Origin = 'aviamentoProduto'
+      Required = True
+      Precision = 10
+      Size = 2
+    end
+    object StringField7: TStringField
+      FieldName = 'Status'
+      Origin = 'statusProduto'
+      Required = True
+      FixedChar = True
+    end
   end
 end

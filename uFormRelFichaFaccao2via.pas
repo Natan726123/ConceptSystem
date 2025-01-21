@@ -27,9 +27,9 @@ type
     QRShape15: TQRShape;
     QRLabelNomeCortador: TQRLabel;
     QRShape16: TQRShape;
-    QRLabel30: TQRLabel;
-    QRLabel31: TQRLabel;
-    QRLabel32: TQRLabel;
+    QRLabelDataEnvio: TQRLabel;
+    QRLabelDataPrevista: TQRLabel;
+    QRLabelDataEntrega: TQRLabel;
     QRLabelNumTotalPecas: TQRLabel;
     QRLabelNumFaccao: TQRLabel;
     QRLabel19: TQRLabel;

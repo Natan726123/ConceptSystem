@@ -11,6 +11,7 @@
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
   TextHeight = 15
@@ -5749,7 +5750,7 @@
     end
     object ComboBoxProdutos: TComboBox
       Left = 128
-      Top = 50
+      Top = 56
       Width = 304
       Height = 25
       Enabled = False
@@ -5762,20 +5763,6 @@
       TabOrder = 0
       TextHint = 'Selecione o modelo'
       OnChange = ComboBoxProdutosChange
-      Items.Strings = (
-        'Cotton Liso'
-        'Microfibra'
-        'Frezze'
-        'Cotton Liso Preto/Branco/Chocolate'
-        'Cotton Mescla'
-        'Micro Canelada'
-        'Cotton Confete'
-        'Renda'
-        'Micro Pto/Cho'
-        'Romantic'
-        'Cotton Lolita'
-        'Cotton Dry'
-        'Suplex Preto/Chocolate')
     end
     object PanelTamanhos: TPanel
       Left = 14
@@ -5918,6 +5905,7 @@
       Top = 210
       Width = 229
       Height = 25
+      Style = csDropDownList
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -5990,6 +5978,7 @@
       Top = 112
       Width = 166
       Height = 25
+      Style = csDropDownList
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -6031,6 +6020,7 @@
       Top = 162
       Width = 229
       Height = 25
+      Style = csDropDownList
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -6204,6 +6194,7 @@
       Top = 259
       Width = 228
       Height = 25
+      Style = csDropDownList
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
