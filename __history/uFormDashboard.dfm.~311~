@@ -141,9 +141,9 @@ object FormDashboard: TFormDashboard
       TextHint = 'selecione uma data'
     end
     object btnAtualizar: TButton
-      Left = 1462
+      Left = 1461
       Top = 27
-      Width = 170
+      Width = 124
       Height = 25
       Caption = 'Atualizar'
       Font.Charset = DEFAULT_CHARSET
@@ -403,6 +403,7 @@ object FormDashboard: TFormDashboard
       Top = 26
       Width = 320
       Height = 25
+      Style = csDropDownList
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -410,13 +411,14 @@ object FormDashboard: TFormDashboard
       Font.Style = []
       ParentFont = False
       TabOrder = 7
-      TextHint = 'Selecione a fac'#231#227'o'
+      TextHint = 'Selecione o modelo'
     end
     object ComboBoxCortador: TComboBox
       Left = 1117
       Top = 26
       Width = 320
       Height = 25
+      Style = csDropDownList
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -424,12 +426,12 @@ object FormDashboard: TFormDashboard
       Font.Style = []
       ParentFont = False
       TabOrder = 8
-      TextHint = 'Selecione o cortador'
+      TextHint = 'Selecione o modelo'
     end
     object btnLimparFiltros: TButton
-      Left = 1656
+      Left = 1621
       Top = 27
-      Width = 89
+      Width = 124
       Height = 25
       Caption = 'Limpar filtros'
       Font.Charset = DEFAULT_CHARSET

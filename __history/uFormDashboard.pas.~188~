@@ -80,7 +80,6 @@ type
     ComboBoxCortador: TComboBox;
     DSDadosFiltroCortadores: TDataSource;
     FDQueryFiltroCortadores: TFDQuery;
-    btnLimparFiltros: TButton;
     procedure btnGerarOrdemCorteClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCadastrarTecidoClick(Sender: TObject);
@@ -114,7 +113,6 @@ type
     procedure PreencherComboBoxFaccao;
     procedure PreencherComboBoxProdutos;
     procedure FormCreate(Sender: TObject);
-    procedure btnLimparFiltrosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -131,7 +129,7 @@ implementation
 
 procedure TFormDashboard.AtualizarRankingCortadores;
 var
-  DataInicial, DataFinal, SQLBase: string;
+  DataInicial, DataFinal: string;
   Cortador: string;
   TotalPecas: Double;
 begin
@@ -141,48 +139,22 @@ begin
 
   FDQueryCortadores.Close;
 
-  // Base do SQL com os filtros principais
-  SQLBase :=
-    'SELECT ' +
-    '    nomeCortador, ' +
-    '    SUM(quantidadePecas) AS totalPecas ' +
-    'FROM ' +
-    '    TBFichaDeFaccao ' +
-    'WHERE ' +
-    '    dataCriacao BETWEEN :dataInicial AND :dataFinal ';
+  FDQueryCortadores.SQL.Text :=
+  'SELECT ' +
+  '    nomeCortador, ' +
+  '    SUM(quantidadePecas) AS totalPecas ' +
+  'FROM ' +
+  '    TBFichaDeFaccao ' +
+  'WHERE ' +
+  '    dataCriacao BETWEEN :dataInicial AND :dataFinal ' +
+  'GROUP BY ' +
+  '    nomeCortador ' +
+  'ORDER BY ' +
+  '    totalPecas DESC';
 
-  // Adiciona filtros opcionais dinamicamente
-  if ComboBoxProdutos.Text <> '' then
-    SQLBase := SQLBase + 'AND nomeProduto = :nomeProduto ';
 
-  if ComboBoxFaccao.Text <> '' then
-    SQLBase := SQLBase + 'AND nomeFaccao = :nomeFaccao ';
-
-  if ComboBoxCortador.Text <> '' then
-    SQLBase := SQLBase + 'AND nomeCortador = :nomeCortador ';
-
-  // Finaliza o SQL
-  SQLBase := SQLBase +
-    'GROUP BY ' +
-    '    nomeCortador ' +
-    'ORDER BY ' +
-    '    totalPecas DESC';
-
-  FDQueryCortadores.SQL.Text := SQLBase;
-
-  // Define os parâmetros obrigatórios
-  FDQueryCortadores.ParamByName('dataInicial').AsString := DataInicial;
-  FDQueryCortadores.ParamByName('dataFinal').AsString := DataFinal;
-
-  // Define os parâmetros opcionais, se aplicáveis
-  if ComboBoxProdutos.Text <> '' then
-    FDQueryCortadores.ParamByName('nomeProduto').AsString := ComboBoxProdutos.Text;
-
-  if ComboBoxFaccao.Text <> '' then
-    FDQueryCortadores.ParamByName('nomeFaccao').AsString := ComboBoxFaccao.Text;
-
-  if ComboBoxCortador.Text <> '' then
-    FDQueryCortadores.ParamByName('nomeCortador').AsString := ComboBoxCortador.Text;
+  FDQueryCortadores.ParamByName('dataInicial').AsString := FormatDateTime('yyyy-mm-dd', dtpDataInicial.Date);
+  FDQueryCortadores.ParamByName('dataFinal').AsString := FormatDateTime('yyyy-mm-dd', dtpDataFinal.Date);
 
   FDQueryCortadores.Open;
 
@@ -202,8 +174,8 @@ begin
   end;
 
   // Exibe mensagem se não houver dados
-  // if FDQueryCortadores.IsEmpty then
-  //   ShowMessage('Nenhum dado de Cortador encontrado para o período selecionado.');
+//  if FDQueryCortadores.IsEmpty then
+//    ShowMessage('Nenhum dado de Cortador encontrado para o período selecionado.');
 
   ChartRankingCorte.Refresh;
 end;
@@ -244,23 +216,6 @@ end;
 procedure TFormDashboard.btnStyleGlossyClick(Sender: TObject);
 begin
   TStyleManager.TrySetStyle('Glossy');
-end;
-
-procedure TFormDashboard.btnLimparFiltrosClick(Sender: TObject);
-var
-  Ano, Mes, Dia: Word;
-begin
-  // Define o primeiro dia do mês atual como data inicial
-  DecodeDate(Date, Ano, Mes, Dia);
-  dtpDataInicial.Date := EncodeDate(Ano, Mes, 1);
-
-  // Define a data atual como data final
-  dtpDataFinal.Date := Date;
-
-  ComboBoxProdutos.text := '';
-  ComboBoxFaccao.text := '';
-  ComboBoxCortador.text := '';
-
 end;
 
 procedure TFormDashboard.btnCadastrarFaccaoClick(Sender: TObject);
@@ -334,64 +289,47 @@ end;
 
 procedure TFormDashboard.AtualizarRankingFaccao;
 var
-  DataInicial, DataFinal, SQLBase: string;
+  DataInicial, DataFinal: string;
   Faccao: string;
   TotalPecas: Double;
+  filtroProduto: string;
 begin
+  if (ComboBoxProdutos.Text = '') then
+    filtroProduto := ''
+  else
+    filtroProduto := 'AND nomeProduto = :nomeProduto';
+
   // Converte as datas para o formato yyyy-mm-dd
   DataInicial := FormatDateTime('yyyy-mm-dd', dtpDataInicial.Date);
   DataFinal := FormatDateTime('yyyy-mm-dd', dtpDataFinal.Date);
 
   FDQueryFaccao.Close;
 
-  // Base do SQL com os filtros principais
-  SQLBase :=
-    'SELECT ' +
-    '    DISTINCT nomeFaccao, ' +
-    '    SUM(quantidadePecas) AS totalPecas ' +
-    'FROM ' +
-    '    TBFichaDeFaccao ' +
-    'WHERE ' +
-    '    dataCriacao BETWEEN :dataInicial AND :dataFinal ' +
-    '    and nomeFaccao <> '''' ';
+  FDQueryFaccao.SQL.Text :=
+  'SELECT ' +
+  '    DISTINCT nomeFaccao, ' +
+  '    SUM(quantidadePecas) AS totalPecas ' +
+  'FROM ' +
+  '    TBFichaDeFaccao ' +
+  'WHERE ' +
+  '    dataCriacao BETWEEN :dataInicial AND :dataFinal ' +
+  '    and nomeFaccao <> '''' ' +
+  filtroProduto +
+  'GROUP BY ' +
+  '    nomeFaccao ' +
+  'ORDER BY ' +
+  '    totalPecas DESC';
 
-  // Adiciona filtros opcionais dinamicamente
-  if ComboBoxProdutos.Text <> '' then
-    SQLBase := SQLBase + 'AND nomeProduto = :nomeProduto ';
 
-  if ComboBoxFaccao.Text <> '' then
-    SQLBase := SQLBase + 'AND nomeFaccao = :nomeFaccao ';
-
-  if ComboBoxCortador.Text <> '' then
-    SQLBase := SQLBase + 'AND nomeCortador = :nomeCortador ';
-
-  // Finaliza o SQL
-  SQLBase := SQLBase +
-    'GROUP BY ' +
-    '    nomeFaccao ' +
-    'ORDER BY ' +
-    '    totalPecas DESC';
-
-  FDQueryFaccao.SQL.Text := SQLBase;
-
-  // Define os parâmetros obrigatórios
-  FDQueryFaccao.ParamByName('dataInicial').AsString := DataInicial;
-  FDQueryFaccao.ParamByName('dataFinal').AsString := DataFinal;
-
-  // Define os parâmetros opcionais, se aplicáveis
-  if ComboBoxProdutos.Text <> '' then
+  FDQueryFaccao.ParamByName('dataInicial').AsString := FormatDateTime('yyyy-mm-dd', dtpDataInicial.Date);
+  FDQueryFaccao.ParamByName('dataFinal').AsString := FormatDateTime('yyyy-mm-dd', dtpDataFinal.Date);
+  if (ComboBoxProdutos.Text <> '') then
     FDQueryFaccao.ParamByName('nomeProduto').AsString := ComboBoxProdutos.Text;
-
-  if ComboBoxFaccao.Text <> '' then
-    FDQueryFaccao.ParamByName('nomeFaccao').AsString := ComboBoxFaccao.Text;
-
-  if ComboBoxCortador.Text <> '' then
-    FDQueryFaccao.ParamByName('nomeCortador').AsString := ComboBoxCortador.Text;
 
   FDQueryFaccao.Open;
 
   // Limpa os dados do gráfico
-  //ChartRankingFaccao.Series[0].Clear;
+  //ChartRankingCorte.Series[0].Clear;
 
   // Preenche o gráfico com os dados da query
   while not FDQueryFaccao.Eof do
@@ -406,111 +344,65 @@ begin
   end;
 
   // Exibe mensagem se não houver dados
-  // if FDQueryFaccao.IsEmpty then
-  //   ShowMessage('Nenhum dado encontrado para o período selecionado.');
+//  if FDQueryFaccao.IsEmpty then
+//    ShowMessage('Nenhum dado encontrado para o período selecionado.');
 
   ChartRankingFaccao.Refresh;
 end;
 
 procedure TFormDashboard.AtualizarRankingProdutos;
 var
-  SQLBase, SQLWhere: string;
+  DataInicial, DataFinal: string;
   Produto: string;
   TotalPecas: Double;
 begin
-  // Monta a base da consulta
-  SQLBase :=
-    'SELECT DISTINCT ' +
-    '  nomeProduto, ' +
-    '  SUM(quantidadePecas) AS totalPecas ' +
-    'FROM ' +
-    '  TBFichaDeFaccao ';
+  // Converte as datas para o formato yyyy-mm-dd
+  DataInicial := FormatDateTime('yyyy-mm-dd', dtpDataInicial.Date);
+  DataFinal := FormatDateTime('yyyy-mm-dd', dtpDataFinal.Date);
 
-  // Inicia a cláusula WHERE
-  SQLWhere := 'WHERE dataCriacao BETWEEN :dataInicial AND :dataFinal ';
-
-  // Adiciona filtros dinamicamente
-  if ComboBoxProdutos.Text <> '' then
-    SQLWhere := SQLWhere + 'AND nomeProduto = :nomeProduto ';
-
-  if ComboBoxFaccao.Text <> '' then
-    SQLWhere := SQLWhere + 'AND nomeFaccao = :nomeFaccao ';
-
-  if ComboBoxCortador.Text <> '' then
-    SQLWhere := SQLWhere + 'AND nomeCortador = :nomeCortador ';
-
-  // Completa a query
-  SQLBase := SQLBase + SQLWhere +
-    'GROUP BY nomeProduto ' +
-    'ORDER BY totalPecas DESC ' +
-    'LIMIT 15';
-
-  // Configura a query no FDQuery
   FDQueryProdutos.Close;
-  FDQueryProdutos.SQL.Text := SQLBase;
 
-  // Logs para depuração
- // ShowMessage(FDQueryProdutos.SQL.Text);
-
-  // Define os parâmetros obrigatórios
-  FDQueryProdutos.ParamByName('dataInicial').AsDate := dtpDataInicial.Date;
-  FDQueryProdutos.ParamByName('dataFinal').AsDate := dtpDataFinal.Date;
-
-  // Define os parâmetros opcionais, se aplicável
-  if ComboBoxProdutos.Text <> '' then
-    FDQueryProdutos.ParamByName('nomeProduto').AsString := ComboBoxProdutos.Text;
-
-  if ComboBoxFaccao.Text <> '' then
-    FDQueryProdutos.ParamByName('nomeFaccao').AsString := ComboBoxFaccao.Text;
-
-  if ComboBoxCortador.Text <> '' then
-    FDQueryProdutos.ParamByName('nomeCortador').AsString := ComboBoxCortador.Text;
-
-  // Executa a consulta
-  try
-    FDQueryProdutos.Open;
-
-//    if FDQueryProdutos.IsEmpty then
-//    begin
-//      ShowMessage('A consulta não retornou dados. Verifique os filtros aplicados.');
-//      Exit;
-//    end;
-
-    // Limpa os dados do gráfico
-    //ChartRankingProdutos.Series[0].Clear;
-
-    // Preenche o gráfico com os dados da consulta
-     // Preenche o gráfico com os dados da query
-    while not FDQueryProdutos.Eof do
-    begin
-      Produto := FDQueryProdutos.FieldByName('nomeProduto').AsString;
-      TotalPecas := FDQueryProdutos.FieldByName('totalPecas').AsFloat;
-
-      // Adiciona os dados ao gráfico
-      ChartRankingProdutos.Series[0].Add(TotalPecas, Produto);
-
-      FDQueryProdutos.Next;
-    end;
-
-    while not FDQueryProdutos.Eof do
-    begin
-      ChartRankingProdutos.Series[0].Add(
-        FDQueryProdutos.FieldByName('totalPecas').AsFloat, // Valor numérico
-        FDQueryProdutos.FieldByName('nomeProduto').AsString // Rótulo do eixo X
-      );
-      FDQueryProdutos.Next;
-    end;
+  FDQueryProdutos.SQL.Text :=
+      'SELECT DISTINCT ' +
+      '  nomeProduto, ' +
+      '  SUM(quantidadePecas) AS totalPecas ' +
+      'FROM ' +
+      '  TBFichaDeFaccao ' +
+      'WHERE ' +
+      '  dataCriacao BETWEEN :dataInicial AND :dataFinal ' +
+      'GROUP BY ' +
+      '  nomeProduto ' +
+      'ORDER BY ' +
+      '  totalPecas DESC ' +
+      'LIMIT 15';
 
 
-    // Atualiza o gráfico
-    ChartRankingProdutos.Refresh;
+  FDQueryProdutos.ParamByName('dataInicial').AsString := FormatDateTime('yyyy-mm-dd', dtpDataInicial.Date);
+  FDQueryProdutos.ParamByName('dataFinal').AsString := FormatDateTime('yyyy-mm-dd', dtpDataFinal.Date);
 
-  except
-    on E: Exception do
-      ShowMessage('Erro ao executar a consulta: ' + E.Message);
+  FDQueryProdutos.Open;
+
+  // Limpa os dados do gráfico
+  //ChartRankingCorte.Series[0].Clear;
+
+  // Preenche o gráfico com os dados da query
+  while not FDQueryProdutos.Eof do
+  begin
+    Produto := FDQueryProdutos.FieldByName('nomeProduto').AsString;
+    TotalPecas := FDQueryProdutos.FieldByName('totalPecas').AsFloat;
+
+    // Adiciona os dados ao gráfico
+    ChartRankingProdutos.Series[0].Add(TotalPecas, Produto);
+
+    FDQueryProdutos.Next;
   end;
-end;
 
+  // Exibe mensagem se não houver dados
+//  if FDQueryProdutos.IsEmpty then
+//    ShowMessage('Nenhum dado encontrado para o período selecionado.');
+
+  ChartRankingProdutos.Refresh;
+end;
 
 procedure TFormDashboard.Basededados1Click(Sender: TObject);
 var

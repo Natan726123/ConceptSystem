@@ -52,7 +52,7 @@ object FormDashboard: TFormDashboard
       ParentFont = False
     end
     object Label6: TLabel
-      Left = 424
+      Left = 520
       Top = 10
       Width = 320
       Height = 18
@@ -65,7 +65,7 @@ object FormDashboard: TFormDashboard
       ParentFont = False
     end
     object Label7: TLabel
-      Left = 769
+      Left = 865
       Top = 10
       Width = 320
       Height = 18
@@ -78,7 +78,7 @@ object FormDashboard: TFormDashboard
       ParentFont = False
     end
     object lblCortador: TLabel
-      Left = 1117
+      Left = 1213
       Top = 7
       Width = 320
       Height = 18
@@ -141,9 +141,9 @@ object FormDashboard: TFormDashboard
       TextHint = 'selecione uma data'
     end
     object btnAtualizar: TButton
-      Left = 1462
+      Left = 400
       Top = 27
-      Width = 170
+      Width = 89
       Height = 25
       Caption = 'Atualizar'
       Font.Charset = DEFAULT_CHARSET
@@ -198,6 +198,18 @@ object FormDashboard: TFormDashboard
         530104
         329126
         1704819)
+      object DBGrid1: TDBGrid
+        Left = 769
+        Top = 200
+        Width = 408
+        Height = 272
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -12
+        TitleFont.Name = 'Segoe UI'
+        TitleFont.Style = []
+      end
       object Series2: TBarSeries
         HoverElement = []
         Legend.Visible = False
@@ -385,7 +397,7 @@ object FormDashboard: TFormDashboard
       end
     end
     object ComboBoxProdutos: TComboBox
-      Left = 424
+      Left = 520
       Top = 26
       Width = 320
       Height = 25
@@ -399,10 +411,11 @@ object FormDashboard: TFormDashboard
       TextHint = 'Selecione o modelo'
     end
     object ComboBoxFaccao: TComboBox
-      Left = 769
+      Left = 865
       Top = 26
       Width = 320
       Height = 25
+      Style = csDropDownList
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -410,13 +423,14 @@ object FormDashboard: TFormDashboard
       Font.Style = []
       ParentFont = False
       TabOrder = 7
-      TextHint = 'Selecione a fac'#231#227'o'
+      TextHint = 'Selecione o modelo'
     end
     object ComboBoxCortador: TComboBox
-      Left = 1117
+      Left = 1213
       Top = 26
       Width = 320
       Height = 25
+      Style = csDropDownList
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -424,22 +438,7 @@ object FormDashboard: TFormDashboard
       Font.Style = []
       ParentFont = False
       TabOrder = 8
-      TextHint = 'Selecione o cortador'
-    end
-    object btnLimparFiltros: TButton
-      Left = 1656
-      Top = 27
-      Width = 89
-      Height = 25
-      Caption = 'Limpar filtros'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 9
-      OnClick = btnLimparFiltrosClick
+      TextHint = 'Selecione o modelo'
     end
   end
   object pnlMenu: TPanel

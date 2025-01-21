@@ -247,20 +247,29 @@ begin
 end;
 
 procedure TFormDashboard.btnLimparFiltrosClick(Sender: TObject);
-var
-  Ano, Mes, Dia: Word;
 begin
-  // Define o primeiro dia do mês atual como data inicial
-  DecodeDate(Date, Ano, Mes, Dia);
-  dtpDataInicial.Date := EncodeDate(Ano, Mes, 1);
+  ComboBoxProdutos.Clear;
+  ComboBoxFaccao.Clear;
+  ComboBoxCortador.Clear;
 
-  // Define a data atual como data final
-  dtpDataFinal.Date := Date;
+//  ChartRankingCorte.Series[0].Clear;
+//  ChartRankingFaccao.Series[0].Clear;
+//  ChartRankingProdutos.Series[0].Clear;
 
-  ComboBoxProdutos.text := '';
-  ComboBoxFaccao.text := '';
-  ComboBoxCortador.text := '';
+//  AtualizarRankingCortadores;
+//  AtualizarRankingFaccao;
+//  AtualizarRankingProdutos;
 
+//  if (FDQueryCortadores.IsEmpty or FDQueryFaccao.IsEmpty or FDQueryProdutos.IsEmpty) then
+//    ShowMessage('Nenhum dado encontrado para o período selecionado.');
+
+//  DSDadosCortadores.DataSet.Refresh;
+//  DSDadosFaccao.DataSet.Refresh;
+//  DSDadosProdutos.DataSet.Refresh;
+
+//  PreencherComboBoxProdutos;
+//  PreencherComboBoxFaccao;
+//  PreencherComboBoxCortador;
 end;
 
 procedure TFormDashboard.btnCadastrarFaccaoClick(Sender: TObject);
@@ -470,11 +479,11 @@ begin
   try
     FDQueryProdutos.Open;
 
-//    if FDQueryProdutos.IsEmpty then
-//    begin
-//      ShowMessage('A consulta não retornou dados. Verifique os filtros aplicados.');
-//      Exit;
-//    end;
+    if FDQueryProdutos.IsEmpty then
+    begin
+      ShowMessage('A consulta não retornou dados. Verifique os filtros aplicados.');
+      Exit;
+    end;
 
     // Limpa os dados do gráfico
     //ChartRankingProdutos.Series[0].Clear;

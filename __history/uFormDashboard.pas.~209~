@@ -470,11 +470,11 @@ begin
   try
     FDQueryProdutos.Open;
 
-//    if FDQueryProdutos.IsEmpty then
-//    begin
-//      ShowMessage('A consulta não retornou dados. Verifique os filtros aplicados.');
-//      Exit;
-//    end;
+    if FDQueryProdutos.IsEmpty then
+    begin
+      ShowMessage('A consulta não retornou dados. Verifique os filtros aplicados.');
+      Exit;
+    end;
 
     // Limpa os dados do gráfico
     //ChartRankingProdutos.Series[0].Clear;
