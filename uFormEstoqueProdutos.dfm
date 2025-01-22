@@ -5623,7 +5623,7 @@ object FormEstoqueProdutos: TFormEstoqueProdutos
     object edtTamanho: TEdit
       Left = 785
       Top = 101
-      Width = 115
+      Width = 128
       Height = 25
       Enabled = False
       Font.Charset = ANSI_CHARSET
@@ -5637,7 +5637,7 @@ object FormEstoqueProdutos: TFormEstoqueProdutos
     object edtLocalizacao: TEdit
       Left = 785
       Top = 150
-      Width = 115
+      Width = 128
       Height = 25
       Enabled = False
       Font.Charset = ANSI_CHARSET
@@ -5805,6 +5805,21 @@ object FormEstoqueProdutos: TFormEstoqueProdutos
       ParentFont = False
       TabOrder = 16
       OnClick = btnLimparFiltrosClick
+    end
+    object btnImprimir: TButton
+      Left = 785
+      Top = 219
+      Width = 128
+      Height = 33
+      Caption = 'Imprimir'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Perpetua Titling MT'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 17
+      OnClick = btnImprimirClick
     end
   end
   object DSDadosProdutos: TDataSource

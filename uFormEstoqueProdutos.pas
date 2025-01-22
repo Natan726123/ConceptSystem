@@ -10,7 +10,7 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Data.Bind.EngExt,
   Vcl.Bind.DBEngExt, System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors,
-  Data.Bind.Components, Data.Bind.DBScope, Math;
+  Data.Bind.Components, Data.Bind.DBScope, Math, uFormRelEstoque;
 
 type
   TFormEstoqueProdutos = class(TForm)
@@ -61,6 +61,7 @@ type
     LinkControlToField1: TLinkControlToField;
     LinkControlToField2: TLinkControlToField;
     btnLimparFiltros: TButton;
+    btnImprimir: TButton;
     procedure edtCodRefChange(Sender: TObject);
     procedure edtCodRefKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
@@ -77,6 +78,7 @@ type
     procedure DBGridEstoqueProdutosTitleClick(Column: TColumn);
     procedure btnLimparFiltrosClick(Sender: TObject);
     procedure LimparFiltros;
+    procedure btnImprimirClick(Sender: TObject);
   private
     ColWidths: array of Integer; // Array dinâmico para armazenar larguras das colunas
 
@@ -371,6 +373,21 @@ begin
   // Restaura as larguras das colunas
   RestoreColumnWidths(DBGridEstoqueProdutos);
 end;
+
+
+procedure TFormEstoqueProdutos.btnImprimirClick(Sender: TObject);
+var
+  RelForm: TFormRelEstoque;
+begin
+  RelForm := TFormRelEstoque.Create(Self);
+  try
+    RelForm.QuickRepEstoque.Prepare;
+    RelForm.QuickRepEstoque.Preview;
+  finally
+    //RelForm.Free;
+  end;
+end;
+
 
 
 procedure TFormEstoqueProdutos.btnLimparFiltrosClick(Sender: TObject);

@@ -18,7 +18,8 @@ uses
   uFormRelFichaFaccao1via in 'uFormRelFichaFaccao1via.pas' {FormRelFichaFaccao1via},
   uFormRelFichaFaccao2via in 'uFormRelFichaFaccao2via.pas' {FormRelFichaFaccao2via},
   uFormEstoqueProdutos in 'uFormEstoqueProdutos.pas' {FormEstoqueProdutos},
-  uDataModulo in 'uDataModulo.pas' {DataModule1: TDataModule};
+  uDataModulo in 'uDataModulo.pas' {DataModule1: TDataModule},
+  uFormRelEstoque in 'uFormRelEstoque.pas' {FormRelEstoque};
 
 {$R *.res}
 
@@ -29,8 +30,6 @@ begin
   TStyleManager.TrySetStyle('Light');
   Application.CreateForm(TDataModule1, DataModule1);
   Application.CreateForm(TFormDashboard, FormDashboard);
-
-
   Application.CreateForm(TForm6, Form6);
   Application.Run;
 end.
