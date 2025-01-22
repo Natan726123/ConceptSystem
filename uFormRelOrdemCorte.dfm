@@ -841,7 +841,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
           15.875000000000000000
           322.791666666666700000)
         XLColumn = 0
-        XLNumFormat = nfGeneral
+        XLNumFormat = nfDec2
         ActiveInPreview = False
         Alignment = taLeftJustify
         AlignToBand = False
@@ -856,7 +856,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         OnPrint = QRDBText11Print
         ParentFont = False
         Transparent = False
-        ExportAs = exptText
+        ExportAs = exptNumeric
         WrapStyle = BreakOnSpaces
         FullJustify = False
         MaxBreakChars = 0
@@ -1300,13 +1300,13 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         FontSize = 10
       end
       object QRLabel20: TQRLabel
-        Left = 655
+        Left = 648
         Top = 38
         Width = 55
         Height = 17
         Size.Values = (
           44.979166666666670000
-          1733.020833333333000000
+          1714.500000000000000000
           100.541666666666700000
           145.520833333333300000)
         XLColumn = 0
@@ -2009,7 +2009,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
     end
     object QRBand1: TQRBand
       Left = 38
-      Top = 447
+      Top = 441
       Width = 718
       Height = 98
       Frame.DrawTop = True

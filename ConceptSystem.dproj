@@ -201,6 +201,10 @@
             <Form>FormRelEstoque</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uFormConsultaOrdemCorte.pas">
+            <Form>FormConsultaOrdemCorte</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

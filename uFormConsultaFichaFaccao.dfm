@@ -6281,8 +6281,8 @@
       '    nomeProduto, corTecido, statusOrdem'
       'ORDER BY '
       '    nomeProduto, corTecido;')
-    Left = 760
-    Top = 8
+    Left = 872
+    Top = 56
     ParamData = <
       item
         Name = 'NOMEPRODUTO'

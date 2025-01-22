@@ -1,0 +1,164 @@
+unit uFormConsultaOrdemCorte;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.WinXCalendars, Vcl.StdCtrls,
+  Vcl.ExtCtrls, Vcl.Imaging.pngimage, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+
+type
+  TFormConsultaOrdemCorte = class(TForm)
+    pnlModelos: TPanel;
+    lblSelecionarModelo: TLabel;
+    lblCodRef: TLabel;
+    lblRaddioButtonBusca: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    ComboBoxProdutos: TComboBox;
+    btnGerarFicha: TButton;
+    edtCodRef: TEdit;
+    rbBuscaCodigo: TRadioButton;
+    rbBuscaReferencia: TRadioButton;
+    btnConsultarFicha: TButton;
+    dtpDataInicial: TCalendarPicker;
+    dtpDataFinal: TCalendarPicker;
+    edtNumFichaDeFaccao: TEdit;
+    edtModelo: TEdit;
+    Label1: TLabel;
+    Image1: TImage;
+    DBGridFichaDeFaccao: TDBGrid;
+    FDQueryConsultaOrdemCorte: TFDQuery;
+    DSDadosConsultaOrdemCorte: TDataSource;
+    Label4: TLabel;
+    edtNumOrdem: TEdit;
+    Label5: TLabel;
+    Edit1: TEdit;
+    Label6: TLabel;
+    Edit2: TEdit;
+    DSDadosProdutos: TDataSource;
+    FDQueryProdutos: TFDQuery;
+    procedure PreencherComboBoxProdutos;
+    procedure FormCreate(Sender: TObject);
+    procedure edtCodRefChange(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure edtCodRefKeyPress(Sender: TObject; var Key: Char);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormConsultaOrdemCorte: TFormConsultaOrdemCorte;
+
+implementation
+
+{$R *.dfm}
+
+
+
+{ TForm1 }
+
+procedure TFormConsultaOrdemCorte.edtCodRefChange(Sender: TObject);
+var
+  CodigoProduto: String;
+  RefProduto: String;
+begin
+  if rbBuscaCodigo.Checked then
+  begin
+    CodigoProduto := Trim(edtCodRef.Text); // Captura e limpa o texto digitado no TEdit
+
+  // Busca o nome do produto correspondente ao código digitado
+  FDQueryProdutos.Close;
+  FDQueryProdutos.SQL.Text := 'SELECT nomeProduto as Produto FROM TBProdutos WHERE codProduto = :codProduto';
+  FDQueryProdutos.ParamByName('codProduto').AsString := CodigoProduto;
+  FDQueryProdutos.Open;
+
+  if not FDQueryProdutos.IsEmpty then
+  begin
+    // Atualiza o ComboBox com o produto encontrado
+    ComboBoxProdutos.Text := FDQueryProdutos.FieldByName('Produto').AsString;
+
+    // Dispara manualmente o evento OnChange do ComboBox
+    if Assigned(ComboBoxProdutos.OnChange) then
+      ComboBoxProdutos.OnChange(ComboBoxProdutos);
+  end
+  else
+  begin
+    // Caso não encontre, limpa o ComboBox
+    ComboBoxProdutos.Text := '';
+  end;
+
+  FDQueryProdutos.Close; // Fecha a consulta após uso
+  end;
+
+
+  if rbBuscaReferencia.Checked then
+  begin
+    RefProduto := Trim(edtCodRef.Text); // Captura e limpa o texto digitado no TEdit
+
+  // Busca o nome do produto correspondente à referência digitada
+    FDQueryProdutos.Close;
+    FDQueryProdutos.SQL.Text := 'SELECT nomeProduto as Produto FROM TBProdutos WHERE refProduto = :refProduto';
+    FDQueryProdutos.ParamByName('refProduto').AsString := RefProduto;
+    FDQueryProdutos.Open;
+
+    if not FDQueryProdutos.IsEmpty then
+    begin
+      // Atualiza o ComboBox com o produto encontrado
+      ComboBoxProdutos.Text := FDQueryProdutos.FieldByName('Produto').AsString;
+
+      // Dispara manualmente o evento OnChange do ComboBox
+      if Assigned(ComboBoxProdutos.OnChange) then
+        ComboBoxProdutos.OnChange(ComboBoxProdutos);
+    end
+    else
+    begin
+      // Caso não encontre, limpa o ComboBox
+      ComboBoxProdutos.Text := '';
+    end;
+
+    FDQueryProdutos.Close; // Fecha a consulta após uso
+  end;
+
+end;
+
+procedure TFormConsultaOrdemCorte.edtCodRefKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  Key := UpCase(Key);
+end;
+
+procedure TFormConsultaOrdemCorte.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  FormConsultaOrdemCorte := nil;
+end;
+
+procedure TFormConsultaOrdemCorte.FormCreate(Sender: TObject);
+begin
+  PreencherComboBoxProdutos;
+end;
+
+procedure TFormConsultaOrdemCorte.PreencherComboBoxProdutos;
+begin
+  FDQueryProdutos.Active := true;
+
+  ComboBoxProdutos.Items.Clear;
+
+  while not FDQueryProdutos.Eof do
+    begin
+      ComboBoxProdutos.Items.Add(FDQueryProdutos.FieldByName('Produto').AsString); // Adiciona os nomes dos produtos ao ComboBox
+      FDQueryProdutos.Next;
+    end;
+
+  FDQueryProdutos.Close; // Fecha a consulta após carregar os dados
+end;
+
+end.

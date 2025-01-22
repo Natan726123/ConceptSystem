@@ -5479,7 +5479,7 @@
     Height = 23
     Enabled = False
     TabOrder = 1
-    Text = '700'
+    Text = '700-P'
     TextHint = 'Digite uma refer'#234'ncia do produto'
   end
   object MemoFichaTecnica: TMemo
@@ -5798,7 +5798,12 @@
       'Suplex Preto/Chocolate'
       'Suplex Preto/Chocolate'
       'Suplex Preto/Chocolate'
-      'Suplex Preto/Chocolate')
+      'Suplex Preto/Chocolate'
+      'Romantic'
+      'Romantic'
+      'Romantic'
+      'Romantic'
+      'Microfibra')
   end
   object edtCodTecido: TEdit
     Left = 334
@@ -5828,7 +5833,7 @@
     Height = 23
     Enabled = False
     TabOrder = 6
-    Text = 'Local-01'
+    Text = 'C18'
     TextHint = 'Endere'#231'amento'
   end
   object btnCadastrarProduto: TButton
@@ -6212,7 +6217,12 @@
       'P'
       'M'
       'G'
-      'GG')
+      'GG'
+      'P'
+      'M'
+      'G'
+      'GG'
+      '48')
   end
   object edtPrecoCusto: TEdit
     Left = 858
@@ -6252,6 +6262,11 @@
     TabOrder = 17
     Text = 'Ativo'
     Items.Strings = (
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
+      'Ativo'
       'Ativo'
       'Ativo'
       'Ativo'

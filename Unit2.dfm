@@ -33,8 +33,8 @@
     ParentFont = False
   end
   object Image1: TImage
-    Left = 1232
-    Top = 0
+    Left = 1237
+    Top = 2
     Width = 161
     Height = 53
     Picture.Data = {
@@ -5877,6 +5877,21 @@
     TitleFont.Height = -15
     TitleFont.Name = 'Perpetua Titling MT'
     TitleFont.Style = []
+  end
+  object btnConsultarOrdemCorte: TButton
+    Left = 1149
+    Top = 62
+    Width = 249
+    Height = 33
+    Caption = 'Consultar Ordem de Corte'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Perpetua Titling MT'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    OnClick = btnConsultarOrdemCorteClick
   end
   object DSDadosProdutos: TDataSource
     DataSet = FDQueryProdutos

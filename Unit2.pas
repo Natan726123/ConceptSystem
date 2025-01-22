@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, uMainModulo,
-  FireDAC.Comp.Client, Vcl.DBGrids, Vcl.Imaging.pngimage, Math, QuickRpt, QRCtrls, uFormRelOrdemCorte;
+  FireDAC.Comp.Client, Vcl.DBGrids, Vcl.Imaging.pngimage, Math, QuickRpt, QRCtrls, uFormRelOrdemCorte, uFormConsultaOrdemCorte;
 
 type
   TFormGerarOrdemCorte = class(TForm)
@@ -69,6 +69,7 @@ type
     rbBuscaCodigo: TRadioButton;
     rbBuscaReferencia: TRadioButton;
     Label14: TLabel;
+    btnConsultarOrdemCorte: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ComboBoxProdutosChange(Sender: TObject);
@@ -93,6 +94,7 @@ type
     procedure btnGerarOrdemClick(Sender: TObject);
     procedure edtCodProdChange(Sender: TObject);
     procedure edtCodProdKeyPress(Sender: TObject; var Key: Char);
+    procedure btnConsultarOrdemCorteClick(Sender: TObject);
 
 
   private
@@ -501,6 +503,14 @@ begin
 
 end;
 
+
+procedure TFormGerarOrdemCorte.btnConsultarOrdemCorteClick(Sender: TObject);
+begin
+  if not Assigned(formConsultaOrdemCorte) then
+      Application.CreateForm(TFormConsultaOrdemCorte, formConsultaOrdemCorte);
+
+    formConsultaOrdemCorte.Show;
+end;
 
 procedure TFormGerarOrdemCorte.Button3Click(Sender: TObject);
 begin

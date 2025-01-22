@@ -19,7 +19,8 @@ uses
   uFormRelFichaFaccao2via in 'uFormRelFichaFaccao2via.pas' {FormRelFichaFaccao2via},
   uFormEstoqueProdutos in 'uFormEstoqueProdutos.pas' {FormEstoqueProdutos},
   uDataModulo in 'uDataModulo.pas' {DataModule1: TDataModule},
-  uFormRelEstoque in 'uFormRelEstoque.pas' {FormRelEstoque};
+  uFormRelEstoque in 'uFormRelEstoque.pas' {FormRelEstoque},
+  uFormConsultaOrdemCorte in 'uFormConsultaOrdemCorte.pas' {FormConsultaOrdemCorte};
 
 {$R *.res}
 
