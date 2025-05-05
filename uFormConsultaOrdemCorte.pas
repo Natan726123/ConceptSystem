@@ -203,8 +203,8 @@ begin
       Exit;
     end;
 
-  if not Assigned(formCorte) then
-    formCorte := TFormGerarOrdemCorte.Create(Self);
+//  if not Assigned(formCorte) then
+//    formCorte := TFormGerarOrdemCorte.Create(Self);
 
   if not Assigned(FormRelOrdemCorte) then
     FormRelOrdemCorte := TFormRelOrdemCorte.Create(Self);
@@ -222,9 +222,9 @@ begin
 
 
 
-  formCorte.FDQueryRelCorte.Close; // Garante que a query esteja fechada
+  FormRelOrdemCorte.FDQueryRelCorte.Close; // Garante que a query esteja fechada
 //
-  formCorte.FDQueryRelCorte.SQL.Text :=
+  FormRelOrdemCorte.FDQueryRelCorte.SQL.Text :=
   'SELECT ' +
   '    t.nomeTecido AS Tecido, ' +
   '    p.nomeProduto AS Modelo, ' +
@@ -254,8 +254,8 @@ begin
   'ORDER BY ' +
   '    t.nomeTecido, p.nomeProduto';
 
-  formCorte.FDQueryRelCorte.ParamByName('numOrdem').Value := StrToInt(edtNumOrdem.Text);
-  formCorte.FDQueryRelCorte.Open; // Executa a query
+  FormRelOrdemCorte.FDQueryRelCorte.ParamByName('numOrdem').Value := StrToInt(edtNumOrdem.Text);
+  FormRelOrdemCorte.FDQueryRelCorte.Open; // Executa a query
 
   FormRelOrdemCorte.QuickRepOrdemCorte.Preview;
 

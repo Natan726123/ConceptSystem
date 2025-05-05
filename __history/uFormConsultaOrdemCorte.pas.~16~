@@ -1,0 +1,393 @@
+unit uFormConsultaOrdemCorte;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.WinXCalendars, Vcl.StdCtrls,
+  Vcl.ExtCtrls, Vcl.Imaging.pngimage, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.EngExt,
+  Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope, Math, uFormRelOrdemCorte;
+
+type
+  TFormConsultaOrdemCorte = class(TForm)
+    pnlModelos: TPanel;
+    lblSelecionarModelo: TLabel;
+    lblCodRef: TLabel;
+    lblRaddioButtonBusca: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    ComboBoxProdutos: TComboBox;
+    btnGerarFicha: TButton;
+    edtCodRef: TEdit;
+    rbBuscaCodigo: TRadioButton;
+    rbBuscaReferencia: TRadioButton;
+    btnConsultarOrdem: TButton;
+    dtpDataInicial: TCalendarPicker;
+    dtpDataFinal: TCalendarPicker;
+    edtNumOrdemBusca: TEdit;
+    edtPedidos: TEdit;
+    Label1: TLabel;
+    Image1: TImage;
+    DBGridOrdemCorte: TDBGrid;
+    FDQueryConsultaOrdemCorte: TFDQuery;
+    DSDadosConsultaOrdemCorte: TDataSource;
+    Label4: TLabel;
+    edtNumOrdem: TEdit;
+    Label5: TLabel;
+    edtObservacoes: TEdit;
+    Label6: TLabel;
+    edtFiltro: TEdit;
+    DSDadosProdutos: TDataSource;
+    FDQueryProdutos: TFDQuery;
+    BindSourceDB1: TBindSourceDB;
+    BindingsList1: TBindingsList;
+    LinkControlToField1: TLinkControlToField;
+    LinkControlToField2: TLinkControlToField;
+    LinkControlToField3: TLinkControlToField;
+    FDQueryRelCorte: TFDQuery;
+    DSDadosRelCorte: TDataSource;
+    procedure PreencherComboBoxProdutos;
+    procedure FormCreate(Sender: TObject);
+    procedure edtCodRefChange(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure edtCodRefKeyPress(Sender: TObject; var Key: Char);
+    procedure edtFiltroChange(Sender: TObject);
+    procedure FDQueryConsultaOrdemCorteFilterRecord(DataSet: TDataSet;
+      var Accept: Boolean);
+    procedure FormShow(Sender: TObject);
+    procedure btnConsultarOrdemClick(Sender: TObject);
+    procedure btnGerarFichaClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormConsultaOrdemCorte: TFormConsultaOrdemCorte;
+
+implementation
+
+{$R *.dfm}
+
+uses
+  Unit2;
+
+
+{ TForm1 }
+procedure AjustarLarguraColunas(DBGrid: TDBGrid);
+var
+  i, largura: Integer;
+begin
+  DBGrid.Columns.BeginUpdate;
+  try
+    for i := 0 to DBGrid.Columns.Count - 1 do
+    begin
+      largura := DBGrid.Canvas.TextWidth(DBGrid.Columns[i].Title.Caption) + 20; // Título com padding
+      DBGrid.Columns[i].Width := largura;
+
+      DBGrid.DataSource.DataSet.First;
+      while not DBGrid.DataSource.DataSet.Eof do
+      begin
+        largura := Max(largura, DBGrid.Canvas.TextWidth(DBGrid.DataSource.DataSet.Fields[i].AsString) + 20);
+        DBGrid.DataSource.DataSet.Next;
+      end;
+      DBGrid.Columns[i].Width := largura;
+    end;
+  finally
+    DBGrid.Columns.EndUpdate;
+  end;
+end;
+
+function RemoverAcentos(const S: String): String;
+const
+  Acentos: array[0..7] of Char = ('á', 'à', 'ã', 'â', 'é', 'è', 'ê', 'í');
+  SemAcento: array[0..7] of Char = ('a', 'a', 'a', 'a', 'e', 'e', 'e', 'i');
+var
+  i: Integer;
+  ResultStr: String;
+begin
+  ResultStr := S;
+  for i := 0 to Length(Acentos) - 1 do
+    ResultStr := StringReplace(ResultStr, Acentos[i], SemAcento[i], [rfReplaceAll, rfIgnoreCase]);
+  Result := ResultStr;
+end;
+
+procedure TFormConsultaOrdemCorte.btnConsultarOrdemClick(Sender: TObject);
+var
+  SQLBase, SQLWhere: string;
+  DataInicial, DataFinal: string;
+begin
+  // Converte as datas para o formato yyyy-mm-dd
+  DataInicial := FormatDateTime('yyyy-mm-dd', dtpDataInicial.Date);
+  DataFinal := FormatDateTime('yyyy-mm-dd', dtpDataFinal.Date);
+
+  // Base da consulta SQL
+  SQLBase :=
+    'SELECT ' +
+    '  o.numOrdem, ' +
+    '  t.nomeTecido AS Tecido, ' +
+    '  p.nomeProduto AS Modelo, ' +
+    '  SUM(CASE WHEN o.tamanhoPecas = ''P'' THEN o.quantidadePecas ELSE 0 END) AS P, ' +
+    '  SUM(CASE WHEN o.tamanhoPecas = ''M'' THEN o.quantidadePecas ELSE 0 END) AS M, ' +
+    '  SUM(CASE WHEN o.tamanhoPecas = ''G'' THEN o.quantidadePecas ELSE 0 END) AS G, ' +
+    '  SUM(CASE WHEN o.tamanhoPecas = ''GG'' THEN o.quantidadePecas ELSE 0 END) AS GG, ' +
+    '  SUM(CASE WHEN o.tamanhoPecas = ''48'' THEN o.quantidadePecas ELSE 0 END) AS ''48'', ' +
+    '  SUM(CASE WHEN o.tamanhoPecas = ''50'' THEN o.quantidadePecas ELSE 0 END) AS ''50'', ' +
+    '  SUM(CASE WHEN o.tamanhoPecas = ''52'' THEN o.quantidadePecas ELSE 0 END) AS ''52'', ' +
+    '  SUM(o.quantidadePecas) AS TotalItens, ' +
+    '  o.pedidosRef AS Pedidos, ' +
+    '  o.obsOrdem AS Observacao, o.dataOrdem ' +
+    'FROM ' +
+    '  TBordemdecorte o ' +
+    'INNER JOIN TBtecidos t ON o.codTecido = t.codTecido ' +
+    'INNER JOIN TBprodutos p ON o.codProduto = p.codProduto ';
+
+  // Inicializa a cláusula WHERE com o filtro de data
+  SQLWhere := 'WHERE o.dataOrdem BETWEEN :dataInicial AND :dataFinal';
+
+  // Adiciona filtro pelo nome do produto, se preenchido
+  if ComboBoxProdutos.Text <> '' then
+    SQLWhere := SQLWhere + ' AND p.nomeProduto = :nomeProduto';
+
+  // Adiciona filtro pelo número da ordem, se preenchido
+  if edtNumOrdemBusca.Text <> '' then
+    SQLWhere := SQLWhere + ' AND o.numOrdem = :numOrdem';
+
+  // Finaliza a query com agrupamento e ordenação
+  SQLBase := SQLBase + SQLWhere +
+    ' GROUP BY o.numOrdem, t.nomeTecido, p.nomeProduto, o.dataOrdem ' +
+    ' ORDER BY o.numOrdem, t.nomeTecido, p.nomeProduto';
+
+  // Configura a query
+  FDQueryConsultaOrdemCorte.Close;
+  FDQueryConsultaOrdemCorte.SQL.Text := SQLBase;
+
+  // Define os parâmetros obrigatórios
+  FDQueryConsultaOrdemCorte.ParamByName('dataInicial').AsString := DataInicial;
+  FDQueryConsultaOrdemCorte.ParamByName('dataFinal').AsString := DataFinal;
+
+  // Define o parâmetro nomeProduto, se aplicável
+  if ComboBoxProdutos.Text <> '' then
+    FDQueryConsultaOrdemCorte.ParamByName('nomeProduto').AsString := ComboBoxProdutos.Text;
+
+  // Define o parâmetro numOrdem, se aplicável
+  if edtNumOrdemBusca.Text <> '' then
+    FDQueryConsultaOrdemCorte.ParamByName('numOrdem').AsString := edtNumOrdemBusca.Text;
+
+  // Executa a consulta
+  FDQueryConsultaOrdemCorte.Open;
+
+  AjustarLarguraColunas(DBGridOrdemCorte);
+end;
+
+
+procedure TFormConsultaOrdemCorte.btnGerarFichaClick(Sender: TObject);
+var
+  formCorte : TFormGerarOrdemCorte;
+begin
+  if FDQueryConsultaOrdemCorte.IsEmpty then
+    begin
+      ShowMessage('Nenhum dado encontrado para o relatório.');
+      Exit;
+    end;
+
+  if not Assigned(FormRelOrdemCorte) then
+    FormRelOrdemCorte := TFormRelOrdemCorte.Create(Self);
+
+
+  FormRelOrdemCorte.QRLabelNumOrdem.Caption := 'ORDEM N°: ';
+  FormRelOrdemCorte.QRLabelNumOrdem.Caption := FormRelOrdemCorte.QRLabelNumOrdem.Caption + edtNumOrdem.Text;
+
+  FormRelOrdemCorte.QRLabelPedidos.Caption := 'PEDIDOS: ';
+  FormRelOrdemCorte.QRLabelPedidos.Caption := FormRelOrdemCorte.QRLabelPedidos.Caption + edtPedidos.Text;
+
+  FormRelOrdemCorte.QRLabelObs.Caption := 'OBSERVAÇÕES: ';
+  FormRelOrdemCorte.QRLabelObs.Caption := FormRelOrdemCorte.QRLabelObs.Caption + edtObservacoes.Text;
+
+
+
+
+  FormRelOrdemCorte.FDQueryRelCorte.Close; // Garante que a query esteja fechada
+//
+  FormRelOrdemCorte.FDQueryRelCorte.SQL.Text :=
+  'SELECT ' +
+  '    t.nomeTecido AS Tecido, ' +
+  '    p.nomeProduto AS Modelo, ' +
+  '    SUM(CASE WHEN o.tamanhoPecas = ''P'' THEN o.quantidadePecas ELSE 0 END) AS P, ' +
+  '    SUM(CASE WHEN o.tamanhoPecas = ''M'' THEN o.quantidadePecas ELSE 0 END) AS M, ' +
+  '    SUM(CASE WHEN o.tamanhoPecas = ''G'' THEN o.quantidadePecas ELSE 0 END) AS G, ' +
+  '    SUM(CASE WHEN o.tamanhoPecas = ''GG'' THEN o.quantidadePecas ELSE 0 END) AS GG, ' +
+  '    SUM(CASE WHEN o.tamanhoPecas = ''48'' THEN o.quantidadePecas ELSE 0 END) AS ''48'', ' +
+  '    SUM(CASE WHEN o.tamanhoPecas = ''50'' THEN o.quantidadePecas ELSE 0 END) AS ''50'', ' +
+  '    SUM(CASE WHEN o.tamanhoPecas = ''52'' THEN o.quantidadePecas ELSE 0 END) AS ''52'', ' +
+  '    SUM(o.quantidadePecas) AS TotalItens, ' +
+  '    SUM(o.quantidadeTecidoKg) AS TotalTecidoKg, ' +
+  '    SUM(SUM(o.quantidadePecas)) OVER (PARTITION BY t.nomeTecido) AS TotalItensPorTecido, ' +
+  '    SUM(SUM(o.quantidadeTecidoKg)) OVER (PARTITION BY t.nomeTecido) AS TotalTecidoKgPorTecido, ' +
+  '    SUM(SUM(o.quantidadePecas)) OVER () AS TotalFinalItens, ' +
+  '    SUM(SUM(o.quantidadeTecidoKg)) OVER () AS TotalFinalTecidoKg ' +
+  'FROM ' +
+  '    TBordemdecorte o ' +
+  'INNER JOIN ' +
+  '    TBtecidos t ON o.codTecido = t.codTecido ' +
+  'INNER JOIN ' +
+  '    TBprodutos p ON o.codProduto = p.codProduto ' +
+  'WHERE ' +
+  '    o.numOrdem = :numOrdem ' +
+  'GROUP BY ' +
+  '    t.nomeTecido, p.nomeProduto ' +
+  'ORDER BY ' +
+  '    t.nomeTecido, p.nomeProduto';
+
+  FormRelOrdemCorte.FDQueryRelCorte.ParamByName('numOrdem').Value := StrToInt(edtNumOrdem.Text);
+  FormRelOrdemCorte.FDQueryRelCorte.Open; // Executa a query
+
+  FormRelOrdemCorte.QuickRepOrdemCorte.Preview;
+
+end;
+
+procedure TFormConsultaOrdemCorte.edtCodRefChange(Sender: TObject);
+var
+  CodigoProduto: String;
+  RefProduto: String;
+begin
+  if rbBuscaCodigo.Checked then
+  begin
+    CodigoProduto := Trim(edtCodRef.Text); // Captura e limpa o texto digitado no TEdit
+
+  // Busca o nome do produto correspondente ao código digitado
+  FDQueryProdutos.Close;
+  FDQueryProdutos.SQL.Text := 'SELECT nomeProduto as Produto FROM TBProdutos WHERE codProduto = :codProduto';
+  FDQueryProdutos.ParamByName('codProduto').AsString := CodigoProduto;
+  FDQueryProdutos.Open;
+
+  if not FDQueryProdutos.IsEmpty then
+  begin
+    // Atualiza o ComboBox com o produto encontrado
+    ComboBoxProdutos.Text := FDQueryProdutos.FieldByName('Produto').AsString;
+
+    // Dispara manualmente o evento OnChange do ComboBox
+    if Assigned(ComboBoxProdutos.OnChange) then
+      ComboBoxProdutos.OnChange(ComboBoxProdutos);
+  end
+  else
+  begin
+    // Caso não encontre, limpa o ComboBox
+    ComboBoxProdutos.Text := '';
+  end;
+
+  FDQueryProdutos.Close; // Fecha a consulta após uso
+  end;
+
+
+  if rbBuscaReferencia.Checked then
+  begin
+    RefProduto := Trim(edtCodRef.Text); // Captura e limpa o texto digitado no TEdit
+
+  // Busca o nome do produto correspondente à referência digitada
+    FDQueryProdutos.Close;
+    FDQueryProdutos.SQL.Text := 'SELECT nomeProduto as Produto FROM TBProdutos WHERE refProduto = :refProduto';
+    FDQueryProdutos.ParamByName('refProduto').AsString := RefProduto;
+    FDQueryProdutos.Open;
+
+    if not FDQueryProdutos.IsEmpty then
+    begin
+      // Atualiza o ComboBox com o produto encontrado
+      ComboBoxProdutos.Text := FDQueryProdutos.FieldByName('Produto').AsString;
+
+      // Dispara manualmente o evento OnChange do ComboBox
+      if Assigned(ComboBoxProdutos.OnChange) then
+        ComboBoxProdutos.OnChange(ComboBoxProdutos);
+    end
+    else
+    begin
+      // Caso não encontre, limpa o ComboBox
+      ComboBoxProdutos.Text := '';
+    end;
+
+    FDQueryProdutos.Close; // Fecha a consulta após uso
+  end;
+
+end;
+
+procedure TFormConsultaOrdemCorte.edtCodRefKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  Key := UpCase(Key);
+end;
+
+procedure TFormConsultaOrdemCorte.edtFiltroChange(Sender: TObject);
+begin
+  FDQueryConsultaOrdemCorte.Filtered := False; // Desabilita o filtro para aplicar novamente
+  FDQueryConsultaOrdemCorte.Filtered := edtFiltro.Text <> ''; // Só habilita se houver texto
+end;
+
+procedure TFormConsultaOrdemCorte.FDQueryConsultaOrdemCorteFilterRecord(
+  DataSet: TDataSet; var Accept: Boolean);
+var
+  Filtro, NumOrdem, Pedidos, Modelo, Tecido, Observacao: String;
+begin
+  Filtro := UpperCase(RemoverAcentos(edtFiltro.Text)); // Remove acentos do filtro
+
+  // Obtém os valores dos campos e remove os acentos também
+  NumOrdem := UpperCase(RemoverAcentos(DataSet.FieldByName('NumOrdem').AsString));
+  Pedidos := UpperCase(RemoverAcentos(DataSet.FieldByName('Pedidos').AsString));
+  Modelo := UpperCase(RemoverAcentos(DataSet.FieldByName('Modelo').AsString));
+  Tecido := UpperCase(RemoverAcentos(DataSet.FieldByName('Tecido').AsString));
+  Observacao := UpperCase(RemoverAcentos(DataSet.FieldByName('Observacao').AsString));
+
+  // Verifica se o filtro está presente em algum dos campos
+  Accept := (Pos(Filtro, NumOrdem) > 0) or
+            (Pos(Filtro, Pedidos) > 0) or
+            (Pos(Filtro, Modelo) > 0) or
+            (Pos(Filtro, Tecido) > 0) or
+            (Pos(Filtro, Observacao) > 0);
+end;
+
+procedure TFormConsultaOrdemCorte.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+ // Action := CaFree;
+  FormConsultaOrdemCorte := nil;
+end;
+
+procedure TFormConsultaOrdemCorte.FormCreate(Sender: TObject);
+begin
+  PreencherComboBoxProdutos;
+end;
+
+procedure TFormConsultaOrdemCorte.FormShow(Sender: TObject);
+var
+  Ano, Mes, Dia: Word;
+begin
+  // Define o primeiro dia do mês atual como data inicial
+  DecodeDate(Date, Ano, Mes, Dia);
+  dtpDataInicial.Date := EncodeDate(Ano, Mes, 1);
+
+  // Define a data atual como data final
+  dtpDataFinal.Date := Date;
+end;
+
+procedure TFormConsultaOrdemCorte.PreencherComboBoxProdutos;
+begin
+  FDQueryProdutos.Active := true;
+
+  ComboBoxProdutos.Items.Clear;
+
+  while not FDQueryProdutos.Eof do
+    begin
+      ComboBoxProdutos.Items.Add(FDQueryProdutos.FieldByName('Produto').AsString); // Adiciona os nomes dos produtos ao ComboBox
+      FDQueryProdutos.Next;
+    end;
+
+  FDQueryProdutos.Close; // Fecha a consulta após carregar os dados
+end;
+
+end.

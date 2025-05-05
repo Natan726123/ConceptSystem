@@ -1100,12 +1100,23 @@ end;
 
 procedure TFormFichaFaccao.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  FDQueryProdutos.Active := false;
+  FDQueryCortadores.Active := false;
+  FDQueryFaccao.Active := false;
+  FDQueryFichaDeFaccao.Active := false;
+  FDQueryRelFichaFaccao.Active := false;
 //  Action := caFree;
   FormFichaFaccao := nil;
 end;
 
 procedure TFormFichaFaccao.FormCreate(Sender: TObject);
 begin
+  FDQueryProdutos.Active := true;
+  FDQueryCortadores.Active := true;
+  FDQueryFaccao.Active := true;
+  FDQueryFichaDeFaccao.Active := true;
+  FDQueryRelFichaFaccao.Active := true;
+
   // Verifica se o formulário do relatório de 1ª via está criado
   if Assigned(FormRelFichaFaccao1Via) then
   begin

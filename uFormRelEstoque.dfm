@@ -78,7 +78,7 @@ object FormRelEstoque: TFormRelEstoque
       Left = 38
       Top = 38
       Width = 718
-      Height = 99
+      Height = 115
       Frame.DrawTop = True
       Frame.DrawBottom = True
       Frame.DrawLeft = True
@@ -88,7 +88,7 @@ object FormRelEstoque: TFormRelEstoque
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        261.937500000000000000
+        304.270833333333300000
         1899.708333333333000000)
       PreCaluculateBandHeight = False
       KeepOnOnePage = False
@@ -373,13 +373,13 @@ object FormRelEstoque: TFormRelEstoque
         Stretch = True
       end
       object QRDBTotalGeral: TQRDBText
-        Left = 649
+        Left = 614
         Top = 75
         Width = 94
         Height = 17
         Size.Values = (
           44.979166666666670000
-          1717.145833333333000000
+          1624.541666666667000000
           198.437500000000000000
           248.708333333333300000)
         XLColumn = 0
@@ -405,13 +405,13 @@ object FormRelEstoque: TFormRelEstoque
         FontSize = 10
       end
       object QRLabel2: TQRLabel
-        Left = 527
+        Left = 492
         Top = 75
         Width = 120
         Height = 17
         Size.Values = (
           44.979166666666670000
-          1394.354166666667000000
+          1301.750000000000000000
           198.437500000000000000
           317.500000000000000000)
         XLColumn = 0
@@ -462,10 +462,39 @@ object FormRelEstoque: TFormRelEstoque
         WrapStyle = BreakOnSpaces
         FontSize = 8
       end
+      object QRLabelValorEstoque: TQRLabel
+        Left = 492
+        Top = 91
+        Width = 122
+        Height = 17
+        Size.Values = (
+          44.979166666666670000
+          1301.750000000000000000
+          240.770833333333300000
+          322.791666666666700000)
+        XLColumn = 0
+        XLNumFormat = nfGeneral
+        ActiveInPreview = False
+        Alignment = taLeftJustify
+        AlignToBand = False
+        Caption = 'VALOR ESTOQUE:'
+        Color = clWhite
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = False
+        ExportAs = exptText
+        WrapStyle = BreakOnSpaces
+        VerticalAlignment = tlTop
+        FontSize = 10
+      end
     end
     object QRPBand1: TQRPBand
       Left = 38
-      Top = 171
+      Top = 187
       Width = 718
       Height = 30
       Frame.DrawTop = True
@@ -888,7 +917,7 @@ object FormRelEstoque: TFormRelEstoque
     end
     object QRGroup1: TQRGroup
       Left = 38
-      Top = 137
+      Top = 153
       Width = 718
       Height = 34
       Frame.DrawTop = True

@@ -57,6 +57,7 @@ type
     QRLabel1: TQRLabel;
     QRLabel2: TQRLabel;
     QRExpr1: TQRExpr;
+    QRLabelValorEstoque: TQRLabel;
   private
     { Private declarations }
   public

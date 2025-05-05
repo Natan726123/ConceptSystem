@@ -12,7 +12,7 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, VCLTee.TeEngine, VCLTee.Series, VCLTee.TeeProcs, uDataModulo,
   VCLTee.Chart, VCLTee.DBChart, VCLTee.TeeDBCrossTab, Math, Vcl.WinXCalendars,
-  Vcl.Grids, Vcl.DBGrids;
+  Vcl.Grids, Vcl.DBGrids, uFormConsultaOrdemCorte, uFormConsultaFichaFaccao;
 
 type
   TFormDashboard = class(TForm)
@@ -81,6 +81,9 @@ type
     DSDadosFiltroCortadores: TDataSource;
     FDQueryFiltroCortadores: TFDQuery;
     btnLimparFiltros: TButton;
+    Consultar1: TMenuItem;
+    FichadeFaco1: TMenuItem;
+    OrdemdeCorte1: TMenuItem;
     procedure btnGerarOrdemCorteClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCadastrarTecidoClick(Sender: TObject);
@@ -115,6 +118,8 @@ type
     procedure PreencherComboBoxProdutos;
     procedure FormCreate(Sender: TObject);
     procedure btnLimparFiltrosClick(Sender: TObject);
+    procedure FichadeFaco1Click(Sender: TObject);
+    procedure OrdemdeCorte1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -634,6 +639,15 @@ begin
   TStyleManager.TrySetStyle('Windows');
 end;
 
+procedure TFormDashboard.FichadeFaco1Click(Sender: TObject);
+begin
+  if not Assigned(formConsultaFichaFaccao) then
+      Application.CreateForm(TFormConsultaFichaFaccao, formConsultaFichaFaccao);
+
+    // Exibe o formulário
+    formConsultaFichaFaccao.Show;
+end;
+
 procedure TFormDashboard.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := caHide;
@@ -790,6 +804,14 @@ end;
 procedure TFormDashboard.Light1Click(Sender: TObject);
 begin
   TStyleManager.TrySetStyle('Light');
+end;
+
+procedure TFormDashboard.OrdemdeCorte1Click(Sender: TObject);
+begin
+  if not Assigned(formConsultaOrdemCorte) then
+      Application.CreateForm(TFormConsultaOrdemCorte, formConsultaOrdemCorte);
+
+    formConsultaOrdemCorte.Show;
 end;
 
 procedure TFormDashboard.PreencherComboBoxCortador;

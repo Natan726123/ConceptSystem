@@ -6,7 +6,9 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, QRCtrls, QuickRpt,
   Vcl.ExtCtrls, Vcl.Imaging.jpeg, qrFramelines, qrpctrls, Data.DB, uMainModulo,
-  Data.Win.ADODB;
+  Data.Win.ADODB, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TFormRelOrdemCorte = class(TForm)
@@ -88,6 +90,8 @@ type
     QRLabelObs: TQRLabel;
     QRShape13: TQRShape;
     QRLabel26: TQRLabel;
+    FDQueryRelCorte: TFDQuery;
+    DSDadosRelCorte: TDataSource;
     procedure QRDBText14Print(sender: TObject; var Value: string);
     procedure QRDBText16Print(sender: TObject; var Value: string);
     procedure QRDBText11Print(sender: TObject; var Value: string);

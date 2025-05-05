@@ -16,11 +16,7 @@ uses
 type
   TFormConsultaFichaFaccao = class(TForm)
     pnlModelos: TPanel;
-    lblSelecionarModelo: TLabel;
-    lblCodRef: TLabel;
-    lblRaddioButtonBusca: TLabel;
     lblDataCorte: TLabel;
-    lblFaccao: TLabel;
     lblNumCorte: TLabel;
     lblNumOrdemCorte: TLabel;
     lblDataEnvio: TLabel;
@@ -29,25 +25,17 @@ type
     lblDataEntrega: TLabel;
     lblStatusFaccao: TLabel;
     lblCodCortador: TLabel;
-    lblCodFaccao: TLabel;
-    ComboBoxProdutos: TComboBox;
     btnGerarFicha: TButton;
-    edtCodRef: TEdit;
-    rbBuscaCodigo: TRadioButton;
-    rbBuscaReferencia: TRadioButton;
     CalendarDataDeCorte: TCalendarPicker;
-    ComboBoxFaccao: TComboBox;
     edtNumCorte: TEdit;
     edtNumOrdemCorte: TEdit;
     CalendarDataDeEnvio: TCalendarPicker;
     CalendarDataPrevista: TCalendarPicker;
     ComboBoxCortador: TComboBox;
-    btnConsultarFicha: TButton;
     CalendarDataDeEntrega: TCalendarPicker;
     btnSalvar: TButton;
     ComboBoxStatus: TComboBox;
     edtCodCortador: TEdit;
-    edtCodFaccao: TEdit;
     DBGridFichaDeFaccao: TDBGrid;
     Label1: TLabel;
     DSDadosProdutos: TDataSource;
@@ -56,10 +44,6 @@ type
     FDQueryFaccao: TFDQuery;
     FDQueryConsultaFichaFaccao: TFDQuery;
     DSDadosConsultaFichaFaccao: TDataSource;
-    Label2: TLabel;
-    dtpDataInicial: TCalendarPicker;
-    Label3: TLabel;
-    dtpDataFinal: TCalendarPicker;
     btnAlterar: TButton;
     BindSourceDB1: TBindSourceDB;
     BindingsList1: TBindingsList;
@@ -99,19 +83,39 @@ type
     edtNumFaccao: TEdit;
     Label4: TLabel;
     LinkControlToField4: TLinkControlToField;
-    Label5: TLabel;
-    ComboBoxStatusConsulta: TComboBox;
     Label6: TLabel;
     edtCodFaccao2: TEdit;
     Label7: TLabel;
     edtNomeFaccao: TEdit;
     LinkControlToField5: TLinkControlToField;
     LinkControlToField6: TLinkControlToField;
-    Label8: TLabel;
-    edtNumFichaDeFaccao: TEdit;
     Label9: TLabel;
     edtModelo: TEdit;
     edtTotalPecas: TEdit;
+    pnlFiltro: TPanel;
+    lblSelecionarModelo: TLabel;
+    lblCodRef: TLabel;
+    lblRaddioButtonBusca: TLabel;
+    lblFaccao: TLabel;
+    lblCodFaccao: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label5: TLabel;
+    Label8: TLabel;
+    ComboBoxProdutos: TComboBox;
+    edtCodRef: TEdit;
+    rbBuscaCodigo: TRadioButton;
+    rbBuscaReferencia: TRadioButton;
+    ComboBoxFaccao: TComboBox;
+    btnConsultarFicha: TButton;
+    edtCodFaccao: TEdit;
+    dtpDataInicial: TCalendarPicker;
+    dtpDataFinal: TCalendarPicker;
+    ComboBoxStatusConsulta: TComboBox;
+    edtNumFichaDeFaccao: TEdit;
+    lblModoEdicao: TLabel;
+    btnLimparFiltros: TButton;
+    lblAlterarFaccao: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure PreencherComboBoxFaccao;
     procedure PreencherComboBoxProdutos;
@@ -133,6 +137,8 @@ type
     procedure btnAlterarClick(Sender: TObject);
     procedure HabilitarCampos;
     procedure DesabilitarCampos;
+    procedure btnLimparFiltrosClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     FAtualizandoCalendarios: Boolean; // Variável de controle
     idFaccaoAtivo: Integer;
@@ -313,54 +319,170 @@ begin
 
 end;
 
+procedure TFormConsultaFichaFaccao.btnLimparFiltrosClick(Sender: TObject);
+var
+  Ano, Mes, Dia: Word;
+begin
+  // Define o primeiro dia do mês atual como data inicial
+  DecodeDate(Date, Ano, Mes, Dia);
+  dtpDataInicial.Date := EncodeDate(Ano, Mes, 1);
+
+  // Define a data atual como data final
+  dtpDataFinal.Date := Date;
+
+  edtCodRef.Clear;
+  ComboBoxProdutos.Text := '';
+  ComboBoxStatusConsulta.Text := '';
+  edtNumFichaDeFaccao.Clear;
+  ComboBoxFaccao.Text := '';
+  edtCodFaccao.Clear;
+end;
+
 procedure TFormConsultaFichaFaccao.btnSalvarClick(Sender: TObject);
 begin
-  attDataEnvio := CalendarDataDeEnvio.Date;
-  attDataPrevista := CalendarDataPrevista.Date;
-  attDataEntrega := CalendarDataDeEntrega.Date;
-
-  // Validação se os campos necessários estão preenchidos
-  if ComboBoxStatus.Text = '' then
+  if (ComboBoxFaccao.Text = '') then
   begin
-    ShowMessage('Informe o status.');
-    Exit;
+    if Application.MessageBox('Deseja manter a ficha de facção sem faccionista referenciada? ', 'Atenção',
+    MB_ICONQUESTION + MB_YESNO) = IDYES then
+    begin
+      attDataEnvio := CalendarDataDeEnvio.Date;
+      attDataPrevista := CalendarDataPrevista.Date;
+      attDataEntrega := CalendarDataDeEntrega.Date;
+
+      // Validação se os campos necessários estão preenchidos
+      if ComboBoxStatus.Text = '' then
+      begin
+        ShowMessage('Informe o status.');
+        Exit;
+      end;
+
+      // Prepare o comando UPDATE para alterar os dados no banco
+      FDQueryConsultaFichaFaccao.SQL.Text :=
+        'UPDATE TBFichaDeFaccao ' +
+        'SET dataCorte = :dataCorte, ' +
+        '    dataEnvio = :dataEnvio, ' +
+        '    dataPrevisao = :dataPrevisao, ' +
+        '    dataEntrega = :dataEntrega, ' +
+        '    statusOrdem = :statusOrdem, ' +
+        '    codFaccao = :codFaccao, ' +
+        '    nomeFaccao = :nomeFaccao ' +
+        'WHERE idFaccao = :idFaccao';  // Certifique-se de passar o ID correto para o WHERE
+
+      // Atribuindo os parâmetros com os valores dos campos e Calendars
+
+      FDQueryConsultaFichaFaccao.ParamByName('dataCorte').AsDate := CalendarDataDeCorte.Date;
+      FDQueryConsultaFichaFaccao.ParamByName('dataEnvio').AsDate := attDataEnvio; // CalendarDataDeEnvio.Date;
+      FDQueryConsultaFichaFaccao.ParamByName('dataPrevisao').AsDate := attDataPrevista; //CalendarDataPrevista.Date;
+      FDQueryConsultaFichaFaccao.ParamByName('dataEntrega').AsDate := attDataEntrega; //CalendarDataDeEntrega.Date;
+      FDQueryConsultaFichaFaccao.ParamByName('statusOrdem').AsString := ComboBoxStatus.Text;
+      FDQueryConsultaFichaFaccao.ParamByName('idFaccao').AsInteger := idFaccaoAtivo;
+      FDQueryConsultaFichaFaccao.ParamByName('codFaccao').AsString := edtCodFaccao.Text;
+      FDQueryConsultaFichaFaccao.ParamByName('nomeFaccao').AsString := ComboBoxFaccao.Text;
+
+      // Executa o comando SQL para atualizar os dados no banco
+      try
+        FDQueryConsultaFichaFaccao.ExecSQL; // Executa o comando UPDATE
+        ShowMessage('Dados atualizados com sucesso!');
+      except
+        on E: Exception do
+          ShowMessage('Erro ao salvar os dados: ' + E.Message);
+      end;
+      PreencherComboBoxStatus;
+      DesabilitarCampos;
+    end
+    else
+    begin
+      attDataEnvio := CalendarDataDeEnvio.Date;
+      attDataPrevista := CalendarDataPrevista.Date;
+      attDataEntrega := CalendarDataDeEntrega.Date;
+
+      // Validação se os campos necessários estão preenchidos
+      if ComboBoxStatus.Text = '' then
+      begin
+        ShowMessage('Informe o status.');
+        Exit;
+      end;
+
+      // Prepare o comando UPDATE para alterar os dados no banco
+      FDQueryConsultaFichaFaccao.SQL.Text :=
+        'UPDATE TBFichaDeFaccao ' +
+        'SET dataCorte = :dataCorte, ' +
+        '    dataEnvio = :dataEnvio, ' +
+        '    dataPrevisao = :dataPrevisao, ' +
+        '    dataEntrega = :dataEntrega, ' +
+        '    statusOrdem = :statusOrdem ' +
+        'WHERE idFaccao = :idFaccao';  // Certifique-se de passar o ID correto para o WHERE
+
+      // Atribuindo os parâmetros com os valores dos campos e Calendars
+
+      FDQueryConsultaFichaFaccao.ParamByName('dataCorte').AsDate := CalendarDataDeCorte.Date;
+      FDQueryConsultaFichaFaccao.ParamByName('dataEnvio').AsDate := attDataEnvio; // CalendarDataDeEnvio.Date;
+      FDQueryConsultaFichaFaccao.ParamByName('dataPrevisao').AsDate := attDataPrevista; //CalendarDataPrevista.Date;
+      FDQueryConsultaFichaFaccao.ParamByName('dataEntrega').AsDate := attDataEntrega; //CalendarDataDeEntrega.Date;
+      FDQueryConsultaFichaFaccao.ParamByName('statusOrdem').AsString := ComboBoxStatus.Text;
+      FDQueryConsultaFichaFaccao.ParamByName('idFaccao').AsInteger := idFaccaoAtivo;
+
+      // Executa o comando SQL para atualizar os dados no banco
+      try
+        FDQueryConsultaFichaFaccao.ExecSQL; // Executa o comando UPDATE
+        ShowMessage('Dados atualizados com sucesso!');
+      except
+        on E: Exception do
+          ShowMessage('Erro ao salvar os dados: ' + E.Message);
+      end;
+      PreencherComboBoxStatus;
+      DesabilitarCampos;
+    end;
+  end
+  else
+  begin
+  attDataEnvio := CalendarDataDeEnvio.Date;
+      attDataPrevista := CalendarDataPrevista.Date;
+      attDataEntrega := CalendarDataDeEntrega.Date;
+
+      // Validação se os campos necessários estão preenchidos
+      if ComboBoxStatus.Text = '' then
+      begin
+        ShowMessage('Informe o status.');
+        Exit;
+      end;
+
+      // Prepare o comando UPDATE para alterar os dados no banco
+      FDQueryConsultaFichaFaccao.SQL.Text :=
+        'UPDATE TBFichaDeFaccao ' +
+        'SET dataCorte = :dataCorte, ' +
+        '    dataEnvio = :dataEnvio, ' +
+        '    dataPrevisao = :dataPrevisao, ' +
+        '    dataEntrega = :dataEntrega, ' +
+        '    statusOrdem = :statusOrdem, ' +
+        '    codFaccao = :codFaccao, ' +
+        '    nomeFaccao = :nomeFaccao ' +
+        'WHERE idFaccao = :idFaccao';  // Certifique-se de passar o ID correto para o WHERE
+
+      // Atribuindo os parâmetros com os valores dos campos e Calendars
+
+      FDQueryConsultaFichaFaccao.ParamByName('dataCorte').AsDate := CalendarDataDeCorte.Date;
+      FDQueryConsultaFichaFaccao.ParamByName('dataEnvio').AsDate := attDataEnvio; // CalendarDataDeEnvio.Date;
+      FDQueryConsultaFichaFaccao.ParamByName('dataPrevisao').AsDate := attDataPrevista; //CalendarDataPrevista.Date;
+      FDQueryConsultaFichaFaccao.ParamByName('dataEntrega').AsDate := attDataEntrega; //CalendarDataDeEntrega.Date;
+      FDQueryConsultaFichaFaccao.ParamByName('statusOrdem').AsString := ComboBoxStatus.Text;
+      FDQueryConsultaFichaFaccao.ParamByName('idFaccao').AsInteger := idFaccaoAtivo;
+      FDQueryConsultaFichaFaccao.ParamByName('codFaccao').AsString := edtCodFaccao.Text;
+      FDQueryConsultaFichaFaccao.ParamByName('nomeFaccao').AsString := ComboBoxFaccao.Text;
+
+      // Executa o comando SQL para atualizar os dados no banco
+      try
+        FDQueryConsultaFichaFaccao.ExecSQL; // Executa o comando UPDATE
+        ShowMessage('Dados atualizados com sucesso!');
+      except
+        on E: Exception do
+          ShowMessage('Erro ao salvar os dados: ' + E.Message);
+      end;
+      PreencherComboBoxStatus;
+      DesabilitarCampos;
   end;
 
-  // Prepare o comando UPDATE para alterar os dados no banco
-  FDQueryConsultaFichaFaccao.SQL.Text :=
-    'UPDATE TBFichaDeFaccao ' +
-    'SET dataCorte = :dataCorte, ' +
-    '    dataEnvio = :dataEnvio, ' +
-    '    dataPrevisao = :dataPrevisao, ' +
-    '    dataEntrega = :dataEntrega, ' +
-    '    statusOrdem = :statusOrdem, ' +
-    '    codFaccao = :codFaccao, ' +
-    '    nomeFaccao = :nomeFaccao ' +
-    'WHERE idFaccao = :idFaccao';  // Certifique-se de passar o ID correto para o WHERE
 
-  // Atribuindo os parâmetros com os valores dos campos e Calendars
-
-  FDQueryConsultaFichaFaccao.ParamByName('dataCorte').AsDate := CalendarDataDeCorte.Date;
-  FDQueryConsultaFichaFaccao.ParamByName('dataEnvio').AsDate := attDataEnvio; // CalendarDataDeEnvio.Date;
-  FDQueryConsultaFichaFaccao.ParamByName('dataPrevisao').AsDate := attDataPrevista; //CalendarDataPrevista.Date;
-  FDQueryConsultaFichaFaccao.ParamByName('dataEntrega').AsDate := attDataEntrega; //CalendarDataDeEntrega.Date;
-  FDQueryConsultaFichaFaccao.ParamByName('statusOrdem').AsString := ComboBoxStatus.Text;
-  FDQueryConsultaFichaFaccao.ParamByName('idFaccao').AsInteger := idFaccaoAtivo;
-  FDQueryConsultaFichaFaccao.ParamByName('codFaccao').AsString := edtCodFaccao.Text;
-  FDQueryConsultaFichaFaccao.ParamByName('nomeFaccao').AsString := ComboBoxFaccao.Text;
-
-  // Executa o comando SQL para atualizar os dados no banco
-  try
-    FDQueryConsultaFichaFaccao.ExecSQL; // Executa o comando UPDATE
-    ShowMessage('Dados atualizados com sucesso!');
-  except
-    on E: Exception do
-      ShowMessage('Erro ao salvar os dados: ' + E.Message);
-  end;
-
-  PreencherComboBoxStatus;
-
-  DesabilitarCampos;
 end;
 
 procedure TFormConsultaFichaFaccao.BuscarFichasDinamicamente;
@@ -571,6 +693,8 @@ begin
   CalendarDataDeEntrega.Enabled := false;
   lblStatusFaccao.Enabled := false;
   ComboBoxStatus.Enabled := false;
+  lblModoEdicao.Visible := false;
+  lblAlterarFaccao.Visible := false;
 end;
 
 procedure TFormConsultaFichaFaccao.DSDadosConsultaFichaFaccaoDataChange(
@@ -691,6 +815,18 @@ begin
   PreencherComboBoxProdutos;
 end;
 
+procedure TFormConsultaFichaFaccao.FormShow(Sender: TObject);
+var
+  Ano, Mes, Dia: Word;
+begin
+  // Define o primeiro dia do mês atual como data inicial
+  DecodeDate(Date, Ano, Mes, Dia);
+  dtpDataInicial.Date := EncodeDate(Ano, Mes, 1);
+
+  // Define a data atual como data final
+  dtpDataFinal.Date := Date;
+end;
+
 procedure TFormConsultaFichaFaccao.HabilitarCampos;
 begin
   lblDataEnvio.Enabled := true;
@@ -701,6 +837,8 @@ begin
   CalendarDataDeEntrega.Enabled := true;
   lblStatusFaccao.Enabled := true;
   ComboBoxStatus.Enabled := true;
+  lblModoEdicao.Visible := true;
+  lblAlterarFaccao.Visible := true;
 end;
 
 procedure TFormConsultaFichaFaccao.imprimirFicha1via;

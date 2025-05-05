@@ -3,7 +3,7 @@
   Top = 0
   Caption = 'Consultar Ficha de Fac'#231#227'o'
   ClientHeight = 842
-  ClientWidth = 1081
+  ClientWidth = 1090
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,6 +13,7 @@
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   TextHeight = 15
   object Label1: TLabel
     Left = 279
@@ -5368,9 +5369,9 @@
   end
   object pnlModelos: TPanel
     Left = 8
-    Top = 117
-    Width = 1065
-    Height = 349
+    Top = 93
+    Width = 1081
+    Height = 421
     Caption = 'pnlModelos'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -5380,48 +5381,9 @@
     ParentFont = False
     ShowCaption = False
     TabOrder = 0
-    object lblSelecionarModelo: TLabel
-      Left = 128
-      Top = 39
-      Width = 120
-      Height = 18
-      Caption = 'Selecione o modelo:'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Perpetua'
-      Font.Style = []
-      ParentFont = False
-    end
-    object lblCodRef: TLabel
-      Left = 14
-      Top = 41
-      Width = 76
-      Height = 18
-      Caption = 'C'#243'd. / Ref.:'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Perpetua'
-      Font.Style = []
-      ParentFont = False
-    end
-    object lblRaddioButtonBusca: TLabel
-      Left = 145
-      Top = 16
-      Width = 71
-      Height = 17
-      Caption = 'buscar por:'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Perpetua'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
     object lblDataCorte: TLabel
-      Left = 156
-      Top = 201
+      Left = 157
+      Top = 265
       Width = 86
       Height = 18
       Caption = 'Data de corte:'
@@ -5432,22 +5394,9 @@
       Font.Style = []
       ParentFont = False
     end
-    object lblFaccao: TLabel
-      Left = 622
-      Top = 87
-      Width = 43
-      Height = 18
-      Caption = 'Fac'#231#227'o:'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Perpetua'
-      Font.Style = []
-      ParentFont = False
-    end
     object lblNumCorte: TLabel
-      Left = 14
-      Top = 157
+      Left = 27
+      Top = 218
       Width = 61
       Height = 18
       Caption = 'N'#176' Corte:'
@@ -5459,8 +5408,8 @@
       ParentFont = False
     end
     object lblNumOrdemCorte: TLabel
-      Left = 14
-      Top = 201
+      Left = 28
+      Top = 265
       Width = 95
       Height = 18
       Caption = 'N'#176' Ord. Corte:'
@@ -5472,8 +5421,8 @@
       ParentFont = False
     end
     object lblDataEnvio: TLabel
-      Left = 621
-      Top = 199
+      Left = 622
+      Top = 263
       Width = 87
       Height = 18
       Caption = 'Data de envio:'
@@ -5486,8 +5435,8 @@
       ParentFont = False
     end
     object lblDataPrevista: TLabel
-      Left = 621
-      Top = 246
+      Left = 622
+      Top = 310
       Width = 84
       Height = 18
       Caption = 'Data prevista:'
@@ -5501,7 +5450,7 @@
     end
     object lblCortador: TLabel
       Left = 156
-      Top = 157
+      Top = 218
       Width = 59
       Height = 18
       Caption = 'Cortador:'
@@ -5513,8 +5462,8 @@
       ParentFont = False
     end
     object lblDataEntrega: TLabel
-      Left = 839
-      Top = 246
+      Left = 853
+      Top = 310
       Width = 100
       Height = 18
       Caption = 'Data de entrega:'
@@ -5527,8 +5476,8 @@
       ParentFont = False
     end
     object lblStatusFaccao: TLabel
-      Left = 839
-      Top = 199
+      Left = 853
+      Top = 263
       Width = 99
       Height = 18
       Caption = 'Status da Fac'#231#227'o:'
@@ -5541,8 +5490,8 @@
       ParentFont = False
     end
     object lblCodCortador: TLabel
-      Left = 399
-      Top = 201
+      Left = 400
+      Top = 265
       Width = 71
       Height = 18
       Caption = 'C'#243'd. Cort.:'
@@ -5553,48 +5502,9 @@
       Font.Style = []
       ParentFont = False
     end
-    object lblCodFaccao: TLabel
-      Left = 977
-      Top = 87
-      Width = 62
-      Height = 18
-      Caption = 'C'#243'd. Fac.:'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Perpetua'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label2: TLabel
-      Left = 14
-      Top = 88
-      Width = 72
-      Height = 18
-      Caption = 'Data inicial:'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Perpetua'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label3: TLabel
-      Left = 256
-      Top = 88
-      Width = 62
-      Height = 18
-      Caption = 'Data final:'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Perpetua'
-      Font.Style = []
-      ParentFont = False
-    end
     object Label4: TLabel
-      Left = 193
-      Top = 293
+      Left = 194
+      Top = 357
       Width = 64
       Height = 18
       Caption = 'N'#176' Fac'#231#227'o:'
@@ -5607,22 +5517,9 @@
       ParentFont = False
       Visible = False
     end
-    object Label5: TLabel
-      Left = 621
-      Top = 137
-      Width = 99
-      Height = 18
-      Caption = 'Status da Fac'#231#227'o:'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Perpetua'
-      Font.Style = []
-      ParentFont = False
-    end
     object Label6: TLabel
-      Left = 14
-      Top = 246
+      Left = 28
+      Top = 310
       Width = 76
       Height = 18
       Caption = 'C'#243'd. Fac'#231#227'o:'
@@ -5634,8 +5531,8 @@
       ParentFont = False
     end
     object Label7: TLabel
-      Left = 156
-      Top = 246
+      Left = 157
+      Top = 310
       Width = 43
       Height = 18
       Caption = 'Fac'#231#227'o:'
@@ -5646,22 +5543,9 @@
       Font.Style = []
       ParentFont = False
     end
-    object Label8: TLabel
-      Left = 622
-      Top = 39
-      Width = 133
-      Height = 18
-      Caption = 'N'#176' da Ficha de Fac'#231#227'o:'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Perpetua'
-      Font.Style = []
-      ParentFont = False
-    end
     object Label9: TLabel
-      Left = 306
-      Top = 293
+      Left = 307
+      Top = 357
       Width = 44
       Height = 18
       Caption = 'Modelo'
@@ -5674,23 +5558,9 @@
       ParentFont = False
       Visible = False
     end
-    object ComboBoxProdutos: TComboBox
-      Left = 128
-      Top = 57
-      Width = 345
-      Height = 25
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Perpetua Titling MT'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 0
-      TextHint = 'Selecione o modelo'
-    end
     object btnGerarFicha: TButton
-      Left = 896
-      Top = 308
+      Left = 910
+      Top = 372
       Width = 143
       Height = 33
       Caption = 'Gerar Ficha'
@@ -5700,57 +5570,12 @@
       Font.Name = 'Perpetua Titling MT'
       Font.Style = [fsBold]
       ParentFont = False
-      TabOrder = 1
+      TabOrder = 0
       OnClick = btnGerarFichaClick
     end
-    object edtCodRef: TEdit
-      Left = 14
-      Top = 57
-      Width = 76
-      Height = 25
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Perpetua Titling MT'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 2
-      TextHint = 'C'#243'digo'
-      OnChange = edtCodRefChange
-    end
-    object rbBuscaCodigo: TRadioButton
-      Left = 223
-      Top = 16
-      Width = 57
-      Height = 17
-      Caption = 'c'#243'digo'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Perpetua'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 3
-    end
-    object rbBuscaReferencia: TRadioButton
-      Left = 286
-      Top = 16
-      Width = 81
-      Height = 17
-      Caption = 'refer'#234'ncia'
-      Checked = True
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Perpetua'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 4
-      TabStop = True
-    end
     object CalendarDataDeCorte: TCalendarPicker
-      Left = 156
-      Top = 218
+      Left = 157
+      Top = 282
       Width = 200
       Height = 25
       CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
@@ -5773,27 +5598,12 @@
       Font.Style = []
       IsEmpty = False
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 1
       TextHint = 'selecione uma data'
     end
-    object ComboBoxFaccao: TComboBox
-      Left = 621
-      Top = 105
-      Width = 299
-      Height = 25
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Perpetua Titling MT'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 6
-      TextHint = 'Selecione a fac'#231#227'o'
-      OnChange = ComboBoxFaccaoChange
-    end
     object edtNumCorte: TEdit
-      Left = 14
-      Top = 173
+      Left = 28
+      Top = 234
       Width = 107
       Height = 25
       Enabled = False
@@ -5803,12 +5613,12 @@
       Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
-      TabOrder = 7
+      TabOrder = 2
       TextHint = 'C'#243'digo'
     end
     object edtNumOrdemCorte: TEdit
-      Left = 14
-      Top = 218
+      Left = 28
+      Top = 282
       Width = 107
       Height = 25
       Enabled = False
@@ -5818,12 +5628,12 @@
       Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
-      TabOrder = 8
+      TabOrder = 3
       TextHint = 'C'#243'digo'
     end
     object CalendarDataDeEnvio: TCalendarPicker
-      Left = 621
-      Top = 215
+      Left = 622
+      Top = 279
       Width = 200
       Height = 25
       CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
@@ -5846,12 +5656,12 @@
       Font.Style = []
       IsEmpty = False
       ParentFont = False
-      TabOrder = 9
+      TabOrder = 4
       TextHint = 'selecione uma data'
     end
     object CalendarDataPrevista: TCalendarPicker
-      Left = 621
-      Top = 263
+      Left = 622
+      Top = 327
       Width = 200
       Height = 25
       CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
@@ -5874,12 +5684,12 @@
       Font.Style = []
       IsEmpty = False
       ParentFont = False
-      TabOrder = 10
+      TabOrder = 5
       TextHint = 'selecione uma data'
     end
     object ComboBoxCortador: TComboBox
       Left = 156
-      Top = 173
+      Top = 234
       Width = 317
       Height = 25
       Enabled = False
@@ -5889,27 +5699,12 @@
       Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
-      TabOrder = 11
+      TabOrder = 6
       TextHint = 'Selecione o modelo'
     end
-    object btnConsultarFicha: TButton
-      Left = 915
-      Top = 150
-      Width = 124
-      Height = 33
-      Caption = 'Consultar'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Perpetua Titling MT'
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 12
-      OnClick = btnConsultarFichaClick
-    end
     object CalendarDataDeEntrega: TCalendarPicker
-      Left = 839
-      Top = 263
+      Left = 853
+      Top = 327
       Width = 200
       Height = 25
       CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
@@ -5932,12 +5727,12 @@
       Font.Style = []
       IsEmpty = False
       ParentFont = False
-      TabOrder = 13
+      TabOrder = 7
       TextHint = 'selecione uma data'
     end
     object btnSalvar: TButton
-      Left = 621
-      Top = 308
+      Left = 622
+      Top = 372
       Width = 156
       Height = 33
       Caption = 'Salvar'
@@ -5947,12 +5742,12 @@
       Font.Name = 'Perpetua Titling MT'
       Font.Style = [fsBold]
       ParentFont = False
-      TabOrder = 14
+      TabOrder = 8
       OnClick = btnSalvarClick
     end
     object ComboBoxStatus: TComboBox
-      Left = 839
-      Top = 215
+      Left = 853
+      Top = 279
       Width = 200
       Height = 25
       Enabled = False
@@ -5962,12 +5757,12 @@
       Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
-      TabOrder = 15
+      TabOrder = 9
       TextHint = 'Selecione o modelo'
     end
     object edtCodCortador: TEdit
-      Left = 399
-      Top = 218
+      Left = 400
+      Top = 282
       Width = 74
       Height = 25
       Enabled = False
@@ -5977,77 +5772,12 @@
       Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
-      TabOrder = 16
+      TabOrder = 10
       TextHint = 'C'#243'digo'
-    end
-    object edtCodFaccao: TEdit
-      Left = 965
-      Top = 105
-      Width = 74
-      Height = 25
-      Enabled = False
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Perpetua Titling MT'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 17
-      TextHint = 'C'#243'digo'
-    end
-    object dtpDataInicial: TCalendarPicker
-      Left = 14
-      Top = 105
-      Width = 201
-      Height = 25
-      CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
-      CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
-      CalendarHeaderInfo.DaysOfWeekFont.Height = -13
-      CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
-      CalendarHeaderInfo.DaysOfWeekFont.Style = []
-      CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
-      CalendarHeaderInfo.Font.Color = clWindowText
-      CalendarHeaderInfo.Font.Height = -20
-      CalendarHeaderInfo.Font.Name = 'Segoe UI'
-      CalendarHeaderInfo.Font.Style = []
-      Color = clWindow
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGray
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 18
-      TextHint = 'selecione uma data'
-    end
-    object dtpDataFinal: TCalendarPicker
-      Left = 256
-      Top = 105
-      Width = 217
-      Height = 25
-      CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
-      CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
-      CalendarHeaderInfo.DaysOfWeekFont.Height = -13
-      CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
-      CalendarHeaderInfo.DaysOfWeekFont.Style = []
-      CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
-      CalendarHeaderInfo.Font.Color = clWindowText
-      CalendarHeaderInfo.Font.Height = -20
-      CalendarHeaderInfo.Font.Name = 'Segoe UI'
-      CalendarHeaderInfo.Font.Style = []
-      Color = clWindow
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGray
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 19
-      TextHint = 'selecione uma data'
     end
     object btnAlterar: TButton
-      Left = 14
-      Top = 308
+      Left = 28
+      Top = 372
       Width = 163
       Height = 33
       Caption = 'Alterar'
@@ -6057,21 +5787,21 @@
       Font.Name = 'Perpetua Titling MT'
       Font.Style = [fsBold]
       ParentFont = False
-      TabOrder = 20
+      TabOrder = 11
       OnClick = btnAlterarClick
     end
     object btnAttData: TButton
-      Left = 522
-      Top = 306
+      Left = 523
+      Top = 370
       Width = 75
       Height = 25
       Caption = 'attData'
-      TabOrder = 21
+      TabOrder = 12
       Visible = False
     end
     object edtNumFaccao: TEdit
-      Left = 193
-      Top = 309
+      Left = 194
+      Top = 373
       Width = 107
       Height = 25
       Enabled = False
@@ -6081,27 +5811,13 @@
       Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
-      TabOrder = 22
+      TabOrder = 13
       TextHint = 'C'#243'digo'
       Visible = False
     end
-    object ComboBoxStatusConsulta: TComboBox
-      Left = 621
-      Top = 153
-      Width = 235
-      Height = 25
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Perpetua Titling MT'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 23
-      TextHint = 'Selecione o modelo'
-    end
     object edtCodFaccao2: TEdit
-      Left = 14
-      Top = 263
+      Left = 28
+      Top = 327
       Width = 107
       Height = 25
       Enabled = False
@@ -6111,12 +5827,12 @@
       Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
-      TabOrder = 24
+      TabOrder = 14
       TextHint = 'C'#243'digo'
     end
     object edtNomeFaccao: TEdit
-      Left = 156
-      Top = 263
+      Left = 157
+      Top = 327
       Width = 317
       Height = 25
       Enabled = False
@@ -6126,27 +5842,12 @@
       Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
-      TabOrder = 25
-      TextHint = 'C'#243'digo'
-    end
-    object edtNumFichaDeFaccao: TEdit
-      Left = 621
-      Top = 56
-      Width = 140
-      Height = 25
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Perpetua Titling MT'
-      Font.Style = []
-      NumbersOnly = True
-      ParentFont = False
-      TabOrder = 26
+      TabOrder = 15
       TextHint = 'C'#243'digo'
     end
     object edtModelo: TEdit
-      Left = 306
-      Top = 309
+      Left = 307
+      Top = 373
       Width = 107
       Height = 25
       Enabled = False
@@ -6156,12 +5857,12 @@
       Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
-      TabOrder = 27
+      TabOrder = 16
       Visible = False
     end
     object edtTotalPecas: TEdit
-      Left = 419
-      Top = 309
+      Left = 420
+      Top = 373
       Width = 78
       Height = 25
       Enabled = False
@@ -6171,16 +5872,368 @@
       Font.Name = 'Perpetua Titling MT'
       Font.Style = []
       ParentFont = False
-      TabOrder = 28
+      TabOrder = 17
       Visible = False
+    end
+    object pnlFiltro: TPanel
+      Left = 14
+      Top = 10
+      Width = 1060
+      Height = 202
+      TabOrder = 18
+      object lblSelecionarModelo: TLabel
+        Left = 128
+        Top = 39
+        Width = 120
+        Height = 18
+        Caption = 'Selecione o modelo:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Perpetua'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblCodRef: TLabel
+        Left = 14
+        Top = 41
+        Width = 76
+        Height = 18
+        Caption = 'C'#243'd. / Ref.:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Perpetua'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblRaddioButtonBusca: TLabel
+        Left = 145
+        Top = 16
+        Width = 71
+        Height = 17
+        Caption = 'buscar por:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Perpetua'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblFaccao: TLabel
+        Left = 622
+        Top = 87
+        Width = 43
+        Height = 18
+        Caption = 'Fac'#231#227'o:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Perpetua'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblCodFaccao: TLabel
+        Left = 977
+        Top = 87
+        Width = 62
+        Height = 18
+        Caption = 'C'#243'd. Fac.:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Perpetua'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label2: TLabel
+        Left = 14
+        Top = 88
+        Width = 72
+        Height = 18
+        Caption = 'Data inicial:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Perpetua'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label3: TLabel
+        Left = 256
+        Top = 88
+        Width = 62
+        Height = 18
+        Caption = 'Data final:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Perpetua'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label5: TLabel
+        Left = 14
+        Top = 137
+        Width = 143
+        Height = 18
+        Caption = 'Status da Fac'#231#227'o (filtro):'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Perpetua'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label8: TLabel
+        Left = 622
+        Top = 39
+        Width = 133
+        Height = 18
+        Caption = 'N'#176' da Ficha de Fac'#231#227'o:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Perpetua'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblModoEdicao: TLabel
+        Left = 1032
+        Top = 0
+        Width = 20
+        Height = 47
+        Caption = '*'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clCrimson
+        Font.Height = -40
+        Font.Name = 'Franklin Gothic Medium Cond'
+        Font.Style = []
+        ParentFont = False
+        Visible = False
+      end
+      object lblAlterarFaccao: TLabel
+        Left = 671
+        Top = 87
+        Width = 255
+        Height = 18
+        Caption = '*use este campo para alterar a fac'#231#227'o'
+        Color = clBtnFace
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clCrimson
+        Font.Height = -16
+        Font.Name = 'Perpetua'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        Visible = False
+      end
+      object ComboBoxProdutos: TComboBox
+        Left = 128
+        Top = 57
+        Width = 345
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        TextHint = 'Selecione o modelo'
+      end
+      object edtCodRef: TEdit
+        Left = 14
+        Top = 57
+        Width = 76
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+        TextHint = 'C'#243'digo'
+        OnChange = edtCodRefChange
+      end
+      object rbBuscaCodigo: TRadioButton
+        Left = 223
+        Top = 16
+        Width = 57
+        Height = 17
+        Caption = 'c'#243'digo'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Perpetua'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+      end
+      object rbBuscaReferencia: TRadioButton
+        Left = 286
+        Top = 16
+        Width = 81
+        Height = 17
+        Caption = 'refer'#234'ncia'
+        Checked = True
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Perpetua'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 3
+        TabStop = True
+      end
+      object ComboBoxFaccao: TComboBox
+        Left = 621
+        Top = 105
+        Width = 317
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 4
+        TextHint = 'Selecione a fac'#231#227'o'
+        OnChange = ComboBoxFaccaoChange
+      end
+      object btnConsultarFicha: TButton
+        Left = 896
+        Top = 150
+        Width = 143
+        Height = 33
+        Caption = 'Consultar'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 5
+        OnClick = btnConsultarFichaClick
+      end
+      object edtCodFaccao: TEdit
+        Left = 965
+        Top = 105
+        Width = 74
+        Height = 25
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 6
+        TextHint = 'C'#243'digo'
+      end
+      object dtpDataInicial: TCalendarPicker
+        Left = 14
+        Top = 105
+        Width = 201
+        Height = 25
+        CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
+        CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
+        CalendarHeaderInfo.DaysOfWeekFont.Height = -13
+        CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
+        CalendarHeaderInfo.DaysOfWeekFont.Style = []
+        CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
+        CalendarHeaderInfo.Font.Color = clWindowText
+        CalendarHeaderInfo.Font.Height = -20
+        CalendarHeaderInfo.Font.Name = 'Segoe UI'
+        CalendarHeaderInfo.Font.Style = []
+        Color = clWindow
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clGray
+        Font.Height = -16
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 7
+        TextHint = 'selecione uma data'
+      end
+      object dtpDataFinal: TCalendarPicker
+        Left = 256
+        Top = 105
+        Width = 217
+        Height = 25
+        CalendarHeaderInfo.DaysOfWeekFont.Charset = DEFAULT_CHARSET
+        CalendarHeaderInfo.DaysOfWeekFont.Color = clWindowText
+        CalendarHeaderInfo.DaysOfWeekFont.Height = -13
+        CalendarHeaderInfo.DaysOfWeekFont.Name = 'Segoe UI'
+        CalendarHeaderInfo.DaysOfWeekFont.Style = []
+        CalendarHeaderInfo.Font.Charset = DEFAULT_CHARSET
+        CalendarHeaderInfo.Font.Color = clWindowText
+        CalendarHeaderInfo.Font.Height = -20
+        CalendarHeaderInfo.Font.Name = 'Segoe UI'
+        CalendarHeaderInfo.Font.Style = []
+        Color = clWindow
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clGray
+        Font.Height = -16
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 8
+        TextHint = 'selecione uma data'
+      end
+      object ComboBoxStatusConsulta: TComboBox
+        Left = 14
+        Top = 153
+        Width = 201
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 9
+        TextHint = 'Selecione o status'
+      end
+      object edtNumFichaDeFaccao: TEdit
+        Left = 621
+        Top = 56
+        Width = 140
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = []
+        NumbersOnly = True
+        ParentFont = False
+        TabOrder = 10
+        TextHint = 'C'#243'digo'
+      end
+      object btnLimparFiltros: TButton
+        Left = 622
+        Top = 150
+        Width = 142
+        Height = 33
+        Caption = 'Limpar Filtros'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Perpetua Titling MT'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 11
+        OnClick = btnLimparFiltrosClick
+      end
     end
   end
   object DBGridFichaDeFaccao: TDBGrid
     AlignWithMargins = True
     Left = 8
-    Top = 472
-    Width = 1065
-    Height = 353
+    Top = 520
+    Width = 1074
+    Height = 281
     BorderStyle = bsNone
     Color = clSnow
     DataSource = DSDadosConsultaFichaFaccao

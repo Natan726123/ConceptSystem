@@ -54,7 +54,7 @@ object FormDashboard: TFormDashboard
     object Label6: TLabel
       Left = 424
       Top = 10
-      Width = 320
+      Width = 49
       Height = 18
       Caption = 'Modelo:'
       Font.Charset = ANSI_CHARSET
@@ -67,7 +67,7 @@ object FormDashboard: TFormDashboard
     object Label7: TLabel
       Left = 769
       Top = 10
-      Width = 320
+      Width = 43
       Height = 18
       Caption = 'Fac'#231#227'o:'
       Font.Charset = ANSI_CHARSET
@@ -80,7 +80,7 @@ object FormDashboard: TFormDashboard
     object lblCortador: TLabel
       Left = 1117
       Top = 7
-      Width = 320
+      Width = 59
       Height = 18
       Caption = 'Cortador:'
       Font.Charset = ANSI_CHARSET
@@ -1329,6 +1329,17 @@ object FormDashboard: TFormDashboard
       object GerenciarEstoque1: TMenuItem
         Caption = 'Gerenciar Estoque'
         OnClick = GerenciarEstoque1Click
+      end
+    end
+    object Consultar1: TMenuItem
+      Caption = 'Consultar'
+      object FichadeFaco1: TMenuItem
+        Caption = 'Ficha de Fac'#231#227'o'
+        OnClick = FichadeFaco1Click
+      end
+      object OrdemdeCorte1: TMenuItem
+        Caption = 'Ordem de Corte'
+        OnClick = OrdemdeCorte1Click
       end
     end
     object Visualizar1: TMenuItem

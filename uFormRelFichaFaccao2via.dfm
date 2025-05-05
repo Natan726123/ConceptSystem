@@ -824,13 +824,13 @@ object FormRelFichaFaccao2via: TFormRelFichaFaccao2via
       object QRLabel5: TQRLabel
         Left = 14
         Top = 6
-        Width = 111
+        Width = 76
         Height = 17
         Size.Values = (
           44.979166666666670000
           37.041666666666670000
           15.875000000000000000
-          293.687500000000000000)
+          201.083333333333300000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -840,7 +840,7 @@ object FormRelFichaFaccao2via: TFormRelFichaFaccao2via
         Color = clSilver
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -13
+        Font.Height = -9
         Font.Name = 'Perpetua Titling MT'
         Font.Style = [fsBold]
         ParentFont = False
@@ -848,7 +848,7 @@ object FormRelFichaFaccao2via: TFormRelFichaFaccao2via
         ExportAs = exptText
         WrapStyle = BreakOnSpaces
         VerticalAlignment = tlTop
-        FontSize = 10
+        FontSize = 7
       end
       object QRShape36: TQRShape
         Left = 318
@@ -883,15 +883,15 @@ object FormRelFichaFaccao2via: TFormRelFichaFaccao2via
         VertAdjust = 0
       end
       object QRDBText18: TQRDBText
-        Left = 131
+        Left = 96
         Top = 6
-        Width = 111
+        Width = 76
         Height = 17
         Size.Values = (
           44.979166666666670000
-          346.604166666666700000
+          254.000000000000000000
           15.875000000000000000
-          293.687500000000000000)
+          201.083333333333300000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -902,7 +902,7 @@ object FormRelFichaFaccao2via: TFormRelFichaFaccao2via
         DataField = 'Ficha_Tecnica'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -13
+        Font.Height = -9
         Font.Name = 'Perpetua Titling MT'
         Font.Style = [fsBold]
         ParentFont = False
@@ -912,7 +912,7 @@ object FormRelFichaFaccao2via: TFormRelFichaFaccao2via
         FullJustify = False
         MaxBreakChars = 0
         VerticalAlignment = tlTop
-        FontSize = 10
+        FontSize = 7
       end
     end
     object QRGroupHeaderCorte: TQRGroup

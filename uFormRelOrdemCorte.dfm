@@ -13,12 +13,12 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
   Scaled = False
   TextHeight = 15
   object QuickRepOrdemCorte: TQuickRep
-    Left = 32
-    Top = 8
+    Left = 56
+    Top = -8
     Width = 794
     Height = 1123
     ShowingPreview = False
-    DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+    DataSet = FDQueryRelCorte
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -558,7 +558,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Color = clWhite
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = 'Modelo'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -590,7 +590,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = 'P'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -622,7 +622,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = 'M'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -654,7 +654,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = 'G'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -686,7 +686,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = 'GG'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -718,7 +718,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = '48'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -750,7 +750,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = '50'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -782,7 +782,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = '52'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -814,7 +814,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taCenter
         AlignToBand = False
         Color = clWhite
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = 'TotalItens'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -846,7 +846,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Color = clWhite
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = 'TotalTecidoKg'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1026,7 +1026,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Color = clWhite
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = 'Tecido'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1397,7 +1397,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taCenter
         AlignToBand = False
         Color = clSilver
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = 'Tecido'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1957,7 +1957,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Color = clWhite
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = 'TotalItensPorTecido'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -1989,7 +1989,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Color = clWhite
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = 'TotalTecidoKgPorTecido'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -2101,7 +2101,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Color = clSilver
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = 'TotalFinalItens'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -2133,7 +2133,7 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         Alignment = taLeftJustify
         AlignToBand = False
         Color = clSilver
-        DataSet = FormGerarOrdemCorte.FDQueryRelCorte
+        DataSet = FDQueryRelCorte
         DataField = 'TotalFinalTecidoKg'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -2225,5 +2225,71 @@ object FormRelOrdemCorte: TFormRelOrdemCorte
         FontSize = 7
       end
     end
+  end
+  object FDQueryRelCorte: TFDQuery
+    Connection = Form6.FDConnection1
+    UpdateOptions.AssignedValues = [uvUpdateChngFields]
+    SQL.Strings = (
+      'SELECT '
+      '    t.nomeTecido AS Tecido, '
+      '    p.nomeProduto AS Modelo, '
+      
+        '    SUM(CASE WHEN o.tamanhoPecas = '#39'P'#39' THEN o.quantidadePecas EL' +
+        'SE 0 END) AS P, '
+      
+        '    SUM(CASE WHEN o.tamanhoPecas = '#39'M'#39' THEN o.quantidadePecas EL' +
+        'SE 0 END) AS M, '
+      
+        '    SUM(CASE WHEN o.tamanhoPecas = '#39'G'#39' THEN o.quantidadePecas EL' +
+        'SE 0 END) AS G, '
+      
+        '    SUM(CASE WHEN o.tamanhoPecas = '#39'GG'#39' THEN o.quantidadePecas E' +
+        'LSE 0 END) AS GG, '
+      
+        '    SUM(CASE WHEN o.tamanhoPecas = '#39'48'#39' THEN o.quantidadePecas E' +
+        'LSE 0 END) AS '#39'48'#39', '
+      
+        '    SUM(CASE WHEN o.tamanhoPecas = '#39'50'#39' THEN o.quantidadePecas E' +
+        'LSE 0 END) AS '#39'50'#39', '
+      
+        '    SUM(CASE WHEN o.tamanhoPecas = '#39'52'#39' THEN o.quantidadePecas E' +
+        'LSE 0 END) AS '#39'52'#39', '
+      '    SUM(o.quantidadePecas) AS TotalItens, '
+      '    SUM(o.quantidadeTecidoKg) AS TotalTecidoKg,'
+      
+        '    SUM(SUM(o.quantidadePecas)) OVER (PARTITION BY t.nomeTecido)' +
+        ' AS TotalItensPorTecido,'
+      
+        '    SUM(SUM(o.quantidadeTecidoKg)) OVER (PARTITION BY t.nomeTeci' +
+        'do) AS TotalTecidoKgPorTecido,'
+      '    SUM(SUM(o.quantidadePecas)) OVER () AS TotalFinalItens,'
+      '    SUM(SUM(o.quantidadeTecidoKg)) OVER () AS TotalFinalTecidoKg'
+      'FROM '
+      '    TBordemdecorte o '
+      'INNER JOIN '
+      '    TBtecidos t ON o.codTecido = t.codTecido '
+      'INNER JOIN '
+      '    TBprodutos p ON o.codProduto = p.codProduto '
+      'WHERE '
+      '    o.numOrdem = :numOrdem'
+      'GROUP BY '
+      '    t.nomeTecido, p.nomeProduto '
+      'ORDER BY '
+      '    t.nomeTecido, p.nomeProduto;')
+    Left = 984
+    Top = 88
+    ParamData = <
+      item
+        Name = 'NUMORDEM'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object DSDadosRelCorte: TDataSource
+    AutoEdit = False
+    DataSet = FDQueryRelCorte
+    Left = 896
+    Top = 88
   end
 end

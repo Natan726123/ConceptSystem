@@ -392,7 +392,7 @@ begin
     FDQueryItensLista.Append;
     FDQueryItensLista.Last; // Adiciona o item no final da lista
 
-    AjustarLarguraColunas(DBGridOrdemDeCorte);
+    //AjustarLarguraColunas(DBGridOrdemDeCorte);
 
 
     FDQueryCalcTecidos.SQL.Text := 'SELECT DISTINCT ' +
@@ -401,7 +401,7 @@ begin
                           'sum(quantidadeTecidoKg) as "Tecido Kg" ' +
                           'FROM TBordemdecorte ' +
                           'WHERE numOrdem = :numOrdem ' +
-                          'GROUP BY Cod, Tecido ' +
+                          'GROUP BY Cod ' +
                           'ORDER BY Tecido ASC';
     // Definir o parâmetro numOrdem na consulta
     FDQueryCalcTecidos.ParamByName('numOrdem').AsInteger := numOrdemAtivo;
@@ -464,9 +464,9 @@ begin
 
 
 
-  FDQueryRelCorte.Close; // Garante que a query esteja fechada
+  FormRelOrdemCorte.FDQueryRelCorte.Close; // Garante que a query esteja fechada
 //
- FDQueryRelCorte.SQL.Text :=
+ FormRelOrdemCorte.FDQueryRelCorte.SQL.Text :=
   'SELECT ' +
   '    t.nomeTecido AS Tecido, ' +
   '    p.nomeProduto AS Modelo, ' +
@@ -496,8 +496,8 @@ begin
   'ORDER BY ' +
   '    t.nomeTecido, p.nomeProduto';
 
-  FDQueryRelCorte.ParamByName('numOrdem').Value := numOrdemAtivo;
-  FDQueryRelCorte.Open; // Executa a query
+  FormRelOrdemCorte.FDQueryRelCorte.ParamByName('numOrdem').Value := numOrdemAtivo;
+  FormRelOrdemCorte.FDQueryRelCorte.Open; // Executa a query
 
   FormRelOrdemCorte.QuickRepOrdemCorte.Preview;
 
@@ -725,7 +725,11 @@ end;
 
 procedure TFormGerarOrdemCorte.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  Action := caFree;
+
+  FDQueryProdutos.Active := false;
+  FDQueryItensLista.Active := false;
+  FDQueryItensLista.Active := false;
+  //Action := caFree;
   FormGerarOrdemCorte := nil;
 end;
 

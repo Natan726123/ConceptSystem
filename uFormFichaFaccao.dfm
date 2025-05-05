@@ -6347,7 +6347,6 @@
     Top = 8
   end
   object FDQueryFichaDeFaccao: TFDQuery
-    Active = True
     Connection = Form6.FDConnection1
     UpdateOptions.AssignedValues = [uvUpdateMode]
     SQL.Strings = (

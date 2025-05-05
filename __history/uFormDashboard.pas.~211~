@@ -1,0 +1,846 @@
+unit uFormDashboard;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Unit2, uFormCadastroTecido, Vcl.Menus,
+  VCLTee.TeCanvas, uFormDBPath, uFormCadastroProduto, uFormCortador, Vcl.Styles, Vcl.Themes,
+  Vcl.Imaging.pngimage, Vcl.ExtCtrls, uFormCadastroFaccao, uFormFichaFaccao, uFormEstoqueProdutos,
+  VclTee.TeeGDIPlus, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, VCLTee.TeEngine, VCLTee.Series, VCLTee.TeeProcs, uDataModulo,
+  VCLTee.Chart, VCLTee.DBChart, VCLTee.TeeDBCrossTab, Math, Vcl.WinXCalendars,
+  Vcl.Grids, Vcl.DBGrids;
+
+type
+  TFormDashboard = class(TForm)
+    btnGerarOrdemCorte: TButton;
+    btnCadastrarCortador: TButton;
+    btnCadastrarTecido: TButton;
+    btnCadastrarProdutos: TButton;
+    btnCadastrarFaccao: TButton;
+    btnCriarFichaFaccao: TButton;
+    MainMenu1: TMainMenu;
+    Cadastrar1: TMenuItem;
+    CadastrarProduto1: TMenuItem;
+    CadastrarTecido1: TMenuItem;
+    CadastrarCortador1: TMenuItem;
+    CadastrarFaccionista1: TMenuItem;
+    Visualizar1: TMenuItem;
+    Aparncia1: TMenuItem;
+    Dark1: TMenuItem;
+    Light1: TMenuItem;
+    Blue1: TMenuItem;
+    Default1: TMenuItem;
+    Default2: TMenuItem;
+    pnlCadastros: TPanel;
+    Label2: TLabel;
+    pnlOperacoes: TPanel;
+    btnGerenciarEstoque: TButton;
+    FDQueryCortadores: TFDQuery;
+    DSDadosCortadores: TDataSource;
+    Gerar1: TMenuItem;
+    GerarOrdemdeCorte1: TMenuItem;
+    CriarFichadeFaco1: TMenuItem;
+    GerenciarEstoque1: TMenuItem;
+    pnlDashboard: TPanel;
+    Label4: TLabel;
+    Label5: TLabel;
+    dtpDataInicial: TCalendarPicker;
+    dtpDataFinal: TCalendarPicker;
+    btnAtualizar: TButton;
+    ChartRankingFaccao: TChart;
+    Series2: TBarSeries;
+    ChartRankingCorte: TChart;
+    BarSeries1: TBarSeries;
+    FDQueryFaccao: TFDQuery;
+    DSDadosFaccao: TDataSource;
+    DBCrossTabSource1: TDBCrossTabSource;
+    DBCrossTabSource2: TDBCrossTabSource;
+    pnlMenu: TPanel;
+    Label1: TLabel;
+    Image1: TImage;
+    Label3: TLabel;
+    ChartRankingProdutos: TChart;
+    Series1: THorizBarSeries;
+    FDQueryProdutos: TFDQuery;
+    DSDadosProdutos: TDataSource;
+    DBCrossTabSource3: TDBCrossTabSource;
+    DSDadosFiltroProdutos: TDataSource;
+    FDQueryFiltroProdutos: TFDQuery;
+    DSDadosFiltroFaccao: TDataSource;
+    FDQueryFiltroFaccao: TFDQuery;
+    ComboBoxProdutos: TComboBox;
+    ComboBoxFaccao: TComboBox;
+    Label6: TLabel;
+    Label7: TLabel;
+    lblCortador: TLabel;
+    ComboBoxCortador: TComboBox;
+    DSDadosFiltroCortadores: TDataSource;
+    FDQueryFiltroCortadores: TFDQuery;
+    btnLimparFiltros: TButton;
+    procedure btnGerarOrdemCorteClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnCadastrarTecidoClick(Sender: TObject);
+    procedure CadastrarTecido1Click(Sender: TObject);
+    procedure Basededados1Click(Sender: TObject);
+    procedure btnCadastrarProdutosClick(Sender: TObject);
+    procedure CadastrarProduto1Click(Sender: TObject);
+    procedure btnCadastrarCortadorClick(Sender: TObject);
+    procedure btnStyleGlossyClick(Sender: TObject);
+    procedure btnOnyxBlueClick(Sender: TObject);
+    procedure Dark1Click(Sender: TObject);
+    procedure Light1Click(Sender: TObject);
+    procedure Blue1Click(Sender: TObject);
+    procedure Default1Click(Sender: TObject);
+    procedure Default2Click(Sender: TObject);
+    procedure btnCadastrarFaccaoClick(Sender: TObject);
+    procedure btnCriarFichaFaccaoClick(Sender: TObject);
+    procedure btnGerenciarEstoqueClick(Sender: TObject);
+    procedure AtualizarRankingCortadores;
+    procedure btnAtualizarClick(Sender: TObject);
+    procedure CadastrarCortador1Click(Sender: TObject);
+    procedure CadastrarFaccionista1Click(Sender: TObject);
+    procedure GerarOrdemdeCorte1Click(Sender: TObject);
+    procedure CriarFichadeFaco1Click(Sender: TObject);
+    procedure GerenciarEstoque1Click(Sender: TObject);
+    procedure AtualizarRankingFaccao;
+    procedure FormShow(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure AtualizarRankingProdutos;
+    procedure PreencherComboBoxCortador;
+    procedure PreencherComboBoxFaccao;
+    procedure PreencherComboBoxProdutos;
+    procedure FormCreate(Sender: TObject);
+    procedure btnLimparFiltrosClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormDashboard: TFormDashboard;
+
+implementation
+
+{$R *.dfm}
+
+
+procedure TFormDashboard.AtualizarRankingCortadores;
+var
+  DataInicial, DataFinal, SQLBase: string;
+  Cortador: string;
+  TotalPecas: Double;
+begin
+  // Converte as datas para o formato yyyy-mm-dd
+  DataInicial := FormatDateTime('yyyy-mm-dd', dtpDataInicial.Date);
+  DataFinal := FormatDateTime('yyyy-mm-dd', dtpDataFinal.Date);
+
+  FDQueryCortadores.Close;
+
+  // Base do SQL com os filtros principais
+  SQLBase :=
+    'SELECT ' +
+    '    nomeCortador, ' +
+    '    SUM(quantidadePecas) AS totalPecas ' +
+    'FROM ' +
+    '    TBFichaDeFaccao ' +
+    'WHERE ' +
+    '    dataCriacao BETWEEN :dataInicial AND :dataFinal ';
+
+  // Adiciona filtros opcionais dinamicamente
+  if ComboBoxProdutos.Text <> '' then
+    SQLBase := SQLBase + 'AND nomeProduto = :nomeProduto ';
+
+  if ComboBoxFaccao.Text <> '' then
+    SQLBase := SQLBase + 'AND nomeFaccao = :nomeFaccao ';
+
+  if ComboBoxCortador.Text <> '' then
+    SQLBase := SQLBase + 'AND nomeCortador = :nomeCortador ';
+
+  // Finaliza o SQL
+  SQLBase := SQLBase +
+    'GROUP BY ' +
+    '    nomeCortador ' +
+    'ORDER BY ' +
+    '    totalPecas DESC';
+
+  FDQueryCortadores.SQL.Text := SQLBase;
+
+  // Define os parâmetros obrigatórios
+  FDQueryCortadores.ParamByName('dataInicial').AsString := DataInicial;
+  FDQueryCortadores.ParamByName('dataFinal').AsString := DataFinal;
+
+  // Define os parâmetros opcionais, se aplicáveis
+  if ComboBoxProdutos.Text <> '' then
+    FDQueryCortadores.ParamByName('nomeProduto').AsString := ComboBoxProdutos.Text;
+
+  if ComboBoxFaccao.Text <> '' then
+    FDQueryCortadores.ParamByName('nomeFaccao').AsString := ComboBoxFaccao.Text;
+
+  if ComboBoxCortador.Text <> '' then
+    FDQueryCortadores.ParamByName('nomeCortador').AsString := ComboBoxCortador.Text;
+
+  FDQueryCortadores.Open;
+
+  // Limpa os dados do gráfico
+  //ChartRankingCorte.Series[0].Clear;
+
+  // Preenche o gráfico com os dados da query
+  while not FDQueryCortadores.Eof do
+  begin
+    Cortador := FDQueryCortadores.FieldByName('nomeCortador').AsString;
+    TotalPecas := FDQueryCortadores.FieldByName('totalPecas').AsFloat;
+
+    // Adiciona os dados ao gráfico
+    ChartRankingCorte.Series[0].Add(TotalPecas, Cortador);
+
+    FDQueryCortadores.Next;
+  end;
+
+  // Exibe mensagem se não houver dados
+  // if FDQueryCortadores.IsEmpty then
+  //   ShowMessage('Nenhum dado de Cortador encontrado para o período selecionado.');
+
+  ChartRankingCorte.Refresh;
+end;
+
+procedure TFormDashboard.btnGerarOrdemCorteClick(Sender: TObject);
+var
+  formCorte : TFormGerarOrdemCorte;
+begin
+  formCorte := TFormGerarOrdemCorte.Create(Self);
+  try
+    if not Assigned(formCorte) then
+    Application.CreateForm(TFormGerarOrdemCorte, FormGerarOrdemCorte);
+
+    formCorte.Show;
+  finally
+    //formCorte.Free;
+  end;
+
+end;
+
+procedure TFormDashboard.btnGerenciarEstoqueClick(Sender: TObject);
+var
+  formEstoqueProdutos: TFormEstoqueProdutos;
+begin
+  formEstoqueProdutos := TFormEstoqueProdutos.Create(Self);
+  try
+    formEstoqueProdutos.ShowModal;
+  finally
+    formEstoqueProdutos.Free;
+  end;
+end;
+
+procedure TFormDashboard.btnOnyxBlueClick(Sender: TObject);
+begin
+  TStyleManager.TrySetStyle('Onyx Blue');
+end;
+
+procedure TFormDashboard.btnStyleGlossyClick(Sender: TObject);
+begin
+  TStyleManager.TrySetStyle('Glossy');
+end;
+
+procedure TFormDashboard.btnLimparFiltrosClick(Sender: TObject);
+var
+  Ano, Mes, Dia: Word;
+begin
+  // Define o primeiro dia do mês atual como data inicial
+  DecodeDate(Date, Ano, Mes, Dia);
+  dtpDataInicial.Date := EncodeDate(Ano, Mes, 1);
+
+  // Define a data atual como data final
+  dtpDataFinal.Date := Date;
+
+  ComboBoxProdutos.text := '';
+  ComboBoxFaccao.text := '';
+  ComboBoxCortador.text := '';
+
+end;
+
+procedure TFormDashboard.btnCadastrarFaccaoClick(Sender: TObject);
+var
+  formCadastrarFaccao: TFormCadastroFaccao;
+begin
+  formCadastrarFaccao := TFormCadastroFaccao.Create(Self);
+  try
+    formCadastrarFaccao.ShowModal;
+  finally
+    formCadastrarFaccao.Free;
+  end;
+end;
+
+procedure TFormDashboard.Blue1Click(Sender: TObject);
+begin
+  TStyleManager.TrySetStyle('Onyx Blue');
+end;
+
+procedure TFormDashboard.btnAtualizarClick(Sender: TObject);
+begin
+  if dtpDataInicial.Date > dtpDataFinal.Date then
+  begin
+    ShowMessage('A data inicial não pode ser maior que a data final.');
+    Exit;
+  end;
+
+  ChartRankingCorte.Series[0].Clear;
+  ChartRankingFaccao.Series[0].Clear;
+  ChartRankingProdutos.Series[0].Clear;
+
+  AtualizarRankingCortadores;
+  AtualizarRankingFaccao;
+  AtualizarRankingProdutos;
+
+  if (FDQueryCortadores.IsEmpty or FDQueryFaccao.IsEmpty or FDQueryProdutos.IsEmpty) then
+    ShowMessage('Nenhum dado encontrado para o período selecionado.');
+
+  DSDadosCortadores.DataSet.Refresh;
+  DSDadosFaccao.DataSet.Refresh;
+  DSDadosProdutos.DataSet.Refresh;
+end;
+
+procedure TFormDashboard.btnCadastrarCortadorClick(Sender: TObject);
+begin
+  var
+  formCadastrarCortador: TFormCadastroCortador;
+begin
+  formCadastrarCortador := TFormCadastroCortador.Create(Self);
+  try
+    formCadastrarCortador.ShowModal;
+  finally
+    formCadastrarCortador.Free;
+  end;
+end;
+end;
+
+procedure TFormDashboard.btnCadastrarProdutosClick(Sender: TObject);
+begin
+  var
+  formCadastrarProduto: TFormCadastrarProdutos;
+begin
+  formCadastrarProduto := TFormCadastrarProdutos.Create(Self);
+  try
+    formCadastrarProduto.ShowModal;
+  finally
+    formCadastrarProduto.Free;
+  end;
+end;
+end;
+
+procedure TFormDashboard.AtualizarRankingFaccao;
+var
+  DataInicial, DataFinal, SQLBase: string;
+  Faccao: string;
+  TotalPecas: Double;
+begin
+  // Converte as datas para o formato yyyy-mm-dd
+  DataInicial := FormatDateTime('yyyy-mm-dd', dtpDataInicial.Date);
+  DataFinal := FormatDateTime('yyyy-mm-dd', dtpDataFinal.Date);
+
+  FDQueryFaccao.Close;
+
+  // Base do SQL com os filtros principais
+  SQLBase :=
+    'SELECT ' +
+    '    DISTINCT nomeFaccao, ' +
+    '    SUM(quantidadePecas) AS totalPecas ' +
+    'FROM ' +
+    '    TBFichaDeFaccao ' +
+    'WHERE ' +
+    '    dataCriacao BETWEEN :dataInicial AND :dataFinal ' +
+    '    and nomeFaccao <> '''' ';
+
+  // Adiciona filtros opcionais dinamicamente
+  if ComboBoxProdutos.Text <> '' then
+    SQLBase := SQLBase + 'AND nomeProduto = :nomeProduto ';
+
+  if ComboBoxFaccao.Text <> '' then
+    SQLBase := SQLBase + 'AND nomeFaccao = :nomeFaccao ';
+
+  if ComboBoxCortador.Text <> '' then
+    SQLBase := SQLBase + 'AND nomeCortador = :nomeCortador ';
+
+  // Finaliza o SQL
+  SQLBase := SQLBase +
+    'GROUP BY ' +
+    '    nomeFaccao ' +
+    'ORDER BY ' +
+    '    totalPecas DESC';
+
+  FDQueryFaccao.SQL.Text := SQLBase;
+
+  // Define os parâmetros obrigatórios
+  FDQueryFaccao.ParamByName('dataInicial').AsString := DataInicial;
+  FDQueryFaccao.ParamByName('dataFinal').AsString := DataFinal;
+
+  // Define os parâmetros opcionais, se aplicáveis
+  if ComboBoxProdutos.Text <> '' then
+    FDQueryFaccao.ParamByName('nomeProduto').AsString := ComboBoxProdutos.Text;
+
+  if ComboBoxFaccao.Text <> '' then
+    FDQueryFaccao.ParamByName('nomeFaccao').AsString := ComboBoxFaccao.Text;
+
+  if ComboBoxCortador.Text <> '' then
+    FDQueryFaccao.ParamByName('nomeCortador').AsString := ComboBoxCortador.Text;
+
+  FDQueryFaccao.Open;
+
+  // Limpa os dados do gráfico
+  //ChartRankingFaccao.Series[0].Clear;
+
+  // Preenche o gráfico com os dados da query
+  while not FDQueryFaccao.Eof do
+  begin
+    Faccao := FDQueryFaccao.FieldByName('nomeFaccao').AsString;
+    TotalPecas := FDQueryFaccao.FieldByName('totalPecas').AsFloat;
+
+    // Adiciona os dados ao gráfico
+    ChartRankingFaccao.Series[0].Add(TotalPecas, Faccao);
+
+    FDQueryFaccao.Next;
+  end;
+
+  // Exibe mensagem se não houver dados
+  // if FDQueryFaccao.IsEmpty then
+  //   ShowMessage('Nenhum dado encontrado para o período selecionado.');
+
+  ChartRankingFaccao.Refresh;
+end;
+
+procedure TFormDashboard.AtualizarRankingProdutos;
+var
+  SQLBase, SQLWhere: string;
+  Produto: string;
+  TotalPecas: Double;
+begin
+  // Monta a base da consulta
+  SQLBase :=
+    'SELECT DISTINCT ' +
+    '  nomeProduto, ' +
+    '  SUM(quantidadePecas) AS totalPecas ' +
+    'FROM ' +
+    '  TBFichaDeFaccao ';
+
+  // Inicia a cláusula WHERE
+  SQLWhere := 'WHERE dataCriacao BETWEEN :dataInicial AND :dataFinal ';
+
+  // Adiciona filtros dinamicamente
+  if ComboBoxProdutos.Text <> '' then
+    SQLWhere := SQLWhere + 'AND nomeProduto = :nomeProduto ';
+
+  if ComboBoxFaccao.Text <> '' then
+    SQLWhere := SQLWhere + 'AND nomeFaccao = :nomeFaccao ';
+
+  if ComboBoxCortador.Text <> '' then
+    SQLWhere := SQLWhere + 'AND nomeCortador = :nomeCortador ';
+
+  // Completa a query
+  SQLBase := SQLBase + SQLWhere +
+    'GROUP BY nomeProduto ' +
+    'ORDER BY totalPecas DESC ' +
+    'LIMIT 15';
+
+  // Configura a query no FDQuery
+  FDQueryProdutos.Close;
+  FDQueryProdutos.SQL.Text := SQLBase;
+
+  // Logs para depuração
+ // ShowMessage(FDQueryProdutos.SQL.Text);
+
+  // Define os parâmetros obrigatórios
+  FDQueryProdutos.ParamByName('dataInicial').AsDate := dtpDataInicial.Date;
+  FDQueryProdutos.ParamByName('dataFinal').AsDate := dtpDataFinal.Date;
+
+  // Define os parâmetros opcionais, se aplicável
+  if ComboBoxProdutos.Text <> '' then
+    FDQueryProdutos.ParamByName('nomeProduto').AsString := ComboBoxProdutos.Text;
+
+  if ComboBoxFaccao.Text <> '' then
+    FDQueryProdutos.ParamByName('nomeFaccao').AsString := ComboBoxFaccao.Text;
+
+  if ComboBoxCortador.Text <> '' then
+    FDQueryProdutos.ParamByName('nomeCortador').AsString := ComboBoxCortador.Text;
+
+  // Executa a consulta
+  try
+    FDQueryProdutos.Open;
+
+//    if FDQueryProdutos.IsEmpty then
+//    begin
+//      ShowMessage('A consulta não retornou dados. Verifique os filtros aplicados.');
+//      Exit;
+//    end;
+
+    // Limpa os dados do gráfico
+    //ChartRankingProdutos.Series[0].Clear;
+
+    // Preenche o gráfico com os dados da consulta
+     // Preenche o gráfico com os dados da query
+    while not FDQueryProdutos.Eof do
+    begin
+      Produto := FDQueryProdutos.FieldByName('nomeProduto').AsString;
+      TotalPecas := FDQueryProdutos.FieldByName('totalPecas').AsFloat;
+
+      // Adiciona os dados ao gráfico
+      ChartRankingProdutos.Series[0].Add(TotalPecas, Produto);
+
+      FDQueryProdutos.Next;
+    end;
+
+    while not FDQueryProdutos.Eof do
+    begin
+      ChartRankingProdutos.Series[0].Add(
+        FDQueryProdutos.FieldByName('totalPecas').AsFloat, // Valor numérico
+        FDQueryProdutos.FieldByName('nomeProduto').AsString // Rótulo do eixo X
+      );
+      FDQueryProdutos.Next;
+    end;
+
+
+    // Atualiza o gráfico
+    ChartRankingProdutos.Refresh;
+
+  except
+    on E: Exception do
+      ShowMessage('Erro ao executar a consulta: ' + E.Message);
+  end;
+end;
+
+
+procedure TFormDashboard.Basededados1Click(Sender: TObject);
+var
+  formPathDB : TFormPathDB;
+begin
+  formPathDB := TFormPathDB.Create(Self);
+  try
+    //if not Assigned(formPathDB) then
+    //Application.CreateForm(TFormPathDB, formPathDB);
+    formPathDB.ShowModal;
+  finally
+
+  end;
+end;
+
+procedure TFormDashboard.btnCadastrarTecidoClick(Sender: TObject);
+var
+  formCadastrarTecido: TFormCadastroTecido;
+begin
+  formCadastrarTecido := TFormCadastroTecido.Create(Self);
+  try
+    formCadastrarTecido.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
+  finally
+    formCadastrarTecido.Free; // Libera o formulário da memória somente após ele ser fechado
+  end;
+end;
+
+procedure TFormDashboard.btnCriarFichaFaccaoClick(Sender: TObject);
+//var
+  //formFichaFaccao: TFormFichaFaccao;
+begin
+//  if not Assigned(formFichaFaccao) then
+//    formFichaFaccao := TFormFichaFaccao.Create(Self);
+//  try
+//    formFichaFaccao.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
+//  finally
+//    formFichaFaccao.Free; // Libera o formulário da memória somente após ele ser fechado
+//  end;
+  if not Assigned(FormFichaFaccao) then
+      Application.CreateForm(TFormFichaFaccao, FormFichaFaccao);
+
+    // Exibe o formulário
+    FormFichaFaccao.Show;
+
+end;
+
+procedure TFormDashboard.CadastrarCortador1Click(Sender: TObject);
+var
+  formCadastrarCortador: TFormCadastroCortador;
+begin
+  formCadastrarCortador := TFormCadastroCortador.Create(Self);
+  try
+    formCadastrarCortador.ShowModal;
+  finally
+    formCadastrarCortador.Free;
+  end;
+end;
+
+
+procedure TFormDashboard.CadastrarFaccionista1Click(Sender: TObject);
+var
+  formCadastrarFaccao: TFormCadastroFaccao;
+begin
+  formCadastrarFaccao := TFormCadastroFaccao.Create(Self);
+  try
+    formCadastrarFaccao.ShowModal;
+  finally
+    formCadastrarFaccao.Free;
+  end;
+end;
+
+procedure TFormDashboard.CadastrarProduto1Click(Sender: TObject);
+var
+  formCadastrarProduto: TFormCadastrarProdutos;
+begin
+  formCadastrarProduto := TFormCadastrarProdutos.Create(Self);
+  try
+    formCadastrarProduto.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
+  finally
+    formCadastrarProduto.Free; // Libera o formulário da memória somente após ele ser fechado
+  end;
+end;
+
+procedure TFormDashboard.CadastrarTecido1Click(Sender: TObject);
+var
+  formCadastrarTecido: TFormCadastroTecido;
+begin
+  formCadastrarTecido := TFormCadastroTecido.Create(Self);
+  try
+    formCadastrarTecido.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
+  finally
+    formCadastrarTecido.Free; // Libera o formulário da memória somente após ele ser fechado
+  end;
+end;
+
+
+procedure TFormDashboard.CriarFichadeFaco1Click(Sender: TObject);
+var
+  formFichaFaccao: TFormFichaFaccao;
+begin
+  formFichaFaccao := TFormFichaFaccao.Create(Self);
+  try
+    formFichaFaccao.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
+  finally
+    formFichaFaccao.Free; // Libera o formulário da memória somente após ele ser fechado
+  end;
+end;
+
+procedure TFormDashboard.Dark1Click(Sender: TObject);
+begin
+  TStyleManager.TrySetStyle('Glossy');
+end;
+
+procedure TFormDashboard.Default1Click(Sender: TObject);
+begin
+  TStyleManager.TrySetStyle('Glow');
+end;
+
+procedure TFormDashboard.Default2Click(Sender: TObject);
+begin
+  TStyleManager.TrySetStyle('Windows');
+end;
+
+procedure TFormDashboard.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caHide;
+end;
+
+procedure TFormDashboard.FormCreate(Sender: TObject);
+begin
+  PreencherComboBoxCortador;
+  PreencherComboBoxFaccao;
+  PreencherComboBoxProdutos;
+end;
+
+procedure TFormDashboard.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var
+  formCorte : TFormGerarOrdemCorte;
+  formFichaFaccao: TFormFichaFaccao;
+  formEstoqueProdutos: TFormEstoqueProdutos;
+  formCadastrarProduto: TFormCadastrarProdutos;
+  formCadastrarCortador: TFormCadastroCortador;
+  formCadastrarFaccao: TFormCadastroFaccao;
+  formCadastrarTecido: TFormCadastroTecido;
+begin
+
+  case Key of
+    VK_F1:
+      begin
+        formCorte := TFormGerarOrdemCorte.Create(Self);
+        try
+          if not Assigned(formCorte) then
+          Application.CreateForm(TFormGerarOrdemCorte, FormGerarOrdemCorte);
+
+          formCorte.Show;
+        finally
+          //formCorte.Free;
+        end;
+      end;
+
+    VK_F2:
+      begin
+        formFichaFaccao := TFormFichaFaccao.Create(Self);
+        try
+          formFichaFaccao.ShowModal;
+        finally
+          formFichaFaccao.Free;
+        end;
+      end;
+
+    VK_F3:
+      begin
+        formEstoqueProdutos := TFormEstoqueProdutos.Create(Self);
+        try
+          formEstoqueProdutos.ShowModal;
+        finally
+          formEstoqueProdutos.Free;
+        end;
+      end;
+
+    VK_F5:
+      begin
+        formCadastrarProduto := TFormCadastrarProdutos.Create(Self);
+        try
+          formCadastrarProduto.ShowModal;
+        finally
+          formCadastrarProduto.Free;
+        end;
+      end;
+
+    VK_F6:
+      begin
+        formCadastrarCortador := TFormCadastroCortador.Create(Self);
+        try
+          formCadastrarCortador.ShowModal;
+        finally
+          formCadastrarCortador.Free;
+        end;
+      end;
+
+      VK_F7:
+      begin
+        formCadastrarFaccao := TFormCadastroFaccao.Create(Self);
+        try
+          formCadastrarFaccao.ShowModal;
+        finally
+          formCadastrarFaccao.Free;
+        end;
+      end;
+
+      VK_F8:
+      begin
+        formCadastrarTecido := TFormCadastroTecido.Create(Self);
+        try
+          formCadastrarTecido.ShowModal; // Exibe o formulário como modal, mantendo-o aberto até ser fechado
+        finally
+          formCadastrarTecido.Free; // Libera o formulário da memória somente após ele ser fechado
+        end;
+      end;
+
+    end;
+end;
+
+procedure TFormDashboard.FormShow(Sender: TObject);
+var
+  Ano, Mes, Dia: Word;
+begin
+  // Define o primeiro dia do mês atual como data inicial
+  DecodeDate(Date, Ano, Mes, Dia);
+  dtpDataInicial.Date := EncodeDate(Ano, Mes, 1);
+
+  // Define a data atual como data final
+  dtpDataFinal.Date := Date;
+
+  // Atualiza os gráficos com base no intervalo de datas inicial e final
+  AtualizarRankingCortadores;
+  AtualizarRankingFaccao;
+  AtualizarRankingProdutos;
+
+  if (FDQueryCortadores.IsEmpty or FDQueryFaccao.IsEmpty or FDQueryProdutos.IsEmpty) then
+    ShowMessage('Nenhum dado encontrado para mês atual.');
+
+  DSDadosCortadores.DataSet.Refresh;
+  DSDadosFaccao.DataSet.Refresh;
+  DSDadosProdutos.DataSet.Refresh;
+end;
+
+procedure TFormDashboard.GerarOrdemdeCorte1Click(Sender: TObject);
+var
+  formCorte : TFormGerarOrdemCorte;
+begin
+  formCorte := TFormGerarOrdemCorte.Create(Self);
+  try
+    if not Assigned(formCorte) then
+    Application.CreateForm(TFormGerarOrdemCorte, FormGerarOrdemCorte);
+
+    formCorte.Show;
+  finally
+    //formCorte.Free;
+  end;
+
+end;
+
+procedure TFormDashboard.GerenciarEstoque1Click(Sender: TObject);
+var
+  formEstoqueProdutos: TFormEstoqueProdutos;
+begin
+  formEstoqueProdutos := TFormEstoqueProdutos.Create(Self);
+  try
+    formEstoqueProdutos.ShowModal;
+  finally
+    formEstoqueProdutos.Free;
+  end;
+end;
+
+procedure TFormDashboard.Light1Click(Sender: TObject);
+begin
+  TStyleManager.TrySetStyle('Light');
+end;
+
+procedure TFormDashboard.PreencherComboBoxCortador;
+begin
+  FDQueryFiltroCortadores.Open;
+
+  ComboBoxCortador.Items.Clear;
+
+  while not FDQueryFiltroCortadores.Eof do
+  begin
+    ComboBoxCortador.Items.AddObject(
+      FDQueryFiltroCortadores.FieldByName('nomeCortador').AsString,
+      TObject(FDQueryFiltroCortadores.FieldByName('codCortador').AsInteger)
+    );
+    FDQueryFiltroCortadores.Next;
+  end;
+end;
+
+procedure TFormDashboard.PreencherComboBoxFaccao;
+begin
+  FDQueryFiltroFaccao.Open;
+//
+  ComboBoxFaccao.Items.Clear;
+//
+  while not FDQueryFiltroFaccao.Eof do
+  begin
+    ComboBoxFaccao.Items.AddObject(
+      FDQueryFiltroFaccao.FieldByName('nomeFaccao').AsString,
+      TObject(FDQueryFiltroFaccao.FieldByName('codFaccao').AsInteger)
+    );
+    FDQueryFiltroFaccao.Next;
+  end;
+end;
+
+procedure TFormDashboard.PreencherComboBoxProdutos;
+begin
+  //FDQueryFiltroProdutos.Active := true;
+
+
+  FDQueryFiltroProdutos.Open;
+
+  ComboBoxProdutos.Items.Clear;
+
+  while not FDQueryFiltroProdutos.Eof do
+    begin
+      ComboBoxProdutos.Items.Add(FDQueryFiltroProdutos.FieldByName('Produto').AsString); // Adiciona os nomes dos produtos ao ComboBox
+      FDQueryFiltroProdutos.Next;
+    end;
+
+  FDQueryFiltroProdutos.Close; // Fecha a consulta após carregar os dados
+end;
+
+
+end.

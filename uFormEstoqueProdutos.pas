@@ -62,6 +62,9 @@ type
     LinkControlToField2: TLinkControlToField;
     btnLimparFiltros: TButton;
     btnImprimir: TButton;
+    DSDadosValorEstoque: TDataSource;
+    FDQueryValorEstoque: TFDQuery;
+    lblValorEstoque: TLabel;
     procedure edtCodRefChange(Sender: TObject);
     procedure edtCodRefKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
@@ -79,6 +82,7 @@ type
     procedure btnLimparFiltrosClick(Sender: TObject);
     procedure LimparFiltros;
     procedure btnImprimirClick(Sender: TObject);
+    procedure AtualizarValorEstoque;
   private
     ColWidths: array of Integer; // Array dinâmico para armazenar larguras das colunas
 
@@ -233,6 +237,37 @@ begin
 end;
 
 
+procedure TFormEstoqueProdutos.AtualizarValorEstoque;
+var
+  ValorEstoque: Double;
+begin
+  try
+    FDQUERYValorEstoque.Close;
+    FDQUERYValorEstoque.Open;
+
+    // Verifica se retornou algum valor
+    if not FDQUERYValorEstoque.IsEmpty then
+    begin
+      // Obtém o valor da coluna VALOR_ESTOQUE
+      ValorEstoque := FDQUERYValorEstoque.FieldByName('VALOR_ESTOQUE').AsFloat;
+
+      // Atualiza o label com o valor formatado
+      lblValorEstoque.Caption := 'VALOR ESTOQUE: R$ ' + FormatFloat('#,##0.00', ValorEstoque);
+    end
+    else
+    begin
+      // Caso não tenha nenhum valor retornado
+      lblValorEstoque.Caption := 'VALOR ESTOQUE: R$ 0,00';
+    end;
+
+  except
+    on E: Exception do
+    begin
+      ShowMessage('Erro ao calcular o valor do estoque: ' + E.Message);
+    end;
+  end;
+end;
+
 procedure TFormEstoqueProdutos.btnAdicionarClick(Sender: TObject);
 var
   QuantidadeAdicionar, EstoqueAtual, EstoqueAtualizado, CodProduto: Integer;
@@ -309,6 +344,8 @@ FDQueryEstoque.Open;
 
   RestoreColumnWidths(DBGridEstoqueProdutos);
   edtQuantidade.Clear;
+
+  AtualizarValorEstoque;
 end;
 
 
@@ -372,6 +409,8 @@ begin
 
   // Restaura as larguras das colunas
   RestoreColumnWidths(DBGridEstoqueProdutos);
+
+  AtualizarValorEstoque;
 end;
 
 
@@ -381,6 +420,7 @@ var
 begin
   RelForm := TFormRelEstoque.Create(Self);
   try
+    RelForm.QRLabelValorEstoque.Caption := lblValorEstoque.Caption;
     RelForm.QuickRepEstoque.Prepare;
     RelForm.QuickRepEstoque.Preview;
   finally
@@ -474,6 +514,8 @@ begin
 
   // Restaura as larguras das colunas
   RestoreColumnWidths(DBGridEstoqueProdutos);
+
+  AtualizarValorEstoque;
 end;
 
 procedure TFormEstoqueProdutos.ComboBoxProdutosChange(Sender: TObject);
@@ -740,6 +782,8 @@ begin
   PreencherComboBoxProdutos;
   AjustarLarguraColunas(DBGridEstoqueProdutos);
   SaveColumnWidths(DBGridEstoqueProdutos);
+  AtualizarValorEstoque;
+
 end;
 
 procedure TFormEstoqueProdutos.LimparFiltros;
